@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.date = '2019-05-21'
   spec.description = 'LedgerSync is a simple library that allows you to sync common objects to popular accounting software like QuickBooks Online, Xero, NetSuite, etc.'
   spec.email = ['ryanwjackson@gmail.com']
-  spec.homepage = 'https://github.com/Modern-Treasury/accounting-connector-lib'
+  spec.homepage = 'https://github.com/LedgerSync/ledger_sync'
   spec.licenses = ['MIT']
   spec.rubygems_version = '3.0.3'
   spec.summary = 'Sync common objects to accounting software.'
