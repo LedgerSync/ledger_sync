@@ -22,6 +22,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.4.0)
     awesome_print (1.8.0)
+    bump (0.8.0)
     byebug (11.0.1)
     colorize (0.8.1)
     concurrent-ruby (1.1.5)
@@ -149,6 +150,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  bump
   bundler (~> 1.16)
   byebug
   ledger_sync!
