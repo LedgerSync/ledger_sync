@@ -1,6 +1,6 @@
 # LedgerSync
 
-[![Coverage Status](https://coveralls.io/repos/github/ryanwjackson/fingerprintable/badge.svg?branch=master)](https://coveralls.io/github/ryanwjackson/fingerprintable?branch=master)
+[![Build Status](https://travis-ci.org/LedgerSync/ledger_sync.svg?branch=master)](https://travis-ci.org/LedgerSync/ledger_sync) [![Coverage Status](https://coveralls.io/repos/github/LedgerSync/ledger_sync/badge.svg?branch=master)](https://coveralls.io/github/LedgerSync/ledger_sync?branch=master)
 
 # Installation
 
