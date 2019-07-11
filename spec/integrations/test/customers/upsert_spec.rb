@@ -3,17 +3,17 @@ require 'spec_helper'
 support :input_helpers
 support :adaptor_helpers
 
-RSpec.describe 'payments/upsert', type: :feature do
+RSpec.describe 'test/customers/upsert', type: :feature do
   include InputHelpers
   include AdaptorHelpers
 
   let(:input_create) do
     {
       adaptor: test_adaptor,
-      resource_external_id: :p1,
-      resource_type: 'payment',
+      resource_external_id: :c1,
+      resource_type: 'customer',
       method: :upsert,
-      resources_data: payment_resources
+      resources_data: customer_resources
     }
   end
 
@@ -21,9 +21,8 @@ RSpec.describe 'payments/upsert', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_create).operations }
-    it { expect(subject.length).to eq(2) }
+    it { expect(subject.length).to eq(1) }
     it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Create) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Payment::Operations::Create) }
   end
 
   context '#perform' do
@@ -35,10 +34,10 @@ RSpec.describe 'payments/upsert', type: :feature do
   let(:input_update) do
     {
       adaptor: test_adaptor,
-      resource_external_id: :p1,
-      resource_type: 'payment',
+      resource_external_id: :c1,
+      resource_type: 'customer',
       method: :upsert,
-      resources_data: payment_resources(ledger_id: '123')
+      resources_data: customer_resources(ledger_id: '123')
     }
   end
 
@@ -46,9 +45,8 @@ RSpec.describe 'payments/upsert', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_update).operations }
-    it { expect(subject.length).to eq(2) }
+    it { expect(subject.length).to eq(1) }
     it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Update) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Payment::Operations::Update) }
   end
 
   context '#perform' do

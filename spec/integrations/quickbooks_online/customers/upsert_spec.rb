@@ -2,14 +2,22 @@ require 'spec_helper'
 
 support :input_helpers
 support :adaptor_helpers
+support :quickbooks_helpers
 
-RSpec.describe 'customers/upsert', type: :feature do
+RSpec.describe 'quickbooks_online/customers/upsert', type: :feature do
   include InputHelpers
   include AdaptorHelpers
+  include QuickbooksHelpers
+
+  before {
+    stub_get_customer
+    stub_create_customer
+    stub_update_customer
+  }
 
   let(:input_create) do
     {
-      adaptor: test_adaptor,
+      adaptor: quickbooks_adaptor,
       resource_external_id: :c1,
       resource_type: 'customer',
       method: :upsert,
@@ -22,7 +30,7 @@ RSpec.describe 'customers/upsert', type: :feature do
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_create).operations }
     it { expect(subject.length).to eq(1) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Create) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Create) }
   end
 
   context '#perform' do
@@ -33,7 +41,7 @@ RSpec.describe 'customers/upsert', type: :feature do
 
   let(:input_update) do
     {
-      adaptor: test_adaptor,
+      adaptor: quickbooks_adaptor,
       resource_external_id: :c1,
       resource_type: 'customer',
       method: :upsert,
@@ -46,7 +54,7 @@ RSpec.describe 'customers/upsert', type: :feature do
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_update).operations }
     it { expect(subject.length).to eq(1) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Update) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Update) }
   end
 
   context '#perform' do

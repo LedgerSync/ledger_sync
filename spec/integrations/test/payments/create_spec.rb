@@ -3,7 +3,7 @@ require 'spec_helper'
 support :input_helpers
 support :adaptor_helpers
 
-RSpec.describe 'payments/create', type: :feature do
+RSpec.describe 'test/payments/create', type: :feature do
   include InputHelpers
   include AdaptorHelpers
 
