@@ -10,7 +10,7 @@ RSpec.describe 'quickbooks_online/customers/update', type: :feature do
   include QuickbooksHelpers
 
   before {
-    stub_get_customer
+    stub_find_customer
     stub_update_customer
   }
 
