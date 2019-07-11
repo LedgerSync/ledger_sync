@@ -102,7 +102,13 @@ end
 # Adaptors
 require 'ledger_sync/adaptors/adaptor'
 require 'ledger_sync/adaptors/searcher'
-Gem.find_files('ledger_sync/adaptors/**/*.rb').each { |path| require path }
+Gem.find_files('ledger_sync/adaptors/**/*.rb').each do |path|
+  next if path.include?('config.rb')
+
+  require path
+end
+
+Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 
 # Register Resources
 LedgerSync.register_resource(resource: LedgerSync::Customer)
