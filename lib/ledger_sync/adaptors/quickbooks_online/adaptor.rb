@@ -1,5 +1,4 @@
 require 'oauth2'
-require 'byebug'
 
 module LedgerSync
   module Adaptors

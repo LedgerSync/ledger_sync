@@ -3,7 +3,7 @@ require 'spec_helper'
 support :input_helpers
 support :adaptor_helpers
 
-RSpec.describe 'customers/update', type: :feature do
+RSpec.describe 'test/customers/create', type: :feature do
   include InputHelpers
   include AdaptorHelpers
 
@@ -12,8 +12,8 @@ RSpec.describe 'customers/update', type: :feature do
       adaptor: test_adaptor,
       resource_external_id: :c1,
       resource_type: 'customer',
-      method: :update,
-      resources_data: customer_resources(ledger_id: '123')
+      method: :create,
+      resources_data: customer_resources
     }
   end
 
@@ -22,7 +22,7 @@ RSpec.describe 'customers/update', type: :feature do
   context '#operations' do
     subject { LedgerSync::Sync.new(**input).operations }
     it { expect(subject.length).to eq(1) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Update) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Create) }
   end
 
   context '#perform' do

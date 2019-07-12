@@ -2,18 +2,26 @@ require 'spec_helper'
 
 support :input_helpers
 support :adaptor_helpers
+support :quickbooks_helpers
 
-RSpec.describe 'payments/upsert', type: :feature do
+RSpec.describe 'quickbooks_online/customers/upsert', type: :feature do
   include InputHelpers
   include AdaptorHelpers
+  include QuickbooksHelpers
+
+  before {
+    stub_find_customer
+    stub_create_customer
+    stub_update_customer
+  }
 
   let(:input_create) do
     {
-      adaptor: test_adaptor,
-      resource_external_id: :p1,
-      resource_type: 'payment',
+      adaptor: quickbooks_adaptor,
+      resource_external_id: :c1,
+      resource_type: 'customer',
       method: :upsert,
-      resources_data: payment_resources
+      resources_data: customer_resources
     }
   end
 
@@ -21,9 +29,8 @@ RSpec.describe 'payments/upsert', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_create).operations }
-    it { expect(subject.length).to eq(2) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Create) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Payment::Operations::Create) }
+    it { expect(subject.length).to eq(1) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Create) }
   end
 
   context '#perform' do
@@ -34,11 +41,11 @@ RSpec.describe 'payments/upsert', type: :feature do
 
   let(:input_update) do
     {
-      adaptor: test_adaptor,
-      resource_external_id: :p1,
-      resource_type: 'payment',
+      adaptor: quickbooks_adaptor,
+      resource_external_id: :c1,
+      resource_type: 'customer',
       method: :upsert,
-      resources_data: payment_resources(ledger_id: '123')
+      resources_data: customer_resources(ledger_id: '123')
     }
   end
 
@@ -46,9 +53,8 @@ RSpec.describe 'payments/upsert', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_update).operations }
-    it { expect(subject.length).to eq(2) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Update) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Payment::Operations::Update) }
+    it { expect(subject.length).to eq(1) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Update) }
   end
 
   context '#perform' do

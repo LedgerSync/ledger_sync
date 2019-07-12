@@ -3,7 +3,7 @@ require 'spec_helper'
 support :input_helpers
 support :adaptor_helpers
 
-RSpec.describe 'customers/upsert', type: :feature do
+RSpec.describe 'test/customers/upsert', type: :feature do
   include InputHelpers
   include AdaptorHelpers
 
