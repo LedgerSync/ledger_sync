@@ -1,4 +1,5 @@
-require 'byebug'
+# frozen_string_literal: true
+
 module LedgerSync
   module Util
     class ResourcesBuilder
