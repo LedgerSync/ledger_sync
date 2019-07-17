@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'error_parser'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
