@@ -20,4 +20,9 @@ RSpec.describe LedgerSync::Sync do
 
   it { expect(LedgerSync::Sync.new(**input)).to be_valid }
   it { expect { sync.result }.to raise_error(LedgerSync::Error::SyncError::NotPerformedError) }
+
+  it do
+    expect(sync.perform).to be_success
+    expect(sync.operations.first.result).to be_present
+  end
 end

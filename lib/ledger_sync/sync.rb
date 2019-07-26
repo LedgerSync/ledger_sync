@@ -72,10 +72,6 @@ module LedgerSync
       )
     end
 
-    def operation_results
-      @operation_results ||= performer.results
-    end
-
     def performer
       @performer ||= Util::Performer.new(operations: operations)
     end
