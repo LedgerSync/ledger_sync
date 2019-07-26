@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (1.0.7)
+    ledger_sync (1.0.8)
       colorize
       coveralls
       dry-schema
@@ -161,4 +161,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
