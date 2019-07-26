@@ -44,7 +44,7 @@ module LedgerSync
         raise 'Missing adaptor' if adaptor.nil?
         raise 'Missing operation' if operation.nil?
 
-        validate
+        @result = validate
           .and_then { performer.perform }
           .on_success { return SyncResult.Success(sync: self) }
           .on_failure { return SyncResult.Failure(sync: self) }
@@ -94,6 +94,12 @@ module LedgerSync
         root_resource_external_id: resource_external_id,
         root_resource_type: resource_type
       )
+    end
+
+    def result
+      raise Error::SyncError::NotPerformedError.new(sync: self) unless @perform.present?
+
+      @result
     end
 
     private

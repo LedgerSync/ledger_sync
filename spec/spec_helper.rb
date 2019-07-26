@@ -34,6 +34,8 @@ RSpec.configure do |config|
   end
 end
 
-def support(path)
-  require File.join(LedgerSync.root, 'spec/support/', path.to_s)
+def support(*paths)
+  paths.each do |path|
+    require File.join(LedgerSync.root, 'spec/support/', path.to_s)
+  end
 end
