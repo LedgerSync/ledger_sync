@@ -16,7 +16,6 @@ module LedgerSync
       adaptor
       method
       operation
-      operation_results
       operations
       resource
       resource_external_id
