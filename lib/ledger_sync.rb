@@ -21,9 +21,7 @@ require 'ledger_sync/core_ext/resonad'
 
 # Errors
 require 'ledger_sync/error'
-require 'ledger_sync/error/adaptor_errors'
-require 'ledger_sync/error/operation_errors'
-require 'ledger_sync/error/resource_errors'
+Gem.find_files('ledger_sync/error/**/*.rb').each { |path| require path }
 
 # Support Classes
 require 'ledger_sync/util/debug'
