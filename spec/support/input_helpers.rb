@@ -19,27 +19,6 @@ module InputHelpers
     }
   end
 
-  def invoice(**merge)
-    {
-      object: :invoice,
-      resource_external_id: 'inv_1',
-      resource_type: 'invoice',
-      data: {
-        customer: :c1,
-        number: 123,
-        payment: :p1
-      }
-    }.merge(merge)
-  end
-
-  def invoice_resources
-    {
-      i1: invoice,
-      c1: customer,
-      p1: payment
-    }
-  end
-
   def payment(**merge)
     {
       object: :payment,
