@@ -5,10 +5,10 @@ module LedgerSync
     module QuickBooksOnline
       module Vendor
         module Operations
-          class Create < Operation::Create
+          class Update < Operation::Update
             class Contract < LedgerSync::Adaptors::Contract
               params do
-                required(:ledger_id).value(:nil)
+                required(:ledger_id).filled(:string)
                 optional(:first_name).maybe(:string)
                 optional(:last_name).maybe(:string)
               end
@@ -17,13 +17,20 @@ module LedgerSync
             private
 
             def operate
+              ledger_resource_data = adaptor.find(
+                resource: 'vendor',
+                id: resource.ledger_id
+              )
+
               response = adaptor.upsert(
                 resource: 'vendor',
-                payload: local_resource_data
+                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
               )
 
               resource.ledger_id = response.dig('Id')
               success(response: response)
+            rescue OAuth2::Error => e
+              failure(e)
             end
 
             def local_resource_data
