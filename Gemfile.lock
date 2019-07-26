@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (1.0.9)
+    ledger_sync (1.0.10)
       colorize
       coveralls
       dry-schema
