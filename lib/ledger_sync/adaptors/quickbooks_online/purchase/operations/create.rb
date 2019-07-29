@@ -10,6 +10,9 @@ module LedgerSync
                 required(:ledger_id).maybe(:string)
                 required(:amount).filled(:integer)
                 required(:currency).filled(:string)
+                optional(:transaction_date).filled(:string)
+                optional(:payment_type).filled(:string)
+                optional(:memo).filled(:string)
                 required(:vendor).hash do
                   required(:object).filled(:symbol)
                   required(:id).filled(:string)
@@ -50,9 +53,9 @@ module LedgerSync
                 'CurrencyRef': {
                   'value': resource.currency,
                 },
-                'PaymentType': 'Cash',
-                'TxnDate': '2019-07-11',
-                'PrivateNote': 'SomeMemo',
+                'PaymentType': resource.payment_type,
+                'TxnDate': resource.transaction_date,
+                'PrivateNote': resource.memo,
                 'EntityRef': {
                   'value': resource.vendor.ledger_id,
                 },
