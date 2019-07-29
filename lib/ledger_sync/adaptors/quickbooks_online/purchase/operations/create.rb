@@ -10,9 +10,9 @@ module LedgerSync
                 required(:ledger_id).maybe(:string)
                 required(:amount).filled(:integer)
                 required(:currency).filled(:string)
-                optional(:transaction_date).filled(:string)
-                optional(:payment_type).filled(:string)
-                optional(:memo).filled(:string)
+                optional(:transaction_date).maybe(:string)
+                optional(:payment_type).maybe(:string)
+                optional(:memo).maybe(:string)
                 required(:vendor).hash do
                   required(:object).filled(:symbol)
                   required(:id).filled(:string)
