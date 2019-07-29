@@ -53,9 +53,9 @@ module LedgerSync
                 'CurrencyRef': {
                   'value': resource.currency,
                 },
-                'PaymentType': 'Cash',
-                'TxnDate': '2019-07-29',
-                'PrivateNote': 'SomeMemo',
+                'PaymentType': resource.payment_type,
+                'TxnDate': resource.transaction_date,
+                'PrivateNote': resource.memo,
                 'EntityRef': {
                   'value': resource.vendor.ledger_id,
                 },
