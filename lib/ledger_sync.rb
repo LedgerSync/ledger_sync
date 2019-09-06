@@ -42,7 +42,7 @@ require 'ledger_sync/resource' # Template class
 require 'ledger_sync/resources/customer'
 require 'ledger_sync/resources/payment'
 require 'ledger_sync/resources/vendor'
-require 'ledger_sync/resources/purchase'
+require 'ledger_sync/resources/expense'
 
 # Synchronizer
 require 'ledger_sync/sync'
@@ -111,4 +111,4 @@ Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 LedgerSync.register_resource(resource: LedgerSync::Customer)
 LedgerSync.register_resource(resource: LedgerSync::Payment)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
-LedgerSync.register_resource(resource: LedgerSync::Purchase)
+LedgerSync.register_resource(resource: LedgerSync::Expense)

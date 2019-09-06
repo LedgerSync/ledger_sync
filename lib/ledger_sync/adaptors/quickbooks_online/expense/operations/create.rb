@@ -1,18 +1,22 @@
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
-      module Purchase
+      module Expense
         module Operations
-          class Update < Operation::Update
+          class Create < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
-              schema do
-                required(:ledger_id).filled(:string)
+              params do
+                required(:ledger_id).value(:nil)
+                required(:vendor).hash(Types::Reference)
                 required(:amount).filled(:integer)
                 required(:currency).filled(:string)
-                required(:vendor).hash(Types::Reference)
-                optional(:transaction_date).maybe(:string)
-                optional(:payment_type).maybe(:string)
-                optional(:memo).maybe(:string)
+                required(:memo).filled(:string)
+                required(:payment_type).filled(:string)
+                required(:transaction_date).filled(:string)
+                required(:transactions).array(:hash) do
+                  required(:amount).filled(:integer)
+                  required(:description).maybe(:string)
+                end
               end
             end
 
@@ -24,13 +28,9 @@ module LedgerSync
             end
 
             def operate
-              ledger_resource_data = adaptor.find(
-                resource: 'purchase',
-                id: resource.ledger_id
-              )
               response = adaptor.upsert(
                 resource: 'purchase',
-                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
+                payload: local_resource_data
               )
 
               resource.ledger_id = response.dig('Id')

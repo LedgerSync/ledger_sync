@@ -1,5 +1,6 @@
 module LedgerSync
   class Vendor < LedgerSync::Resource
+    attribute :email
     attribute :first_name
     attribute :last_name
 

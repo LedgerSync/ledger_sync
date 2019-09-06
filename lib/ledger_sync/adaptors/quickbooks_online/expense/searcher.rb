@@ -1,7 +1,7 @@
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
-      module Purchase
+      module Expense
         class Searcher < LedgerSync::Adaptors::Searcher
           def next_searcher
             paginate(limit: limit, offset: offset + limit)
@@ -22,7 +22,7 @@ module LedgerSync
                   offset: offset
                 )
                 .map do |c|
-                  LedgerSync::Purchase.new(
+                  LedgerSync::Expense.new(
                     ledger_id: c.fetch('Id'),
                     name: c.dig('Id')
                   )

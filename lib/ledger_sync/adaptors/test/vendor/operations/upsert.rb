@@ -1,16 +1,14 @@
-# frozen_string_literal: true
-
 module LedgerSync
   module Adaptors
-    module QuickBooksOnline
+    module Test
       module Vendor
         module Operations
           class Upsert < Operation::Upsert
             class Contract < LedgerSync::Adaptors::Contract
-              schema do
-                optional(:ledger_id).maybe(:string)
-                optional(:first_name).maybe(:string)
-                optional(:last_name).maybe(:string)
+              params do
+                required(:ledger_id).maybe(:string)
+                required(:first_name).filled(:string)
+                required(:last_name).filled(:string)
                 optional(:email).maybe(:string)
               end
             end
@@ -18,12 +16,11 @@ module LedgerSync
             private
 
             def build
-              op = if qbo_vendor?
-                     Update.new(adaptor: adaptor, resource: resource)
-                   else
-                     Create.new(adaptor: adaptor, resource: resource)
-                   end
-
+              op =  if vendor_exists_in_ledger?
+                      Update.new(adaptor: adaptor, resource: resource)
+                    else
+                      Create.new(adaptor: adaptor, resource: resource)
+                    end
               add_root_operation(op)
             end
 
@@ -34,7 +31,7 @@ module LedgerSync
               ).perform
             end
 
-            def qbo_vendor?
+            def vendor_exists_in_ledger?
               find_result.success?
             end
           end

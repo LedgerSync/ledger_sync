@@ -1,16 +1,14 @@
-# frozen_string_literal: true
-
 module LedgerSync
   module Adaptors
-    module QuickBooksOnline
+    module Test
       module Vendor
         module Operations
           class Update < Operation::Update
             class Contract < LedgerSync::Adaptors::Contract
-              params do
+              schema do
                 required(:ledger_id).filled(:string)
-                optional(:first_name).maybe(:string)
-                optional(:last_name).maybe(:string)
+                required(:first_name).filled(:string)
+                required(:last_name).filled(:string)
                 optional(:email).maybe(:string)
               end
             end
@@ -28,7 +26,6 @@ module LedgerSync
                 payload: merge_into(from: local_resource_data, to: ledger_resource_data)
               )
 
-              resource.ledger_id = response.dig('Id')
               success(response: response)
             rescue OAuth2::Error => e
               failure(e)
@@ -36,11 +33,8 @@ module LedgerSync
 
             def local_resource_data
               {
-                'GivenName': resource.first_name,
-                'FamilyName': resource.last_name,
-                "PrimaryEmailAddr": {
-                  "Address": resource.email
-                }
+                'name': resource.name,
+                "email": resource.email
               }
             end
           end

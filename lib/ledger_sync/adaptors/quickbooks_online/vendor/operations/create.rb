@@ -11,6 +11,7 @@ module LedgerSync
                 required(:ledger_id).value(:nil)
                 optional(:first_name).maybe(:string)
                 optional(:last_name).maybe(:string)
+                optional(:email).maybe(:string)
               end
             end
 
@@ -29,7 +30,10 @@ module LedgerSync
             def local_resource_data
               {
                 'GivenName': resource.first_name,
-                'FamilyName': resource.last_name
+                'FamilyName': resource.last_name,
+                "PrimaryEmailAddr": {
+                  "Address": resource.email
+                }
               }
             end
           end

@@ -1,15 +1,22 @@
 module LedgerSync
   module Adaptors
-    module QuickBooksOnline
-      module Purchase
+    module Test
+      module Expense
         module Operations
           class Find < Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
-                optional(:amount).maybe(:integer)
-                optional(:currency).maybe(:string)
-                optional(:vendor).maybe(Types::Reference)
+                required(:vendor).hash(Types::Reference)
+                required(:amount).filled(:integer)
+                required(:currency).filled(:string)
+                required(:memo).filled(:string)
+                required(:payment_type).filled(:string)
+                required(:transaction_date).filled(:string)
+                required(:transactions).array(:hash) do
+                  required(:amount).filled(:integer)
+                  required(:description).maybe(:string)
+                end
               end
             end
 

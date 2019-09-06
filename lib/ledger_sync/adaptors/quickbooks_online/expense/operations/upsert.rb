@@ -1,22 +1,29 @@
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
-      module Purchase
+      module Expense
         module Operations
           class Upsert < Operation::Upsert
             class Contract < LedgerSync::Adaptors::Contract
               schema do
-                required(:ledger_id).maybe(:string)
+                required(:ledger_id).filled(:string)
+                required(:vendor).hash(Types::Reference)
                 required(:amount).filled(:integer)
                 required(:currency).filled(:string)
-                required(:vendor).hash(Types::Reference)
+                required(:memo).filled(:string)
+                required(:payment_type).filled(:string)
+                required(:transaction_date).filled(:string)
+                required(:transactions).array(:hash) do
+                  required(:amount).filled(:integer)
+                  required(:description).maybe(:string)
+                end
               end
             end
 
             private
 
             def build
-              op = if qbo_purchase?
+              op = if qbo_expense?
                      Update.new(adaptor: adaptor, resource: resource)
                    else
                      Create.new(adaptor: adaptor, resource: resource)
@@ -42,7 +49,7 @@ module LedgerSync
               ).perform
             end
 
-            def qbo_purchase?
+            def qbo_expense?
               find_result.success?
             end
           end
