@@ -43,6 +43,7 @@ require 'ledger_sync/resources/customer'
 require 'ledger_sync/resources/payment'
 require 'ledger_sync/resources/vendor'
 require 'ledger_sync/resources/expense'
+require 'ledger_sync/resources/account'
 
 # Synchronizer
 require 'ledger_sync/sync'
@@ -112,3 +113,4 @@ LedgerSync.register_resource(resource: LedgerSync::Customer)
 LedgerSync.register_resource(resource: LedgerSync::Payment)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
 LedgerSync.register_resource(resource: LedgerSync::Expense)
+LedgerSync.register_resource(resource: LedgerSync::Account)
