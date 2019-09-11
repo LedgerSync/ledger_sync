@@ -18,13 +18,11 @@ module LedgerSync
                   resource: 'vendor',
                   query: "name LIKE '#{query}%'"
                 )
-                .map do |c|
-                  first, *rest = c.dig('name').split(/, /)
+                .map do |v|
                   LedgerSync::Vendor.new(
-                    ledger_id: c.fetch('id'),
-                    first_name: first,
-                    last_name: rest.join(' '),
-                    # active: c.dig('active')
+                    ledger_id: v.fetch('id'),
+                    first_name: v.fetch('first_name', ''),
+                    last_name:  v.fetch('last_name', '')
                   )
                 end
             end

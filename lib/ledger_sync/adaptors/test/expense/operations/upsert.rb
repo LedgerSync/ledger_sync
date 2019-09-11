@@ -34,12 +34,12 @@ module LedgerSync
             end
 
             def build_vendor_operation
-              customer = Vendor::Operations::Upsert.new(
+              vendor = Vendor::Operations::Upsert.new(
                 adaptor: adaptor,
                 resource: resource.vendor
               )
 
-              add_before_operation(customer)
+              add_before_operation(vendor)
             end
 
             def find_result

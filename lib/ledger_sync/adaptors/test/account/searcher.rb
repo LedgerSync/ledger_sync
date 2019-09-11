@@ -18,11 +18,11 @@ module LedgerSync
                   resource: 'account',
                   query: "name LIKE '#{query}%'"
                 )
-                .map do |c|
+                .map do |a|
                   LedgerSync::Account.new(
-                    ledger_id: c.fetch('id'),
-                    name: c.dig('name'),
-                    account_type: c.dig('account_type')
+                    ledger_id: a.fetch('id'),
+                    name: a.fetch('name', ''),
+                    account_type: a.fetch('account_type', '')
                   )
                 end
             end

@@ -19,6 +19,47 @@ module InputHelpers
     }
   end
 
+  def vendor(**merge)
+    {
+      object: :vendor,
+      resource_external_id: 'ven_1',
+      resource_type: 'vendor',
+      data: {
+        email: 'test@example.com',
+        first_name: 'Sample',
+        last_name: 'Vendor'
+      }
+    }.merge(merge)
+  end
+
+  def vendor_resources(**merge)
+    {
+      vendor: {
+        v1: vendor(merge)
+      }
+    }
+  end
+
+  def account(**merge)
+    {
+      object: :account,
+      resource_external_id: 'ven_1',
+      resource_type: 'account',
+      data: {
+        name: 'Sample Account',
+        account_type: 'bank'
+      }
+    }.merge(merge)
+  end
+
+  def account_resources(**merge)
+    {
+      account: {
+        a1: account(merge)
+      }
+    }
+  end
+
   def payment(**merge)
     {
       object: :payment,
@@ -39,6 +80,39 @@ module InputHelpers
       },
       payment: {
         p1: payment(merge)
+      }
+    }
+  end
+
+  def expense(**merge)
+    {
+      object: :expense,
+      resource_external_id: 'exp_1',
+      resource_type: 'expense',
+      data: {
+        amount: 12_345,
+        currency: :usd,
+        vendor: :v1,
+        memo: 'Memo',
+        payment_type: 'bank',
+        transaction_date: '2019-09-01',
+        transactions: [
+          {
+            amount: 12_345,
+            description: 'Sample Transaction'
+          }
+        ]
+      }
+    }.merge(merge)
+  end
+
+  def expense_resources(**merge)
+    {
+      vendor: {
+        v1: vendor(merge),
+      },
+      expense: {
+        e1: expense(merge)
       }
     }
   end

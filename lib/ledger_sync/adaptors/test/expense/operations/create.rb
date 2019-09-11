@@ -23,7 +23,7 @@ module LedgerSync
             private
 
             def build
-              build_customer_operation
+              build_vendor_operation
               add_root_operation(self)
             end
 
@@ -39,20 +39,20 @@ module LedgerSync
               failure(e)
             end
 
-            def build_customer_operation
-              customer = Customer::Operations::Upsert.new(
+            def build_vendor_operation
+              vendor = Vendor::Operations::Upsert.new(
                 adaptor: adaptor,
-                resource: resource.customer
+                resource: resource.vendor
               )
 
-              add_before_operation(customer)
+              add_before_operation(vendor)
             end
 
             def local_resource_data
               {
                 'amount': resource.amount,
                 'currency': resource.currency,
-                'customer_id': resource.customer.ledger_id
+                'vendor_id': resource.vendor.ledger_id
               }
             end
           end

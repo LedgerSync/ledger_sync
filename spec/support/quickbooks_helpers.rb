@@ -146,4 +146,75 @@ module QuickbooksHelpers
         headers: {}
       )
   end
+
+  # Vendor
+
+  def stub_create_vendor
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor").
+      with(
+        body: "{\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Vendor\":{\"Balance\":0,\"Vendor1099\":false,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"70\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T09:03:28-07:00\",\"LastUpdatedTime\":\"2019-09-12T09:03:28-07:00\"},\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"DisplayName\":\"Sample Vendor\",\"PrintOnCheckName\":\"Sample Vendor\",\"Active\":true,\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}},\"time\":\"2019-09-12T09:03:28.905-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_find_vendor
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor/123").
+      with(
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Vendor\":{\"Balance\":0,\"Vendor1099\":false,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T09:05:52-07:00\",\"LastUpdatedTime\":\"2019-09-12T09:05:52-07:00\"},\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"DisplayName\":\"Sample Vendor\",\"PrintOnCheckName\":\"Sample Vendor\",\"Active\":true,\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}},\"time\":\"2019-09-12T09:06:41.852-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_search_vendor
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Vendor%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Vendor%25'%20STARTPOSITION%201%20MAXRESULTS%2010").      with(
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"QueryResponse\":{\"Vendor\":[{\"Balance\":0,\"Vendor1099\":false,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T09:05:52-07:00\",\"LastUpdatedTime\":\"2019-09-12T09:05:52-07:00\"},\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"DisplayName\":\"Sample Vendor\",\"PrintOnCheckName\":\"Sample Vendor\",\"Active\":true,\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}]}}",
+        headers: {}
+      )
+  end
+
+  def stub_update_vendor
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor").
+      with(
+        body: "{\"Balance\":0,\"Vendor1099\":false,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T09:05:52-07:00\",\"LastUpdatedTime\":\"2019-09-12T09:05:52-07:00\"},\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"DisplayName\":\"Sample Vendor\",\"PrintOnCheckName\":\"Sample Vendor\",\"Active\":true,\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"},\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Vendor\":{\"Balance\":0,\"Vendor1099\":false,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"1\",\"MetaData\":{\"CreateTime\":\"2019-09-12T09:05:52-07:00\",\"LastUpdatedTime\":\"2019-09-12T09:06:44-07:00\"},\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"DisplayName\":\"Sample Vendor\",\"PrintOnCheckName\":\"Sample Vendor\",\"Active\":true,\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}},\"time\":\"2019-09-12T09:06:44.249-07:00\"}",
+        headers: {}
+      )
+  end
 end
