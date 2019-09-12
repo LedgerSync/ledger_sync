@@ -18,15 +18,15 @@ module LedgerSync
               adaptor
                 .query(
                   resource: 'account',
-                  query: "DisplayName LIKE '%#{query}%'",
+                  query: "Name LIKE '%#{query}%'",
                   limit: limit,
                   offset: offset
                 )
                 .map do |c|
                   LedgerSync::Account.new(
                     ledger_id: c.fetch('Id'),
-                    name: c.dig('FullyQualifiedName'),
-                    account_type: c.dig('AccountType')
+                    name: c.fetch('Name'),
+                    account_type: c.fetch('AccountSubType')
                   )
                 end
             end

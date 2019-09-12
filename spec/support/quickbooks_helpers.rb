@@ -217,4 +217,75 @@ module QuickbooksHelpers
         headers: {}
       )
   end
+
+  # Account
+
+  def stub_create_account
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account").
+      with(
+        body: "{\"Name\":\"Sample Account\",\"AccountSubType\":\"CashOnHand\"}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Account\":{\"Name\":\"Sample Account\",\"SubAccount\":false,\"FullyQualifiedName\":\"Sample Account\",\"Active\":true,\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"CurrentBalance\":0,\"CurrentBalanceWithSubAccounts\":0,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T12:22:16-07:00\",\"LastUpdatedTime\":\"2019-09-12T12:22:16-07:00\"}},\"time\":\"2019-09-12T12:22:16.650-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_find_account
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account/123").
+      with(
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Account\":{\"Name\":\"Sample Account\",\"SubAccount\":false,\"FullyQualifiedName\":\"Sample Account\",\"Active\":true,\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"CurrentBalance\":0,\"CurrentBalanceWithSubAccounts\":0,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T12:22:16-07:00\",\"LastUpdatedTime\":\"2019-09-12T12:22:16-07:00\"}},\"time\":\"2019-09-12T12:34:00.276-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_search_account
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Account%20WHERE%20Name%20LIKE%20'%25Sample%20Account%25'%20STARTPOSITION%201%20MAXRESULTS%2010").      with(
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"QueryResponse\":{\"Account\":[{\"Name\":\"Sample Account\",\"SubAccount\":false,\"FullyQualifiedName\":\"Sample Account\",\"Active\":true,\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"CurrentBalance\":0,\"CurrentBalanceWithSubAccounts\":0,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T12:22:16-07:00\",\"LastUpdatedTime\":\"2019-09-12T12:22:16-07:00\"}}]}}",
+        headers: {}
+      )
+  end
+
+  def stub_update_account
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account").
+      with(
+        body: "{\"Name\":\"Sample Account\",\"SubAccount\":false,\"FullyQualifiedName\":\"Sample Account\",\"Active\":true,\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"CurrentBalance\":0,\"CurrentBalanceWithSubAccounts\":0,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T12:22:16-07:00\",\"LastUpdatedTime\":\"2019-09-12T12:22:16-07:00\"},\"Name\":\"Sample Account\",\"AccountSubType\":\"CashOnHand\"}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Account\":{\"Name\":\"Sample\",\"SubAccount\":false,\"FullyQualifiedName\":\"Sample\",\"Active\":true,\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"CurrentBalance\":0,\"CurrentBalanceWithSubAccounts\":0,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"91\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T12:22:16-07:00\",\"LastUpdatedTime\":\"2019-09-12T12:22:16-07:00\"}},\"time\":\"2019-09-12T12:36:42.241-07:00\"}",
+        headers: {}
+      )
+  end
 end
