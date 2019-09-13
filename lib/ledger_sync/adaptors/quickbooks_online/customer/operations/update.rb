@@ -22,7 +22,6 @@ module LedgerSync
                 resource: 'customer',
                 id: resource.ledger_id
               )
-
               response = adaptor.upsert(
                 resource: 'customer',
                 payload: merge_into(from: local_resource_data, to: ledger_resource_data)
@@ -36,12 +35,12 @@ module LedgerSync
 
             def local_resource_data
               {
-                'DisplayName': resource.name,
-                "PrimaryPhone": {
-                  "FreeFormNumber": resource.phone_number
+                'DisplayName' => resource.name,
+                "PrimaryPhone" => {
+                  "FreeFormNumber" => resource.phone_number
                 },
-                "PrimaryEmailAddr": {
-                  "Address": resource.email
+                "PrimaryEmailAddr" => {
+                  "Address" => resource.email
                 }
               }
             end

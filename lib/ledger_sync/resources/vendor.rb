@@ -1,8 +1,8 @@
 module LedgerSync
   class Vendor < LedgerSync::Resource
-    attribute :email
-    attribute :first_name
-    attribute :last_name
+    attribute :email, type: :string
+    attribute :first_name, type: :string
+    attribute :last_name, type: :string
 
     def name
       "#{first_name} #{last_name}"

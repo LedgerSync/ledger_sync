@@ -1,11 +1,11 @@
 module LedgerSync
   class Expense < LedgerSync::Resource
-    attribute :currency
+    attribute :currency, type: :string
     reference :vendor, Vendor
-    attribute :amount
-    attribute :memo
-    attribute :payment_type
-    attribute :transaction_date
+    attribute :amount, type: :integer
+    attribute :memo, type: :string
+    attribute :payment_type, type: :string
+    attribute :transaction_date, type: :date
     attribute :transactions
 
     def name

@@ -20,8 +20,8 @@ module LedgerSync
 
             def local_resource_data
               {
-                'name': resource.name,
-                "account_type": resource.account_type
+                'name' => resource.name,
+                'account_type' => resource.account_type
               }
             end
 

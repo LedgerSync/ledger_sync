@@ -27,12 +27,12 @@ module LedgerSync
 
             def local_resource_data
               {
-                'DisplayName': resource.name,
-                "PrimaryPhone": {
-                  "FreeFormNumber": resource.phone_number
+                'DisplayName' => resource.name,
+                'PrimaryPhone' => {
+                  'FreeFormNumber' => resource.phone_number
                 },
-                "PrimaryEmailAddr": {
-                  "Address": resource.email
+                'PrimaryEmailAddr' => {
+                  'Address' => resource.email
                 }
               }
             end

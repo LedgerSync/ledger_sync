@@ -33,8 +33,8 @@ module LedgerSync
 
             def local_resource_data
               {
-                'name': resource.name,
-                "email": resource.email
+                'name' => resource.name,
+                'email' => resource.email
               }
             end
           end

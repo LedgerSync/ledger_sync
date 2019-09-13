@@ -29,10 +29,10 @@ module LedgerSync
 
             def local_resource_data
               {
-                'GivenName': resource.first_name,
-                'FamilyName': resource.last_name,
-                "PrimaryEmailAddr": {
-                  "Address": resource.email
+                'GivenName' => resource.first_name,
+                'FamilyName' => resource.last_name,
+                'PrimaryEmailAddr' => {
+                  'Address' => resource.email
                 }
               }
             end

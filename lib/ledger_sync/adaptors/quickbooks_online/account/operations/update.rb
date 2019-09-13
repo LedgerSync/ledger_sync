@@ -125,8 +125,8 @@ module LedgerSync
 
             def local_resource_data
               {
-                'Name': resource.name,
-                "AccountSubType": ACCOUNT_TYPES[resource.account_type]
+                'Name' => resource.name,
+                'AccountSubType' => ACCOUNT_TYPES[resource.account_type]
               }
             end
           end

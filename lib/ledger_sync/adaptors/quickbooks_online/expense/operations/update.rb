@@ -54,29 +54,29 @@ module LedgerSync
 
             def local_resource_data
               {
-                'CurrencyRef': {
-                  'value': resource.currency,
+                'CurrencyRef' => {
+                  'value' => resource.currency,
                 },
-                'PaymentType': resource.payment_type,
-                'TxnDate': resource.transaction_date,
-                'PrivateNote': resource.memo,
-                'EntityRef': {
-                  'value': resource.vendor.ledger_id,
+                'PaymentType' => resource.payment_type,
+                'TxnDate' => resource.transaction_date,
+                'PrivateNote' => resource.memo,
+                'EntityRef' => {
+                  'value' => resource.vendor.ledger_id,
                 },
-                'Line': [
+                'Line' => [
                   {
-                    'AccountBasedExpenseLineDetail': {
-                      'AccountRef': {
-                        'value': '4'
+                    'AccountBasedExpenseLineDetail' => {
+                      'AccountRef' => {
+                        'value' => '4'
                       }
                     },
-                    'Amount': resource.amount,
-                    'DetailType': 'AccountBasedExpenseLineDetail',
-                    'Description': 'Some description'
+                    'Amount' => resource.amount,
+                    'DetailType' => 'AccountBasedExpenseLineDetail',
+                    'Description' => 'Some description'
                   }
                 ],
-                'AccountRef': {
-                  'value': '4'
+                'AccountRef' => {
+                  'value' => '4'
                 }
               }
             end

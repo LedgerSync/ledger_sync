@@ -43,9 +43,9 @@ module LedgerSync
 
             def local_resource_data
               {
-                'amount': resource.amount,
-                'currency': resource.currency,
-                'customer_id': resource.customer.ledger_id
+                'amount' => resource.amount,
+                'currency' => resource.currency,
+                'customer_id' => resource.customer.ledger_id
               }
             end
           end
