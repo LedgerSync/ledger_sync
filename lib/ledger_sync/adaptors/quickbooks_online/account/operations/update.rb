@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ledger_sync/adaptors/quickbooks_online/account/mapping'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -13,96 +15,6 @@ module LedgerSync
                 required(:account_type).filled(:string)
               end
             end
-
-            ACCOUNT_TYPES = {
-              # Bank
-              'cash_on_hand' => 'CashOnHand',
-              'checking' => 'Checking',
-              'money_market' => 'MoneyMarket',
-              'rents_held_in_trust' => 'RentsHeldInTrust',
-              'savings' => 'Savings',
-              'trust_accounts' => 'TrustAccounts',
-              'cash_and_cash_equivalents' => 'CashAndCashEquivalents',
-              'other_ear_marked_bank_accounts' => 'OtherEarMarkedBankAccounts',
-
-              # # Other Current Asset
-              # AllowanceForBadDebts
-              # DevelopmentCosts
-              # EmployeeCashAdvances
-              # OtherCurrentAssets
-              # Inventory
-              # Investment_MortgageRealEstateLoans
-              # Investment_Other
-              # Investment_TaxExemptSecurities
-              # Investment_USGovernmentObligations
-              # LoansToOfficers
-              # LoansToOthers
-              # LoansToStockholders
-              # PrepaidExpenses
-              # Retainage
-              # UndepositedFunds
-              # AssetsAvailableForSale
-              # BalWithGovtAuthorities
-              # CalledUpShareCapitalNotPaid
-              # ExpenditureAuthorisationsAndLettersOfCredit
-              # GlobalTaxDeferred
-              # GlobalTaxRefund
-              # InternalTransfers
-              # OtherConsumables
-              # ProvisionsCurrentAssets
-              # ShortTermInvestmentsInRelatedParties
-              # ShortTermLoansAndAdvancesToRelatedParties
-              # TradeAndOtherReceivables
-
-              # # Fixed Asset
-              # AccumulatedDepletion
-              # AccumulatedDepreciation
-              # DepletableAssets
-              # FixedAssetComputers
-              # FixedAssetCopiers
-              # FixedAssetFurniture
-              # FixedAssetPhone
-              # FixedAssetPhotoVideo
-              # FixedAssetSoftware
-              # FixedAssetOtherToolsEquipment
-              # FurnitureAndFixtures
-              # Land
-              # LeaseholdImprovements
-              # OtherFixedAssets
-              # AccumulatedAmortization
-              # Buildings
-              # IntangibleAssets
-              # MachineryAndEquipment
-              # Vehicles
-              # AssetsInCourseOfConstruction
-              # CapitalWip
-              # CumulativeDepreciationOnIntangibleAssets
-              # IntangibleAssetsUnderDevelopment
-              # LandAsset
-              # NonCurrentAssets
-              # ParticipatingInterests
-              # ProvisionsFixedAssets
-
-              # # Other Asset
-              # LeaseBuyout
-              # OtherLongTermAssets
-              # SecurityDeposits
-              # AccumulatedAmortizationOfOtherAssets
-              # Goodwill
-              # Licenses
-              # OrganizationalCosts
-              # AssetsHeldForSale
-              # AvailableForSaleFinancialAssets
-              # DeferredTax
-              # Investments
-              # LongTermInvestments
-              # LongTermLoansAndAdvancesToRelatedParties
-              # OtherIntangibleAssets
-              # OtherLongTermInvestments
-              # OtherLongTermLoansAndAdvances
-              # PrepaymentsAndAccruedIncome
-              # ProvisionsNonCurrentAssets
-            }
 
             private
 
@@ -126,7 +38,7 @@ module LedgerSync
             def local_resource_data
               {
                 'Name' => resource.name,
-                'AccountSubType' => ACCOUNT_TYPES[resource.account_type]
+                'AccountSubType' => Mapping::ACCOUNT_TYPES[resource.account_type]
               }
             end
           end

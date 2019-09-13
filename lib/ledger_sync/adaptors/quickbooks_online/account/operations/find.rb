@@ -7,8 +7,8 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:ledger_id).filled(:string)
-                required(:name).filled(:string)
-                required(:account_type).filled(:string)
+                required(:name).maybe(:string)
+                required(:account_type).maybe(:string)
               end
             end
 

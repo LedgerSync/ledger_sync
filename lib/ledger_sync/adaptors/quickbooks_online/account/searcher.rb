@@ -1,3 +1,5 @@
+require 'ledger_sync/adaptors/quickbooks_online/account/mapping'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -26,7 +28,7 @@ module LedgerSync
                   LedgerSync::Account.new(
                     ledger_id: c.fetch('Id'),
                     name: c.fetch('Name'),
-                    account_type: c.fetch('AccountSubType')
+                    account_type: Mapping::ACCOUNT_TYPES.invert[c.fetch('AccountSubType')]
                   )
                 end
             end
