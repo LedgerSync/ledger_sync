@@ -149,8 +149,17 @@ module LedgerSync
         end
 
         def validation_data
-          serializer = resource.serializer
+          serializer = resource.serializer(
+            do_not_serialize_if_class_is: [
+              Date,
+              DateTime
+            ]
+          )
           serializer.serialize[:objects][serializer.id][:data]
+        end
+
+        def errors
+          validate.validator.errors
         end
 
         # Comparison

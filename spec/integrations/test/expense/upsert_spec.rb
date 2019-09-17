@@ -21,8 +21,8 @@ RSpec.describe 'test/expenses/upsert', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_create).operations }
-    it { expect(subject.length).to eq(2) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Vendor::Operations::Create) }
+    it { expect(subject.length).to eq(3) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Account::Operations::Create) }
     it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Expense::Operations::Create) }
   end
 
@@ -46,8 +46,8 @@ RSpec.describe 'test/expenses/upsert', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_update).operations }
-    it { expect(subject.length).to eq(2) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Vendor::Operations::Update) }
+    it { expect(subject.length).to eq(3) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Account::Operations::Create) }
     it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Expense::Operations::Update) }
   end
 

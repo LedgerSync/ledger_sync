@@ -21,8 +21,8 @@ RSpec.describe 'test/expenses/update', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input).operations }
-    it { expect(subject.length).to eq(2) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Vendor::Operations::Update) }
+    it { expect(subject.length).to eq(3) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Account::Operations::Create) }
     it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Expense::Operations::Update) }
   end
 

@@ -5,13 +5,15 @@ module LedgerSync
     class ResourcesBuilder
       attr_reader :cast,
                   :data,
+                  :ignore_unrecognized_attributes,
                   :root_resource_external_id,
                   :root_resource_type
 
-      def initialize(cast: true, data:, root_resource_external_id:, root_resource_type:)
+      def initialize(cast: true, data:, ignore_unrecognized_attributes: false, root_resource_external_id:, root_resource_type:)
         @all_resources = {}
         @cast = cast
         @data = Util::HashHelpers.deep_symbolize_keys(data)
+        @ignore_unrecognized_attributes = ignore_unrecognized_attributes
         @root_resource_external_id = root_resource_external_id
         @root_resource_type = root_resource_type
       end
@@ -40,65 +42,43 @@ module LedgerSync
         current_data = @data.dig(type, external_id, :data)
         raise "No data provided for #{type} (ID: #{external_id})" if current_data.nil?
 
-        resource_klass = LedgerSync.resources[type]
-        raise "#{type} is an invalid resource type" if resource_klass.nil?
+        resource_class = LedgerSync.resources[type]
+        raise "#{type} is an invalid resource type" if resource_class.nil?
 
         current_data = Hash[
           current_data.map do |k, v|
             k = k.to_sym
 
-            attribute = resource_klass.attributes[k]
-            next unless attribute.present?
+            attribute = resource_class.attributes[k]
+            raise 'Unrecognized attribute' if attribute.nil? && !ignore_unrecognized_attributes
 
-            v = if attribute.reference?
+            v = if attribute.is_a?(ResourceAttribute::Reference::One)
                   resource_or_build(
                     external_id: current_data[k],
-                    type: attribute.type.resource_type
+                    type: attribute.type.resource_class.resource_type
                   )
+                elsif attribute.is_a?(ResourceAttribute::Reference::Many)
+                  current_data[k].map do |many_reference|
+                    resource_or_build(
+                      external_id: many_reference,
+                      type: attribute.type.resource_class.resource_type
+                    )
+                  end
+                elsif cast
+                  attribute.type.cast(v)
                 else
-                  cast_value(v, to: attribute.valid_classes.first)
+                  v
                 end
 
             [k, v]
           end
         ]
 
-        @all_resources[resource_key(external_id: external_id, type: type)] = resource_klass.new(
+        @all_resources[resource_key(external_id: external_id, type: type)] = resource_class.new(
           external_id: external_id,
           ledger_id: ledger_id,
           **current_data
         )
-      end
-
-      def cast_to_date(value)
-        case value
-        when Date
-          value
-        when String
-          Date.parse(value)
-        else
-          raise "Do not know how to create a Date from #{value.class}"
-        end
-      end
-
-      def cast_to_date_time(value)
-        case value
-        when DateTime
-          value
-        when String
-          DateTime.parse(value)
-        else
-          raise "Do not know how to create a DateTime from #{value.class}"
-        end
-      end
-
-      def cast_value(value, to:)
-        return value unless cast
-
-        return cast_to_date(value) if to == Date
-        return cast_to_date_time(value) if to == DateTime
-
-        value
       end
 
       def resource_key(external_id:, type:)

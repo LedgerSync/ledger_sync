@@ -7,16 +7,14 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
+                required(:account).hash(Types::Reference)
                 required(:vendor).hash(Types::Reference)
                 required(:amount).filled(:integer)
                 required(:currency).filled(:string)
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
-                required(:transaction_date).filled(:string)
-                required(:transactions).array(:hash) do
-                  required(:amount).filled(:integer)
-                  required(:description).maybe(:string)
-                end
+                required(:transaction_date).filled(:date?)
+                required(:line_items).array(Types::Reference)
               end
             end
 
@@ -29,17 +27,30 @@ module LedgerSync
                       Create.new(adaptor: adaptor, resource: resource)
                     end
 
+              build_account_operation(resource.account)
+              resource.line_items.each do |line_item|
+                build_account_operation(line_item.account)
+              end
               build_vendor_operation
               add_root_operation(op)
             end
 
+            def build_account_operation(account)
+              account_op = Account::Operations::Upsert.new(
+                adaptor: adaptor,
+                resource: account
+              )
+
+              add_before_operation(account_op)
+            end
+
             def build_vendor_operation
-              vendor = Vendor::Operations::Upsert.new(
+              vendor_op = Vendor::Operations::Upsert.new(
                 adaptor: adaptor,
                 resource: resource.vendor
               )
 
-              add_before_operation(vendor)
+              add_before_operation(vendor_op)
             end
 
             def find_result

@@ -133,8 +133,101 @@ RSpec.describe LedgerSync::Result, type: :serializable do
       subject = described_class.Success(:val, searcher: test_searcher).serialize
 
       h = {
-        objects: { 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff' => { data: { aliases: [:test], module: 'Test', rate_limiting_wait_in_seconds: 47, root_key: :test, test: true }, fingeprint: '7ff9ef0b13e681003c8015f59d0b5eff', id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff', object: 'LedgerSync::AdaptorConfiguration' }, 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce' => { data: { adaptor_configuration: { id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff', object: :reference } }, fingeprint: 'd751713988987e9331980363e24189ce', id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce', object: 'LedgerSync::Adaptors::Test::Adaptor' }, 'LedgerSync::Adaptors::Test::Customer::Searcher/e33dcde3d3013c9ab92d821a8e2302d1' => { data: { adaptor: { id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce', object: :reference }, pagination: {}, query: '', resources: [{ id: 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659', object: :reference }, { id: 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3', object: :reference }] }, fingeprint: 'e33dcde3d3013c9ab92d821a8e2302d1', id: 'LedgerSync::Adaptors::Test::Customer::Searcher/e33dcde3d3013c9ab92d821a8e2302d1', object: 'LedgerSync::Adaptors::Test::Customer::Searcher' }, 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659' => { data: { email: nil, external_id: :"", ledger_id: :asdf, name: 'Test customer 0', phone_number: nil, sync_token: nil }, fingeprint: '1b33bc9e3194050d076d128c1b3f9659', id: 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659', object: 'LedgerSync::Customer' }, 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3' => { data: { email: nil, external_id: :"", ledger_id: :asdf, name: 'Test customer 1', phone_number: nil, sync_token: nil }, fingeprint: '76bc4034f6ea9a35feff5b0e24e9c3f3', id: 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3', object: 'LedgerSync::Customer' }, 'LedgerSync::SearchResult::Success/f3f9cc5c9f12cfc115bf3903ec4005fc' => { data: { resources: [{ id: 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659', object: :reference }, { id: 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3', object: :reference }], searcher: { id: 'LedgerSync::Adaptors::Test::Customer::Searcher/e33dcde3d3013c9ab92d821a8e2302d1', object: :reference }, value: :val }, fingeprint: 'f3f9cc5c9f12cfc115bf3903ec4005fc', id: 'LedgerSync::SearchResult::Success/f3f9cc5c9f12cfc115bf3903ec4005fc', object: 'LedgerSync::SearchResult::Success' } },
-        root: 'LedgerSync::SearchResult::Success/f3f9cc5c9f12cfc115bf3903ec4005fc'
+        objects: {
+          'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff' => {
+            data: {
+              aliases: [:test],
+              module: 'Test',
+              rate_limiting_wait_in_seconds: 47,
+              root_key: :test,
+              test: true
+            },
+            fingeprint: '7ff9ef0b13e681003c8015f59d0b5eff',
+            id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff',
+            object: 'LedgerSync::AdaptorConfiguration'
+          },
+          'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce' => {
+            data: {
+              adaptor_configuration: {
+                id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff',
+                object: :reference
+              }
+            },
+            fingeprint: 'd751713988987e9331980363e24189ce',
+            id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
+            object: 'LedgerSync::Adaptors::Test::Adaptor'
+          },
+          'LedgerSync::Adaptors::Test::Customer::Searcher/9c7beeb5ce5fc76aaccc73ded30d4010' => {
+            data: {
+              adaptor: {
+                id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
+                object: :reference
+              },
+              pagination: {
+
+              },
+              query: '',
+              resources: [{
+                id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
+                object: :reference
+              },
+                          {
+                            id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',
+                            object: :reference
+                          }]
+            },
+            fingeprint: '9c7beeb5ce5fc76aaccc73ded30d4010',
+            id: 'LedgerSync::Adaptors::Test::Customer::Searcher/9c7beeb5ce5fc76aaccc73ded30d4010',
+            object: 'LedgerSync::Adaptors::Test::Customer::Searcher'
+          },
+          'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c' => {
+            data: {
+              email: nil,
+              external_id: :"",
+              ledger_id: :asdf,
+              name: 'Test customer 0',
+              phone_number: nil,
+              sync_token: nil
+            },
+            fingeprint: '0bce46b00949dc9db1d717d38ea9356c',
+            id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
+            object: 'LedgerSync::Customer'
+          },
+          'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606' => {
+            data: {
+              email: nil,
+              external_id: :"",
+              ledger_id: :asdf,
+              name: 'Test customer 1',
+              phone_number: nil,
+              sync_token: nil
+            },
+            fingeprint: '8fd0a86b38a3a4e127389d97a3782606',
+            id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',
+            object: 'LedgerSync::Customer'
+          },
+          'LedgerSync::SearchResult::Success/c9a5b9b6804f2be89eb7df07b67f0222' => {
+            data: {
+              resources: [{
+                id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
+                object: :reference
+              },
+                          {
+                            id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',
+                            object: :reference
+                          }],
+              searcher: {
+                id: 'LedgerSync::Adaptors::Test::Customer::Searcher/9c7beeb5ce5fc76aaccc73ded30d4010',
+                object: :reference
+              },
+              value: :val
+            },
+            fingeprint: 'c9a5b9b6804f2be89eb7df07b67f0222',
+            id: 'LedgerSync::SearchResult::Success/c9a5b9b6804f2be89eb7df07b67f0222',
+            object: 'LedgerSync::SearchResult::Success'
+          }
+        },
+        root: 'LedgerSync::SearchResult::Success/c9a5b9b6804f2be89eb7df07b67f0222'
       }
       expect(subject).to eq(h)
     end
@@ -144,8 +237,101 @@ RSpec.describe LedgerSync::Result, type: :serializable do
       subject = described_class.Failure(:val, searcher: test_searcher).serialize
 
       h = {
-        objects: { 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff' => { data: { aliases: [:test], module: 'Test', rate_limiting_wait_in_seconds: 47, root_key: :test, test: true }, fingeprint: '7ff9ef0b13e681003c8015f59d0b5eff', id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff', object: 'LedgerSync::AdaptorConfiguration' }, 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce' => { data: { adaptor_configuration: { id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff', object: :reference } }, fingeprint: 'd751713988987e9331980363e24189ce', id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce', object: 'LedgerSync::Adaptors::Test::Adaptor' }, 'LedgerSync::Adaptors::Test::Customer::Searcher/e33dcde3d3013c9ab92d821a8e2302d1' => { data: { adaptor: { id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce', object: :reference }, pagination: {}, query: '', resources: [{ id: 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659', object: :reference }, { id: 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3', object: :reference }] }, fingeprint: 'e33dcde3d3013c9ab92d821a8e2302d1', id: 'LedgerSync::Adaptors::Test::Customer::Searcher/e33dcde3d3013c9ab92d821a8e2302d1', object: 'LedgerSync::Adaptors::Test::Customer::Searcher' }, 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659' => { data: { email: nil, external_id: :"", ledger_id: :asdf, name: 'Test customer 0', phone_number: nil, sync_token: nil }, fingeprint: '1b33bc9e3194050d076d128c1b3f9659', id: 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659', object: 'LedgerSync::Customer' }, 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3' => { data: { email: nil, external_id: :"", ledger_id: :asdf, name: 'Test customer 1', phone_number: nil, sync_token: nil }, fingeprint: '76bc4034f6ea9a35feff5b0e24e9c3f3', id: 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3', object: 'LedgerSync::Customer' }, 'LedgerSync::SearchResult::Failure/a8f6f725c41d453d2f6826d51b9734a2' => { data: { error: :val, resources: [{ id: 'LedgerSync::Customer/1b33bc9e3194050d076d128c1b3f9659', object: :reference }, { id: 'LedgerSync::Customer/76bc4034f6ea9a35feff5b0e24e9c3f3', object: :reference }], searcher: { id: 'LedgerSync::Adaptors::Test::Customer::Searcher/e33dcde3d3013c9ab92d821a8e2302d1', object: :reference } }, fingeprint: 'a8f6f725c41d453d2f6826d51b9734a2', id: 'LedgerSync::SearchResult::Failure/a8f6f725c41d453d2f6826d51b9734a2', object: 'LedgerSync::SearchResult::Failure' } },
-        root: 'LedgerSync::SearchResult::Failure/a8f6f725c41d453d2f6826d51b9734a2'
+        objects: {
+          'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff' => {
+            data: {
+              aliases: [:test],
+              module: 'Test',
+              rate_limiting_wait_in_seconds: 47,
+              root_key: :test,
+              test: true
+            },
+            fingeprint: '7ff9ef0b13e681003c8015f59d0b5eff',
+            id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff',
+            object: 'LedgerSync::AdaptorConfiguration'
+          },
+          'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce' => {
+            data: {
+              adaptor_configuration: {
+                id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff',
+                object: :reference
+              }
+            },
+            fingeprint: 'd751713988987e9331980363e24189ce',
+            id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
+            object: 'LedgerSync::Adaptors::Test::Adaptor'
+          },
+          'LedgerSync::Adaptors::Test::Customer::Searcher/9c7beeb5ce5fc76aaccc73ded30d4010' => {
+            data: {
+              adaptor: {
+                id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
+                object: :reference
+              },
+              pagination: {
+
+              },
+              query: '',
+              resources: [{
+                id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
+                object: :reference
+              },
+                          {
+                            id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',
+                            object: :reference
+                          }]
+            },
+            fingeprint: '9c7beeb5ce5fc76aaccc73ded30d4010',
+            id: 'LedgerSync::Adaptors::Test::Customer::Searcher/9c7beeb5ce5fc76aaccc73ded30d4010',
+            object: 'LedgerSync::Adaptors::Test::Customer::Searcher'
+          },
+          'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c' => {
+            data: {
+              email: nil,
+              external_id: :"",
+              ledger_id: :asdf,
+              name: 'Test customer 0',
+              phone_number: nil,
+              sync_token: nil
+            },
+            fingeprint: '0bce46b00949dc9db1d717d38ea9356c',
+            id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
+            object: 'LedgerSync::Customer'
+          },
+          'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606' => {
+            data: {
+              email: nil,
+              external_id: :"",
+              ledger_id: :asdf,
+              name: 'Test customer 1',
+              phone_number: nil,
+              sync_token: nil
+            },
+            fingeprint: '8fd0a86b38a3a4e127389d97a3782606',
+            id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',
+            object: 'LedgerSync::Customer'
+          },
+          'LedgerSync::SearchResult::Failure/e7006403c6ec98c1bf0261f0d8622949' => {
+            data: {
+              error: :val,
+              resources: [{
+                id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
+                object: :reference
+              },
+                          {
+                            id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',
+                            object: :reference
+                          }],
+              searcher: {
+                id: 'LedgerSync::Adaptors::Test::Customer::Searcher/9c7beeb5ce5fc76aaccc73ded30d4010',
+                object: :reference
+              }
+            },
+            fingeprint: 'e7006403c6ec98c1bf0261f0d8622949',
+            id: 'LedgerSync::SearchResult::Failure/e7006403c6ec98c1bf0261f0d8622949',
+            object: 'LedgerSync::SearchResult::Failure'
+          }
+        },
+        root: 'LedgerSync::SearchResult::Failure/e7006403c6ec98c1bf0261f0d8622949'
       }
       expect(subject).to eq(h)
     end

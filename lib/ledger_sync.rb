@@ -9,6 +9,7 @@ require 'uri'
 require 'colorize'
 require 'fingerprintable'
 require 'simply_serializable'
+require 'active_model'
 
 # Version
 require 'ledger_sync/version'
@@ -39,11 +40,12 @@ require 'ledger_sync/adaptors/contract'
 
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class
-require 'ledger_sync/resources/customer'
-require 'ledger_sync/resources/payment'
-require 'ledger_sync/resources/vendor'
-require 'ledger_sync/resources/expense'
 require 'ledger_sync/resources/account'
+require 'ledger_sync/resources/customer'
+require 'ledger_sync/resources/vendor'
+require 'ledger_sync/resources/payment'
+require 'ledger_sync/resources/expense_line_item'
+require 'ledger_sync/resources/expense'
 
 # Synchronizer
 require 'ledger_sync/sync'
@@ -109,8 +111,9 @@ end
 Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 
 # Register Resources
-LedgerSync.register_resource(resource: LedgerSync::Customer)
-LedgerSync.register_resource(resource: LedgerSync::Payment)
-LedgerSync.register_resource(resource: LedgerSync::Vendor)
-LedgerSync.register_resource(resource: LedgerSync::Expense)
 LedgerSync.register_resource(resource: LedgerSync::Account)
+LedgerSync.register_resource(resource: LedgerSync::Customer)
+LedgerSync.register_resource(resource: LedgerSync::Vendor)
+LedgerSync.register_resource(resource: LedgerSync::Payment)
+LedgerSync.register_resource(resource: LedgerSync::ExpenseLineItem)
+LedgerSync.register_resource(resource: LedgerSync::Expense)

@@ -92,16 +92,12 @@ module InputHelpers
       data: {
         amount: 12_345,
         currency: :usd,
+        account: :a1,
         vendor: :v1,
         memo: 'Memo',
         payment_type: 'bank',
         transaction_date: '2019-09-01',
-        transactions: [
-          {
-            amount: 12_345,
-            description: 'Sample Transaction'
-          }
-        ]
+        line_items: [:li1, :li2]
       }
     }.merge(merge)
   end
@@ -109,12 +105,32 @@ module InputHelpers
   def expense_resources(**merge)
     {
       vendor: {
-        v1: vendor(merge),
+        v1: vendor({resource_external_id: 'v_1'})
+      },
+      account: {
+        a1: account({resource_external_id: 'a_1'})
       },
       expense: {
         e1: expense(merge)
+      },
+      expense_line_item: {
+        li1: expense_line_item({resource_external_id: 'li_1'}),
+        li2: expense_line_item({resource_external_id: 'li_2'})
       }
     }
+  end
+
+  def expense_line_item(**merge)
+    {
+      object: :expense_line_item,
+      resource_external_id: 'li_1',
+      resource_type: 'expense_line_item',
+      data: {
+        account: :a1,
+        amount: 12_345,
+        description: 'Sample Transaction'
+      }
+    }.merge(merge)
   end
 
   def quickbooks_config

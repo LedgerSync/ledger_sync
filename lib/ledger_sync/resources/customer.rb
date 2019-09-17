@@ -2,8 +2,8 @@
 
 module LedgerSync
   class Customer < LedgerSync::Resource
-    attribute :email, type: :string
-    attribute :name, type: :string
-    attribute :phone_number, type: :string
+    attribute :email, type: Type::String
+    attribute :name, type: Type::String
+    attribute :phone_number, type: Type::String
   end
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module LedgerSync
   class Payment < LedgerSync::Resource
-    attribute :currency, type: :string
-    reference :customer, to: Customer
-    attribute :amount, type: :number
+    attribute :amount, type: Type::Integer
+    attribute :currency, type: Type::String
+    references_one :customer, to: Customer
 
     def name
       "Payment: #{amount} #{currency}"

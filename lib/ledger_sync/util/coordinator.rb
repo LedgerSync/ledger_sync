@@ -4,7 +4,6 @@ module LedgerSync
       attr_reader :operation
 
       def initialize(operation:)
-
         @operation = operation
       end
 
@@ -14,13 +13,7 @@ module LedgerSync
             operation
           )
 
-          converted_operations = self.class.convert_downstream_creates_to_upserts(
-            flattened_operation
-          )
-
-          de_duped = self.class.de_dup(converted_operations)
-
-          de_duped
+          self.class.de_dup(flattened_operation)
         end
       end
 

@@ -8,12 +8,13 @@ module LedgerSync
               params do
                 required(:ledger_id).value(:nil)
                 required(:vendor).hash(Types::Reference)
+                required(:account).hash(Types::Reference)
                 required(:amount).filled(:integer)
                 required(:currency).filled(:string)
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
-                required(:transaction_date).filled(:string)
-                required(:transactions).array(:hash) do
+                required(:transaction_date).filled(:date?)
+                required(:line_items).array(:hash) do
                   required(:amount).filled(:integer)
                   required(:description).maybe(:string)
                 end
@@ -59,21 +60,21 @@ module LedgerSync
                 'EntityRef' => {
                   'value' => resource.vendor.ledger_id,
                 },
-                'Line' => [
+                'AccountRef' => {
+                  'value' => resource.account.ledger_id
+                },
+                'Line' => resource.line_items.map do |transaction|
                   {
                     'AccountBasedExpenseLineDetail' => {
                       'AccountRef' => {
-                        'value' => '4'
+                        'value' => resource.account.ledger_id
                       }
                     },
                     'Amount' => resource.amount,
                     'DetailType' => 'AccountBasedExpenseLineDetail',
-                    'Description' => 'Some description'
+                    'Description' => re
                   }
-                ],
-                'AccountRef' => {
-                  'value' => '4'
-                }
+                end
               }
             end
           end

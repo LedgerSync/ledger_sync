@@ -6,7 +6,6 @@ module LedgerSync
       @resource = resource
       super(message: message)
     end
-
     class AttributeTypeError < self
       attr_reader :attribute, :resource, :value
 
@@ -16,11 +15,19 @@ module LedgerSync
         @value = value
 
         resource_class = resource.class
-        valid_types = resource.class.attributes[attribute].valid_classes
 
-        message = "Attribute #{attribute} for #{resource_class.name} should be one of the following: #{valid_types.join(', ')}.  Given: #{value.class}"
+        message = "Attribute #{attribute.name} for #{resource_class.name} should be a class supported by #{attribute.type.class.name}.  Given: #{value.class}"
 
         super(message: message, resource: nil)
+      end
+    end
+
+    class ReferenceAssignmentError < self
+      def initialize(attribute:, resource:, value:)
+        resource_class = resource.class
+        message = "Attribute #{attribute} value for #{resource_class.name} should be a #{asdf}.  Given: #{value.class}"
+
+        super(message: message, resource: resource)
       end
     end
 
