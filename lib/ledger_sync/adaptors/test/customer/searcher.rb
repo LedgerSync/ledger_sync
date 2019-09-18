@@ -4,11 +4,11 @@ module LedgerSync
       module Customer
         class Searcher < LedgerSync::Adaptors::Searcher
           def next_searcher
-            paginate(cursor: 'asdf')
+            paginate(cursor: 'next_page')
           end
 
           def previous_searcher
-            paginate(cursor: 'asdf')
+            paginate(cursor: 'previous_page')
           end
 
           def resources
