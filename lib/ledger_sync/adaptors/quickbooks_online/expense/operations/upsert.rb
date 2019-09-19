@@ -14,10 +14,7 @@ module LedgerSync
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
                 required(:transaction_date).filled(:date?)
-                required(:line_items).array(:hash) do
-                  required(:amount).filled(:integer)
-                  required(:description).maybe(:string)
-                end
+                required(:line_items).array(Types::Reference)
               end
             end
 
@@ -30,8 +27,21 @@ module LedgerSync
                      Create.new(adaptor: adaptor, resource: resource)
                    end
 
+              build_account_operation(resource.account)
+              resource.line_items.each do |line_item|
+                build_account_operation(line_item.account)
+              end
               build_vendor_operation
               add_root_operation(op)
+            end
+
+            def build_account_operation(account)
+              account_op = Account::Operations::Upsert.new(
+                adaptor: adaptor,
+                resource: account
+              )
+
+              add_before_operation(account_op)
             end
 
             def build_vendor_operation

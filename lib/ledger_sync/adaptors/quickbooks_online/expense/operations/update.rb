@@ -14,16 +14,17 @@ module LedgerSync
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
                 required(:transaction_date).filled(:date?)
-                required(:line_items).array(:hash) do
-                  required(:amount).filled(:integer)
-                  required(:description).maybe(:string)
-                end
+                required(:line_items).array(Types::Reference)
               end
             end
 
             private
 
             def build
+              build_account_operation(resource.account)
+              resource.line_items.each do |line_item|
+                build_account_operation(line_item.account)
+              end
               build_vendor_operation
               add_root_operation(self)
             end
@@ -42,6 +43,15 @@ module LedgerSync
               success(response: response)
             rescue OAuth2::Error => e
               failure(e)
+            end
+
+            def build_account_operation(account)
+              account_op = Account::Operations::Upsert.new(
+                adaptor: adaptor,
+                resource: account
+              )
+
+              add_before_operation(account_op)
             end
 
             def build_vendor_operation
@@ -64,21 +74,21 @@ module LedgerSync
                 'EntityRef' => {
                   'value' => resource.vendor.ledger_id,
                 },
-                'Line' => [
+                'AccountRef' => {
+                  'value' => resource.account.ledger_id
+                },
+                'Line' => resource.line_items.map do |line_item|
                   {
                     'AccountBasedExpenseLineDetail' => {
                       'AccountRef' => {
-                        'value' => '4'
+                        'value' => line_item.account.ledger_id
                       }
                     },
-                    'Amount' => resource.amount,
+                    'Amount' => line_item.amount,
                     'DetailType' => 'AccountBasedExpenseLineDetail',
-                    'Description' => 'Some description'
+                    'Description' => line_item.description
                   }
-                ],
-                'AccountRef' => {
-                  'value' => '4'
-                }
+                end
               }
             end
           end
