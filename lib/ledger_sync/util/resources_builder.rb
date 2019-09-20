@@ -50,7 +50,7 @@ module LedgerSync
             k = k.to_sym
 
             attribute = resource_class.attributes[k]
-            raise 'Unrecognized attribute' if attribute.nil? && !ignore_unrecognized_attributes
+            raise "Unrecognized attribute for #{resource_class.name}: #{k}" if attribute.nil? && !ignore_unrecognized_attributes
 
             v = if attribute.is_a?(ResourceAttribute::Reference::One)
                   resource_or_build(

@@ -27,8 +27,7 @@ module LedgerSync
     end
 
     class TestParentResource < LedgerSync::Resource
-      references_one :child, to: TestResource::TestChildResource
-      references_one :child2, to: TestResource::TestChildResource
+      references_many :children, to: TestResource::TestChildResource
 
       attribute :test_parent_resource_attribute, type: Type::String
     end
@@ -91,8 +90,10 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         test_parent_resource: {
           test_parent_resource_external_id: {
             data: {
-              child: :test_child_resource_external_id,
-              child2: :test_child2_resource_external_id,
+              children: [
+                :test_child_resource_external_id,
+                :test_child2_resource_external_id
+              ],
               test_parent_resource_attribute: :test_parent_resource_value
             }
           }
@@ -119,6 +120,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         }
       }
     end
+
     let(:root_resource_external_id) { :test_parent_resource_external_id }
     let(:root_resource_type) { :test_parent_resource }
 
@@ -132,8 +134,8 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
     let(:resource) { builder.resource }
     let(:resources) { builder.resources }
     let(:parent) { resource }
-    let(:child) { parent.child }
-    let(:child2) { parent.child2 }
+    let(:child) { parent.children.first }
+    let(:child2) { parent.children.last }
     let(:grandchild) { child.grandchild }
 
     it do

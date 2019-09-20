@@ -13,6 +13,17 @@ module LedgerSync
     include ResourceAttribute::Reference::One::Mixin
     include ResourceAttribute::Reference::Many::Mixin
 
+    PRIMITIVES = [
+      Date,
+      DateTime,
+      FalseClass,
+      Integer,
+      NilClass,
+      String,
+      Time,
+      TrueClass
+    ].freeze
+
     serialize except: %i[attributes references]
 
     attr_accessor :external_id, :ledger_id, :sync_token
