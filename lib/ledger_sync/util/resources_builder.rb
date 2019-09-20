@@ -74,7 +74,7 @@ module LedgerSync
           end
         ]
 
-        @all_resources[resource_key(external_id: external_id, type: type)] = resource_class.new(
+        @all_resources[resource_key(external_id: external_id, type: type)] ||= resource_class.new(
           external_id: external_id,
           ledger_id: ledger_id,
           **current_data
