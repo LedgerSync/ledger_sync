@@ -95,7 +95,7 @@ module InputHelpers
         account: :a1,
         vendor: :v1,
         memo: 'Memo',
-        payment_type: 'bank',
+        payment_type: 'cash',
         transaction_date: '2019-09-01',
         line_items: [:li1, :li2]
       }
@@ -105,10 +105,10 @@ module InputHelpers
   def expense_resources(**merge)
     {
       vendor: {
-        v1: vendor({resource_external_id: 'v_1'})
+        v1: vendor({resource_external_id: 'v_1'}.merge(merge))
       },
       account: {
-        a1: account({resource_external_id: 'a_1'})
+        a1: account({resource_external_id: 'a_1'}.merge(merge))
       },
       expense: {
         e1: expense(merge)

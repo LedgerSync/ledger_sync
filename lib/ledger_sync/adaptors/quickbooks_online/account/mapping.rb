@@ -3,7 +3,6 @@ module LedgerSync
     module QuickBooksOnline
       module Account
         module Mapping
-
           ACCOUNT_TYPES = {
             # Bank
             'cash_on_hand' => 'CashOnHand',

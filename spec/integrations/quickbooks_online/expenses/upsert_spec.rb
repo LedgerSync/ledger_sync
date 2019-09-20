@@ -2,14 +2,30 @@ require 'spec_helper'
 
 support :input_helpers
 support :adaptor_helpers
+support :quickbooks_helpers
 
-RSpec.describe 'test/expenses/upsert', type: :feature do
+RSpec.describe 'quickbooks_online/expenses/upsert', type: :feature do
   include InputHelpers
   include AdaptorHelpers
+  include QuickbooksHelpers
+
+  before {
+    stub_find_account
+    stub_create_account
+    stub_update_account
+
+    stub_find_vendor
+    stub_create_vendor
+    stub_update_vendor
+
+    stub_find_expense
+    stub_create_expense
+    stub_update_expense
+  }
 
   let(:input_create) do
     {
-      adaptor: test_adaptor,
+      adaptor: quickbooks_adaptor,
       resource_external_id: :e1,
       resource_type: 'expense',
       method: :upsert,
@@ -22,8 +38,8 @@ RSpec.describe 'test/expenses/upsert', type: :feature do
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_create).operations }
     it { expect(subject.length).to eq(3) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Account::Operations::Create) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Expense::Operations::Create) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Create) }
+    it { expect(subject.last).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Create) }
   end
 
   context '#perform' do
@@ -34,7 +50,7 @@ RSpec.describe 'test/expenses/upsert', type: :feature do
 
   let(:input_update) do
     {
-      adaptor: test_adaptor,
+      adaptor: quickbooks_adaptor,
       resource_external_id: :e1,
       resource_type: 'expense',
       method: :upsert,
@@ -47,8 +63,8 @@ RSpec.describe 'test/expenses/upsert', type: :feature do
   context '#operations' do
     subject { LedgerSync::Sync.new(**input_update).operations }
     it { expect(subject.length).to eq(3) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Account::Operations::Update) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Expense::Operations::Update) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Update) }
+    it { expect(subject.last).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Update) }
   end
 
   context '#perform' do

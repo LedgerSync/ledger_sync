@@ -2,17 +2,23 @@ require 'spec_helper'
 
 support :input_helpers
 support :adaptor_helpers
+support :quickbooks_helpers
 
-RSpec.describe 'test/expenses/update', type: :feature do
+RSpec.describe 'quickbooks_online/expenses/find', type: :feature do
   include InputHelpers
   include AdaptorHelpers
+  include QuickbooksHelpers
+
+  before {
+    stub_find_expense
+  }
 
   let(:input) do
     {
-      adaptor: test_adaptor,
+      adaptor: quickbooks_adaptor,
       resource_external_id: :e1,
       resource_type: 'expense',
-      method: :update,
+      method: :find,
       resources_data: expense_resources(ledger_id: '123')
     }
   end
@@ -21,9 +27,8 @@ RSpec.describe 'test/expenses/update', type: :feature do
 
   context '#operations' do
     subject { LedgerSync::Sync.new(**input).operations }
-    it { expect(subject.length).to eq(3) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Account::Operations::Update) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Expense::Operations::Update) }
+    it { expect(subject.length).to eq(1) }
+    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Find) }
   end
 
   context '#perform' do

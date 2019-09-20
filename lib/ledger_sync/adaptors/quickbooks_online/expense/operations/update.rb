@@ -68,7 +68,7 @@ module LedgerSync
                 'CurrencyRef' => {
                   'value' => resource.currency,
                 },
-                'PaymentType' => resource.payment_type,
+                'PaymentType' => Mapping::PAYMENT_TYPES[resource.payment_type],
                 'TxnDate' => resource.transaction_date,
                 'PrivateNote' => resource.memo,
                 'EntityRef' => {
@@ -79,13 +79,13 @@ module LedgerSync
                 },
                 'Line' => resource.line_items.map do |line_item|
                   {
+                    'DetailType' => 'AccountBasedExpenseLineDetail',
                     'AccountBasedExpenseLineDetail' => {
                       'AccountRef' => {
                         'value' => line_item.account.ledger_id
                       }
                     },
                     'Amount' => line_item.amount,
-                    'DetailType' => 'AccountBasedExpenseLineDetail',
                     'Description' => line_item.description
                   }
                 end
