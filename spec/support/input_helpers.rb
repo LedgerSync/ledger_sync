@@ -47,7 +47,8 @@ module InputHelpers
       resource_type: 'account',
       data: {
         name: 'Sample Account',
-        account_type: 'cash_on_hand'
+        account_type: 'bank',
+        account_sub_type: 'cash_on_hand'
       }
     }.merge(merge)
   end

@@ -4,6 +4,13 @@ module LedgerSync
       module Account
         module Mapping
           ACCOUNT_TYPES = {
+            'bank' => 'Bank',
+            'other_current_assets' => 'Other Current Asset',
+            'fixed_asset' => 'Fixed Asset',
+            'other_asset' => 'Other Asset'
+          }
+
+          ACCOUNT_SUB_TYPES = {
             # Bank
             'cash_on_hand' => 'CashOnHand',
             'checking' => 'Checking',

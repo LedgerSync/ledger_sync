@@ -11,6 +11,7 @@ module LedgerSync
                 required(:ledger_id).value(:nil)
                 required(:name).filled(:string)
                 required(:account_type).filled(:string)
+                required(:account_sub_type).filled(:string)
               end
             end
 
@@ -29,7 +30,8 @@ module LedgerSync
             def local_resource_data
               {
                 'Name' => resource.name,
-                'AccountSubType' => Mapping::ACCOUNT_TYPES[resource.account_type]
+                'AccountType' => Mapping::ACCOUNT_TYPES[resource.account_type],
+                'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[resource.account_sub_type]
               }
             end
           end
