@@ -82,7 +82,7 @@ module LedgerSync
                     'DetailType' => 'AccountBasedExpenseLineDetail',
                     'AccountBasedExpenseLineDetail' => {
                       'AccountRef' => {
-                        'value' => line_item.account.ledger_id
+                        'value' => line_item.account&.ledger_id || resource.account.ledger_id
                       }
                     },
                     'Amount' => line_item.amount,
