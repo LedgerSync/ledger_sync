@@ -20,7 +20,7 @@ module LedgerSync
             def operate
               return failure(nil) if resource.ledger_id.nil?
 
-              response = @adaptor.find(
+              response = adaptor.find(
                 resource: 'vendor',
                 id: resource.ledger_id
               )

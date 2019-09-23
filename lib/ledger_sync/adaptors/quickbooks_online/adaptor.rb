@@ -66,13 +66,6 @@ module LedgerSync
           JSON.parse(response.body).dig('QueryResponse', resource.capitalize) || []
         end
 
-        def upsert(resource:, payload:)
-          url = "#{oauth_base_uri}/#{underscore(resource)}"
-
-          response = request(:post, url, headers: OAUTH_HEADERS.dup, body: payload.to_json)
-          JSON.parse(response.body).dig(resource.capitalize)
-        end
-
         def refresh!
           refreshed = oauth.refresh!
 
@@ -89,6 +82,13 @@ module LedgerSync
           self
         rescue OAuth2::Error => e
           raise parse_error(error: e)
+        end
+
+        def upsert(resource:, payload:)
+          url = "#{oauth_base_uri}/#{underscore(resource)}"
+
+          response = request(:post, url, headers: OAUTH_HEADERS.dup, body: payload.to_json)
+          JSON.parse(response.body).dig(resource.capitalize)
         end
 
         def self.ledger_attributes_to_save

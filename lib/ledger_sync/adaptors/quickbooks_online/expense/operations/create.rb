@@ -1,5 +1,3 @@
-require 'byebug'
-
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
