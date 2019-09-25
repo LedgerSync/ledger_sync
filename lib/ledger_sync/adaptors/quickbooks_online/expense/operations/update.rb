@@ -14,6 +14,7 @@ module LedgerSync
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
                 required(:transaction_date).filled(:date?)
+                required(:exchange_rate).maybe(:float)
                 required(:line_items).array(Types::Reference)
               end
             end
@@ -71,6 +72,7 @@ module LedgerSync
                 'PaymentType' => Mapping::PAYMENT_TYPES[resource.payment_type],
                 'TxnDate' => resource.transaction_date,
                 'PrivateNote' => resource.memo,
+                'ExchangeRate' => resource.exchange_rate,
                 'EntityRef' => {
                   'value' => resource.vendor.ledger_id,
                 },

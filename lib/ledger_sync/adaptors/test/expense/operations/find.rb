@@ -14,6 +14,7 @@ module LedgerSync
                 required(:memo).maybe(:string)
                 required(:payment_type).maybe(:string)
                 required(:transaction_date).maybe(:date?)
+                required(:exchange_rate).maybe(:float)
                 required(:line_items).array(Types::Reference)
               end
             end
