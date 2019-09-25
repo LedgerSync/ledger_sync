@@ -14,6 +14,10 @@ module LedgerSync
                 required(:name).filled(:string)
                 required(:account_type).filled(:string)
                 required(:account_sub_type).filled(:string)
+                required(:number).maybe(:integer)
+                required(:currency).maybe(:string)
+                required(:description).maybe(:string)
+                required(:active).maybe(:bool)
               end
             end
 
@@ -40,7 +44,13 @@ module LedgerSync
               {
                 'Name' => resource.name,
                 'AccountType' => Mapping::ACCOUNT_TYPES[resource.account_type],
-                'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[resource.account_sub_type]
+                'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[resource.account_sub_type],
+                'AcctNum' => resource.number,
+                'CurrencyRef' => {
+                  'value' => resource.currency,
+                },
+                'Description' => resource.description,
+                'Active' => resource.active
               }
             end
           end

@@ -48,7 +48,10 @@ module InputHelpers
       data: {
         name: 'Sample Account',
         account_type: 'bank',
-        account_sub_type: 'cash_on_hand'
+        account_sub_type: 'cash_on_hand',
+        currency: 'USD',
+        description: 'This is Sample Account',
+        active: true
       }
     }.merge(merge)
   end

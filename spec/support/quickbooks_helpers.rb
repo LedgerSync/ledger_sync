@@ -223,7 +223,7 @@ module QuickbooksHelpers
   def stub_create_account
     stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account").
       with(
-        body: "{\"Name\":\"Sample Account\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\"}",
+        body: "{\"Name\":\"Sample Account\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"AcctNum\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"Description\":\"This is Sample Account\",\"Active\":true}",
         headers: {
           'Accept'=>'application/json',
           'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -274,7 +274,7 @@ module QuickbooksHelpers
   def stub_update_account
     stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account").
       with(
-        body: "{\"Name\":\"Sample Account\",\"SubAccount\":false,\"FullyQualifiedName\":\"Sample Account\",\"Active\":true,\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"CurrentBalance\":0,\"CurrentBalanceWithSubAccounts\":0,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T12:22:16-07:00\",\"LastUpdatedTime\":\"2019-09-12T12:22:16-07:00\"}}",
+        body: "{\"Name\":\"Sample Account\",\"SubAccount\":false,\"FullyQualifiedName\":\"Sample Account\",\"Active\":true,\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"CurrentBalance\":0,\"CurrentBalanceWithSubAccounts\":0,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T12:22:16-07:00\",\"LastUpdatedTime\":\"2019-09-12T12:22:16-07:00\"},\"AcctNum\":null,\"Description\":\"This is Sample Account\"}",
         headers: {
           'Accept'=>'application/json',
           'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
