@@ -1,5 +1,26 @@
 module QuickbooksHelpers
 
+  # Adaptor
+
+  def stub_adaptor_refresh
+    stub_request(:post, "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer").
+    with(
+      body: {"client_id"=>"client_id", "client_secret"=>"client_secret", "grant_type"=>"refresh_token", "refresh_token"=>"refresh_token"},
+      headers: {
+      'Accept'=>'*/*',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Content-Type'=>'application/x-www-form-urlencoded',
+      'User-Agent'=>'Faraday v0.15.4'
+      }).
+    to_return(
+      status: 200,
+      body: "{\"token_type\":\"bearer\",\"expires_in\":3600,\"refresh_token\":\"NEW_REFRESH_TOKEN\",\"x_refresh_token_expires_in\":1569480516,\"access_token\":\"NEW_ACCESS_TOKEN\"}",
+      headers: {
+        'Content-Type'=>'application/json'
+      }
+    )
+  end
+
   # Customer
 
   def stub_create_customer
