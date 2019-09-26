@@ -29,17 +29,18 @@ module LedgerSync
           base.extend ClassMethods
 
           base.class_eval do
-            serialize only: %i[
-              adaptor
-              after_operations
-              before_operations
-              operations
-              resource
-              root_operation
-              result
-              response
-              original
-            ]
+            serialize do_not_serialize_if_class_is: [Date, DateTime, Time],
+                      only: %i[
+                        adaptor
+                        after_operations
+                        before_operations
+                        operations
+                        resource
+                        root_operation
+                        result
+                        response
+                        original
+                      ]
           end
         end
 
@@ -90,7 +91,7 @@ module LedgerSync
             operate
           rescue LedgerSync::Error => e
             failure(e)
-          rescue => e
+          rescue StandardError => e
             parsed_error = adaptor.parse_operation_error(error: e, operation: self)
             raise e unless parsed_error
 
@@ -134,20 +135,22 @@ module LedgerSync
           result.success?
         end
 
+        def valid?
+          validate.success?
+        end
+
         def validate
           raise "#{self.class.name}::Contract must be defined to validate." unless self.class.const_defined?('Contract')
 
-          serializer = resource.serializer
-          serialized_resource = serializer.serialize[:objects][serializer.id][:data]
-
           Util::Validator.new(
             contract: self.class::Contract,
-            data: serialized_resource
+            data: validation_data
           ).validate
         end
 
-        def valid?
-          validate.success?
+        def validation_data
+          serializer = resource.serializer
+          serializer.serialize[:objects][serializer.id][:data]
         end
 
         # Comparison
