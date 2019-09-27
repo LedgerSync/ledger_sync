@@ -3,12 +3,14 @@
 module LedgerSync
   module Util
     class ResourcesBuilder
-      attr_reader :data,
+      attr_reader :cast,
+                  :data,
                   :root_resource_external_id,
                   :root_resource_type
 
-      def initialize(data:, root_resource_external_id:, root_resource_type:)
+      def initialize(cast: true, data:, root_resource_external_id:, root_resource_type:)
         @all_resources = {}
+        @cast = cast
         @data = Util::HashHelpers.deep_symbolize_keys(data)
         @root_resource_external_id = root_resource_external_id
         @root_resource_type = root_resource_type
@@ -41,17 +43,63 @@ module LedgerSync
         resource_klass = LedgerSync.resources[type]
         raise "#{type} is an invalid resource type" if resource_klass.nil?
 
-        provided_references = resource_klass.references.select { |k, _v| current_data.key?(k) }
+        current_data = Hash[
+          current_data.map do |k, v|
+            k = k.to_sym
 
-        provided_references.each do |reference, reference_klass|
-          current_data[reference] = resource_or_build(external_id: current_data[reference], type: reference_klass.resource_type)
-        end
+            attribute = resource_klass.attributes[k]
+            next unless attribute.present?
+
+            v = if attribute.reference?
+                  resource_or_build(
+                    external_id: current_data[k],
+                    type: attribute.type.resource_type
+                  )
+                else
+                  cast_value(v, to: attribute.valid_classes.first)
+                end
+
+            [k, v]
+          end
+        ]
 
         @all_resources[resource_key(external_id: external_id, type: type)] = resource_klass.new(
           external_id: external_id,
           ledger_id: ledger_id,
           **current_data
         )
+      end
+
+      def cast_to_date(value)
+        case value
+        when Date
+          pdb
+          value
+        when String
+          Date.parse(value)
+        else
+          raise "Do not know how to create a Date from #{value.class}"
+        end
+      end
+
+      def cast_to_date_time(value)
+        case value
+        when DateTime
+          value
+        when String
+          DateTime.parse(value)
+        else
+          raise "Do not know how to create a DateTime from #{value.class}"
+        end
+      end
+
+      def cast_value(value, to:)
+        return value unless cast
+
+        return cast_to_date(value) if to == Date
+        return cast_to_date_time(value) if to == DateTime
+
+        value
       end
 
       def resource_key(external_id:, type:)
