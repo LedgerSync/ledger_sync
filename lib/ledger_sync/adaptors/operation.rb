@@ -29,8 +29,7 @@ module LedgerSync
           base.extend ClassMethods
 
           base.class_eval do
-            serialize do_not_serialize_if_class_is: [Date, DateTime, Time],
-                      only: %i[
+            serialize only: %i[
                         adaptor
                         after_operations
                         before_operations
@@ -150,10 +149,7 @@ module LedgerSync
 
         def validation_data
           serializer = resource.serializer(
-            do_not_serialize_if_class_is: [
-              Date,
-              DateTime
-            ]
+            do_not_serialize_if_class_is: Resource::PRIMITIVES
           )
           serializer.serialize[:objects][serializer.id][:data]
         end
