@@ -82,6 +82,22 @@ module InputHelpers
     }.merge(merge)
   end
 
+  def transfer_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      from_account: nil,
+      to_account: nil,
+      #attributes
+      amount: 12_345,
+      currency: 'USD',
+      memo: 'Memo',
+      transaction_date: Date.parse('2019-09-01')
+    }.merge(merge)
+  end
+
   def deposit_resource(**merge)
     {
       external_id: nil,

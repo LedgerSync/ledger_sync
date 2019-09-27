@@ -63,20 +63,21 @@ module QuickBooksHelpers
   end
 
   def stub_search_customer
-    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Customer%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Customer%25'%20STARTPOSITION%201%20MAXRESULTS%2010"). with(
-      headers: {
-        'Accept' => 'application/json',
-        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'Authorization' => 'Bearer access_token',
-        'Content-Type' => 'application/json',
-        'User-Agent' => 'Faraday v0.15.4'
-      }
-    )
-                                                                                                                                                                                                                               .to_return(
-                                                                                                                                                                                                                                 status: 200,
-                                                                                                                                                                                                                                 body: '{"QueryResponse":{"Customer":[{"Taxable":true,"Job":false,"BillWithParent":false,"Balance":0,"BalanceWithJobs":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PreferredDeliveryMethod":"Print","domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:04:17-07:00","LastUpdatedTime":"2019-07-11T13:04:17-07:00"},"FullyQualifiedName":"Sample Customer","DisplayName":"Sample Customer","PrintOnCheckName":"Sample Customer","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"},"DefaultTaxCodeRef":{"value":"2"}}]}}',
-                                                                                                                                                                                                                                 headers: {}
-                                                                                                                                                                                                                               )
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Customer%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Customer%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"QueryResponse":{"Customer":[{"Taxable":true,"Job":false,"BillWithParent":false,"Balance":0,"BalanceWithJobs":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PreferredDeliveryMethod":"Print","domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:04:17-07:00","LastUpdatedTime":"2019-07-11T13:04:17-07:00"},"FullyQualifiedName":"Sample Customer","DisplayName":"Sample Customer","PrintOnCheckName":"Sample Customer","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"},"DefaultTaxCodeRef":{"value":"2"}}]}}',
+        headers: {}
+      )
   end
 
   def stub_update_customer
@@ -196,20 +197,21 @@ module QuickBooksHelpers
   end
 
   def stub_search_vendor
-    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Vendor%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Vendor%25'%20STARTPOSITION%201%20MAXRESULTS%2010"). with(
-      headers: {
-        'Accept' => 'application/json',
-        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'Authorization' => 'Bearer access_token',
-        'Content-Type' => 'application/json',
-        'User-Agent' => 'Faraday v0.15.4'
-      }
-    )
-                                                                                                                                                                                                                           .to_return(
-                                                                                                                                                                                                                             status: 200,
-                                                                                                                                                                                                                             body: '{"QueryResponse":{"Vendor":[{"Balance":0,"Vendor1099":false,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T09:05:52-07:00","LastUpdatedTime":"2019-09-12T09:05:52-07:00"},"GivenName":"Sample","FamilyName":"Vendor","DisplayName":"Sample Vendor","PrintOnCheckName":"Sample Vendor","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"}}]}}',
-                                                                                                                                                                                                                             headers: {}
-                                                                                                                                                                                                                           )
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Vendor%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Vendor%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"QueryResponse":{"Vendor":[{"Balance":0,"Vendor1099":false,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T09:05:52-07:00","LastUpdatedTime":"2019-09-12T09:05:52-07:00"},"GivenName":"Sample","FamilyName":"Vendor","DisplayName":"Sample Vendor","PrintOnCheckName":"Sample Vendor","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"}}]}}',
+        headers: {}
+      )
   end
 
   def stub_update_vendor
@@ -271,20 +273,21 @@ module QuickBooksHelpers
   end
 
   def stub_search_account
-    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Account%20WHERE%20Name%20LIKE%20'%25Sample%20Account%25'%20STARTPOSITION%201%20MAXRESULTS%2010"). with(
-      headers: {
-        'Accept' => 'application/json',
-        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'Authorization' => 'Bearer access_token',
-        'Content-Type' => 'application/json',
-        'User-Agent' => 'Faraday v0.15.4'
-      }
-    )
-                                                                                                                                                                                                                      .to_return(
-                                                                                                                                                                                                                        status: 200,
-                                                                                                                                                                                                                        body: '{"QueryResponse":{"Account":[{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}}]}}',
-                                                                                                                                                                                                                        headers: {}
-                                                                                                                                                                                                                      )
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Account%20WHERE%20Name%20LIKE%20'%25Sample%20Account%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"QueryResponse":{"Account":[{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}}]}}',
+        headers: {}
+      )
   end
 
   def stub_update_account
@@ -415,6 +418,61 @@ module QuickBooksHelpers
       to_return(
         status: 200,
         body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"384\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T11:54:50-07:00\",\"LastUpdatedTime\":\"2019-10-11T11:54:50-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"384\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"384\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T11:54:50.879-07:00\"}",
+        headers: {}
+      )
+  end
+
+  # Transfer
+
+  def stub_create_transfer
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer").
+      with(
+        body: "{\"CurrencyRef\":{\"value\":\"USD\"},\"Amount\":12345,\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"FromAccountRef\":{\"value\":\"123\"},\"ToAccountRef\":{\"value\":\"123\"}}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Transfer\":{\"FromAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"ToAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"Amount\":12345.0,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-03T21:46:28-07:00\",\"LastUpdatedTime\":\"2019-10-03T21:46:28-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\"},\"time\":\"2019-10-03T21:46:27.963-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_find_transfer
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer/123").
+      with(
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Transfer\":{\"FromAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"ToAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"Amount\":12345.0,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-03T21:46:28-07:00\",\"LastUpdatedTime\":\"2019-10-03T21:46:28-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\"},\"time\":\"2019-10-03T21:46:27.963-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_update_transfer
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer").
+      with(
+        body: "{\"FromAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"ToAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"Amount\":12345.0,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-03T21:46:28-07:00\",\"LastUpdatedTime\":\"2019-10-03T21:46:28-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\"}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Transfer\":{\"FromAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"ToAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"Amount\":12345.0,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-03T21:46:28-07:00\",\"LastUpdatedTime\":\"2019-10-03T21:46:28-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\"},\"time\":\"2019-10-03T21:46:27.963-07:00\"}",
         headers: {}
       )
   end
