@@ -101,7 +101,7 @@ module InputHelpers
         memo: 'Memo',
         payment_type: 'cash',
         exchange_rate: 1.0,
-        transaction_date: '2019-09-01',
+        transaction_date: Date.parse('2019-09-01'),
         line_items: [:li1, :li2]
       }
     }.merge(merge)
