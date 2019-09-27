@@ -71,7 +71,7 @@ module InputHelpers
       resource_type: 'payment',
       data: {
         amount: 12_345,
-        currency: :usd,
+        currency: 'USD',
         customer: :c1
       }
     }.merge(merge)
@@ -95,7 +95,7 @@ module InputHelpers
       resource_type: 'expense',
       data: {
         amount: 12_345,
-        currency: :usd,
+        currency: 'USD',
         account: :a1,
         vendor: :v1,
         memo: 'Memo',
