@@ -40,7 +40,7 @@ module LedgerSync
     def resource_attributes_for(resource_klass:)
       return [] if resource_klass < LedgerSync::Error
 
-      resource_klass.attributes | [:ledger_id]
+      resource_klass.attributes.keys | [:ledger_id]
     end
   end
 end

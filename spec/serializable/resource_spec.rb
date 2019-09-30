@@ -10,38 +10,8 @@ RSpec.describe LedgerSync::Resource, type: :serializable do
 
   it do
     h = {
-      root: 'LedgerSync::Payment/068b443fe06412fb67d1fa16c5c85050',
-      objects: {
-        'LedgerSync::Payment/068b443fe06412fb67d1fa16c5c85050' => {
-          id: 'LedgerSync::Payment/068b443fe06412fb67d1fa16c5c85050',
-          object: 'LedgerSync::Payment',
-          fingeprint: '068b443fe06412fb67d1fa16c5c85050',
-          data: {
-            amount: 1.23,
-            customer: {
-              object: :reference,
-              id: 'LedgerSync::Customer/3bdc467dfa0599f180f814f883c8f9cd'
-            },
-            currency: nil,
-            ledger_id: nil,
-            sync_token: nil,
-            external_id: :""
-          }
-        },
-        'LedgerSync::Customer/3bdc467dfa0599f180f814f883c8f9cd' => {
-          id: 'LedgerSync::Customer/3bdc467dfa0599f180f814f883c8f9cd',
-          object: 'LedgerSync::Customer',
-          fingeprint: '3bdc467dfa0599f180f814f883c8f9cd',
-          data: {
-            phone_number: nil,
-            name: 'John Doe',
-            email: nil,
-            ledger_id: nil,
-            sync_token: nil,
-            external_id: :""
-          }
-        }
-      }
+      objects: { 'LedgerSync::Customer/c109732a24280f88ac9dd952095c1dea' => { data: { email: nil, external_id: :"", ledger_id: nil, name: 'John Doe', phone_number: nil, sync_token: nil }, fingeprint: 'c109732a24280f88ac9dd952095c1dea', id: 'LedgerSync::Customer/c109732a24280f88ac9dd952095c1dea', object: 'LedgerSync::Customer' }, 'LedgerSync::Payment/ab4dd4ba29649ad562ec04d7761a15d2' => { data: { amount: 1.23, currency: nil, customer: { id: 'LedgerSync::Customer/c109732a24280f88ac9dd952095c1dea', object: :reference }, external_id: :"", ledger_id: nil, sync_token: nil }, fingeprint: 'ab4dd4ba29649ad562ec04d7761a15d2', id: 'LedgerSync::Payment/ab4dd4ba29649ad562ec04d7761a15d2', object: 'LedgerSync::Payment' } },
+      root: 'LedgerSync::Payment/ab4dd4ba29649ad562ec04d7761a15d2'
     }
     expect(subject).to eq(h)
   end
