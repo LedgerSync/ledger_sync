@@ -73,7 +73,6 @@ module LedgerSync
       def cast_to_date(value)
         case value
         when Date
-          pdb
           value
         when String
           Date.parse(value)
