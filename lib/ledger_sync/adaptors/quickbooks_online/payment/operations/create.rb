@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -47,12 +49,12 @@ module LedgerSync
 
             def local_resource_data
               {
-                'TotalAmt' => resource.amount,
+                'TotalAmt' => resource.amount / 100.0,
                 'CurrencyRef' => {
-                  'value' => resource.currency,
+                  'value' => resource.currency
                 },
                 'CustomerRef' => {
-                  'value' => resource.customer.ledger_id,
+                  'value' => resource.customer.ledger_id
                 }
               }
             end

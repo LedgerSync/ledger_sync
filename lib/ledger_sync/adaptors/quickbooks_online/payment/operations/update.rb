@@ -47,7 +47,7 @@ module LedgerSync
 
             def local_resource_data
               {
-                'TotalAmt' => resource.amount,
+                'TotalAmt' => resource.amount / 100.0,
                 'CurrencyRef' => {
                   'value' => resource.currency,
                 },

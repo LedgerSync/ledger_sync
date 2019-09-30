@@ -17,6 +17,7 @@ module LedgerSync
       Date,
       DateTime,
       FalseClass,
+      Float,
       Integer,
       NilClass,
       String,

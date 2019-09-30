@@ -66,7 +66,7 @@ module LedgerSync
                   'value' => resource.currency,
                 },
                 'PaymentType' => Mapping::PAYMENT_TYPES[resource.payment_type],
-                'TxnDate' => resource.transaction_date,
+                'TxnDate' => resource.transaction_date.to_s, # Format: YYYY-MM-DD
                 'PrivateNote' => resource.memo,
                 'ExchangeRate' => resource.exchange_rate,
                 'EntityRef' => {
@@ -83,7 +83,7 @@ module LedgerSync
                         'value' => line_item.account&.ledger_id || resource.account.ledger_id
                       }
                     },
-                    'Amount' => line_item.amount,
+                    'Amount' => line_item.amount / 100.0,
                     'Description' => line_item.description
                   }
                 end
