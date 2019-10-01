@@ -103,6 +103,7 @@ end
 # Adaptors
 require 'ledger_sync/adaptors/adaptor'
 require 'ledger_sync/adaptors/searcher'
+require 'ledger_sync/adaptors/serializer'
 Gem.find_files('ledger_sync/adaptors/**/*.rb').each do |path|
   next if path.include?('config.rb')
 

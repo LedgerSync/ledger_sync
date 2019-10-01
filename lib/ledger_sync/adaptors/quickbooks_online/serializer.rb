@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ledger_sync/adaptors/serializer'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
