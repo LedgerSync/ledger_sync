@@ -21,20 +21,13 @@ module LedgerSync
                 payload: local_resource_data
               )
 
-              resource.ledger_id = response.dig('Id')
+              Serializer.new(resource: resource).deserialize!(response)
+
               success(response: response)
             end
 
             def local_resource_data
-              {
-                'DisplayName' => resource.name,
-                'PrimaryPhone' => {
-                  'FreeFormNumber' => resource.phone_number
-                },
-                'PrimaryEmailAddr' => {
-                  'Address' => resource.email
-                }
-              }
+              Serializer.new(resource: resource).to_h
             end
           end
         end

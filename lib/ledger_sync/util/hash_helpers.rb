@@ -23,6 +23,10 @@ module LedgerSync
           object
         end
       end
+
+      def deep_stringify_keys(hash)
+        JSON.parse(JSON[hash])
+      end
     end
   end
 end

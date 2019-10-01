@@ -45,6 +45,14 @@ module LedgerSync
       @resource_type ||= LedgerSync::Util::StringHelpers.underscore(name.split('::').last).to_sym
     end
 
+    def self.serialize_attribute?(sattr)
+      sattr = sattr.to_sym
+      return true if %i[external_id ledger_id sync_token].include?(sattr)
+      return true if attributes.key?(sattr)
+
+      false
+    end
+
     def ==(other)
       other.fingerprint == fingerprint
     end
