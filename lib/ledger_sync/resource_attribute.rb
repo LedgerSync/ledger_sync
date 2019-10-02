@@ -36,6 +36,9 @@ module LedgerSync
       type.cast(value)
     end
 
+    # This is for ActiveModel::Dirty, since we define @attributes
+    def forgetting_assignment; end
+
     def reference?
       is_a?(Reference)
     end

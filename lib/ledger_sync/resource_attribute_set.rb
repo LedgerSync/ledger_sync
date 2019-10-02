@@ -9,9 +9,11 @@ module LedgerSync
                 :resource
 
     delegate  :[],
+              :each,
+              :include?,
               :key?,
               :keys,
-              :include?,
+              :map,
               to: :attributes
 
     alias names keys
@@ -43,6 +45,10 @@ module LedgerSync
       end
 
       @attributes[attribute.name] = attribute
+    end
+
+    def to_a
+      attributes.values
     end
 
     def to_h
