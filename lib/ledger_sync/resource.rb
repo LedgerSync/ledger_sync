@@ -27,7 +27,7 @@ module LedgerSync
 
     serialize except: %i[attributes references]
 
-    attr_accessor :external_id, :ledger_id, :sync_token
+    dirty_attribute :external_id, :ledger_id, :sync_token
 
     def initialize(external_id: nil, ledger_id: nil, sync_token: nil, **data)
       @external_id = external_id.to_s.to_sym

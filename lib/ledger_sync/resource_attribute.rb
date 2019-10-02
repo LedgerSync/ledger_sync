@@ -12,6 +12,9 @@ end
 
 module LedgerSync
   class ResourceAttribute
+    include Fingerprintable::Mixin
+    include SimplySerializable::Mixin
+
     attr_accessor :value
     attr_reader :name,
                 :reference,

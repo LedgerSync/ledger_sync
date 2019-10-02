@@ -11,7 +11,9 @@ module LedgerSync
     delegate  :[],
               :key?,
               :keys,
+              :include?,
               to: :attributes
+
     alias names keys
 
     def initialize(resource:)

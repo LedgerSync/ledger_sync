@@ -1,23 +1,29 @@
 # frozen_string_literal: true
 
 require_relative '../resource_attribute_set'
+require_relative 'dirty_mixin'
 
 # Mixin for attribute functionality
 module LedgerSync
   class ResourceAttribute
     module Mixin
       def self.included(base)
+        base.include(DirtyMixin)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
         def _define_attribute_methods(name)
           class_eval do
+            define_attribute_methods name
+
             define_method name do
               attributes[name].value
             end
 
             define_method "#{name}=" do |val|
+              public_send("#{name}_will_change!") unless val == attributes[name] # For Dirty
+
               attribute = attributes[name]
 
               unless attribute.valid_with?(value: val)
