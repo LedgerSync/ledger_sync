@@ -24,28 +24,6 @@ module LedgerSync
         _deserialize(hash, deserialize_into: resource)
       end
 
-      private
-
-      def _deserialize(hash, deserialize_into:)
-        raise 'Hash expected' unless hash.is_a?(Hash)
-
-        hash = Util::HashHelpers.deep_stringify_keys(hash)
-
-        self.class.attributes.each do |resource_attribute, attribute_hash|
-          ledger_attribute_parts = attribute_hash[:ledger_attribute].split('.')
-          if ledger_attribute_parts.count == 1
-            deserialize_into.send("#{resource_attribute}=", hash[ledger_attribute_parts.first])
-          else
-            last_hash = hash.dig(*ledger_attribute_parts[0..-2])
-            next unless last_hash.is_a?(Hash)
-
-            deserialize_into.send("#{resource_attribute}=", last_hash[ledger_attribute_parts.last])
-          end
-        end
-
-        deserialize_into
-      end
-
       def to_h(include_id: false)
         ret = {}
 
@@ -82,6 +60,28 @@ module LedgerSync
       def self._inferred_resource_class
         parts = name.split('::')
         LedgerSync.const_get(parts[parts.index('Adaptors') + 2])
+      end
+
+      private
+
+      def _deserialize(hash, deserialize_into:)
+        raise 'Hash expected' unless hash.is_a?(Hash)
+
+        hash = Util::HashHelpers.deep_stringify_keys(hash)
+
+        self.class.attributes.each do |resource_attribute, attribute_hash|
+          ledger_attribute_parts = attribute_hash[:ledger_attribute].split('.')
+          if ledger_attribute_parts.count == 1
+            deserialize_into.send("#{resource_attribute}=", hash[ledger_attribute_parts.first])
+          else
+            last_hash = hash.dig(*ledger_attribute_parts[0..-2])
+            next unless last_hash.is_a?(Hash)
+
+            deserialize_into.send("#{resource_attribute}=", last_hash[ledger_attribute_parts.last])
+          end
+        end
+
+        deserialize_into
       end
     end
   end
