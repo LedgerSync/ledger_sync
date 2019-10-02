@@ -24,6 +24,8 @@ module LedgerSync
         _deserialize(hash, deserialize_into: resource)
       end
 
+      private
+
       def _deserialize(hash, deserialize_into:)
         raise 'Hash expected' unless hash.is_a?(Hash)
 
