@@ -23,16 +23,18 @@ module LedgerSync
 
               resource.ledger_id = response.dig('Id')
               success(response: response)
+            rescue OAuth2::Error => e
+              failure(e)
             end
 
             def local_resource_data
               {
-                'DisplayName': resource.name,
-                "PrimaryPhone": {
-                  "FreeFormNumber": resource.phone_number
+                'DisplayName' => resource.name,
+                'PrimaryPhone' => {
+                  'FreeFormNumber' => resource.phone_number
                 },
-                "PrimaryEmailAddr": {
-                  "Address": resource.email
+                'PrimaryEmailAddr' => {
+                  'Address' => resource.email
                 }
               }
             end

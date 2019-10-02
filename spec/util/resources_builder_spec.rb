@@ -7,30 +7,29 @@ support :adaptor_helpers
 module LedgerSync
   class TestResource
     class ResourceWithDate < LedgerSync::Resource
-      attribute :date_attr, type: :date
+      attribute :date_attr, type: Type::Date
     end
 
     class TestUselessResource < LedgerSync::Resource
-      attribute :test_useless_resource_attribute, type: LedgerSync::Resource
+      references_one :test_useless_resource_attribute, to: LedgerSync::Resource
     end
 
     class TestGrandchildResource < LedgerSync::Resource
-      reference :useless_child,  to: TestResource::TestUselessResource
+      references_one :useless_child, to: TestResource::TestUselessResource
 
-      attribute :test_grandchild_resource_attribute, type: String
+      attribute :test_grandchild_resource_attribute, type: Type::String
     end
 
     class TestChildResource < LedgerSync::Resource
-      reference :grandchild,  to: TestResource::TestGrandchildResource
+      references_one :grandchild, to: TestResource::TestGrandchildResource
 
-      attribute :test_child_resource_attribute, type: String
+      attribute :test_child_resource_attribute, type: Type::String
     end
 
     class TestParentResource < LedgerSync::Resource
-      reference :child, to: TestResource::TestChildResource
-      reference :child2, to: TestResource::TestChildResource
+      references_many :children, to: TestResource::TestChildResource
 
-      attribute :test_parent_resource_attribute, type: String
+      attribute :test_parent_resource_attribute, type: Type::String
     end
   end
 end
@@ -80,6 +79,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         root_resource_external_id: root_resource_external_id,
         root_resource_type: root_resource_type
       )
+      expect(data[:resource_with_date][:date_resource_1][:data][:date_attr]).to eq('2019-01-01')
       expect { builder.resource }.to raise_error(LedgerSync::ResourceError::AttributeTypeError)
     end
   end
@@ -90,8 +90,10 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         test_parent_resource: {
           test_parent_resource_external_id: {
             data: {
-              child: :test_child_resource_external_id,
-              child2: :test_child2_resource_external_id,
+              children: [
+                :test_child_resource_external_id,
+                :test_child2_resource_external_id
+              ],
               test_parent_resource_attribute: :test_parent_resource_value
             }
           }
@@ -118,6 +120,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         }
       }
     end
+
     let(:root_resource_external_id) { :test_parent_resource_external_id }
     let(:root_resource_type) { :test_parent_resource }
 
@@ -131,8 +134,8 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
     let(:resource) { builder.resource }
     let(:resources) { builder.resources }
     let(:parent) { resource }
-    let(:child) { parent.child }
-    let(:child2) { parent.child2 }
+    let(:child) { parent.children.first }
+    let(:child2) { parent.children.last }
     let(:grandchild) { child.grandchild }
 
     it do

@@ -21,9 +21,9 @@ module LedgerSync
 
             def local_resource_data
               {
-                'name': resource.name,
-                "phone_number": resource.phone_number,
-                "email": resource.email
+                'name' => resource.name,
+                'phone_number' => resource.phone_number,
+                'email' => resource.email
               }
             end
 

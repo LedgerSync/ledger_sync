@@ -47,12 +47,12 @@ module LedgerSync
 
             def local_resource_data
               {
-                'TotalAmt': resource.amount,
-                'CurrencyRef': {
-                  'value': resource.currency,
+                'TotalAmt' => resource.amount / 100.0,
+                'CurrencyRef' => {
+                  'value' => resource.currency,
                 },
-                'CustomerRef': {
-                  'value': resource.customer.ledger_id,
+                'CustomerRef' => {
+                  'value' => resource.customer.ledger_id,
                 }
               }
             end

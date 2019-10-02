@@ -18,6 +18,14 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    activemodel (6.0.0)
+      activesupport (= 6.0.0)
+    activesupport (6.0.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+      zeitwerk (~> 2.1, >= 2.1.8)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.0)
@@ -82,10 +90,13 @@ GEM
     fingerprintable (1.2.1)
       colorize
     hashdiff (1.0.0)
+    i18n (1.6.0)
+      concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.3)
     json (2.2.0)
     jwt (2.2.1)
     mini_portile2 (2.4.0)
+    minitest (5.12.2)
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -132,23 +143,28 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    simply_serializable (1.4.1)
+    simply_serializable (1.4.2)
       fingerprintable (>= 1.2.1)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
     thor (0.20.3)
+    thread_safe (0.3.6)
     tins (1.21.1)
+    tzinfo (1.2.5)
+      thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
     vcr (5.0.0)
     webmock (3.7.5)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
+    zeitwerk (2.1.10)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel
   awesome_print
   bump
   bundler (~> 1.16)

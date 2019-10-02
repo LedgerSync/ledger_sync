@@ -29,8 +29,7 @@ module LedgerSync
           base.extend ClassMethods
 
           base.class_eval do
-            serialize do_not_serialize_if_class_is: [Date, DateTime, Time],
-                      only: %i[
+            serialize only: %i[
                         adaptor
                         after_operations
                         before_operations
@@ -149,8 +148,14 @@ module LedgerSync
         end
 
         def validation_data
-          serializer = resource.serializer
+          serializer = resource.serializer(
+            do_not_serialize_if_class_is: Resource::PRIMITIVES
+          )
           serializer.serialize[:objects][serializer.id][:data]
+        end
+
+        def errors
+          validate.validator.errors
         end
 
         # Comparison
@@ -177,7 +182,7 @@ module LedgerSync
 
         def merge_into(from:, to:)
           case to
-          when String, Integer, Array then from
+          when *(Resource::PRIMITIVES | [Array]) then from
           else to.merge!(from) { |_key, old_value, new_value| merge_into(from: old_value, to: new_value) } if to && from
           end
         end
