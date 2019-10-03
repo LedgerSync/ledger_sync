@@ -30,7 +30,7 @@ module LedgerSync
     dirty_attribute :external_id, :ledger_id, :sync_token
 
     def initialize(external_id: nil, ledger_id: nil, sync_token: nil, **data)
-      @external_id = external_id.to_s.to_sym
+      @external_id = external_id.try(:to_sym)
       @ledger_id = ledger_id
       @sync_token = sync_token
 

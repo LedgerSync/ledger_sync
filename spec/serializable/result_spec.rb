@@ -183,7 +183,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
           'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c' => {
             data: {
               email: nil,
-              external_id: :"",
+              external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 0',
               phone_number: nil,
@@ -196,7 +196,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
           'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606' => {
             data: {
               email: nil,
-              external_id: :"",
+              external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 1',
               phone_number: nil,
@@ -287,7 +287,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
           'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c' => {
             data: {
               email: nil,
-              external_id: :"",
+              external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 0',
               phone_number: nil,
@@ -300,7 +300,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
           'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606' => {
             data: {
               email: nil,
-              external_id: :"",
+              external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 1',
               phone_number: nil,
