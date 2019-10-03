@@ -12,6 +12,7 @@ module LedgerSync
 
         def initialize(
           account:,
+          api_version: '2018_2',
           consumer_key:,
           consumer_secret:,
           token_id:,
