@@ -10,7 +10,7 @@ module LedgerSync
               params do
                 required(:ledger_id).filled(:string)
                 required(:email).maybe(:string)
-                required(:name).filled(:string)
+                required(:name).maybe(:string)
                 required(:phone_number).maybe(:string)
               end
             end
