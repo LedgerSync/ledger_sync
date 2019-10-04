@@ -17,30 +17,30 @@ module LedgerSync
 
             private
 
-            def operate
-              ledger_resource_data = adaptor.find(
-                resource: 'customer',
-                id: resource.ledger_id
+            def find_operation_result
+              op = Find.new(
+                adaptor: adaptor,
+                resource: resource
               )
-              response = adaptor.post(
-                resource: 'customer',
-                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
-              )
-
-              resource.ledger_id = response.dig('Id')
-              success(response: response)
+              op.validate
+               .and_then { op.perform }
             end
 
-            def local_resource_data
-              {
-                'DisplayName' => resource.name,
-                "PrimaryPhone" => {
-                  "FreeFormNumber" => resource.phone_number
-                },
-                "PrimaryEmailAddr" => {
-                  "Address" => resource.email
-                }
-              }
+            def operate
+              find_operation_result
+                .and_then { |find_result| update_customer(find_result) }
+            end
+
+            def update_customer(find_result)
+              response = adaptor.upsert(
+                resource: 'customer',
+                payload: find_result.resource.assign_attributes(resource.changes_to_h)
+              )
+
+              success(
+                resource: resource_serializer.deserialize(response),
+                response: response
+              )
             end
           end
         end

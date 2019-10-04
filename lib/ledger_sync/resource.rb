@@ -37,8 +37,22 @@ module LedgerSync
       super(data)
     end
 
+    def assign_attributes(*keywords)
+      keywords.each do |k, v|
+        public_send("#{k}=", v)
+      end
+    end
+
+    def dup
+      Marshal.load(Marshal.dump(self))
+    end
+
     def klass_from_resource_type(obj)
       LedgerSync.const_get(LedgerSync::Util::StringHelpers.camelcase(obj))
+    end
+
+    def to_h
+      attributes.to_h.merge(dirty_attributes_to_h)
     end
 
     def self.resource_type

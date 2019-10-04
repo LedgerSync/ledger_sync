@@ -16,14 +16,15 @@ module LedgerSync
             private
 
             def operate
-              return failure(nil) if resource.ledger_id.nil?
-
               response = adaptor.find(
                 resource: 'customer',
                 id: resource.ledger_id
               )
 
-              success(response: response)
+              success(
+                resource: resource_serializer.deserialize(response),
+                response: response
+              )
             end
           end
         end

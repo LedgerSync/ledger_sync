@@ -23,4 +23,15 @@ RSpec.describe LedgerSync::Resource do
     expect(customer1.email).to eq('test@example.com')
     expect(customer2.email).to eq('asdf')
   end
+
+  describe '#assign_attributes' do
+    it do
+      resource = LedgerSync::Customer.new
+      expecT(resource.ledger_id).to be_nil
+      expecT(resource.name).to be_nil
+      resource.assign_attributes(ledger_id: 'foo', name: 'bar')
+      expecT(resource.ledger_id).to eq('foo')
+      expecT(resource.name).to eq('name')
+    end
+  end
 end

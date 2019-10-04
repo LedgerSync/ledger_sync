@@ -25,7 +25,7 @@ module LedgerSync
       end
 
       def deep_stringify_keys(hash)
-        JSON.parse(JSON[hash])
+        deep_transform_keys_in_object(hash) { |key| key.to_s rescue key }
       end
     end
   end

@@ -27,16 +27,17 @@ module LedgerSync
 
   class OperationResult
     module ResultTypeBase
-      attr_reader :operation, :response
+      attr_reader :operation, :resource, :response
 
       def self.included(base)
         base.class_eval do
-          serialize only: %i[operation response]
+          serialize only: %i[operation resource response]
         end
       end
 
-      def initialize(*args, operation:, response:)
+      def initialize(*args, operation:, resource:, response:)
         @operation = operation
+        @resource = resource
         @response = response
         super(*args)
       end

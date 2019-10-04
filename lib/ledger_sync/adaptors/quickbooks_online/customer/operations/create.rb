@@ -18,16 +18,13 @@ module LedgerSync
             def operate
               response = adaptor.post(
                 resource: 'customer',
-                payload: local_resource_data
+                payload: serializer.to_h
               )
 
-              Serializer.new(resource: resource).deserialize!(response)
-
-              success(response: response)
-            end
-
-            def local_resource_data
-              Serializer.new(resource: resource).to_h
+              success(
+                resource: resource_serializer.deserialize(response),
+                response: response
+              )
             end
           end
         end

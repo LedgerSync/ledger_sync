@@ -18,12 +18,6 @@ module LedgerSync
         _deserialize(hash, deserialize_into: Marshal.load(Marshal.dump(resource)))
       end
 
-      # OVERWRITE values in the resource associated with this
-      # serializer on initialization.
-      def deserialize!(hash)
-        _deserialize(hash, deserialize_into: resource)
-      end
-
       def to_h(include_id: false)
         ret = {}
 

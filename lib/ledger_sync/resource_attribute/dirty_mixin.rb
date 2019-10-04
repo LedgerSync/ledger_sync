@@ -32,6 +32,21 @@ module LedgerSync
         end
       end
 
+      # Change the dirty change set of {"name" => ["Bill", "Bob"]}
+      # to current values of attributes that have changed: {"name" => "Bob"}
+      def changes_to_h
+        Hash[changes.map { |k, v| [k, v.last] } ]
+      end
+
+      def dirty_attributes_to_h
+        Hash[@dirty_attributes.keys.each do |k|
+          [
+            k,
+            public_send(k)
+          ]
+        end]
+      end
+
       # Normally you would just call `changes_applied`, but because we
       # define an `@attributes` instance variable, the `ActiveModel::Dirty`
       # mixin assumes it is a list of attributes in their format (spoiler: it
