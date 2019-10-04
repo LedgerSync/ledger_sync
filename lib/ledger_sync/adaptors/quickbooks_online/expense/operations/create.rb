@@ -19,8 +19,6 @@ module LedgerSync
               end
             end
 
-            private
-
             def build
               build_account_operation(resource.account)
               resource.line_items.each do |line_item|
@@ -29,6 +27,8 @@ module LedgerSync
               build_vendor_operation
               add_root_operation(self)
             end
+
+            private
 
             def operate
               response = adaptor.upsert(
