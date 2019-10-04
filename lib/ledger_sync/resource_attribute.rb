@@ -12,6 +12,9 @@ end
 
 module LedgerSync
   class ResourceAttribute
+    include Fingerprintable::Mixin
+    include SimplySerializable::Mixin
+
     attr_accessor :value
     attr_reader :name,
                 :reference,
@@ -32,6 +35,9 @@ module LedgerSync
     def cast(value)
       type.cast(value)
     end
+
+    # This is for ActiveModel::Dirty, since we define @attributes
+    def forgetting_assignment; end
 
     def reference?
       is_a?(Reference)

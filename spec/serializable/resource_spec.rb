@@ -14,7 +14,7 @@ RSpec.describe LedgerSync::Resource, type: :serializable do
         'LedgerSync::Customer/f402c4135c3b4ae1302a154da0740995' => {
           data: {
             email: nil,
-            external_id: :"",
+            external_id: nil,
             ledger_id: nil,
             name: 'John Doe',
             phone_number: nil,
@@ -32,7 +32,7 @@ RSpec.describe LedgerSync::Resource, type: :serializable do
               id: 'LedgerSync::Customer/f402c4135c3b4ae1302a154da0740995',
               object: :reference
             },
-            external_id: :"",
+            external_id: nil,
             ledger_id: nil,
             sync_token: nil
           },

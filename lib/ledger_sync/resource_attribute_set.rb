@@ -9,9 +9,13 @@ module LedgerSync
                 :resource
 
     delegate  :[],
+              :each,
+              :include?,
               :key?,
               :keys,
+              :map,
               to: :attributes
+
     alias names keys
 
     def initialize(resource:)
@@ -41,6 +45,10 @@ module LedgerSync
       end
 
       @attributes[attribute.name] = attribute
+    end
+
+    def to_a
+      attributes.values
     end
 
     def to_h

@@ -85,7 +85,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
         'LedgerSync::Customer/d9f523a3395af66f5bfe48b79e657b34' => {
           data: {
             email: nil,
-            external_id: :"",
+            external_id: nil,
             ledger_id: 'asdf',
             name: 'asdf',
             phone_number: nil,
