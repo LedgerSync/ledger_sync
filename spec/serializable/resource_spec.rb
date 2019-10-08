@@ -8,7 +8,7 @@ RSpec.describe LedgerSync::Resource, type: :serializable do
 
   subject { payment.serialize }
 
-  it do
+  xit do
     h = {
       objects: {
         'LedgerSync::Customer/f402c4135c3b4ae1302a154da0740995' => {
