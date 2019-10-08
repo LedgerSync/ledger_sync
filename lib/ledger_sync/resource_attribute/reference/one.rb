@@ -15,7 +15,7 @@ module LedgerSync
           module ClassMethods
             def references_one(name, to:)
               resource_attribute = ResourceAttribute::Reference::One.new(name: name, to: to)
-              attributes.add resource_attribute
+              resource_attributes.add resource_attribute
               _define_attribute_methods(name)
             end
           end
