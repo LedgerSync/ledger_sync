@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
@@ -25,7 +27,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
   end
 
   describe '#ledger_attributes_to_save' do
-
     it do
       h = {
         access_token: access_token,
@@ -37,12 +38,12 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
     end
   end
 
-  describe '#query' do
-    it { expect(subject).to respond_to(:query) }
+  describe '#post' do
+    it { expect(subject).to respond_to(:post) }
   end
 
-  describe '#upsert' do
-    it { expect(subject).to respond_to(:upsert) }
+  describe '#query' do
+    it { expect(subject).to respond_to(:query) }
   end
 
   describe '.ledger_attributes_to_save' do
