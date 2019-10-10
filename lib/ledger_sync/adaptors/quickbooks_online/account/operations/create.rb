@@ -8,14 +8,14 @@ module LedgerSync
           class Create < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
-                required(:ledger_id).value(:nil)
-                required(:name).filled(:string)
-                required(:account_type).filled(:string)
                 required(:account_sub_type).filled(:string)
-                required(:number).maybe(:integer)
+                required(:account_type).filled(:string)
+                required(:active).maybe(:bool)
                 required(:currency).maybe(:string)
                 required(:description).maybe(:string)
-                required(:active).maybe(:bool)
+                required(:ledger_id).value(:nil)
+                required(:name).filled(:string)
+                required(:number).maybe(:integer)
               end
             end
 
@@ -38,7 +38,7 @@ module LedgerSync
                 'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[resource.account_sub_type],
                 'AcctNum' => resource.number,
                 'CurrencyRef' => {
-                  'value' => resource.currency,
+                  'value' => resource.currency
                 },
                 'Description' => resource.description,
                 'Active' => resource.active

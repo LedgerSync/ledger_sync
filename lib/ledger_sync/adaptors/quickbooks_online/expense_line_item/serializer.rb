@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-pdb
-
 module LedgerSync
   module Adaptors
     module QuickBooksOnline

@@ -83,9 +83,20 @@ module LedgerSync
   end
 
   def self.register_adaptor(adaptor_key)
+    adaptor_root_path = "ledger_sync/adaptors/#{adaptor_key}"
+    require "#{adaptor_root_path}/adaptor"
     self.adaptors ||= LedgerSync::AdaptorConfigurationStore.new
     self.adaptors.register_adaptor(adaptor_key)
+
     yield(adaptors.send(adaptor_key))
+
+    adaptor_files = Gem.find_files("#{adaptor_root_path}/**/*.rb")
+    # Sort the files to include BFS-style as most dependencies are in parent folders
+    adaptor_files.sort { |a, b| a.count('/') <=> b.count('/') }.each do |path|
+      next if path.include?('config.rb')
+
+      require path
+    end
   end
 
   def self.register_resource(resource:)
@@ -104,12 +115,6 @@ end
 require 'ledger_sync/adaptors/adaptor'
 require 'ledger_sync/adaptors/searcher'
 require 'ledger_sync/adaptors/serializer'
-Gem.find_files('ledger_sync/adaptors/**/*.rb').each do |path|
-  next if path.include?('config.rb')
-
-  require path
-end
-
 Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 
 # Register Resources

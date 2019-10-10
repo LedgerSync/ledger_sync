@@ -2,62 +2,44 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::Serializer do
-  let(:account) { LedgerSync::Account.new(ledger_id: 'account_ledger_id') }
+RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Serializer do
   let(:resource) do
-    LedgerSync::ExpenseLineItem.new(
-      account: account,
-      amount: amount,
-      description: description
+    LedgerSync::Account.new(
+      account_sub_type: account_sub_type,
+      account_type: account_type,
+      active: active,
+      currency: currency,
+      description: description,
+      name: name,
+      number: number
     )
   end
-  let(:amount) { 30_000 }
-  let(:description) { 'Test Expense Line Item' }
+  let(:name) { 'account_name' }
+  let(:account_type) { 'bank' }
+  let(:account_sub_type) { 'cash_on_hand' }
+  let(:number) { 123 }
+  let(:currency) { 'USD' }
+  let(:description) { 'A descirption' }
+  let(:active) { true }
 
   let(:h) do
     {
+      'Name' => name,
+      'AccountType' => Mapping::ACCOUNT_TYPES[account_type],
+      'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[account_sub_type],
+      'AcctNum' => number,
       'CurrencyRef' => {
-        'value' => currency,
+        'value' => currency
       },
-      'PaymentType' => payment_type,
-      'TxnDate' => transaction_date.to_s, # Format: YYYY-MM-DD
-      'PrivateNote' => memo,
-      'ExchangeRate' => exchange_rate,
-      'EntityRef' => {
-        'value' => vendor.ledger_id
-      },
-      'AccountRef' => {
-        'value' => account.ledger_id
-      },
-      'Line' => line_items.map do |line_item|
-        {
-          'DetailType' => 'AccountBasedExpenseLineDetail',
-          'AccountBasedExpenseLineDetail' => {
-            'AccountRef' => {
-              'value' => line_item.account&.ledger_id || account.ledger_id
-            }
-          },
-          'Amount' => line_item.amount / 100.0,
-          'Description' => line_item.description
-        }
-      end
+      'Description' => description,
+      'Active' => active
     }
   end
 
   describe '#to_h' do
     it do
-      serializer = described_class.new(resource: customer)
+      serializer = described_class.new(resource: resource)
       expect(serializer.to_h).to eq(h.reject { |e| e == 'Id' })
-    end
-
-    it do
-      resource =
-
-      serializer = LedgerSync::Adaptors::QuickBooksOnline::Expense::Serializer.new(resource: resource)
-      h = {
-
-      }
-      expect(serializer.to_h).to eq(h)
     end
   end
 
@@ -65,38 +47,20 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::Serializer do
     let(:customer) { LedgerSync::Customer.new }
 
     it do
-      serializer = described_class.new(resource: customer)
-      deserialized_customer = serializer.deserialize(h)
-      expect(customer.email).to be_nil
-      expect(customer.name).to be_nil
-      expect(customer.phone_number).to be_nil
-      expect(deserialized_customer.email).to eq(email)
-      expect(deserialized_customer.name).to eq(name)
-      expect(deserialized_customer.phone_number).to eq(phone_number)
-    end
-
-    xit do
-      resource = LedgerSync::Expense.new(
-        account: LedgerSync::Account.new(ledger_id: 'account_ledger_id'),
-        amount: 30_000,
-        currency: 'USD',
-        line_items: [
-          LedgerSync::ExpenseLineItem.new(
-            amount: 10_000,
-            description: 'Description 1'
-          ),
-          LedgerSync::ExpenseLineItem.new(
-            amount: 20_000,
-            description: 'Description 2'
-          )
+      expect_deserialized_attributes(
+        attributes: %s[
+          name,
+          account_type,
+          account_sub_type,
+          number
+          currency
+          description
+          active
         ],
-        memo: 'Test Expense',
-        payment_type: 'cash',
-        transaction_date: Date.new(2019, 1, 2),
-        vendor: LedgerSync::Vendor.new(ledger_id: 'vendor_ledger_id')
+        h: h,
+        resource: resource,
+        serializer_class: described_class
       )
-
-      serializer = LedgerSync::Adaptors::QuickBooksOnline::Expense::Serializer.new(resource: resource)
     end
   end
 end
