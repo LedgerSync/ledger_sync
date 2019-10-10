@@ -27,6 +27,6 @@ RSpec.describe 'quickbooks_online/vendors/create', type: :feature do
   context '#perform' do
     subject { LedgerSync::Adaptors::QuickBooksOnline::Vendor::Operations::Create.new(**input).perform }
     it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
   end
 end
