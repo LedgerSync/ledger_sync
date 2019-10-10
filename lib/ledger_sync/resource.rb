@@ -25,7 +25,7 @@ module LedgerSync
       TrueClass
     ].freeze
 
-    serialize except: %i[attributes references]
+    serialize except: %i[resource_attributes references]
 
     dirty_attribute :external_id, :ledger_id, :sync_token
 
@@ -34,11 +34,7 @@ module LedgerSync
       @ledger_id = ledger_id
       @sync_token = sync_token
 
-      data.each do |attr_key, val|
-        raise "#{attr_key} is not an attribute of #{self.class.name}" unless attributes.key?(attr_key)
-
-        public_send("#{attr_key}=", val)
-      end
+      super(data)
     end
 
     def klass_from_resource_type(obj)

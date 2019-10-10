@@ -18,13 +18,13 @@ module LedgerSync
             define_attribute_methods name
 
             define_method name do
-              attributes[name].value
+              resource_attributes[name].value
             end
 
             define_method "#{name}=" do |val|
-              public_send("#{name}_will_change!") unless val == attributes[name] # For Dirty
+              public_send("#{name}_will_change!") unless val == resource_attributes[name] # For Dirty
 
-              attribute = attributes[name]
+              attribute = resource_attributes[name]
 
               unless attribute.valid_with?(value: val)
                 raise ResourceError::AttributeTypeError.new(
@@ -46,30 +46,44 @@ module LedgerSync
 
           _define_attribute_methods(name)
 
-          attributes.add(resource_attribute)
+          resource_attributes.add(resource_attribute)
 
           resource_attribute
         end
 
-        def attributes
-          @attributes ||= ResourceAttributeSet.new(resource: self)
+        def resource_attributes
+          @resource_attributes ||= ResourceAttributeSet.new(resource: self)
         end
       end
 
-      def initialize(*)
+      def initialize(**data)
         # Initialize empty values
-        attributes.keys.each { |e| instance_variable_set("@#{e}", nil) }
+        resource_attributes.keys.each { |e| instance_variable_set("@#{e}", nil) }
+
+        assign_attributes(data)
 
         super()
       end
 
+      def assign_attribute(name, value)
+        raise "#{name} is not an attribute of #{self.class.name}" unless resource_attributes.key?(name)
+
+        public_send("#{name}=", value)
+      end
+
+      def assign_attributes(attribute_hash)
+        attribute_hash.each do |name, value|
+          assign_attribute(name, value)
+        end
+      end
+
       # Store attribute instance values separately
-      def attributes
-        @attributes ||= Marshal.load(Marshal.dump(self.class.attributes))
+      def resource_attributes
+        @resource_attributes ||= Marshal.load(Marshal.dump(self.class.resource_attributes))
       end
 
       def serialize_attributes
-        Hash[attributes.map { |k, v| [k, v.value] }]
+        Hash[resource_attributes.map { |k, v| [k, v.value] }]
       end
     end
   end

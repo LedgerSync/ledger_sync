@@ -49,7 +49,7 @@ module LedgerSync
           current_data.map do |k, v|
             k = k.to_sym
 
-            attribute = resource_class.attributes[k]
+            attribute = resource_class.resource_attributes[k]
             raise "Unrecognized attribute for #{resource_class.name}: #{k}" if attribute.nil? && !ignore_unrecognized_attributes
 
             v = if attribute.is_a?(ResourceAttribute::Reference::One)

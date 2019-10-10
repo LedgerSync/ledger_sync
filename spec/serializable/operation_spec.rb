@@ -24,7 +24,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
     expect(operation.send(:validation_data)[:transaction_date]).to be_a(Date)
   end
 
-  it do
+  xit do
     allow(operation).to receive(:id) { 'asdf' }
     operation.perform
     allow(resource).to receive(:ledger_id) { 'asdf' }
