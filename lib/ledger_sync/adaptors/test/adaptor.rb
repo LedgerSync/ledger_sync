@@ -8,6 +8,10 @@ module LedgerSync
           { 'id' => id }
         end
 
+        def post(resource:, payload:)
+          payload
+        end
+
         def query(resource:, query:)
           resource_klass = LedgerSync.resources[resource.to_sym]
 
@@ -23,10 +27,6 @@ module LedgerSync
 
         def refresh!
           self
-        end
-
-        def upsert(resource:, payload:)
-          payload
         end
 
         def url_for(resource:)
