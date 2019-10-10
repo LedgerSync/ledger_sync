@@ -21,15 +21,6 @@ module LedgerSync
 
             private
 
-            def build
-              build_account_operation(resource.account)
-              resource.line_items.each do |line_item|
-                build_account_operation(line_item.account)
-              end
-              build_vendor_operation
-              add_root_operation(self)
-            end
-
             def operate
               ledger_resource_data = adaptor.find(
                 resource: 'purchase',
@@ -41,24 +32,6 @@ module LedgerSync
               )
 
               success(response: response)
-            end
-
-            def build_account_operation(account)
-              account_op = Account::Operations::Upsert.new(
-                adaptor: adaptor,
-                resource: account
-              )
-
-              add_before_operation(account_op)
-            end
-
-            def build_vendor_operation
-              vendor_op = Vendor::Operations::Upsert.new(
-                adaptor: adaptor,
-                resource: resource.vendor
-              )
-
-              add_before_operation(vendor_op)
             end
 
             def local_resource_data

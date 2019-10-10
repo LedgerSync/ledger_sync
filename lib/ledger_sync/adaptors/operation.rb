@@ -3,7 +3,7 @@
 module LedgerSync
   module Adaptors
     module Operation
-      TYPES = %i[create find update upsert].freeze
+      TYPES = %i[create find update].freeze
 
       module Mixin
         module ClassMethods
@@ -104,10 +104,6 @@ module LedgerSync
           @performed == true
         end
 
-        def prepare
-          build
-        end
-
         # Results
 
         def failure(error)
@@ -188,10 +184,6 @@ module LedgerSync
         end
 
         private
-
-        def build
-          add_root_operation self
-        end
 
         def operate
           raise NotImplementedError, self.class.name

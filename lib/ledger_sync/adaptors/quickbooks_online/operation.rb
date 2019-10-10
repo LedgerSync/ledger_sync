@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module Operation
-        TYPES = %i[create find update upsert].freeze
+        TYPES = %i[create find update].freeze
 
         module Mixin
           def self.included(base)

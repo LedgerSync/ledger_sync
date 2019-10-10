@@ -152,13 +152,6 @@ RSpec.describe LedgerSync::Adaptors::Operation do
     end
   end
 
-  describe '#upsert?' do
-    it do
-      subject.perform
-      expect(subject).not_to be_upsert
-    end
-  end
-
   describe '#valid?' do
     it do
       subject.perform
