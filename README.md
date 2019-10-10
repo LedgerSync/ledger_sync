@@ -90,10 +90,9 @@ The adaptor handles authentication and requests to the ledger.  Each adaptors in
 
 ### Operation
 
-Each adaptor defines operations that can be performed on specific resources (e.g. `Customer::Update`, `Payment::Create`).  The operation defines three key things:
+Each adaptor defines operations that can be performed on specific resources (e.g. `Customer::Operations::Update`, `Payment::Operations::Create`).  The operation defines two key things:
 
 - a `Contract` class which is used to validate the resource using the `dry-validation` gem
-- a `build` instance method, which handles any pre-processing to be done before the operation is performed (e.g. converting an `Upsert` into a `Create` or `Update`)
 - a `perform` instance method, which handles the actual API requests and response/error handling.
 
 Note: Adaptors may support different operations for each resource type.

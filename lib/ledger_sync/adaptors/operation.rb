@@ -3,7 +3,7 @@
 module LedgerSync
   module Adaptors
     module Operation
-      TYPES = %i[create find update upsert].freeze
+      TYPES = %i[create find update].freeze
 
       module Mixin
         module ClassMethods
