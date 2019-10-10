@@ -37,7 +37,7 @@ module LedgerSync
       super(data)
     end
 
-    def assign_attributes(*keywords)
+    def assign_attributes(**keywords)
       keywords.each do |k, v|
         public_send("#{k}=", v)
       end

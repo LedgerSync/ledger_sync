@@ -39,7 +39,7 @@ module LedgerSync
       end
 
       def dirty_attributes_to_h
-        Hash[@dirty_attributes.keys.each do |k|
+        Hash[@dirty_attributes.keys.map do |k|
           [
             k,
             public_send(k)

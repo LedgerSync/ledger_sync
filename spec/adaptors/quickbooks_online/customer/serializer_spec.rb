@@ -43,19 +43,4 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Serializer do
       expect(deserialized_customer.phone_number).to eq(phone_number)
     end
   end
-
-  describe '#deserialize!' do
-    let(:customer) { LedgerSync::Customer.new }
-
-    it do
-      serializer = described_class.new(resource: customer)
-      deserialized_customer = serializer.deserialize!(h)
-      expect(customer.email).to eq(email)
-      expect(customer.name).to eq(name)
-      expect(customer.phone_number).to eq(phone_number)
-      expect(deserialized_customer.email).to eq(email)
-      expect(deserialized_customer.name).to eq(name)
-      expect(deserialized_customer.phone_number).to eq(phone_number)
-    end
-  end
 end

@@ -25,19 +25,24 @@ module LedgerSync
           next if !include_id && attribute_hash[:id]
 
           ledger_attribute_parts = attribute_hash[:ledger_attribute].split('.')
-          value = resource.send(resource_attribute)
+          value = if attribute_hash[:block].nil?
+                    resource.send(resource_attribute)
+                  else
+                    block.call(resource)
+                  end
           ret[ledger_attribute_parts.shift] = ledger_attribute_parts.reverse.inject(value) { |a, n| { n => a } }
         end
 
         ret
       end
 
-      def self.attribute(id: false, ledger_attribute:, resource_attribute:)
+      def self.attribute(id: false, ledger_attribute:, resource_attribute: nil, &block)
         raise "ID has already been set for #{name}" if id && @id
-        raise "#{resource_attribute} is not an attribute of the resource #{_inferred_resource_class}" unless _inferred_resource_class.serialize_attribute?(resource_attribute)
+        raise "#{resource_attribute} is not an attribute of the resource #{_inferred_resource_class}" if !resource_attribute.nil? && !_inferred_resource_class.serialize_attribute?(resource_attribute)
 
         attributes[resource_attribute] = {
           id: id,
+          block: (block if block_given?),
           ledger_attribute: ledger_attribute,
           resource_attribute: resource_attribute
         }

@@ -46,20 +46,21 @@ RSpec.describe LedgerSync::Result, type: :serializable do
 
   describe LedgerSync::OperationResult do
     it do
-      subject = described_class.Success(:val, operation: :op, response: :resp).serialize
+      subject = described_class.Success(:val, operation: :op, resource: :res, response: :resp).serialize
 
       h = {
-        root: 'LedgerSync::OperationResult::Success/80778a803b98fc30f93770bbabe8ec31',
+        root: 'LedgerSync::OperationResult::Success/1863f02d2c39343180f0068db0ffdd96',
         objects: {
-          'LedgerSync::OperationResult::Success/80778a803b98fc30f93770bbabe8ec31' => {
-            id: 'LedgerSync::OperationResult::Success/80778a803b98fc30f93770bbabe8ec31',
-            object: 'LedgerSync::OperationResult::Success',
-            fingeprint: '80778a803b98fc30f93770bbabe8ec31',
+          'LedgerSync::OperationResult::Success/1863f02d2c39343180f0068db0ffdd96' => {
             data: {
-              value: :val,
               operation: :op,
-              response: :resp
-            }
+              resource: :res,
+              response: :resp,
+              value: :val
+            },
+            fingeprint: '1863f02d2c39343180f0068db0ffdd96',
+            id: 'LedgerSync::OperationResult::Success/1863f02d2c39343180f0068db0ffdd96',
+            object: 'LedgerSync::OperationResult::Success'
           }
         }
       }
@@ -67,20 +68,21 @@ RSpec.describe LedgerSync::Result, type: :serializable do
     end
 
     it do
-      subject = described_class.Failure(:err, operation: :op, response: :resp).serialize
+      subject = described_class.Failure(:err, operation: :op, resource: :res, response: :resp).serialize
 
       h = {
-        root: 'LedgerSync::OperationResult::Failure/587c864765aaa7776c9a32bea77e8745',
+        root: 'LedgerSync::OperationResult::Failure/4e173f03055f33005bb3c71a3ffafe6c',
         objects: {
-          'LedgerSync::OperationResult::Failure/587c864765aaa7776c9a32bea77e8745' => {
-            id: 'LedgerSync::OperationResult::Failure/587c864765aaa7776c9a32bea77e8745',
-            object: 'LedgerSync::OperationResult::Failure',
-            fingeprint: '587c864765aaa7776c9a32bea77e8745',
+          'LedgerSync::OperationResult::Failure/4e173f03055f33005bb3c71a3ffafe6c' => {
             data: {
               error: :err,
               operation: :op,
+              resource: :res,
               response: :resp
-            }
+            },
+            fingeprint: '4e173f03055f33005bb3c71a3ffafe6c',
+            id: 'LedgerSync::OperationResult::Failure/4e173f03055f33005bb3c71a3ffafe6c',
+            object: 'LedgerSync::OperationResult::Failure'
           }
         }
       }

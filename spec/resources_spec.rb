@@ -27,11 +27,11 @@ RSpec.describe LedgerSync::Resource do
   describe '#assign_attributes' do
     it do
       resource = LedgerSync::Customer.new
-      expecT(resource.ledger_id).to be_nil
-      expecT(resource.name).to be_nil
+      expect(resource.ledger_id).to be_nil
+      expect(resource.name).to be_nil
       resource.assign_attributes(ledger_id: 'foo', name: 'bar')
-      expecT(resource.ledger_id).to eq('foo')
-      expecT(resource.name).to eq('name')
+      expect(resource.ledger_id).to eq('foo')
+      expect(resource.name).to eq('bar')
     end
   end
 end

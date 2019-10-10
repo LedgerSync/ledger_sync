@@ -16,7 +16,10 @@ module LedgerSync
             private
 
             def operate
-              success(response: :foo)
+              success(
+                resource: resource,
+                response: :foo
+              )
             end
           end
         end

@@ -6,16 +6,16 @@ module LedgerSync
           class Create < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
-                required(:ledger_id).value(:nil)
-                required(:vendor).hash(Types::Reference)
                 required(:account).hash(Types::Reference)
                 required(:amount).filled(:integer)
                 required(:currency).filled(:string)
+                required(:exchange_rate).maybe(:float)
+                required(:ledger_id).value(:nil)
+                required(:line_items).array(Types::Reference)
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
                 required(:transaction_date).filled(:date?)
-                required(:exchange_rate).maybe(:float)
-                required(:line_items).array(Types::Reference)
+                required(:vendor).hash(Types::Reference)
               end
             end
 
