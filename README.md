@@ -31,11 +31,11 @@ The code may look like the following:
 
 ```ruby
 adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new(
-  access_token: ENV['QUICKBOOKS_ONLINE_ACCESS_TOKEN'],
+  access_token: access_token, # assuming this is defined
   client_id: ENV['QUICKBOOKS_ONLINE_CLIENT_ID'],
   client_secret: ENV['QUICKBOOKS_ONLINE_CLIENT_SECRET'],
   realm_id: ENV['QUICKBOOKS_ONLINE_REALM_ID'],
-  refresh_token: ENV['REFRESH_TOKEN']
+  refresh_token: refresh_token, # assuming this is defined
 )
 
 resource = LedgerSync::Adaptors::QuickBooksOnline::Customer.new(
@@ -43,7 +43,7 @@ resource = LedgerSync::Adaptors::QuickBooksOnline::Customer.new(
   email: 'test@example.com'
 )
 
-operation = LedgerSync::Adaptors::QuickBooksOnline::Customer::Create.new(
+operation = LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Create.new(
   adaptor: adaptor,
   resource: resource
 )
@@ -54,6 +54,12 @@ if result.success?
   # Do something with result.operation.resource
 else # result.failure?
   raise result.error
+end
+
+# Because QuickBooks Online uses Oauth 2, you must always be sure to save the
+# access_token, refresh_token, and expirations as they can change any time.
+result.operation.adaptor.ledger_attributes_to_save.each do |key, value|
+  # save values
 end
 ```
 
@@ -181,16 +187,18 @@ LedgerSync offers a test adaptor `LedgerSync::Adaptors::Test` that you can easil
 
 ```ruby
 
-sync = LedgerSync::Adaptors::Test::Customer::Operations::Create.new(
+operation = LedgerSync::Adaptors::Test::Customer::Operations::Create.new(
   adaptor: LedgerSync::Adaptors::Test.new,
   resource: LedgerSync::Customer.new(name: 'Test Customer')
 )
 
-result = sync.perform
+expect(operation).to be_valid
+
+result = operation.perform
 expect(result).to be_a(LedgerSync::OperationResult::Success)
 expect(result).to be_success
 
-expect { sync.perform }.to raise_error(PerformedOperationError)
+expect { operation.perform }.to raise_error(PerformedOperationError)
 ```
 
 # Development
