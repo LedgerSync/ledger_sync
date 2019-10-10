@@ -34,7 +34,7 @@ module InputHelpers
       currency: 'USD',
       description: 'This is Sample Account',
       active: true
-  }.merge(merge)
+    }.merge(merge)
   end
 
   def payment_resource(**merge)
@@ -70,6 +70,35 @@ module InputHelpers
   end
 
   def expense_line_item_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      account: nil,
+      # attributes
+      amount: 12_345,
+      description: 'Sample Transaction'
+    }.merge(merge)
+  end
+
+  def deposit_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      to_account: nil,
+      line_items: [],
+      #attributes
+      currency: 'USD',
+      memo: 'Memo',
+      exchange_rate: 1.0,
+      transaction_date: Date.parse('2019-09-01')
+    }.merge(merge)
+  end
+
+  def deposit_line_item_resource(**merge)
     {
       external_id: nil,
       ledger_id: nil,
