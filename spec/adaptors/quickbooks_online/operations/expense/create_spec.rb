@@ -13,16 +13,4 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Crea
     instance = described_class.new(resource: expense, adaptor: quickbooks_adaptor)
     expect(instance).to be_valid
   end
-
-  context '#build' do # Todo: Remove in future PR.
-    subject do
-      op = described_class.new(
-        adaptor: quickbooks_adaptor,
-        resource: expense
-      )
-      op.prepare
-      op
-    end
-    it { expect(subject.operations.count).to eq(1) }
-  end
 end
