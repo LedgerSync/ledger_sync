@@ -7,27 +7,20 @@ RSpec.describe 'test/customers/update', type: :feature do
   include InputHelpers
   include AdaptorHelpers
 
+  let(:resource) do
+    LedgerSync::Customer.new(customer_resource({ledger_id: '123'}))
+  end
+
   let(:input) do
     {
       adaptor: test_adaptor,
-      resource_external_id: :c1,
-      resource_type: 'customer',
-      method: :update,
-      resources_data: customer_resources(ledger_id: '123')
+      resource: resource
     }
   end
 
-  it { expect(LedgerSync::Sync.new(**input)).to be_valid }
-
-  context '#operations' do
-    subject { LedgerSync::Sync.new(**input).operations }
-    it { expect(subject.length).to eq(1) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Customer::Operations::Update) }
-  end
-
   context '#perform' do
-    subject { LedgerSync::Sync.new(**input).perform }
+    subject { LedgerSync::Adaptors::Test::Customer::Operations::Update.new(**input).perform }
     it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::SyncResult::Success) }
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
   end
 end

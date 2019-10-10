@@ -22,23 +22,40 @@ Or install it yourself as:
 
 # Usage
 
-The easiest entry point into the library is the `Sync` class, which will handle building, validating, and performing all the necessary operations to sync an object.  You can of course build and manage these primitives yourself if you require more control.  Here is an example of a sync:
+To use LedgerSync, you must create an `Operation`.  The operation will be ledger-specific, so it will require the following:
+
+1. Adaptor
+2. Resource(s)
+
+The code may look like the following:
 
 ```ruby
-sync = LedgerSync::Sync.new(
-  adaptor: adaptor, # The adaptor for the ledger you want to use (see below)
-  method: :upsert,
-  resources_data: resources_data, # The structured hash of resource data (see below)
-  resource_external_id: resource_external_id, # The root object ID on which the operation is to be performed
-  resource_type: resource_type # The root object type on which the operation is to be performed
+adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new(
+  access_token: ENV['QUICKBOOKS_ONLINE_ACCESS_TOKEN'],
+  client_id: ENV['QUICKBOOKS_ONLINE_CLIENT_ID'],
+  client_secret: ENV['QUICKBOOKS_ONLINE_CLIENT_SECRET'],
+  realm_id: ENV['QUICKBOOKS_ONLINE_REALM_ID'],
+  refresh_token: ENV['REFRESH_TOKEN']
 )
 
-sync.operations # Returns the ordered list of operations to be performed
+resource = LedgerSync::Adaptors::QuickBooksOnline::Customer.new(
+  name: 'Sample Customer',
+  email: 'test@example.com'
+)
 
-sync.perform # Returns a SyncResult (either ::Success or ::Failure)
+operation = LedgerSync::Adaptors::QuickBooksOnline::Customer::Create.new(
+  adaptor: adaptor,
+  resource: resource
+)
+
+result = operation.perform # This will be a LedgerSync::OperationResult object
+
+if result.success?
+  # Do something with result.operation.resource
+else # result.failure?
+  raise result.error
+end
 ```
-
-**NOTE: Even when not performing the sync (`sync.perform`) and just retrieving the operations (`sync.operations`), the library will make API requests to the ledger in order to determine if a `create` or `update` is necessary for each object involved.**
 
 # How it Works
 
@@ -164,24 +181,17 @@ The serialization of any object follows the same struction.  There is a `:root` 
 LedgerSync offers a test adaptor `LedgerSync::Adaptors::Test` that you can easily use and stub without requiring API requests.  For example:
 
 ```ruby
-resources_data = {
-  {
-    customer: {
-      'cus_1': {
-        name: 'Jane Doe'
-      }
-    }
-  }
-}
-sync = LedgerSync::Sync.new(
+
+sync = LedgerSync::Adaptors::Test::Customer::Operations::Create.new(
   adaptor: LedgerSync::Adaptors::Test.new,
-  method: :upsert,
-  resources_data: resources_data,
-  resource_external_id: 'cus_1',
-  resource_type: :customer
+  resource: LedgerSync::Customer.new(name: 'Test Customer')
 )
 
-expect(sync.perform).to be_a(LedgerSync::SyncResult::Success)
+result = sync.perform
+expect(result).to be_a(LedgerSync::OperationResult::Success)
+expect(result).to be_success
+
+expect { sync.perform }.to raise_error(PerformedOperationError)
 ```
 
 # Development

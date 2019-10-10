@@ -7,30 +7,47 @@ RSpec.describe 'test/expenses/create', type: :feature do
   include InputHelpers
   include AdaptorHelpers
 
+  let(:account) do
+    LedgerSync::Account.new(account_resource({ledger_id: '123'}))
+  end
+
+  let(:vendor) do
+    LedgerSync::Vendor.new(vendor_resource({ledger_id: '123'}))
+  end
+
+  let(:line_item_1) do
+    LedgerSync::ExpenseLineItem.new(expense_line_item_resource({account: account}))
+  end
+
+  let(:line_item_2) do
+    LedgerSync::ExpenseLineItem.new(expense_line_item_resource({account: account}))
+  end
+
+  let(:resource) do
+    LedgerSync::Expense.new(
+      expense_resource(
+        {
+          account: account,
+          vendor: vendor,
+          line_items: [
+            line_item_1,
+            line_item_2
+          ]
+        }
+      )
+    )
+  end
+
   let(:input) do
     {
       adaptor: test_adaptor,
-      resource_external_id: :e1,
-      resource_type: 'expense',
-      method: :create,
-      resources_data: expense_resources
+      resource: resource
     }
   end
 
-  let(:sync) { LedgerSync::Sync.new(**input) }
-
-  it { expect(sync).to be_valid }
-
-  context '#operations' do
-    subject { sync.operations }
-    it { expect(subject.length).to eq(3) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::Test::Account::Operations::Create) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::Test::Expense::Operations::Create) }
-  end
-
   context '#perform' do
-    subject { sync.perform }
+    subject { LedgerSync::Adaptors::Test::Expense::Operations::Create.new(**input).perform }
     it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::SyncResult::Success) }
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
   end
 end

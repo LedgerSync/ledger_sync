@@ -10,34 +10,28 @@ RSpec.describe 'quickbooks_online/payments/update', type: :feature do
   include QuickbooksHelpers
 
   before {
-    stub_find_customer
-    stub_update_customer
-
     stub_find_payment
     stub_update_payment
   }
+
+  let(:customer) do
+    LedgerSync::Customer.new(customer_resource({ledger_id: '123'}))
+  end
+
+  let(:resource) do
+    LedgerSync::Payment.new(payment_resource({ledger_id: '123', customer: customer}))
+  end
+
   let(:input) do
     {
       adaptor: quickbooks_adaptor,
-      resource_external_id: :p1,
-      resource_type: 'payment',
-      method: :update,
-      resources_data: payment_resources(ledger_id: '123')
+      resource: resource
     }
   end
 
-  it { expect(LedgerSync::Sync.new(**input)).to be_valid }
-
-  context '#operations' do
-    subject { LedgerSync::Sync.new(**input).operations }
-    it { expect(subject.length).to eq(2) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Update) }
-    it { expect(subject.last).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Payment::Operations::Update) }
-  end
-
   context '#perform' do
-    subject { LedgerSync::Sync.new(**input).perform }
+    subject { LedgerSync::Adaptors::QuickBooksOnline::Payment::Operations::Update.new(**input).perform }
     it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::SyncResult::Success) }
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
   end
 end

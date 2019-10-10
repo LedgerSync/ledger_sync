@@ -47,9 +47,6 @@ require 'ledger_sync/resources/payment'
 require 'ledger_sync/resources/expense_line_item'
 require 'ledger_sync/resources/expense'
 
-# Synchronizer
-require 'ledger_sync/sync'
-
 module LedgerSync
   @log_level = nil
   @logger = nil

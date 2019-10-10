@@ -88,45 +88,6 @@ RSpec.describe LedgerSync::Result, type: :serializable do
     end
   end
 
-  describe LedgerSync::SyncResult do
-    it do
-      subject = described_class.Success(:val, sync: :sy).serialize
-      h = {
-        root: 'LedgerSync::SyncResult::Success/61c139b545bef6ce1b4e5cc87324cfa7',
-        objects: {
-          'LedgerSync::SyncResult::Success/61c139b545bef6ce1b4e5cc87324cfa7' => {
-            id: 'LedgerSync::SyncResult::Success/61c139b545bef6ce1b4e5cc87324cfa7',
-            object: 'LedgerSync::SyncResult::Success',
-            fingeprint: '61c139b545bef6ce1b4e5cc87324cfa7',
-            data: {
-              value: :val,
-              sync: :sy
-            }
-          }
-        }
-      }
-      expect(subject).to eq(h)
-    end
-
-    it do
-      subject = described_class.Failure(:err, sync: :sy).serialize
-
-      h = { root: 'LedgerSync::SyncResult::Failure/e0a1e960cc1e681b86b587a685c045f4',
-            objects: {
-              'LedgerSync::SyncResult::Failure/e0a1e960cc1e681b86b587a685c045f4' => {
-                id: 'LedgerSync::SyncResult::Failure/e0a1e960cc1e681b86b587a685c045f4',
-                object: 'LedgerSync::SyncResult::Failure',
-                fingeprint: 'e0a1e960cc1e681b86b587a685c045f4',
-                data: {
-                  error: :err,
-                  sync: :sy
-                }
-              }
-            } }
-      expect(subject).to eq(h)
-    end
-  end
-
   describe LedgerSync::SearchResult do
     xit do
       allow_any_instance_of(LedgerSync::Customer).to receive(:ledger_id).and_return(:asdf)

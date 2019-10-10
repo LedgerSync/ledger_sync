@@ -13,27 +13,48 @@ RSpec.describe 'quickbooks_online/expenses/find', type: :feature do
     stub_find_expense
   }
 
+  let(:account) do
+    LedgerSync::Account.new(account_resource({ledger_id: '123'}))
+  end
+
+  let(:vendor) do
+    LedgerSync::Vendor.new(vendor_resource({ledger_id: '123'}))
+  end
+
+  let(:line_item_1) do
+    LedgerSync::ExpenseLineItem.new(expense_line_item_resource({account: account}))
+  end
+
+  let(:line_item_2) do
+    LedgerSync::ExpenseLineItem.new(expense_line_item_resource({account: account}))
+  end
+
+  let(:resource) do
+    LedgerSync::Expense.new(
+      expense_resource(
+        {
+          ledger_id: '123',
+          account: account,
+          vendor: vendor,
+          line_items: [
+            line_item_1,
+            line_item_2
+          ]
+        }
+      )
+    )
+  end
+
   let(:input) do
     {
       adaptor: quickbooks_adaptor,
-      resource_external_id: :e1,
-      resource_type: 'expense',
-      method: :find,
-      resources_data: expense_resources(ledger_id: '123')
+      resource: resource
     }
   end
 
-  it { expect(LedgerSync::Sync.new(**input)).to be_valid }
-
-  context '#operations' do
-    subject { LedgerSync::Sync.new(**input).operations }
-    it { expect(subject.length).to eq(1) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Find) }
-  end
-
   context '#perform' do
-    subject { LedgerSync::Sync.new(**input).perform }
+    subject { LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Find.new(**input).perform }
     it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::SyncResult::Success) }
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
   end
 end

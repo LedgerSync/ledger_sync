@@ -45,30 +45,6 @@ module LedgerSync
     include ResultBase
   end
 
-  class SyncResult
-    module ResultTypeBase
-      attr_reader :sync
-
-      def self.included(base)
-        base.class_eval do
-          serialize only: %i[sync]
-        end
-      end
-
-      def initialize(*args, sync:, **keywords)
-        @sync = sync
-        super(*args, **keywords)
-      end
-
-      def operations
-        @operations ||= sync.operations
-      end
-    end
-
-    include ResultBase
-  end
-
-
   class SearchResult
     module ResultTypeBase
       attr_reader :resources, :searcher

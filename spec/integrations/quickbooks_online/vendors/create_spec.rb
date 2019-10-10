@@ -13,27 +13,20 @@ RSpec.describe 'quickbooks_online/vendors/create', type: :feature do
     stub_create_vendor
   }
 
+  let(:resource) do
+    LedgerSync::Vendor.new(vendor_resource)
+  end
+
   let(:input) do
     {
       adaptor: quickbooks_adaptor,
-      resource_external_id: :v1,
-      resource_type: 'vendor',
-      method: :create,
-      resources_data: vendor_resources
+      resource: resource
     }
   end
 
-  it { expect(LedgerSync::Sync.new(**input)).to be_valid }
-
-  context '#operations' do
-    subject { LedgerSync::Sync.new(**input).operations }
-    it { expect(subject.length).to eq(1) }
-    it { expect(subject.first).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Vendor::Operations::Create) }
-  end
-
   context '#perform' do
-    subject { LedgerSync::Sync.new(**input).perform }
+    subject { LedgerSync::Adaptors::QuickBooksOnline::Vendor::Operations::Create.new(**input).perform }
     it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::SyncResult::Success) }
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
   end
 end
