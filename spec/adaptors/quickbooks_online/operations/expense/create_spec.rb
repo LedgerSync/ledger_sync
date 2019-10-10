@@ -23,6 +23,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Crea
       op.prepare
       op
     end
-    it { expect(subject.operations.count).to eq(3) }
+    it { expect(subject.operations.count).to eq(1) }
   end
 end

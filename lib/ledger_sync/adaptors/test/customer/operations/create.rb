@@ -28,7 +28,7 @@ module LedgerSync
             end
 
             def operate
-              response = adaptor.upsert(
+              response = adaptor.post(
                 resource: 'customer',
                 payload: local_resource_data.merge(
                   'id' => id
@@ -38,8 +38,6 @@ module LedgerSync
               resource.ledger_id = response.dig('id')
 
               success(response: response)
-            rescue OAuth2::Error => e
-              failure(e)
             end
           end
         end

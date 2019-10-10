@@ -30,8 +30,6 @@ module LedgerSync
               )
 
               success(response: response)
-            rescue OAuth2::Error => e
-              failure(e)
             end
           end
         end

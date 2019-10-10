@@ -15,30 +15,14 @@ module LedgerSync
 
             private
 
-            def build
-              build_customer_operation
-              add_root_operation(self)
-            end
-
             def operate
-              response = adaptor.upsert(
+              response = adaptor.post(
                 resource: 'payment',
                 payload: local_resource_data
               )
 
               resource.ledger_id = response.dig('id')
               success(response: response)
-            rescue OAuth2::Error => e
-              failure(e)
-            end
-
-            def build_customer_operation
-              customer = Customer::Operations::Upsert.new(
-                adaptor: adaptor,
-                resource: resource.customer
-              )
-
-              add_before_operation(customer)
             end
 
             def local_resource_data
