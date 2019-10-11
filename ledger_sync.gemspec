@@ -27,7 +27,6 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency('activemodel', '>= 0')
   spec.add_development_dependency('awesome_print', '>= 0')
   spec.add_development_dependency('bump')
   spec.add_development_dependency('bundler', '~> 1.16')
@@ -37,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('rubocop', '>= 0')
   spec.add_development_dependency('vcr', '>= 0')
   spec.add_development_dependency('webmock', '>= 0')
+  spec.add_runtime_dependency('activemodel', '>= 0')
   spec.add_runtime_dependency('colorize', '>= 0')
   spec.add_runtime_dependency('coveralls')
   spec.add_runtime_dependency('dry-schema')
