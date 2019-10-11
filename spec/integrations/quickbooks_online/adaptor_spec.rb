@@ -5,7 +5,7 @@ support :quickbooks_helpers
 
 RSpec.describe 'quickbooks_online/adaptor', type: :feature do
   include AdaptorHelpers
-  include QuickbooksHelpers
+  include QuickBooksHelpers
 
   before {
     stub_adaptor_refresh

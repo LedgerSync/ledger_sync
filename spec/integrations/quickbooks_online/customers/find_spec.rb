@@ -7,7 +7,7 @@ support :quickbooks_helpers
 RSpec.describe 'quickbooks_online/customers/find', type: :feature do
   include InputHelpers
   include AdaptorHelpers
-  include QuickbooksHelpers
+  include QuickBooksHelpers
 
   before {
     stub_find_customer
