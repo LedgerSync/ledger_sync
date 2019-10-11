@@ -7,7 +7,7 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
-                required(:to_account).hash(Types::Reference)
+                required(:account).hash(Types::Reference)
                 required(:currency).filled(:string)
                 required(:memo).filled(:string)
                 required(:transaction_date).filled(:date?)
@@ -41,14 +41,14 @@ module LedgerSync
                 'PrivateNote' => resource.memo,
                 'ExchangeRate' => resource.exchange_rate,
                 'DepositToAccountRef' => {
-                  'value' => resource.to_account.ledger_id
+                  'value' => resource.account.ledger_id
                 },
                 'Line' => resource.line_items.map do |line_item|
                   {
                     'DetailType' => 'DepositLineDetail',
                     'DepositLineDetail' => {
                       'AccountRef' => {
-                        'value' => line_item.account&.ledger_id || resource.to_account.ledger_id
+                        'value' => line_item.account&.ledger_id || resource.account.ledger_id
                       }
                     },
                     'Amount' => line_item.amount / 100.0,

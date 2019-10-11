@@ -16,8 +16,7 @@ module LedgerSync
                 )
                 .map do |c|
                   LedgerSync::Deposit.new(
-                    ledger_id: c.fetch('Id'),
-                    name: c.dig('Id')
+                    ledger_id: c.fetch('Id')
                   )
                 end
             end

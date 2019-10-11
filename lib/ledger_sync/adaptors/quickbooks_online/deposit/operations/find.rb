@@ -7,7 +7,7 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
-                required(:to_account).hash(Types::Reference)
+                required(:account).hash(Types::Reference)
                 required(:currency).maybe(:string)
                 required(:memo).maybe(:string)
                 required(:transaction_date).filled(:date?)
