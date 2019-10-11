@@ -19,6 +19,7 @@ module LedgerSync
                     :previous_refresh_tokens,
                     :realm_id,
                     :refresh_token,
+                    :refresh_token_expires_at,
                     :root_uri,
                     :test
 
@@ -80,6 +81,7 @@ module LedgerSync
           @access_token = refreshed.token
 
           @expires_at = Time&.at(refreshed.expires_at.to_i)&.to_datetime
+          @refresh_token_expires_at = Time&.at(Time.now.to_i + refreshed.params['x_refresh_token_expires_in'])&.to_datetime
 
           @previous_refresh_tokens << refresh_token
           @refresh_token = refreshed.refresh_token
@@ -92,7 +94,7 @@ module LedgerSync
         end
 
         def self.ledger_attributes_to_save
-          %i[access_token expires_at refresh_token]
+          %i[access_token expires_at refresh_token refresh_token_expires_at]
         end
 
         # def self.url_for(resource:)
