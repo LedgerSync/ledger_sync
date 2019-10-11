@@ -343,4 +343,59 @@ module QuickbooksHelpers
         headers: {}
       )
   end
+
+  # Deposit
+
+  def stub_create_deposit
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit").
+      with(
+        body: "{\"CurrencyRef\":{\"value\":\"USD\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"ExchangeRate\":1.0,\"DepositToAccountRef\":{\"value\":\"123\"},\"Line\":[{\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45},{\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45}]}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"153\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T06:07:00-07:00\",\"LastUpdatedTime\":\"2019-10-11T06:07:00-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T06:07:00.549-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_find_deposit
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit/123").
+      with(
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"153\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T06:07:00-07:00\",\"LastUpdatedTime\":\"2019-10-11T06:07:00-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T06:07:00.549-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_update_deposit
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit").
+      with(
+        body: "{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"153\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T06:07:00-07:00\",\"LastUpdatedTime\":\"2019-10-11T06:07:00-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}],\"ExchangeRate\":1.0}",
+        headers: {
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>'Faraday v0.15.4'
+        }).
+      to_return(
+        status: 200,
+        body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"153\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T06:07:00-07:00\",\"LastUpdatedTime\":\"2019-10-11T06:07:00-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T06:07:00.549-07:00\"}",
+        headers: {}
+      )
+  end
 end
