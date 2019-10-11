@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     ledger_sync (1.0.10)
+      activemodel
       colorize
       coveralls
       dry-schema
@@ -164,7 +165,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activemodel
   awesome_print
   bump
   bundler (~> 1.16)
