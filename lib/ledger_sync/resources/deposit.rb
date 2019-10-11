@@ -5,7 +5,7 @@ module LedgerSync
     attribute :transaction_date, type: Type::Date
     attribute :exchange_rate, type: Type::Float
 
-    references_one :to_account, to: Account
+    references_one :account, to: Account
 
     references_many :line_items, to: DepositLineItem
 

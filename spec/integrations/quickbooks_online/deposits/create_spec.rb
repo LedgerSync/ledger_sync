@@ -29,7 +29,7 @@ RSpec.describe 'quickbooks_online/deposits/create', type: :feature do
     LedgerSync::Deposit.new(
       deposit_resource(
         {
-          to_account: account,
+          account: account,
           line_items: [
             line_item_1,
             line_item_2

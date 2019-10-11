@@ -31,7 +31,7 @@ RSpec.describe 'quickbooks_online/deposits/update', type: :feature do
       deposit_resource(
         {
           ledger_id: '123',
-          to_account: account,
+          account: account,
           line_items: [
             line_item_1,
             line_item_2

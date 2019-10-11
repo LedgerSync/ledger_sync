@@ -88,7 +88,7 @@ module InputHelpers
       ledger_id: nil,
       sync_token: nil,
       # relationships
-      to_account: nil,
+      account: nil,
       line_items: [],
       #attributes
       currency: 'USD',
