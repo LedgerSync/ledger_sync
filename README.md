@@ -38,7 +38,7 @@ adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new(
   refresh_token: refresh_token, # assuming this is defined
 )
 
-resource = LedgerSync::Adaptors::QuickBooksOnline::Customer.new(
+resource = LedgerSync::Customer.new(
   name: 'Sample Customer',
   email: 'test@example.com'
 )
