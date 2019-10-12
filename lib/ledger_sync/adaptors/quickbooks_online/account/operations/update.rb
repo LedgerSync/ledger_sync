@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/account
+# Requires full update
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -27,9 +29,14 @@ module LedgerSync
                 id: resource.ledger_id
               )
 
+              new_resource = ledger_serializer.deserialize(ledger_resource_data)
+              new_serializer = ledger_serializer.class.new(resource: new_resource)
+
+              pdb new_serializer.to_h
+
               response = adaptor.post(
                 resource: 'account',
-                payload: ledger_serializer.deserialize(ledger_resource_data).to_h
+                payload: new_serializer.to_h
               )
 
               success(
