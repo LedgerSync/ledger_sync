@@ -35,11 +35,11 @@ module LedgerSync
       # Change the dirty change set of {"name" => ["Bill", "Bob"]}
       # to current values of attributes that have changed: {"name" => "Bob"}
       def changes_to_h
-        Hash[changes.map { |k, v| [k, v.last] } ]
+        Hash[changes.map { |k, v| [k, v.last] }]
       end
 
       def dirty_attributes_to_h
-        Hash[@dirty_attributes.keys.map do |k|
+        Hash[self.class.dirty_attributes.keys.map do |k|
           [
             k,
             public_send(k)

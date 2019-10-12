@@ -52,7 +52,7 @@ module LedgerSync
     end
 
     def to_h
-      attributes.to_h.merge(dirty_attributes_to_h)
+      resource_attributes.to_h.merge(dirty_attributes_to_h)
     end
 
     def self.resource_type
@@ -62,7 +62,7 @@ module LedgerSync
     def self.serialize_attribute?(sattr)
       sattr = sattr.to_sym
       return true if %i[external_id ledger_id sync_token].include?(sattr)
-      return true if attributes.key?(sattr)
+      return true if resource_attributes.key?(sattr)
 
       false
     end

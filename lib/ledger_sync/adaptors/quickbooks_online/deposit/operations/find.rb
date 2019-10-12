@@ -26,7 +26,10 @@ module LedgerSync
                 id: resource.ledger_id
               )
 
-              success(response: response)
+              success(
+                resource: ledger_serializer.deserialize(response),
+                response: response
+              )
             end
           end
         end

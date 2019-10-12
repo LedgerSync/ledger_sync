@@ -9,7 +9,6 @@ module LedgerSync
                 required(:ledger_id).filled(:string)
                 required(:account).hash(Types::Reference)
                 required(:vendor).hash(Types::Reference)
-                required(:amount).filled(:integer)
                 required(:currency).filled(:string)
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
@@ -31,12 +30,14 @@ module LedgerSync
                 payload: merge_into(from: local_resource_data, to: ledger_resource_data)
               )
 
-              success(response: response)
+              success(
+                resource: ledger_serializer.deserialize(response),
+                response: response
+              )
             end
 
             def local_resource_data
               {
-                'amount' => resource.amount,
                 'currency' => resource.currency,
                 'account_id' => resource.account.ledger_id,
                 'vendor_id' => resource.vendor.ledger_id,

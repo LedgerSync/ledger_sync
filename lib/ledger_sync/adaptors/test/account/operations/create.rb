@@ -41,7 +41,10 @@ module LedgerSync
 
               resource.ledger_id = response.dig('id')
 
-              success(response: response)
+              success(
+                resource: ledger_serializer.deserialize(response),
+                response: response
+              )
             end
           end
         end

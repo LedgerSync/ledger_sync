@@ -4,18 +4,17 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module ExpenseLineItem
-        class Serializer < QuickBooksOnline::Serializer
+        class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           attribute ledger_attribute: 'DetailType' do
             'AccountBasedExpenseLineDetail'
           end
 
-          attribute ledger_attribute: 'AccountBasedExpenseLineDetail.value' do |resource|
-            resource.account&.ledger_id
-          end
+          attribute ledger_attribute: 'AccountBasedExpenseLineDetail.AccountRef.value',
+                    resource_attribute: 'account.ledger_id'
 
-          attribute ledger_attribute: 'Amount' do |resource|
-            local_to_qbo_amount(resource.amount)
-          end
+          attribute ledger_attribute: 'Amount',
+                    resource_attribute: :amount,
+                    type: LedgerSerializerType::Amount
 
           attribute ledger_attribute: 'Description',
                     resource_attribute: :description

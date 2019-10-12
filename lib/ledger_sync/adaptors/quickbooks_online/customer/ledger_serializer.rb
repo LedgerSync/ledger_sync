@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module Customer
-        class Serializer < QuickBooksOnline::Serializer
+        class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id  ledger_attribute: 'Id',
               resource_attribute: :ledger_id
 

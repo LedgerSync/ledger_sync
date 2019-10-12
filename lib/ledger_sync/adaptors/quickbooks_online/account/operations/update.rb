@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'ledger_sync/adaptors/quickbooks_online/account/mapping'
-
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -31,25 +29,13 @@ module LedgerSync
 
               response = adaptor.post(
                 resource: 'account',
-                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
+                payload: ledger_serializer.deserialize(ledger_resource_data).to_h
               )
 
-              resource.ledger_id = response.dig('Id')
-              success(response: response)
-            end
-
-            def local_resource_data
-              {
-                'Name' => resource.name,
-                'AccountType' => Mapping::ACCOUNT_TYPES[resource.account_type],
-                'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[resource.account_sub_type],
-                'AcctNum' => resource.number,
-                'CurrencyRef' => {
-                  'value' => resource.currency,
-                },
-                'Description' => resource.description,
-                'Active' => resource.active
-              }
+              success(
+                resource: ledger_serializer.deserialize(response),
+                response: response
+              )
             end
           end
         end

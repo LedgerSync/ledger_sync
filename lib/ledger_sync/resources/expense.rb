@@ -1,7 +1,6 @@
 module LedgerSync
   class Expense < LedgerSync::Resource
     attribute :currency, type: Type::String
-    attribute :amount, type: Type::Integer
     attribute :memo, type: Type::String
     attribute :payment_type, type: Type::String
     attribute :transaction_date, type: Type::Date
@@ -11,6 +10,10 @@ module LedgerSync
     references_one :account, to: Account
 
     references_many :line_items, to: ExpenseLineItem
+
+    def amount
+      line_items.map(&:amount).sum
+    end
 
     def name
       "Purchase: #{amount} #{currency}"

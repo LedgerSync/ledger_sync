@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Serializer do
+RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::LedgerSerializer do
   let(:customer) { LedgerSync::Customer.new(ledger_id: id, name: name, email: email, phone_number: phone_number) }
   let(:id) { '123' }
   let(:name) { 'test_name' }

@@ -48,7 +48,6 @@ module LedgerSync
                     :before_operations,
                     :operations,
                     :resource,
-                    :resource_after_perform,
                     :resource_before_perform,
                     :root_operation,
                     :result,
@@ -67,7 +66,6 @@ module LedgerSync
           @operations = []
           @resource = resource
           @resource_before_perform = resource.dup
-          @resource_after_perform = nil
           @result = nil
           @root_operation = nil
         end
@@ -108,17 +106,16 @@ module LedgerSync
           @performed == true
         end
 
-        def resource_serializer
-          @resource_serializer ||= begin
+        def ledger_serializer
+          @ledger_serializer ||= begin
             modules = self.class.name.split('::Operations::').first
-            Object.const_get("#{modules}::Serializer").new(resource: resource)
+            Object.const_get("#{modules}::LedgerSerializer").new(resource: resource)
           end
         end
 
         # Results
 
         def failure(error, resource: nil)
-          @resource_after_perform = resource
           @result = LedgerSync::OperationResult.Failure(
             error,
             operation: self,
@@ -132,7 +129,6 @@ module LedgerSync
         end
 
         def success(resource:, response:)
-          @resource_after_perform = resource
           @result = LedgerSync::OperationResult.Success(
             self,
             operation: self,

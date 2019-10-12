@@ -2,7 +2,11 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Serializer do
+support :ledger_serializer_helpers
+
+RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer do
+  include LedgerSerializerHelpers
+
   let(:resource) do
     LedgerSync::Account.new(
       account_sub_type: account_sub_type,
@@ -25,8 +29,8 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Serializer do
   let(:h) do
     {
       'Name' => name,
-      'AccountType' => Mapping::ACCOUNT_TYPES[account_type],
-      'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[account_sub_type],
+      'AccountType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::Account.mapping[account_type],
+      'AccountSubType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::SubAccount.mapping[account_sub_type],
       'AcctNum' => number,
       'CurrencyRef' => {
         'value' => currency
@@ -48,18 +52,22 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Serializer do
 
     it do
       expect_deserialized_attributes(
-        attributes: %s[
-          name,
-          account_type,
-          account_sub_type,
-          number
+        attributes: %i[
+          account_sub_type
+          account_type
+          active
           currency
           description
-          active
+          name
+          number
         ],
-        h: h,
-        resource: resource,
-        serializer_class: described_class
+        resource: LedgerSync::Account.new,
+        response_hash: h,
+        serializer_class: described_class,
+        values: {
+          account_sub_type: account_sub_type,
+          account_type: account_type
+        }
       )
     end
   end

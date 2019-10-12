@@ -9,7 +9,6 @@ module LedgerSync
                 required(:ledger_id).filled(:string)
                 required(:account).hash(Types::Reference)
                 required(:vendor).hash(Types::Reference)
-                required(:amount).maybe(:integer)
                 required(:currency).maybe(:string)
                 required(:memo).maybe(:string)
                 required(:payment_type).maybe(:string)
@@ -29,7 +28,10 @@ module LedgerSync
                 id: resource.ledger_id
               )
 
-              success(response: response)
+              success(
+                resource: ledger_serializer.deserialize(response),
+                response: response
+              )
             end
           end
         end

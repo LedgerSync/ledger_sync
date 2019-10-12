@@ -114,7 +114,7 @@ end
 # Adaptors
 require 'ledger_sync/adaptors/adaptor'
 require 'ledger_sync/adaptors/searcher'
-require 'ledger_sync/adaptors/serializer'
+require 'ledger_sync/adaptors/ledger_serializer'
 Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 
 # Register Resources
