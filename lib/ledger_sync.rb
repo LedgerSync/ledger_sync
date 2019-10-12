@@ -47,6 +47,7 @@ require 'ledger_sync/resources/expense_line_item'
 require 'ledger_sync/resources/expense'
 require 'ledger_sync/resources/deposit_line_item'
 require 'ledger_sync/resources/deposit'
+require 'ledger_sync/resources/transfer'
 
 module LedgerSync
   @log_level = nil
@@ -117,3 +118,4 @@ LedgerSync.register_resource(resource: LedgerSync::ExpenseLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Expense)
 LedgerSync.register_resource(resource: LedgerSync::DepositLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Deposit)
+LedgerSync.register_resource(resource: LedgerSync::Transfer)

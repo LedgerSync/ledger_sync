@@ -179,7 +179,7 @@ module LedgerSync
         def merge_into(from:, to:)
           case to
           when *(Resource::PRIMITIVES | [Array]) then from
-          else to.merge!(from) { |_key, old_value, new_value| merge_into(from: old_value, to: new_value) } if to && from
+          else to.merge!(from) { |_key, new_value, old_value| merge_into(from: old_value, to: new_value) } if to && from
           end
         end
 

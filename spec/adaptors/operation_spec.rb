@@ -64,7 +64,7 @@ RSpec.describe LedgerSync::Adaptors::Operation do
 
       h = {
         a: 1,
-        b: 22,
+        b: 2,
         c: 3
       }
 
@@ -104,7 +104,70 @@ RSpec.describe LedgerSync::Adaptors::Operation do
 
       h = {
         a: 1,
-        b: [22],
+        b: [2, 3, 4],
+        c: 3
+      }
+
+      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+    end
+
+    it do
+      h1 = {
+        a: 1,
+        b: [{x: 1}, {y: 2}]
+      }
+
+      h2 = {
+        a: 2,
+        b: [{x: 10, xx: 1}, {y: 20, yy: 2}],
+        c: 3
+      }
+
+      h = {
+        a: 1,
+        b: [{x: 1}, {y: 2}],
+        c: 3
+      }
+
+      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+    end
+
+    it do
+      h1 = {
+        a: 1,
+        b: [{x: 1}, {y: 2}]
+      }
+
+      h2 = {
+        a: 2,
+        b: [{x: 10, xx: 1}],
+        c: 3
+      }
+
+      h = {
+        a: 1,
+        b: [{x: 1}, {y: 2}],
+        c: 3
+      }
+
+      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+    end
+
+    it do
+      h1 = {
+        a: 1,
+        b: [{x: 1}]
+      }
+
+      h2 = {
+        a: 2,
+        b: [{x: 10, xx: 1}, {y: 20, yy: 2}],
+        c: 3
+      }
+
+      h = {
+        a: 1,
+        b: [{x: 1}],
         c: 3
       }
 
