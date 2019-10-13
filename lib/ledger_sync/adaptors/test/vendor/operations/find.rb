@@ -7,6 +7,7 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:ledger_id).filled(:string)
+                optional(:display_name).maybe(:string)
                 optional(:first_name).maybe(:string)
                 optional(:last_name).maybe(:string)
                 optional(:email).maybe(:string)
