@@ -7,8 +7,9 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).value(:nil)
-                required(:first_name).filled(:string)
-                required(:last_name).filled(:string)
+                required(:display_name).maybe(:string)
+                required(:first_name).maybe(:string)
+                required(:last_name).maybe(:string)
                 required(:email).maybe(:string)
               end
             end
@@ -21,7 +22,7 @@ module LedgerSync
 
             def local_resource_data
               {
-                'name' => resource.name,
+                'name' => resource.display_name,
                 'email' => resource.email
               }
             end

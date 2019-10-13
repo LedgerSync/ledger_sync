@@ -9,6 +9,7 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:ledger_id).filled(:string)
+                optional(:display_name).maybe(:string)
                 optional(:first_name).maybe(:string)
                 optional(:last_name).maybe(:string)
                 optional(:email).maybe(:string)
@@ -34,6 +35,7 @@ module LedgerSync
 
             def local_resource_data
               {
+                'DisplayName' => resource.display_name,
                 'GivenName' => resource.first_name,
                 'FamilyName' => resource.last_name,
                 'PrimaryEmailAddr' => {

@@ -162,7 +162,7 @@ module QuickBooksHelpers
   def stub_create_vendor
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor')
       .with(
-        body: '{"GivenName":"Sample","FamilyName":"Vendor","PrimaryEmailAddr":{"Address":"test@example.com"}}',
+        body: "{\"DisplayName\":\"Sample Vendor\",\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -217,7 +217,7 @@ module QuickBooksHelpers
   def stub_update_vendor
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor')
       .with(
-        body: '{"Balance":0,"Vendor1099":false,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T09:05:52-07:00","LastUpdatedTime":"2019-09-12T09:05:52-07:00"},"GivenName":"Sample","FamilyName":"Vendor","DisplayName":"Sample Vendor","PrintOnCheckName":"Sample Vendor","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"}}',
+        body: "{\"Balance\":0,\"Vendor1099\":false,\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-09-12T09:05:52-07:00\",\"LastUpdatedTime\":\"2019-09-12T09:05:52-07:00\"},\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"DisplayName\":\"Sample Vendor\",\"PrintOnCheckName\":\"Sample Vendor\",\"Active\":true,\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

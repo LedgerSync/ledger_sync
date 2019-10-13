@@ -17,6 +17,7 @@ module InputHelpers
       sync_token: nil,
       # attributes
       email: 'test@example.com',
+      display_name: 'Sample Vendor',
       first_name: 'Sample',
       last_name: 'Vendor'
     }.merge(merge)

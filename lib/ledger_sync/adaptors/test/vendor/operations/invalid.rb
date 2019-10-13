@@ -7,6 +7,7 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
+                required(:display_name).filled(:string)
                 required(:first_name).filled(:string)
                 required(:last_name).filled(:string)
                 required(:email).filled(:string)

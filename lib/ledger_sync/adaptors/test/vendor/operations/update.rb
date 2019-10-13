@@ -7,8 +7,9 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
-                required(:first_name).filled(:string)
-                required(:last_name).filled(:string)
+                required(:display_name).maybe(:string)
+                required(:first_name).maybe(:string)
+                required(:last_name).maybe(:string)
                 optional(:email).maybe(:string)
               end
             end

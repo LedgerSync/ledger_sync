@@ -21,6 +21,7 @@ module LedgerSync
                 .map do |v|
                   LedgerSync::Vendor.new(
                     ledger_id: v.fetch('id'),
+                    display_name: v.fetch('display_name', ''),
                     first_name: v.fetch('first_name', ''),
                     last_name:  v.fetch('last_name', '')
                   )
