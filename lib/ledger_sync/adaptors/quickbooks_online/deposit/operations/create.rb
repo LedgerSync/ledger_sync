@@ -44,7 +44,7 @@ module LedgerSync
                     'DetailType' => 'DepositLineDetail',
                     'DepositLineDetail' => {
                       'AccountRef' => {
-                        'value' => line_item.account&.ledger_id || resource.account.ledger_id
+                        'value' => line_item.account&.ledger_id
                       }
                     },
                     'Amount' => line_item.amount / 100.0,

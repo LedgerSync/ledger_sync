@@ -42,7 +42,7 @@ module LedgerSync
                 'vendor_id' => resource.vendor.ledger_id,
                 'line_items' => resource.line_items.map do |line_item|
                   {
-                    'account_id' => line_item.account&.ledger_id || resource.account.ledger_id,
+                    'account_id' => line_item.account&.ledger_id,
                     'Amount' => line_item.amount / 100.0,
                     'description' => line_item.description
                   }
