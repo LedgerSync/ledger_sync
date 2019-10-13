@@ -1,7 +1,7 @@
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
-      module Expense
+      module Bill
         module Operations
           class Create < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
@@ -9,12 +9,10 @@ module LedgerSync
                 required(:ledger_id).value(:nil)
                 required(:vendor).hash(Types::Reference)
                 required(:account).hash(Types::Reference)
-                required(:amount).filled(:integer)
                 required(:currency).filled(:string)
-                required(:memo).filled(:string)
-                required(:payment_type).filled(:string)
-                required(:transaction_date).filled(:date?)
-                required(:exchange_rate).maybe(:float)
+                required(:memo).maybe(:string)
+                required(:transaction_date).maybe(:date?)
+                required(:due_date).maybe(:date?)
                 required(:line_items).array(Types::Reference)
               end
             end
@@ -23,7 +21,7 @@ module LedgerSync
 
             def operate
               response = adaptor.post(
-                resource: 'purchase',
+                resource: 'bill',
                 payload: local_resource_data
               )
 
@@ -36,14 +34,13 @@ module LedgerSync
                 'CurrencyRef' => {
                   'value' => resource.currency,
                 },
-                'PaymentType' => Mapping::PAYMENT_TYPES[resource.payment_type],
                 'TxnDate' => resource.transaction_date.to_s, # Format: YYYY-MM-DD
+                'DueDate' => resource.due_date.to_s, # Format: YYYY-MM-DD
                 'PrivateNote' => resource.memo,
-                'ExchangeRate' => resource.exchange_rate,
-                'EntityRef' => {
+                'VendorRef' => {
                   'value' => resource.vendor.ledger_id,
                 },
-                'AccountRef' => {
+                'APAccountRef' => {
                   'value' => resource.account.ledger_id
                 },
                 'Line' => resource.line_items.map do |line_item|

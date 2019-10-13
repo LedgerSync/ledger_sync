@@ -128,6 +128,36 @@ module InputHelpers
     }.merge(merge)
   end
 
+  def bill_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      account: nil,
+      vendor: nil,
+      line_items: [],
+      #attributes
+      currency: 'USD',
+      memo: 'Memo',
+      transaction_date: Date.parse('2019-09-01'),
+      due_date: Date.parse('2019-09-01')
+    }.merge(merge)
+  end
+
+  def bill_line_item_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      account: nil,
+      # attributes
+      amount: 12_345,
+      description: 'Sample Transaction'
+    }.merge(merge)
+  end
+
   def quickbooks_config
     {
       api_token: 'this_is_a_token'
