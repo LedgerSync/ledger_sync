@@ -1,20 +1,18 @@
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
-      module Expense
+      module Bill
         module Operations
-          class Create < Operation::Create
+          class Update < Operation::Update
             class Contract < LedgerSync::Adaptors::Contract
-              params do
-                required(:ledger_id).value(:nil)
+              schema do
+                required(:ledger_id).filled(:string)
                 required(:vendor).hash(Types::Reference)
                 required(:account).hash(Types::Reference)
-                required(:amount).filled(:integer)
                 required(:currency).filled(:string)
-                required(:memo).filled(:string)
-                required(:payment_type).filled(:string)
-                required(:transaction_date).filled(:date?)
-                required(:exchange_rate).maybe(:float)
+                required(:memo).maybe(:string)
+                required(:transaction_date).maybe(:date?)
+                required(:due_date).maybe(:date?)
                 required(:line_items).array(Types::Reference)
               end
             end
@@ -22,9 +20,13 @@ module LedgerSync
             private
 
             def operate
+              ledger_resource_data = adaptor.find(
+                resource: 'bill',
+                id: resource.ledger_id
+              )
               response = adaptor.post(
-                resource: 'purchase',
-                payload: local_resource_data
+                resource: 'bill',
+                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
               )
 
               resource.ledger_id = response.dig('Id')
@@ -36,14 +38,13 @@ module LedgerSync
                 'CurrencyRef' => {
                   'value' => resource.currency,
                 },
-                'PaymentType' => Mapping::PAYMENT_TYPES[resource.payment_type],
                 'TxnDate' => resource.transaction_date.to_s, # Format: YYYY-MM-DD
+                'DueDate' => resource.due_date.to_s, # Format: YYYY-MM-DD
                 'PrivateNote' => resource.memo,
-                'ExchangeRate' => resource.exchange_rate,
-                'EntityRef' => {
+                'VendorRef' => {
                   'value' => resource.vendor.ledger_id,
                 },
-                'AccountRef' => {
+                'APAccountRef' => {
                   'value' => resource.account.ledger_id
                 },
                 'Line' => resource.line_items.map do |line_item|

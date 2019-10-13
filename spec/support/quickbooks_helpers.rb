@@ -304,7 +304,7 @@ module QuickBooksHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Account":{"Name":"Sample","SubAccount":false,"FullyQualifiedName":"Sample","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}},"time":"2019-09-12T12:36:42.241-07:00"}',
+        body: '{"Account":{"Name":"Sample","SubAccount":false,"FullyQualifiedName":"Sample","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}},"time":"2019-09-12T12:36:42.241-07:00"}',
         headers: {}
       )
   end
@@ -362,7 +362,7 @@ module QuickBooksHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Purchase":{"AccountRef":{"value":"123","name":"Sample Account"},"PaymentType":"Cash","EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[],"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}},{"Id":"2","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}}]},"time":"2019-09-20T09:44:50.133-07:00"}',
+        body: '{"Purchase":{"AccountRef":{"value":"123","name":"Sample Account"},"PaymentType":"Cash","EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[],"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}},{"Id":"2","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}}]},"time":"2019-09-20T09:44:50.133-07:00"}',
         headers: {}
       )
   end
@@ -417,7 +417,7 @@ module QuickBooksHelpers
         }).
       to_return(
         status: 200,
-        body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T11:54:50-07:00\",\"LastUpdatedTime\":\"2019-10-11T11:54:50-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T11:54:50.879-07:00\"}",
+        body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"1\",\"MetaData\":{\"CreateTime\":\"2019-10-11T11:54:50-07:00\",\"LastUpdatedTime\":\"2019-10-11T11:54:50-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"3\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"4\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T11:54:50.879-07:00\"}",
         headers: {}
       )
   end
@@ -472,7 +472,65 @@ module QuickBooksHelpers
         }).
       to_return(
         status: 200,
-        body: "{\"Transfer\":{\"FromAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"ToAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"Amount\":12345.0,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-03T21:46:28-07:00\",\"LastUpdatedTime\":\"2019-10-03T21:46:28-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\"},\"time\":\"2019-10-03T21:46:27.963-07:00\"}",
+        body: "{\"Transfer\":{\"FromAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"ToAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"Amount\":12345.0,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"1\",\"MetaData\":{\"CreateTime\":\"2019-10-03T21:46:28-07:00\",\"LastUpdatedTime\":\"2019-10-03T21:46:28-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\"},\"time\":\"2019-10-03T21:46:27.963-07:00\"}",
+        headers: {}
+      )
+  end
+
+  # Bill
+
+  def stub_create_bill
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill')
+      .with(
+        body: "{\"CurrencyRef\":{\"value\":\"USD\"},\"TxnDate\":\"2019-09-01\",\"DueDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"VendorRef\":{\"value\":\"123\"},\"APAccountRef\":{\"value\":\"123\"},\"Line\":[{\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}]}",
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"Bill\":{\"DueDate\":\"2019-09-01\",\"Balance\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T10:43:04-07:00\",\"LastUpdatedTime\":\"2019-10-13T10:43:04-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}}],\"VendorRef\":{\"value\":\"123\",\"name\":\"Sample Vendor\"},\"APAccountRef\":{\"value\":\"123\",\"name\":\"Accounts Payable (A/P)\"},\"TotalAmt\":246.9},\"time\":\"2019-10-13T10:43:04.169-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_find_bill
+    stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill/123')
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"Bill\":{\"DueDate\":\"2019-09-01\",\"Balance\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T10:43:04-07:00\",\"LastUpdatedTime\":\"2019-10-13T10:43:04-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}}],\"VendorRef\":{\"value\":\"123\",\"name\":\"Sample Vendor\"},\"APAccountRef\":{\"value\":\"123\",\"name\":\"Accounts Payable (A/P)\"},\"TotalAmt\":246.9},\"time\":\"2019-10-13T10:43:04.169-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_update_bill
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill')
+      .with(
+        body: "{\"DueDate\":\"2019-09-01\",\"Balance\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T10:43:04-07:00\",\"LastUpdatedTime\":\"2019-10-13T10:43:04-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}],\"VendorRef\":{\"value\":\"123\",\"name\":\"Sample Vendor\"},\"APAccountRef\":{\"value\":\"123\",\"name\":\"Accounts Payable (A/P)\"},\"TotalAmt\":246.9}",
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"Bill\":{\"DueDate\":\"2019-09-01\",\"Balance\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"1\",\"MetaData\":{\"CreateTime\":\"2019-10-13T10:43:04-07:00\",\"LastUpdatedTime\":\"2019-10-13T10:43:04-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"3\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}},{\"Id\":\"4\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}}],\"VendorRef\":{\"value\":\"123\",\"name\":\"Sample Vendor\"},\"APAccountRef\":{\"value\":\"123\",\"name\":\"Accounts Payable (A/P)\"},\"TotalAmt\":246.9},\"time\":\"2019-10-13T10:43:04.169-07:00\"}",
         headers: {}
       )
   end
