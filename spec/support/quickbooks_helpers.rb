@@ -534,4 +534,62 @@ module QuickBooksHelpers
         headers: {}
       )
   end
+
+  # JournalEntry
+
+  def stub_create_journal_entry
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry')
+      .with(
+        body: "{\"CurrencyRef\":{\"value\":\"USD\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"Line\":[{\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}]}",
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"JournalEntry\":{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"0\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"1\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"}}}]},\"time\":\"2019-10-13T13:28:14.170-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_find_journal_entry
+    stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry/123')
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"JournalEntry\":{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"0\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"1\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"}}}]},\"time\":\"2019-10-13T13:28:14.170-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_update_journal_entry
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry')
+      .with(
+        body: "{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}]}",
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.15.4'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"JournalEntry\":{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"1\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"2\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"3\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"}}}]},\"time\":\"2019-10-13T13:28:14.170-07:00\"}",
+        headers: {}
+      )
+  end
 end
