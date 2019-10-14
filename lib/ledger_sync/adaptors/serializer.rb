@@ -26,22 +26,12 @@ module LedgerSync
           resource_attribute = attribute_hash[:resource_attribute]
           next if resource_attribute.nil?
 
-          ledger_attribute_parts = attribute_hash[:ledger_attribute].split('.')
-          value = if ledger_attribute_parts.count == 1
-                    hash[ledger_attribute_parts.first]
-                  else
-                    last_hash = hash.dig(*ledger_attribute_parts[0..-2])
-                    next unless last_hash.is_a?(Hash)
-
-                    last_hash[ledger_attribute_parts.last]
-                  end
-
           value = attribute_hash[:type].new(
             attribute: resource_attribute.to_s.split('.').first,
             resource: resource,
             serializer: attribute_hash[:serializer],
             source: :ledger,
-            value: value
+            value: hash.dig(*attribute_hash[:ledger_attribute].split('.'))
           ).convert
 
           if resource_attribute.to_s.include?('.')

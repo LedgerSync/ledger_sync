@@ -32,8 +32,6 @@ module LedgerSync
               new_resource = ledger_serializer.deserialize(ledger_resource_data)
               new_serializer = ledger_serializer.class.new(resource: new_resource)
 
-              pdb new_serializer.to_h
-
               response = adaptor.post(
                 resource: 'account',
                 payload: new_serializer.to_h

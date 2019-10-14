@@ -36,9 +36,6 @@ module LedgerSync
           attribute ledger_attribute: 'AccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
-          # attribute ledger_attribute: 'DisplayName',
-          #           resource_attribute: 'name'
-
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,
                           serializer: ExpenseLineItem::LedgerSerializer

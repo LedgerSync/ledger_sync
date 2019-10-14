@@ -8,10 +8,14 @@ module LedgerSync
           private
 
           def convert_from_ledger
+            return value if value.nil?
+
             value.to_date
           end
 
           def convert_from_local
+            return value if value.nil?
+
             value.to_s
           end
         end
