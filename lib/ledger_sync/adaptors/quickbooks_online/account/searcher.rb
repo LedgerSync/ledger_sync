@@ -28,9 +28,9 @@ module LedgerSync
                   LedgerSync::Account.new(
                     ledger_id: c.fetch('Id'),
                     name: c.fetch('Name'),
-                    classification: Mapping::ACCOUNT_CLASSIFICATIONS.invert[c.fetch('Classification')],
-                    account_type: Mapping::ACCOUNT_TYPES.invert[c.fetch('AccountType')],
-                    account_sub_type: Mapping::ACCOUNT_SUB_TYPES.invert[c.fetch('AccountSubType')]
+                    classification: Mapping::ACCOUNT_CLASSIFICATIONS.invert[c.fetch('Classification')] || c.fetch('Classification'),
+                    account_type: Mapping::ACCOUNT_TYPES.invert[c.fetch('AccountType')] || c.fetch('AccountType'),
+                    account_sub_type: Mapping::ACCOUNT_SUB_TYPES.invert[c.fetch('AccountSubType')] || c.fetch('AccountSubType')
                   )
                 end
             end
