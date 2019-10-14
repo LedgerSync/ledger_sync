@@ -18,6 +18,7 @@ module LedgerSync
             'other_asset' => 'Other Asset',
             'accounts_receivable' => 'Accounts Receivable',
             'equity' => 'Equity',
+            'expense' => 'Expense',
             'other_expense' => 'Other Expense',
             'cost_of_goods_sold' => 'Cost of Goods Sold',
             'accounts_payable' => 'Accounts Payable',
@@ -113,6 +114,7 @@ module LedgerSync
             'other_long_term_loans_and_advances' => 'OtherLongTermLoansAndAdvances',
             'prepayments_and_accrued_income' => 'PrepaymentsAndAccruedIncome',
             'provisions_non_current_assets' => 'ProvisionsNonCurrentAssets',
+            'accounts_receivable' => 'AccountsReceivable',
             # Equity
             'opening_balance_equity' => 'OpeningBalanceEquity',
             'partners_equity' => 'PartnersEquity',
@@ -120,7 +122,7 @@ module LedgerSync
             'accumulated_adjustment' => 'AccumulatedAdjustment',
             'owners_equity' => 'OwnersEquity',
             'paid_in_capital_or_surplus' => 'PaidInCapitalOrSurplus',
-            '​partner_contributions' => '​PartnerContributions',
+            'partner_contributions' => 'PartnerContributions',
             'partner_distributions' => 'PartnerDistributions',
             'preferred_stock' => 'PreferredStock',
             'common_stock' => 'CommonStock',
@@ -232,11 +234,11 @@ module LedgerSync
             'cost_of_sales' => 'CostOfSales',
             'freight_and_delivery_cost' => 'FreightAndDeliveryCost',
             # Accounts Payable
-            'accounts payable' => 'Accounts Payable',
+            'accounts_payable' => 'AccountsPayable',
             'outstanding_dues_micro_small_enterprise' => 'OutstandingDuesMicroSmallEnterprise',
             'outstanding_dues_other_than_micro_small_enterprise' => 'OutstandingDuesOtherThanMicroSmallEnterprise',
             # Credit Card
-            'credit card' => 'Credit Card',
+            'credit_card' => 'CreditCard',
             # Long Term Liability
             'notes_payable' => 'NotesPayable',
             'other_long_term_liabilities' => 'OtherLongTermLiabilities',
