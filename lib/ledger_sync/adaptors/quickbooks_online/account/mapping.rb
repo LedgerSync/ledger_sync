@@ -3,6 +3,14 @@ module LedgerSync
     module QuickBooksOnline
       module Account
         module Mapping
+          ACCOUNT_CLASSIFICATIONS = {
+            'asset' => 'Asset',
+            'equity' => 'Equity',
+            'expense' => 'Expense',
+            'liability' => 'Liability',
+            'revenue' => 'Revenue'
+          }
+
           ACCOUNT_TYPES = {
             'bank' => 'Bank',
             'other_current_assets' => 'Other Current Asset',
