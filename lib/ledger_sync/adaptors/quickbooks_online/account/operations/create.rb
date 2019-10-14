@@ -35,7 +35,7 @@ module LedgerSync
             def local_resource_data
               {
                 'Name' => resource.name,
-                'Classification' => Mapping::CLASSIFICATIONS[resource.classification],
+                'Classification' => Mapping::ACCOUNT_CLASSIFICATIONS[resource.classification],
                 'AccountType' => Mapping::ACCOUNT_TYPES[resource.account_type],
                 'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[resource.account_sub_type],
                 'AcctNum' => resource.number,
