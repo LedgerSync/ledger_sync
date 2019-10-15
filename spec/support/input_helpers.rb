@@ -159,6 +159,34 @@ module InputHelpers
     }.merge(merge)
   end
 
+  def journal_entry_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      line_items: [],
+      #attributes
+      currency: 'USD',
+      memo: 'Memo',
+      transaction_date: Date.parse('2019-09-01')
+    }.merge(merge)
+  end
+
+  def journal_entry_line_item_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      account: nil,
+      # attributes
+      amount: 12_345,
+      description: 'Sample Transaction',
+      entry_type: 'credit'
+    }.merge(merge)
+  end
+
   def quickbooks_config
     {
       api_token: 'this_is_a_token'
