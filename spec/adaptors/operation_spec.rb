@@ -50,130 +50,130 @@ RSpec.describe LedgerSync::Adaptors::Operation do
     end
   end
 
-  describe '#merge_into' do
-    it do
-      h1 = {
-        a: 1,
-        b: 2
-      }
+  # xdescribe '#merge_into' do
+  #   it do
+  #     h1 = {
+  #       a: 1,
+  #       b: 2
+  #     }
 
-      h2 = {
-        b: 22,
-        c: 3
-      }
+  #     h2 = {
+  #       b: 22,
+  #       c: 3
+  #     }
 
-      h = {
-        a: 1,
-        b: 2,
-        c: 3
-      }
+  #     h = {
+  #       a: 1,
+  #       b: 2,
+  #       c: 3
+  #     }
 
-      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
-    end
+  #     expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+  #   end
 
-    it do
-      h1 = {
-        a: 1,
-        b: {x: 2, y: 3, z: 4}
-      }
+  #   it do
+  #     h1 = {
+  #       a: 1,
+  #       b: {x: 2, y: 3, z: 4}
+  #     }
 
-      h2 = {
-        b: {x: 22, w: 33},
-        c: 3
-      }
+  #     h2 = {
+  #       b: {x: 22, w: 33},
+  #       c: 3
+  #     }
 
-      h = {
-        a: 1,
-        b: {x: 2, y: 3, z: 4, w: 33},
-        c: 3
-      }
+  #     h = {
+  #       a: 1,
+  #       b: {x: 2, y: 3, z: 4, w: 33},
+  #       c: 3
+  #     }
 
-      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
-    end
+  #     expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+  #   end
 
-    it do
-      h1 = {
-        a: 1,
-        b: [2, 3, 4]
-      }
+  #   it do
+  #     h1 = {
+  #       a: 1,
+  #       b: [2, 3, 4]
+  #     }
 
-      h2 = {
-        b: [22],
-        c: 3
-      }
+  #     h2 = {
+  #       b: [22],
+  #       c: 3
+  #     }
 
-      h = {
-        a: 1,
-        b: [2, 3, 4],
-        c: 3
-      }
+  #     h = {
+  #       a: 1,
+  #       b: [2, 3, 4],
+  #       c: 3
+  #     }
 
-      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
-    end
+  #     expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+  #   end
 
-    it do
-      h1 = {
-        a: 1,
-        b: [{x: 1}, {y: 2}]
-      }
+  #   it do
+  #     h1 = {
+  #       a: 1,
+  #       b: [{x: 1}, {y: 2}]
+  #     }
 
-      h2 = {
-        a: 2,
-        b: [{x: 10, xx: 1}, {y: 20, yy: 2}],
-        c: 3
-      }
+  #     h2 = {
+  #       a: 2,
+  #       b: [{x: 10, xx: 1}, {y: 20, yy: 2}],
+  #       c: 3
+  #     }
 
-      h = {
-        a: 1,
-        b: [{x: 1}, {y: 2}],
-        c: 3
-      }
+  #     h = {
+  #       a: 1,
+  #       b: [{x: 1}, {y: 2}],
+  #       c: 3
+  #     }
 
-      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
-    end
+  #     expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+  #   end
 
-    it do
-      h1 = {
-        a: 1,
-        b: [{x: 1}, {y: 2}]
-      }
+  #   it do
+  #     h1 = {
+  #       a: 1,
+  #       b: [{x: 1}, {y: 2}]
+  #     }
 
-      h2 = {
-        a: 2,
-        b: [{x: 10, xx: 1}],
-        c: 3
-      }
+  #     h2 = {
+  #       a: 2,
+  #       b: [{x: 10, xx: 1}],
+  #       c: 3
+  #     }
 
-      h = {
-        a: 1,
-        b: [{x: 1}, {y: 2}],
-        c: 3
-      }
+  #     h = {
+  #       a: 1,
+  #       b: [{x: 1}, {y: 2}],
+  #       c: 3
+  #     }
 
-      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
-    end
+  #     expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+  #   end
 
-    it do
-      h1 = {
-        a: 1,
-        b: [{x: 1}]
-      }
+  #   it do
+  #     h1 = {
+  #       a: 1,
+  #       b: [{x: 1}]
+  #     }
 
-      h2 = {
-        a: 2,
-        b: [{x: 10, xx: 1}, {y: 20, yy: 2}],
-        c: 3
-      }
+  #     h2 = {
+  #       a: 2,
+  #       b: [{x: 10, xx: 1}, {y: 20, yy: 2}],
+  #       c: 3
+  #     }
 
-      h = {
-        a: 1,
-        b: [{x: 1}],
-        c: 3
-      }
+  #     h = {
+  #       a: 1,
+  #       b: [{x: 1}],
+  #       c: 3
+  #     }
 
-      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
-    end
-  end
+  #     expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+  #   end
+  # end
 
   describe '#perform' do
     subject { operation.perform }

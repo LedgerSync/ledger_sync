@@ -32,6 +32,19 @@ module LedgerSync
         end
       end
 
+      def changed?
+        resource_attributes.references_many do |resource_attribute|
+          return true if resource_attribute.value.changed?
+        end
+
+        super
+      end
+
+      def changes
+        pdb
+        super.merge(Hash[resource_attributes.references_many.map { |ref| [ref.name, ref.value.value_changes] if ref.changed? }.compact])
+      end
+
       # Change the dirty change set of {"name" => ["Bill", "Bob"]}
       # to current values of attributes that have changed: {"name" => "Bob"}
       def changes_to_h

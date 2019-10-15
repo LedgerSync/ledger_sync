@@ -4,6 +4,31 @@ RSpec.describe LedgerSync::Resource do
   let(:resource) { LedgerSync::Customer.new }
 
   it do
+    expect(LedgerSync::Customer.new).not_to be_changed
+    expect(LedgerSync::Customer.new(name: 'Test')).not_to be_changed
+  end
+
+  context 'when references_many' do
+    it '<<' do
+      e = LedgerSync::Expense.new
+      eli = LedgerSync::ExpenseLineItem.new
+      expect(e.changes).to be_empty
+      e.line_items << eli
+      expect(e.changes).to have_key('line_items')
+    end
+  end
+
+  context 'when references_one' do
+    it '<<' do
+      e = LedgerSync::Expense.new
+      account = LedgerSync::Account.new
+      expect(e.changes).to be_empty
+      e.account = account
+      expect(e.changes).to have_key('account')
+    end
+  end
+
+  it do
     expect(resource).not_to be_changed
     expect(resource.external_id).to be_nil
     resource.external_id = :asdf

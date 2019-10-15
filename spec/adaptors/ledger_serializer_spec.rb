@@ -7,18 +7,18 @@ support :ledger_serializer_helpers
 RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
   include LedgerSerializerHelpers
 
-  describe '#build_resource_value_from_nested_attributes' do
-    it do
-      allow_any_instance_of(described_class).to receive(:ensure_inferred_resource_class) { nil }
-      serializer = described_class.new(resource: :foo)
-      resource = serializer.send(
-        :build_resource_value_from_nested_attributes,
-        LedgerSync::Expense.new,
-        'asdf',
-        'vendor.ledger_id'.split('.')
-      )
+  it { expect(described_class).to respond_to(:attribute) }
+  it { expect(described_class).to respond_to(:references_many) }
+  it { expect(described_class).to respond_to(:id) }
 
-      expect(resource.vendor.ledger_id).to eq('asdf')
+  describe '#to_h' do
+    it do
+      resource = LedgerSync::Customer.new
+      serializer = LedgerSync::Adaptors::QuickBooksOnline::Customer::LedgerSerializer.new(resource: resource)
+
+      expect(serializer.to_h(only_changes: true)).to eq({})
+      resource.name = 'Testing'
+      expect(serializer.to_h(only_changes: true)).to eq( name: 'Testing' )
     end
   end
 end

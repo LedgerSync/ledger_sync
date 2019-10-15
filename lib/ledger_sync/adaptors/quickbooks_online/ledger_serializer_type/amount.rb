@@ -5,13 +5,15 @@ module LedgerSync
     module QuickBooksOnline
       module LedgerSerializerType
         class Amount < Adaptors::LedgerSerializerType::Mapping
-          private
+          def convert_from_ledger(value:)
+            return if value.nil?
 
-          def convert_from_ledger
             (value * 100).to_i
           end
 
-          def convert_from_local
+          def convert_from_local(value:)
+            return if value.nil?
+
             value / 100.0
           end
         end

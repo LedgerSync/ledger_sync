@@ -5,6 +5,8 @@ module LedgerSync
     module QuickBooksOnline
       module ExpenseLineItem
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
+          attribute ledger_attribute: 'Id', resource_attribute: :ledger_id
+
           attribute ledger_attribute: 'DetailType' do
             'AccountBasedExpenseLineDetail'
           end

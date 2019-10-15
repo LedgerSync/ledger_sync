@@ -8,6 +8,7 @@ module LedgerSerializerHelpers
     deserialized_resource = serializer.deserialize(response_hash)
     attributes.each do |attribute|
       expect(resource.public_send(attribute)).to be_nil
+      pdb attribute
       expect(deserialized_resource.public_send(attribute)).to eq(values[attribute] || send(attribute))
     end
     deserialized_resource

@@ -36,6 +36,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
         'value' => currency
       },
       'Description' => description,
+      'Id' => nil,
       'Active' => active
     }
   end
@@ -43,7 +44,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
   describe '#to_h' do
     it do
       serializer = described_class.new(resource: resource)
-      expect(serializer.to_h).to eq(h.reject { |e| e == 'Id' })
+      expect(serializer.to_h).to eq(h)
     end
   end
 

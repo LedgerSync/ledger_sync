@@ -5,6 +5,7 @@ module LedgerSync
     module QuickBooksOnline
       module Account
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
+          attribute ledger_attribute: 'Id', resource_attribute: :ledger_id
           attribute ledger_attribute: 'Name', resource_attribute: :name
           attribute ledger_attribute: 'AccountType', resource_attribute: :account_type, type: LedgerSerializerType::Account
           attribute ledger_attribute: 'AccountSubType', resource_attribute: :account_sub_type, type: LedgerSerializerType::SubAccount

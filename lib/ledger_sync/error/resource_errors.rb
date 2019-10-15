@@ -16,7 +16,11 @@ module LedgerSync
 
         resource_class = resource.class
 
-        message = "Attribute #{attribute.name} for #{resource_class.name} should be a class supported by #{attribute.type.class.name}.  Given: #{value.class}"
+        message = attribute.type.error_message(
+          attribute: attribute,
+          resource: resource,
+          value: value
+        )
 
         super(message: message, resource: nil)
       end

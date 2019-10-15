@@ -7,6 +7,27 @@ module LedgerSync
   class ResourceAttribute
     class Reference
       class Many < Reference
+        class ManyArray
+          include ActiveModel::Dirty
+
+          ARRAY_METHODS_TO_OVERRIDE = %w[<< | []= + -].freeze
+
+          attr_accessor :value
+
+          define_attribute_methods :value
+
+          def initialize
+            @value = []
+          end
+
+          ARRAY_METHODS_TO_OVERRIDE.each do |array_method|
+            define_method(array_method) do |val|
+              value_will_change!
+              @value = @value.send(array_method, val)
+            end
+          end
+        end
+
         module Mixin
           def self.included(base)
             base.extend(ClassMethods)
@@ -25,8 +46,23 @@ module LedgerSync
           super(
             name: name,
             type: Type::ReferenceMany.new(resource_class: to),
-            value: []
+            value: ManyArray.new
           )
+        end
+
+        def changed?
+          pdb
+          value.changed?
+        end
+
+        def changes
+          pdb
+          value.changes
+        end
+
+        def save
+          value.save
+          super
         end
       end
     end

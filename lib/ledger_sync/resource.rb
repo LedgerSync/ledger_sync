@@ -35,12 +35,15 @@ module LedgerSync
       @sync_token = sync_token
 
       super(data)
+      save # Default `changed?` to false
+    end
+
+    def assign_attribute(name, value)
+      public_send("#{name}=", value)
     end
 
     def assign_attributes(**keywords)
-      keywords.each do |k, v|
-        public_send("#{k}=", v)
-      end
+      keywords.each { |k, v| assign_attribute(k, v) }
     end
 
     def dup
