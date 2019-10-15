@@ -238,7 +238,7 @@ module QuickBooksHelpers
   def stub_create_account
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: '{"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":null,"CurrencyRef":{"value":"USD"},"Description":"This is Sample Account","Active":true}',
+        body: "{\"Name\":\"Sample Account\",\"Classification\":\"Asset\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"AcctNum\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"Description\":\"This is Sample Account\",\"Active\":true}",
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

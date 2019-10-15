@@ -12,6 +12,7 @@ module LedgerSync
               params do
                 required(:ledger_id).filled(:string)
                 required(:name).filled(:string)
+                required(:classification).filled(:string)
                 required(:account_type).filled(:string)
                 required(:account_sub_type).filled(:string)
                 required(:number).maybe(:integer)
@@ -41,6 +42,7 @@ module LedgerSync
             def local_resource_data
               {
                 'Name' => resource.name,
+                'Classification' => Mapping::ACCOUNT_CLASSIFICATIONS[resource.classification],
                 'AccountType' => Mapping::ACCOUNT_TYPES[resource.account_type],
                 'AccountSubType' => Mapping::ACCOUNT_SUB_TYPES[resource.account_sub_type],
                 'AcctNum' => resource.number,

@@ -30,6 +30,7 @@ module InputHelpers
       sync_token: nil,
       # attributes
       name: 'Sample Account',
+      classification: 'asset',
       account_type: 'bank',
       account_sub_type: 'cash_on_hand',
       currency: 'USD',
