@@ -173,6 +173,48 @@ RSpec.describe LedgerSync::Adaptors::Operation do
 
       expect(subject.merge_into(from: h1, to: h2)).to eq(h)
     end
+
+    it do
+      h1 = {
+        'a' => 1,
+        'b' => [{'Id' => 1, 'x' => 1}]
+      }
+
+      h2 = {
+        'a' => 2,
+        'b' => [{'Id' => 1, 'x' => 10, 'xx' => 1}, {'y' => 20, 'yy' => 2}],
+        'c' => 3
+      }
+
+      h = {
+        'a' => 1,
+        'b' => [{'Id' => 1, 'x' => 1, 'xx' => 1}],
+        'c' => 3
+      }
+
+      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+    end
+
+    it do
+      h1 = {
+        'a' => 1,
+        'b' => [{'Id' => 1, 'x' => 1}, {'z' => 30}]
+      }
+
+      h2 = {
+        'a' => 2,
+        'b' => [{'Id' => 1, 'x' => 10, 'xx' => 1}, {'Id' => 4, 'y' => 20, 'yy' => 2}],
+        'c' => 3
+      }
+
+      h = {
+        'a' => 1,
+        'b' => [{'Id' => 1, 'x' => 1, 'xx' => 1}, {'z' => 30}],
+        'c' => 3
+      }
+
+      expect(subject.merge_into(from: h1, to: h2)).to eq(h)
+    end
   end
 
   describe '#perform' do

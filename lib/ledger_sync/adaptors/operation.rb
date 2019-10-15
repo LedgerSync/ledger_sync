@@ -178,12 +178,27 @@ module LedgerSync
 
         def merge_into(from:, to:)
           case to
-          when *(Resource::PRIMITIVES | [Array]) then from
+          when *Resource::PRIMITIVES then from
+          when Array then merge_list(from: from, to: to)
           else to.merge!(from) { |_key, new_value, old_value| merge_into(from: old_value, to: new_value) } if to && from
           end
         end
 
         private
+
+        def merge_list(from:, to:)
+          from.map do |from_item|
+            if from_item.is_a?(Hash) && (match = lookup_match(item: from_item, list: to))
+              match.merge!(from_item) { |_key, new_value, old_value| merge_into(from: old_value, to: new_value) }
+            else
+              from_item
+            end
+          end
+        end
+
+        def lookup_match(item:, list:)
+          list.find { |li| li.fetch('Id', false) == item['Id'] }
+        end
 
         def operate
           raise NotImplementedError, self.class.name
