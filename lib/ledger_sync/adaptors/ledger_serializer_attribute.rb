@@ -64,9 +64,7 @@ module LedgerSync
       end
 
       def resource_attribute?
-        return true if resource_attribute.present?
-
-        false
+        resource_attribute.present?
       end
 
       def resource_attribute_dot_parts
