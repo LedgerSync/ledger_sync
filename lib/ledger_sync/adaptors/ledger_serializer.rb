@@ -12,7 +12,7 @@ module LedgerSync
 
       def initialize(resource:)
         @resource = resource
-        ensure_inferred_resource_class
+        ensure_inferred_resource_class!
       end
 
       def attribute_value_from_ledger(hash:, ledger_serializer_attribute:, resource:)
@@ -23,8 +23,6 @@ module LedgerSync
       end
 
       def deserialize(hash:)
-        raise 'Hash expected' unless hash.is_a?(Hash)
-
         deserialize_into = resource.dup # Do not overwrite values in the resource
         hash = Util::HashHelpers.deep_stringify_keys(hash)
 
@@ -117,7 +115,7 @@ module LedgerSync
 
       private
 
-      def ensure_inferred_resource_class
+      def ensure_inferred_resource_class!
         inferred_resource_class = self.class._inferred_resource_class
         raise "Resource must be a #{inferred_resource_class.name}.  Given #{resource.class}" unless resource.is_a?(inferred_resource_class)
       end

@@ -64,10 +64,9 @@ module LedgerSync
       end
 
       def resource_attribute?
-        return false if resource_attribute.nil?
-        return false if resource_attribute == ''
+        return true if resource_attribute.present?
 
-        true
+        false
       end
 
       def resource_attribute_dot_parts
@@ -123,6 +122,7 @@ module LedgerSync
       private
 
       def build_resource_value_from_nested_attributes(resource, value, attribute_parts)
+        resource = resource.dup
         first_attribute, *remaining_attributes = attribute_parts
 
         if remaining_attributes.count.zero?
