@@ -22,10 +22,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::LedgerSerialize
     }
   end
 
-  describe '#to_h' do
+  describe '#to_ledger_hash' do
     it do
       serializer = described_class.new(resource: customer)
-      expect(serializer.to_h).to eq(h.reject { |e| e == 'Id' })
+      expect(serializer.to_ledger_hash).to eq(h)
     end
   end
 
@@ -34,7 +34,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::LedgerSerialize
 
     it do
       serializer = described_class.new(resource: customer)
-      deserialized_customer = serializer.deserialize(h)
+      deserialized_customer = serializer.deserialize(hash: h)
       expect(customer.email).to be_nil
       expect(customer.name).to be_nil
       expect(customer.phone_number).to be_nil

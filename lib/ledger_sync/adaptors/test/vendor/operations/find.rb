@@ -27,7 +27,7 @@ module LedgerSync
               )
 
               success(
-                resource: ledger_serializer.deserialize(response),
+                resource: Test::LedgerSerializer.new(resource: resource).deserialize(hash: response),
                 response: response
               )
             end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Adaptors
     module Test
@@ -11,15 +13,6 @@ module LedgerSync
                 optional(:name).maybe(:string)
                 optional(:phone_number).maybe(:string)
               end
-            end
-
-            private
-
-            def operate
-              success(
-                resource: resource,
-                response: :foo
-              )
             end
           end
         end

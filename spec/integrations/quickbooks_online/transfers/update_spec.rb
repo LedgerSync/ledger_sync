@@ -39,7 +39,7 @@ RSpec.describe 'quickbooks_online/transfers/update', type: :feature do
 
   context '#perform' do
     subject { LedgerSync::Adaptors::QuickBooksOnline::Transfer::Operations::Update.new(**input).perform }
-    it { expect(subject).to be_success }
+
     it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
   end
 end

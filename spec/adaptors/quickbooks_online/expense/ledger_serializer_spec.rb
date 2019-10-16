@@ -43,6 +43,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
 
   let(:h) do
     {
+      'Id' => nil,
       'CurrencyRef' => {
         'value' => currency
       },
@@ -57,24 +58,17 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
         'value' => account.ledger_id
       },
       'Line' => line_items.map do |line_item|
-        {
-          'DetailType' => 'AccountBasedExpenseLineDetail',
-          'AccountBasedExpenseLineDetail' => {
-            'AccountRef' => {
-              'value' => line_item.account.ledger_id
-            }
-          },
-          'Amount' => line_item.amount / 100.0,
-          'Description' => line_item.description
-        }
+        LedgerSync::Adaptors::QuickBooksOnline::ExpenseLineItem::LedgerSerializer.new(
+          resource: line_item
+        ).to_ledger_hash
       end
     }
   end
 
-  describe '#to_h' do
+  describe '#to_ledger_hash' do
     it do
       serializer = described_class.new(resource: resource)
-      expect(serializer.to_h).to eq(h.reject { |e| e == 'Id' })
+      expect(serializer.to_ledger_hash).to eq(h)
     end
 
     xit do
@@ -84,7 +78,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       h = {
 
       }
-      expect(serializer.to_h).to eq(h)
+      expect(serializer.to_ledger_hash).to eq(h)
     end
   end
 

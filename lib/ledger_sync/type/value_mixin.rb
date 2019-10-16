@@ -4,6 +4,10 @@
 module LedgerSync
   module Type
     module ValueMixin
+      def error_message(attribute:, resource:, value:)
+        "Attribute #{attribute.name} for #{resource.class.name} should be a class supported by #{self.class.name}.  Given: #{value.class}"
+      end
+
       def valid_classes
         raise NotImplementedError
       end

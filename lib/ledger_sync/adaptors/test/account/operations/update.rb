@@ -25,13 +25,15 @@ module LedgerSync
                 id: resource.ledger_id
               )
 
+              find_serializer = Test::LedgerSerializer.new(resource: resource).deserialize(hash: ledger_resource_data)
+
               response = adaptor.post(
                 resource: 'account',
-                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
+                payload: find_serializer.to_h
               )
 
               success(
-                resource: ledger_serializer.deserialize(response),
+                resource: Test::LedgerSerializer.new(resource: resource).deserialize(hash: response),
                 response: response
               )
             end

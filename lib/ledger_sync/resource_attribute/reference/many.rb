@@ -10,7 +10,13 @@ module LedgerSync
         class ManyArray
           include ActiveModel::Dirty
 
-          ARRAY_METHODS_TO_OVERRIDE = %w[<< | []= + -].freeze
+          ARRAY_METHODS_TO_OVERRIDE_WITH_DIRTY = %w[<< | []= + -].freeze
+
+          delegate  :count,
+                    :each,
+                    :include?,
+                    :map,
+                    to: :value
 
           attr_accessor :value
 
@@ -20,11 +26,26 @@ module LedgerSync
             @value = []
           end
 
-          ARRAY_METHODS_TO_OVERRIDE.each do |array_method|
+          ARRAY_METHODS_TO_OVERRIDE_WITH_DIRTY.each do |array_method|
             define_method(array_method) do |val|
               value_will_change!
               @value = @value.send(array_method, val)
             end
+          end
+
+          def ==(other)
+            return false unless other.is_a?(ManyArray)
+            return false unless other.sorted_fingerprints == sorted_fingerprints
+
+            true
+          end
+
+          def save
+            changes_applied
+          end
+
+          def sorted_fingerprints
+            value.map(&:fingerprint).sort
           end
         end
 
@@ -51,18 +72,15 @@ module LedgerSync
         end
 
         def changed?
-          pdb
           value.changed?
         end
 
         def changes
-          pdb
           value.changes
         end
 
         def save
           value.save
-          super
         end
       end
     end

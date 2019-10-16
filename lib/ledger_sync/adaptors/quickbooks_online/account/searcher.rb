@@ -15,7 +15,7 @@ module LedgerSync
                   offset: offset
                 )
                 .map do |c|
-                  LedgerSerializer.new(resource: LedgerSync::Account.new).deserialize(c)
+                  LedgerSerializer.new(resource: LedgerSync::Account.new).deserialize(hash: c)
                 end
             end
           end

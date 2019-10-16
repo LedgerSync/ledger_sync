@@ -46,7 +46,7 @@ module LedgerSync
         deserialize_into
       end
 
-      def to_h(only_changes: false)
+      def to_ledger_hash(only_changes: false)
         ret = {}
 
         self.class.attributes.each do |ledger_serializer_attribute|
@@ -94,16 +94,21 @@ module LedgerSync
         LedgerSync.const_get(parts[parts.index('Adaptors') + 2])
       end
 
-      private_class_method def self._attribute(block: nil, id: false, ledger_attribute:, resource_attribute: nil, serializer: nil, type: LedgerSerializerType::Value)
+      private_class_method def self._attribute(**keywords)
         attributes.add(
-          LedgerSerializerAttribute.new(
-            id: id,
-            block: block,
-            ledger_attribute: ledger_attribute,
-            resource_attribute: resource_attribute,
-            serializer: serializer,
-            type: type
-          )
+          _build_attribute(**keywords)
+        )
+      end
+
+      private_class_method def self._build_attribute(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::Value)
+        LedgerSerializerAttribute.new(
+          id: id,
+          block: block,
+          ledger_attribute: ledger_attribute,
+          resource_attribute: resource_attribute,
+          resource_class: resource_class,
+          serializer: serializer,
+          type: type
         )
       end
 

@@ -3,7 +3,7 @@ module LedgerSync
     module QuickBooksOnline
       module Customer
         module Operations
-          class Create < Operation::Create
+          class Create < QuickBooksOnline::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:ledger_id).value(:nil)
@@ -11,20 +11,6 @@ module LedgerSync
                 required(:name).filled(:string)
                 required(:phone_number).maybe(:string)
               end
-            end
-
-            private
-
-            def operate
-              response = adaptor.post(
-                resource: 'customer',
-                payload: serializer.to_h
-              )
-
-              success(
-                resource: ledger_serializer.deserialize(response),
-                response: response
-              )
             end
           end
         end

@@ -41,10 +41,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
     }
   end
 
-  describe '#to_h' do
+  describe '#to_ledger_hash' do
     it do
       serializer = described_class.new(resource: resource)
-      expect(serializer.to_h).to eq(h)
+      expect(serializer.to_ledger_hash).to eq(h)
     end
   end
 

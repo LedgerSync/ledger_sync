@@ -19,7 +19,7 @@ module LedgerSync
         end
 
         def merge_resources_for_full_update(hash:, ledger_resource:)
-          merged_resource = ledger_resource.dup
+          merged_resource = resource.dup
 
           self.class.attributes.each do |ledger_serializer_attribute|
             next unless ledger_serializer_attribute.references_many?
@@ -39,7 +39,7 @@ module LedgerSync
               elsif resource_hash_from_ledger.key?(referenced.ledger_id.to_s) # Merged ledger into local
                 ledger_resource = resource_hash_from_ledger[referenced.ledger_id.to_s]
                 ledger_resource_serializer = ledger_serializer_attribute.serializer.new(resource: ledger_resource)
-                ledger_serializer_attribute.serializer.new(resource: referenced).deserialize(hash: ledger_resource_serializer.to_h)
+                ledger_serializer_attribute.serializer.new(resource: referenced).deserialize(hash: ledger_resource_serializer.to_ledger_hash)
               end
               # Else assume delete from ledger
             end.compact
@@ -53,20 +53,40 @@ module LedgerSync
           merged_resource
         end
 
-        # def to_h(only_changes: false)
-        #   ret = super(only_changes: false)
-        #   return ret unless only_changes
+        def self.id(**keywords)
+          super({ ledger_attribute: 'Id', resource_attribute: :ledger_id }.merge(keywords))
+        end
 
-        #   ret.select do |k, _v|
-        #     resource.attribute_changed?(k) || references_many_attribute_names.include?(k)
-        #   end
-        # end
+        def to_ledger_hash(deep_merge_unmapped_values: {}, only_changes: false)
+          ret = super(only_changes: only_changes)
+          return ret unless deep_merge_unmapped_values.any?
 
-        # private
+          deep_merge_if_not_mapped(
+            current_hash: ret,
+            hash_to_search: deep_merge_unmapped_values
+          )
+        end
 
-        # def references_many_attribute_names
-        #   @references_many_attribute_names ||= resource.resource_attributes.references_many.map(&:name)
-        # end
+        private
+
+        def deep_merge_if_not_mapped(current_hash:, hash_to_search:)
+          hash_to_search.each do |key, value|
+            current_hash[key] = if current_hash.key?(key)
+                                  if value.is_a?(Hash)
+                                    deep_merge_if_not_mapped(
+                                      current_hash: current_hash[key],
+                                      hash_to_search: value
+                                    )
+                                  else
+                                    current_hash[key]
+                                  end
+                                else
+                                  value
+                                end
+          end
+
+          current_hash
+        end
       end
     end
   end

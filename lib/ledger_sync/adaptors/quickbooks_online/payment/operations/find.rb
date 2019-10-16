@@ -24,7 +24,7 @@ module LedgerSync
               )
 
               success(
-                resource: ledger_serializer.deserialize(response),
+                resource: ledger_serializer.deserialize(hash: response),
                 response: response
               )
             end

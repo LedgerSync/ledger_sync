@@ -10,16 +10,18 @@ module LedgerSync
                   :id,
                   :ledger_attribute,
                   :resource_attribute,
+                  :resource_class,
                   :serializer,
                   :type
 
-      def initialize(block: nil, id: false, ledger_attribute:, resource_attribute: nil, serializer: nil, type: LedgerSerializerType::Value)
+      def initialize(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::Value)
         raise 'block and resource_attribute cannot both be present' unless block.nil? || resource_attribute.nil?
 
         @block = block
         @id = id
         @ledger_attribute = ledger_attribute.to_s
         @resource_attribute = resource_attribute.to_s
+        @resource_class = resource_class
         @serializer = serializer
         @type = type.new
       end
@@ -96,6 +98,7 @@ module LedgerSync
 
         value = if references_many?
                   type.convert_from_ledger(
+                    resource_class: resource_class,
                     serializer: serializer,
                     value: value
                   )

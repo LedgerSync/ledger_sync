@@ -61,7 +61,6 @@ module InputHelpers
       vendor: nil,
       line_items: [],
       #attributes
-      amount: 12_345,
       currency: 'USD',
       memo: 'Memo',
       payment_type: 'cash',

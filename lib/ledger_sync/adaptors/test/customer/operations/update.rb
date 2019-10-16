@@ -12,33 +12,6 @@ module LedgerSync
                 optional(:phone_number).maybe(:string)
               end
             end
-
-            private
-
-            def operate
-              ledger_resource_data = adaptor.find(
-                resource: 'customer',
-                id: resource.ledger_id
-              )
-
-              response = adaptor.post(
-                resource: 'customer',
-                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
-              )
-
-              success(
-                resource: ledger_serializer.deserialize(response),
-                response: response
-              )
-            end
-
-            def local_resource_data
-              {
-                'name' => resource.name,
-                'phone_number' => resource.phone_number,
-                'email' => resource.email
-              }
-            end
           end
         end
       end

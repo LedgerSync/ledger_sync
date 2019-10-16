@@ -11,14 +11,14 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
   it { expect(described_class).to respond_to(:references_many) }
   it { expect(described_class).to respond_to(:id) }
 
-  describe '#to_h' do
+  describe '#to_ledger_hash' do
     it do
       resource = LedgerSync::Customer.new
       serializer = LedgerSync::Adaptors::QuickBooksOnline::Customer::LedgerSerializer.new(resource: resource)
 
-      expect(serializer.to_h(only_changes: true)).to eq({})
+      expect(serializer.to_ledger_hash(only_changes: true)).to eq({})
       resource.name = 'Testing'
-      expect(serializer.to_h(only_changes: true)).to eq( name: 'Testing' )
+      expect(serializer.to_ledger_hash(only_changes: true)).to eq( 'DisplayName' => 'Testing' )
     end
   end
 end

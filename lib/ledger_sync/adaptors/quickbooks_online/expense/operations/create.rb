@@ -3,7 +3,7 @@ module LedgerSync
     module QuickBooksOnline
       module Expense
         module Operations
-          class Create < Operation::Create
+          class Create < QuickBooksOnline::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:account).hash(Types::Reference)
@@ -20,16 +20,8 @@ module LedgerSync
 
             private
 
-            def operate
-              response = adaptor.post(
-                resource: 'purchase',
-                payload: serializer.to_h
-              )
-
-              success(
-                resource: serializer.deserialize(response),
-                response: response
-              )
+            def quickbooks_online_resource_type
+              'purchase'
             end
           end
         end

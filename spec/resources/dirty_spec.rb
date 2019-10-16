@@ -4,8 +4,9 @@ RSpec.describe LedgerSync::Resource do
   let(:resource) { LedgerSync::Customer.new }
 
   it do
-    expect(LedgerSync::Customer.new).not_to be_changed
-    expect(LedgerSync::Customer.new(name: 'Test')).not_to be_changed
+    expect(LedgerSync::Expense.new(currency: 'USD')).to be_changed
+    expense = LedgerSync::Expense.new
+    expect(expense).not_to be_changed
   end
 
   context 'when references_many' do
@@ -13,8 +14,16 @@ RSpec.describe LedgerSync::Resource do
       e = LedgerSync::Expense.new
       eli = LedgerSync::ExpenseLineItem.new
       expect(e.changes).to be_empty
+      expect(e.line_items).not_to be_changed
+      expect(e.line_items.changes).to eq({})
       e.line_items << eli
+      expect(e.line_items).to be_changed
+      expect(e.line_items.changes).to eq({ 'value' => [[], [eli]]})
+      expect(e).to be_changed
       expect(e.changes).to have_key('line_items')
+      e.save
+      expect(e.line_items).not_to be_changed
+      expect(e).not_to be_changed
     end
   end
 

@@ -43,6 +43,10 @@ module LedgerSync
       is_a?(Reference)
     end
 
+    def references_many?
+      is_a?(Reference::Many)
+    end
+
     def valid_with?(value:)
       type.valid_without_casting?(value: value)
     end

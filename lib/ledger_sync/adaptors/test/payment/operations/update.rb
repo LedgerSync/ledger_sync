@@ -15,32 +15,6 @@ module LedgerSync
                 end
               end
             end
-
-            private
-
-            def operate
-              ledger_resource_data = adaptor.find(
-                resource: 'payment',
-                id: resource.ledger_id
-              )
-              response = adaptor.post(
-                resource: 'payment',
-                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
-              )
-
-              success(
-                resource: ledger_serializer.deserialize(response),
-                response: response
-              )
-            end
-
-            def local_resource_data
-              {
-                'amount' => resource.amount,
-                'currency' => resource.currency,
-                'customer_id' => resource.customer.ledger_id
-              }
-            end
           end
         end
       end

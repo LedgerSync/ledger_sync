@@ -35,7 +35,6 @@ module LedgerSync
       @sync_token = sync_token
 
       super(data)
-      save # Default `changed?` to false
     end
 
     def assign_attribute(name, value)
@@ -44,6 +43,14 @@ module LedgerSync
 
     def assign_attributes(**keywords)
       keywords.each { |k, v| assign_attribute(k, v) }
+    end
+
+    def changed?
+      super || resource_attributes.references_many.select(&:changed?).any?
+    end
+
+    def changes
+      super.merge(Hash[resource_attributes.references_many.map { |ref| [ref.name, ref.changes['value']] if ref.changed? }.compact])
     end
 
     def dup

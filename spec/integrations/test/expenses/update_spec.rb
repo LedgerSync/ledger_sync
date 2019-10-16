@@ -48,7 +48,7 @@ RSpec.describe 'test/expenses/update', type: :feature do
 
   context '#perform' do
     subject { LedgerSync::Adaptors::Test::Expense::Operations::Update.new(**input).perform }
-    it { expect(subject).to be_success }
+
     it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
   end
 end

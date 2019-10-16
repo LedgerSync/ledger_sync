@@ -22,10 +22,10 @@ module LedgerSync
             def operate
               response = adaptor.post(
                 resource: 'bill',
-                payload: ledger_serializer.to_h
+                payload: ledger_serializer.to_ledger_hash
               )
               success(
-                resource: ledger_serializer.deserialize(resource),
+                resource: ledger_serializer.deserialize(hash: response),
                 response: response
               )
             end

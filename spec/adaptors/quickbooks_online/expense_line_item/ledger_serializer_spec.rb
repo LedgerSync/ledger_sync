@@ -20,6 +20,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::ExpenseLineItem::LedgerSe
 
   let(:h) do
     {
+      'Id' => nil,
       'DetailType' => 'AccountBasedExpenseLineDetail',
       'AccountBasedExpenseLineDetail' => {
         'AccountRef' => {
@@ -31,10 +32,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::ExpenseLineItem::LedgerSe
     }
   end
 
-  describe '#to_h' do
+  describe '#to_ledger_hash' do
     it do
       serializer = described_class.new(resource: resource)
-      expect(serializer.to_h).to eq(h.reject { |e| e == 'Id' })
+      expect(serializer.to_ledger_hash).to eq(h)
     end
   end
 

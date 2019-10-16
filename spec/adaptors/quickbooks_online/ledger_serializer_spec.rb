@@ -100,80 +100,113 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializer do
     )
   end
 
-  it do
-    serializer_class = LedgerSync::Adaptors::QuickBooksOnline::Bill::LedgerSerializer
-    serializer = serializer_class.new(resource: local_bill)
-    merged_resource = serializer.deserialize(hash: bill_hash_from_quickbooks)
+  describe '#deserialize' do
+    it 'merges using replace by default' do
+      serializer_class = LedgerSync::Adaptors::QuickBooksOnline::Bill::LedgerSerializer
+      serializer = serializer_class.new(resource: local_bill)
+      merged_resource = serializer.deserialize(hash: bill_hash_from_quickbooks)
 
-    serialized_line_items = [
-      {
-        'DetailType' => 'AccountBasedExpenseLineDetail',
-        'Amount' => 103.55,
-        'Id' => '1',
-        'AccountBasedExpenseLineDetail' => {
-          'AccountRef' => {
-            'value' => '64'
-          }
+      serialized_line_items = [
+        {
+          'DetailType' => 'AccountBasedExpenseLineDetail',
+          'Amount' => 103.55,
+          'Id' => '1',
+          'AccountBasedExpenseLineDetail' => {
+            'AccountRef' => {
+              'value' => '64'
+            }
+          },
+          'Description' => 'Lumber 1'
         },
-        'Description' => 'Lumber 1'
-      },
-      {
-        'DetailType' => 'AccountBasedExpenseLineDetail',
-        'Amount' => 103.55,
-        'Id' => '2',
-        'AccountBasedExpenseLineDetail' => {
-          'AccountRef' => {
-            'value' => '64'
-          }
+        {
+          'DetailType' => 'AccountBasedExpenseLineDetail',
+          'Amount' => 103.55,
+          'Id' => '2',
+          'AccountBasedExpenseLineDetail' => {
+            'AccountRef' => {
+              'value' => '64'
+            }
+          },
+          'Description' => 'Lumber 2'
+        }
+      ]
+      expect(serializer_class.new(resource: merged_resource).to_ledger_hash['Line']).to eq(serialized_line_items)
+    end
+
+    it 'merges to support quickbooks line items' do
+      # merge_into needs for references_many needs to look for the
+      # resource with that ID and merge the changes for the resource
+      # into the returned hash.
+      #
+      # If many item does not exist on local resource, consider it a delete and ignore.
+      #
+      # If item on resource does not have ID or is not found in response, we consider it a create.
+
+      serializer_class = LedgerSync::Adaptors::QuickBooksOnline::Bill::LedgerSerializer
+      serializer = serializer_class.new(resource: local_bill)
+
+      merged_resource = serializer.deserialize(
+        hash: bill_hash_from_quickbooks,
+        merge_for_full_update: true
+      )
+
+      serialized_line_items = [
+        {
+          'DetailType' => 'AccountBasedExpenseLineDetail',
+          'Amount' => 103.55,
+          'Id' => '1',
+          'AccountBasedExpenseLineDetail' => {
+            'AccountRef' => {
+              'value' => '64'
+            }
+          },
+          'Description' => 'Lumber 1'
         },
-        'Description' => 'Lumber 2'
-      }
-    ]
-    expect(serializer_class.new(resource: merged_resource).to_h['Line']).to eq(serialized_line_items)
+        {
+          'DetailType' => 'AccountBasedExpenseLineDetail',
+          'Amount' => nil,
+          'Id' => nil,
+          'AccountBasedExpenseLineDetail' => {
+            'AccountRef' => {
+              'value' => nil
+            }
+          },
+          'Description' => 'Testing 3'
+        }
+      ]
+
+      expect(serializer_class.new(resource: merged_resource).to_ledger_hash['Line']).to eq(serialized_line_items)
+    end
   end
 
-  it do
-    # merge_into needs for references_many needs to look for the
-    # resource with that ID and merge the changes for the resource
-    # into the returned hash.
-    #
-    # If many item does not exist on local resource, consider it a delete and ignore.
-    #
-    # If item on resource does not have ID or is not found in response, we consider it a create.
+  describe '#to_ledger_hash' do
+    it 'deep merges values' do
+      serializer_class = LedgerSync::Adaptors::QuickBooksOnline::Customer::LedgerSerializer
+      customer = LedgerSync::Customer.new(name: 'test', email: 'test@example.com')
+      serializer = serializer_class.new(resource: customer)
 
-    serializer_class = LedgerSync::Adaptors::QuickBooksOnline::Bill::LedgerSerializer
-    serializer = serializer_class.new(resource: local_bill)
-
-    merged_resource = serializer.deserialize(
-      hash: bill_hash_from_quickbooks,
-      merge_for_full_update: true
-    )
-
-    serialized_line_items = [
-      {
-        'DetailType' => 'AccountBasedExpenseLineDetail',
-        'Amount' => 103.55,
-        'Id' => '1',
-        'AccountBasedExpenseLineDetail' => {
-          'AccountRef' => {
-            'value' => '64'
-          }
-        },
-        'Description' => 'Lumber 1'
-      },
-      {
-        'DetailType' => 'AccountBasedExpenseLineDetail',
-        'Amount' => nil,
+      h = {
+        'DisplayName' => 'test',
         'Id' => nil,
-        'AccountBasedExpenseLineDetail' => {
-          'AccountRef' => {
-            'value' => nil
-          }
+        'PrimaryPhone' => {
+          'FreeFormNumber' => nil
         },
-        'Description' => 'Testing 3'
+        'PrimaryEmailAddr' => {
+          'Address' => 'test@example.com',
+          'baz' => 123
+        },
+        'foo' => 'bar'
       }
-    ]
 
-    expect(serializer_class.new(resource: merged_resource).to_h['Line']).to eq(serialized_line_items)
+      previous_response = {
+        'foo' => 'bar',
+        'PrimaryEmailAddr' => {
+          'Address' => 'should not be in result',
+          'baz' => 123
+        }
+      }
+
+      expect(serializer.to_ledger_hash(deep_merge_unmapped_values: previous_response)).to eq(h)
+    end
   end
 end

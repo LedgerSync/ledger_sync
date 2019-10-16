@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Resource do
   end
 
   it 'does not permit unknown attributes' do
-    expect { LedgerSync::Customer.new(foo: :bar) }.to raise_error(RuntimeError)
+    expect { LedgerSync::Customer.new(foo: :bar) }.to raise_error(NoMethodError)
   end
 
   it 'keeps resources separate' do

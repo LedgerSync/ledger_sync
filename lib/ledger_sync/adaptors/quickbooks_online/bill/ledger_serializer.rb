@@ -7,6 +7,8 @@ module LedgerSync
     module QuickBooksOnline
       module Bill
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
+          id
+
           attribute ledger_attribute: 'CurrencyRef.value', resource_attribute: :currency
 
           attribute ledger_attribute: 'DueDate',

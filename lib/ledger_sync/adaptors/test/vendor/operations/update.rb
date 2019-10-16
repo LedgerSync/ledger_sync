@@ -13,32 +13,6 @@ module LedgerSync
                 optional(:email).maybe(:string)
               end
             end
-
-            private
-
-            def operate
-              ledger_resource_data = adaptor.find(
-                resource: 'vendor',
-                id: resource.ledger_id
-              )
-
-              response = adaptor.post(
-                resource: 'vendor',
-                payload: merge_into(from: local_resource_data, to: ledger_resource_data)
-              )
-
-              success(
-                resource: ledger_serializer.deserialize(response),
-                response: response
-              )
-            end
-
-            def local_resource_data
-              {
-                'name' => resource.name,
-                'email' => resource.email
-              }
-            end
           end
         end
       end

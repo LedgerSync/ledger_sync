@@ -15,28 +15,6 @@ module LedgerSync
                 required(:transaction_date).filled(:date?)
               end
             end
-
-            private
-
-            def operate
-              response = adaptor.post(
-                resource: 'transfer',
-                payload: local_resource_data
-              )
-
-              resource.ledger_id = response.dig('id')
-              success(response: response)
-            end
-
-            def local_resource_data
-              {
-                'amount' => resource.amount,
-                'currency' => resource.currency,
-                'from_account_id' => resource.from_account.ledger_id,
-                'to_account_id' => resource.to_account.ledger_id,
-                'date' => resource.transaction_date
-              }
-            end
           end
         end
       end
