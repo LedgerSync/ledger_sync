@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../expense_line_item/ledger_serializer'
+require_relative '../journal_entry_line_item/ledger_serializer'
 
 module LedgerSync
   module Adaptors
