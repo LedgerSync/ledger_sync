@@ -52,7 +52,10 @@ module LedgerSync
         self.class.attributes.each do |ledger_serializer_attribute|
           next if only_changes && !resource.attribute_changed?(ledger_serializer_attribute.resource_attribute)
 
-          ret.merge!(ledger_serializer_attribute.ledger_attribute_hash_for(resource: resource))
+          ret = Util::HashHelpers.deep_merge(
+            hash_to_merge_into: ret,
+            other_hash: ledger_serializer_attribute.ledger_attribute_hash_for(resource: resource)
+          )
         end
 
         ret

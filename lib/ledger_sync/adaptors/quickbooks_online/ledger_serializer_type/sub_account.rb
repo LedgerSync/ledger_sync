@@ -209,11 +209,11 @@ module LedgerSync
             'shipping_freight_delivery_cos' => 'ShippingFreightDeliveryCos',
             'supplies_materials_cogs' => 'SuppliesMaterialsCogs',
             # Accounts Payable
-            'accounts payable' => 'Accounts Payable',
+            'accounts_payable' => 'AccountsPayable',
             'outstanding_dues_micro_small_enterprise' => 'OutstandingDuesMicroSmallEnterprise',
             'outstanding_dues_other_than_micro_small_enterprise' => 'OutstandingDuesOtherThanMicroSmallEnterprise',
             # Credit Card
-            'credit card' => 'Credit Card',
+            'credit_card' => 'CreditCard',
             # Long Term Liability
             'accruals_and_deferred_income' => 'AccrualsAndDeferredIncome',
             'accrued_long_lerm_liabilities' => 'AccruedLongLermLiabilities',

@@ -11,7 +11,7 @@ module QuickBooksHelpers
           'Accept' => '*/*',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Content-Type' => 'application/x-www-form-urlencoded',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -34,7 +34,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -52,7 +52,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -70,7 +70,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -89,7 +89,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -110,7 +110,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -128,7 +128,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -147,7 +147,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -168,7 +168,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -186,7 +186,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -204,7 +204,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -223,7 +223,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -238,13 +238,13 @@ module QuickBooksHelpers
   def stub_create_account
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: '{"Id":null,"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":null,"CurrencyRef":{"value":"USD"},"Description":"This is Sample Account","Active":true}',
+        body: "{\"Id\":null,\"Name\":\"Sample Account\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"AcctNum\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"Classification\":\"Asset\",\"Description\":\"This is Sample Account\",\"Active\":true}",
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -262,7 +262,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -280,7 +280,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -299,7 +299,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -320,7 +320,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -338,7 +338,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -357,7 +357,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -374,14 +374,13 @@ module QuickBooksHelpers
       with(
         body: "{\"Id\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"ExchangeRate\":1.0,\"DepositToAccountRef\":{\"value\":\"123\"},\"Line\":[{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}]}",
         headers: {
-          'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer access_token',
-          'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
-        }
-      )
-      .to_return(
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>/Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }).
+      to_return(
         status: 200,
         body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T11:54:50-07:00\",\"LastUpdatedTime\":\"2019-10-11T11:54:50-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T11:54:50.879-07:00\"}",
         headers: {}
@@ -392,14 +391,13 @@ module QuickBooksHelpers
     stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit/123").
       with(
         headers: {
-          'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer access_token',
-          'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
-        }
-      )
-      .to_return(
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>/Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }).
+      to_return(
         status: 200,
         body: "{\"Deposit\":{\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T11:54:50-07:00\",\"LastUpdatedTime\":\"2019-10-11T11:54:50-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"1\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"2\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}}]},\"time\":\"2019-10-11T11:54:50.879-07:00\"}",
         headers: {}
@@ -415,7 +413,7 @@ module QuickBooksHelpers
           'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization'=>'Bearer access_token',
           'Content-Type'=>'application/json',
-          'User-Agent'=>'Faraday v0.15.4'
+          'User-Agent'=>/Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }).
       to_return(
         status: 200,
@@ -431,14 +429,13 @@ module QuickBooksHelpers
       with(
         body: "{\"Id\":null,\"Amount\":123.45,\"PrivateNote\":\"Memo\",\"FromAccountRef\":{\"value\":\"123\"},\"ToAccountRef\":{\"value\":\"123\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\"}}",
         headers: {
-          'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer access_token',
-          'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
-        }
-      )
-      .to_return(
+          'Accept'=>'application/json',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization'=>'Bearer access_token',
+          'Content-Type'=>'application/json',
+          'User-Agent'=>/Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }).
+      to_return(
         status: 200,
         body: "{\"Transfer\":{\"FromAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"ToAccountRef\":{\"value\":\"123\",\"name\":\"Sample Account\"},\"Amount\":123.45,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-03T21:46:28-07:00\",\"LastUpdatedTime\":\"2019-10-03T21:46:28-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\"},\"time\":\"2019-10-03T21:46:27.963-07:00\"}",
         headers: {}
@@ -453,7 +450,7 @@ module QuickBooksHelpers
           'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization'=>'Bearer access_token',
           'Content-Type'=>'application/json',
-          'User-Agent'=>'Faraday v0.15.4'
+          'User-Agent'=>/Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }).
       to_return(
         status: 200,
@@ -471,7 +468,7 @@ module QuickBooksHelpers
           'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization'=>'Bearer access_token',
           'Content-Type'=>'application/json',
-          'User-Agent'=>'Faraday v0.15.4'
+          'User-Agent'=>/Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }).
       to_return(
         status: 200,
@@ -491,7 +488,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -509,7 +506,7 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -528,12 +525,70 @@ module QuickBooksHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.15.4'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
         status: 200,
         body: "{\"Bill\":{\"DueDate\":\"2019-09-01\",\"Balance\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"1\",\"MetaData\":{\"CreateTime\":\"2019-10-13T10:43:04-07:00\",\"LastUpdatedTime\":\"2019-10-13T10:43:04-07:00\"},\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"3\",\"LineNum\":1,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}},{\"Id\":\"4\",\"LineNum\":2,\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"AccountBasedExpenseLineDetail\",\"AccountBasedExpenseLineDetail\":{\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"},\"BillableStatus\":\"NotBillable\",\"TaxCodeRef\":{\"value\":\"NON\"}}}],\"VendorRef\":{\"value\":\"123\",\"name\":\"Sample Vendor\"},\"APAccountRef\":{\"value\":\"123\",\"name\":\"Accounts Payable (A/P)\"},\"TotalAmt\":246.9},\"time\":\"2019-10-13T10:43:04.169-07:00\"}",
+        headers: {}
+      )
+  end
+
+  # JournalEntry
+
+  def stub_create_journal_entry
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry')
+      .with(
+        body: "{\"Id\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"Line\":[{\"DetailType\":\"JournalEntryLineDetail\",\"Amount\":123.45,\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\"}},\"Description\":\"Sample Transaction\"},{\"DetailType\":\"JournalEntryLineDetail\",\"Amount\":123.45,\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\"}},\"Description\":\"Sample Transaction\"}]}",
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"JournalEntry\":{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"0\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"1\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"}}}]},\"time\":\"2019-10-13T13:28:14.170-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_find_journal_entry
+    stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry/123')
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"JournalEntry\":{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"0\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"1\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"}}}]},\"time\":\"2019-10-13T13:28:14.170-07:00\"}",
+        headers: {}
+      )
+  end
+
+  def stub_update_journal_entry
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry')
+      .with(
+        body: JSON.parse("{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}]}"),
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: "{\"JournalEntry\":{\"Adjustment\":false,\"domain\":\"QBO\",\"sparse\":false,\"Id\":\"123\",\"SyncToken\":\"1\",\"MetaData\":{\"CreateTime\":\"2019-10-13T13:28:14-07:00\",\"LastUpdatedTime\":\"2019-10-13T13:28:14-07:00\"},\"DocNumber\":\"2\",\"TxnDate\":\"2019-09-01\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"PrivateNote\":\"Memo\",\"Line\":[{\"Id\":\"2\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Credit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"}}},{\"Id\":\"3\",\"Description\":\"Sample Transaction\",\"Amount\":123.45,\"DetailType\":\"JournalEntryLineDetail\",\"JournalEntryLineDetail\":{\"PostingType\":\"Debit\",\"AccountRef\":{\"value\":\"123\",\"name\":\"Opening Balance Equity\"}}}]},\"time\":\"2019-10-13T13:28:14.170-07:00\"}",
         headers: {}
       )
   end

@@ -8,6 +8,7 @@ module LedgerSync
               schema do
                 optional(:ledger_id).maybe(:string)
                 required(:name).filled(:string)
+                required(:classification).filled(:string)
                 required(:account_type).filled(:string)
                 required(:account_sub_type).filled(:string)
                 required(:number).maybe(:integer)

@@ -8,6 +8,7 @@ module LedgerSync
               schema do
                 required(:ledger_id).filled(:string)
                 required(:name).filled(:string)
+                required(:classification).filled(:string)
                 required(:account_type).filled(:string)
                 required(:account_sub_type).filled(:string)
                 required(:number).maybe(:integer)
@@ -41,6 +42,7 @@ module LedgerSync
             def local_resource_data
               {
                 'name' => resource.name,
+                'classification' => resource.classification,
                 'account_type' => resource.account_type,
                 'account_sub_type' => resource.account_sub_type
               }

@@ -12,6 +12,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
       account_sub_type: account_sub_type,
       account_type: account_type,
       active: active,
+      classification: classification,
       currency: currency,
       description: description,
       name: name,
@@ -22,6 +23,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
   let(:account_type) { 'bank' }
   let(:account_sub_type) { 'cash_on_hand' }
   let(:number) { 123 }
+  let(:classification) { 'asset' }
   let(:currency) { 'USD' }
   let(:description) { 'A descirption' }
   let(:active) { true }
@@ -32,6 +34,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
       'AccountType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::Account.mapping[account_type],
       'AccountSubType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::SubAccount.mapping[account_sub_type],
       'AcctNum' => number,
+      'Classification' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::Classification.mapping[classification],
       'CurrencyRef' => {
         'value' => currency
       },

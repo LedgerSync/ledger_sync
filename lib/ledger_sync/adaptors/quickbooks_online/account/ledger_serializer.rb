@@ -11,6 +11,7 @@ module LedgerSync
           attribute ledger_attribute: 'AccountSubType', resource_attribute: :account_sub_type, type: LedgerSerializerType::SubAccount
           attribute ledger_attribute: 'AcctNum', resource_attribute: :number
           attribute ledger_attribute: 'CurrencyRef.value', resource_attribute: :currency
+          attribute ledger_attribute: 'Classification', resource_attribute: :classification, type: LedgerSerializerType::Classification
           attribute ledger_attribute: 'Description', resource_attribute: :description
           attribute ledger_attribute: 'Active', resource_attribute: :active
         end

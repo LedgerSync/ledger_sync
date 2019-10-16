@@ -9,6 +9,7 @@ module LedgerSync
                 required(:account_sub_type).filled(:string)
                 required(:account_type).filled(:string)
                 required(:active).maybe(:bool)
+                required(:classification).filled(:string)
                 required(:currency).maybe(:string)
                 required(:description).maybe(:string)
                 required(:ledger_id).value(:nil)

@@ -26,8 +26,8 @@ module LedgerSync
                   LedgerSync::Vendor.new(
                     ledger_id: c.fetch('Id'),
                     display_name: c.fetch('DisplayName'),
-                    first_name: c.fetch('GivenName'),
-                    last_name: c.fetch('FamilyName')
+                    first_name: c.dig('GivenName'),
+                    last_name: c.dig('FamilyName')
                   )
                 end
             end

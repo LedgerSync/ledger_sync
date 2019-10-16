@@ -45,10 +45,10 @@ module LedgerSync
 
         def find(resource:, id:)
           resource = resource.to_s
-          url = "#{oauth_base_uri}/#{underscore(resource)}/#{id}"
+          url = "#{oauth_base_uri}/#{resourcify(resource)}/#{id}"
 
           response = request(:get, url, headers: OAUTH_HEADERS.dup)
-          JSON.parse(response.body).dig(resource.capitalize)
+          JSON.parse(response.body).dig(resource.classify)
         end
 
         def parse_operation_error(error:, operation:)
@@ -62,19 +62,19 @@ module LedgerSync
 
         def post(resource:, payload:)
           resource = resource.to_s
-          url = "#{oauth_base_uri}/#{underscore(resource)}"
+          url = "#{oauth_base_uri}/#{resourcify(resource)}"
 
           response = request(:post, url, headers: OAUTH_HEADERS.dup, body: payload.to_json)
-          JSON.parse(response.body).dig(resource.capitalize)
+          JSON.parse(response.body).dig(resource.classify)
         end
 
         def query(resource:, query:, limit: 10, offset: 1)
           resource = resource.to_s
-          full_query = "SELECT * FROM #{resource.capitalize} WHERE #{query} STARTPOSITION #{offset} MAXRESULTS #{limit}"
+          full_query = "SELECT * FROM #{resource.classify} WHERE #{query} STARTPOSITION #{offset} MAXRESULTS #{limit}"
           url = "#{oauth_base_uri}/query?query=#{CGI.escape(full_query)}"
 
           response = request(:get, url, headers: OAUTH_HEADERS.dup)
-          JSON.parse(response.body).dig('QueryResponse', resource.capitalize) || []
+          JSON.parse(response.body).dig('QueryResponse', resource.classify) || []
         end
 
         def refresh!
@@ -113,9 +113,9 @@ module LedgerSync
           @oauth_base_uri ||= "#{root_uri}/v3/company/#{realm_id}"
         end
 
-        def underscore(str)
-          LedgerSync::Util::StringHelpers.underscore(str.to_s)
-        end
+        # def underscore(str)
+        #   LedgerSync::Util::StringHelpers.underscore(str.to_s)
+        # end
 
         def oauth(force: false)
           if @oauth.nil? || force
@@ -158,6 +158,10 @@ module LedgerSync
             error: error,
             adaptor: self
           ).parse
+        end
+
+        def resourcify(str)
+          str.tr('_', '')
         end
       end
     end

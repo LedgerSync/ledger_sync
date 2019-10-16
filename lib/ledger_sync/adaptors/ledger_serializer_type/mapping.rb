@@ -13,12 +13,14 @@ module LedgerSync
         end
 
         def convert_from_ledger(value:)
+          return if value.nil?
           raise "Ledger to local mapping not found: #{value}" unless reverse_mapping_hash.key?(value)
 
           reverse_mapping_hash[value]
         end
 
         def convert_from_local(value:)
+          return if value.nil?
           raise "Local to ledger mapping not found: #{value}" unless mapping_hash.key?(value)
 
           mapping_hash[value]

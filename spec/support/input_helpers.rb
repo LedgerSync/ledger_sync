@@ -30,6 +30,7 @@ module InputHelpers
       sync_token: nil,
       # attributes
       name: 'Sample Account',
+      classification: 'asset',
       account_type: 'bank',
       account_sub_type: 'cash_on_hand',
       currency: 'USD',
@@ -154,6 +155,34 @@ module InputHelpers
       # attributes
       amount: 12_345,
       description: 'Sample Transaction'
+    }.merge(merge)
+  end
+
+  def journal_entry_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      line_items: [],
+      #attributes
+      currency: 'USD',
+      memo: 'Memo',
+      transaction_date: Date.parse('2019-09-01')
+    }.merge(merge)
+  end
+
+  def journal_entry_line_item_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      sync_token: nil,
+      # relationships
+      account: nil,
+      # attributes
+      amount: 12_345,
+      description: 'Sample Transaction',
+      entry_type: 'credit'
     }.merge(merge)
   end
 
