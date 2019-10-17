@@ -51,7 +51,6 @@ RSpec.describe 'quickbooks_online/deposits/update', type: :feature do
   context '#perform' do
     subject { LedgerSync::Adaptors::QuickBooksOnline::Deposit::Operations::Update.new(**input).perform }
 
-    # TODO: problem here is that sometims we want to the local values to take precedence and sometimes not.
     it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
   end
 end
