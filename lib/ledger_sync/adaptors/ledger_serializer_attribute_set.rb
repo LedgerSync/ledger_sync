@@ -26,13 +26,13 @@ module LedgerSync
         @attributes << attribute
         @id_attribute = attribute if attribute.id
         if attribute.ledger_attribute.present?
-          # raise "ledger_attribute already defined for #{serializer_class.name}: #{attribute.ledger_attribute}" if ledger_attribute_keyed_hash.key?(attribute.ledger_attribute.to_s)
+          raise "ledger_attribute already defined for #{serializer_class.name}: #{attribute.ledger_attribute}" if ledger_attribute_keyed_hash.key?(attribute.ledger_attribute.to_s)
 
           ledger_attribute_keyed_hash[attribute.ledger_attribute.to_s] = attribute
         end
 
         if attribute.resource_attribute.present?
-          # raise "resource_attribute already defined for #{serializer_class.name}: #{attribute.resource_attribute}" if resource_attribute_keyed_hash.key?(attribute.resource_attribute.to_s)
+          raise "resource_attribute already defined for #{serializer_class.name}: #{attribute.resource_attribute}" if resource_attribute_keyed_hash.key?(attribute.resource_attribute.to_s)
 
           resource_attribute_keyed_hash[attribute.resource_attribute.to_s] = attribute
         end
