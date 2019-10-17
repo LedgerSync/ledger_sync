@@ -32,7 +32,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
     {
       'Name' => name,
       'AccountType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::AccountType.mapping[account_type],
-      'AccountSubType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::SubAccountType.mapping[account_sub_type],
+      'AccountSubType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::AccountSubType.mapping[account_sub_type],
       'AcctNum' => number,
       'Classification' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::ClassificationType.mapping[classification],
       'CurrencyRef' => {
