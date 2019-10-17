@@ -12,22 +12,6 @@ module LedgerSync
                 optional(:customer).maybe(Types::Reference)
               end
             end
-
-            private
-
-            def operate
-              return failure(nil) if resource.ledger_id.nil?
-
-              response = adaptor.find(
-                resource: 'payment',
-                id: resource.ledger_id
-              )
-
-              success(
-                resource: ledger_serializer.deserialize(hash: response),
-                response: response
-              )
-            end
           end
         end
       end

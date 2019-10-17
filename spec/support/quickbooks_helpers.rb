@@ -104,7 +104,7 @@ module QuickBooksHelpers
   def stub_create_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')
       .with(
-        body: '{"TotalAmt":123.45,"CurrencyRef":{"value":"USD"},"CustomerRef":{"value":"123"}}',
+        body: "{\"Id\":null,\"TotalAmt\":123.45,\"CurrencyRef\":{\"value\":\"USD\"},\"CustomerRef\":{\"value\":\"123\"}}",
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -162,7 +162,7 @@ module QuickBooksHelpers
   def stub_create_vendor
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor')
       .with(
-        body: "{\"DisplayName\":\"Sample Vendor\",\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
+        body: "{\"Id\":null,\"DisplayName\":\"Sample Vendor\",\"GivenName\":\"Sample\",\"FamilyName\":\"Vendor\",\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
