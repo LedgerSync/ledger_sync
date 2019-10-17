@@ -3,7 +3,7 @@ module LedgerSync
     module QuickBooksOnline
       module Bill
         module Operations
-          class Find < Operation::Find
+          class Find < QuickBooksOnline::Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
@@ -15,19 +15,6 @@ module LedgerSync
                 required(:due_date).maybe(:date?)
                 required(:line_items).array(Types::Reference)
               end
-            end
-
-            private
-
-            def operate
-              return failure(nil) if resource.ledger_id.nil?
-
-              response = adaptor.find(
-                resource: 'bill',
-                id: resource.ledger_id
-              )
-
-              success(response: response)
             end
           end
         end

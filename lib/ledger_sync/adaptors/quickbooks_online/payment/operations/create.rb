@@ -18,30 +18,6 @@ module LedgerSync
                 end
               end
             end
-
-            private
-
-            def operate
-              response = adaptor.post(
-                resource: 'payment',
-                payload: local_resource_data
-              )
-
-              resource.ledger_id = response.dig('Id')
-              success(response: response)
-            end
-
-            def local_resource_data
-              {
-                'TotalAmt' => resource.amount / 100.0,
-                'CurrencyRef' => {
-                  'value' => resource.currency
-                },
-                'CustomerRef' => {
-                  'value' => resource.customer.ledger_id
-                }
-              }
-            end
           end
         end
       end

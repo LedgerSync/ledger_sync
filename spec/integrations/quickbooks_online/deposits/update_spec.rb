@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 support :input_helpers
@@ -9,34 +11,32 @@ RSpec.describe 'quickbooks_online/deposits/update', type: :feature do
   include AdaptorHelpers
   include QuickBooksHelpers
 
-  before {
+  before do
     stub_find_deposit
     stub_update_deposit
-  }
+  end
 
   let(:account) do
-    LedgerSync::Account.new(account_resource({ledger_id: '123'}))
+    LedgerSync::Account.new(account_resource(ledger_id: '123'))
   end
 
   let(:line_item_1) do
-    LedgerSync::DepositLineItem.new(deposit_line_item_resource({account: account}))
+    LedgerSync::DepositLineItem.new(deposit_line_item_resource(account: account))
   end
 
   let(:line_item_2) do
-    LedgerSync::DepositLineItem.new(deposit_line_item_resource({account: account}))
+    LedgerSync::DepositLineItem.new(deposit_line_item_resource(account: account))
   end
 
   let(:resource) do
     LedgerSync::Deposit.new(
       deposit_resource(
-        {
-          ledger_id: '123',
-          account: account,
-          line_items: [
-            line_item_1,
-            line_item_2
-          ]
-        }
+        ledger_id: '123',
+        account: account,
+        line_items: [
+          line_item_1,
+          line_item_2
+        ]
       )
     )
   end
@@ -50,7 +50,7 @@ RSpec.describe 'quickbooks_online/deposits/update', type: :feature do
 
   context '#perform' do
     subject { LedgerSync::Adaptors::QuickBooksOnline::Deposit::Operations::Update.new(**input).perform }
-    it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
+
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
   end
 end

@@ -12,11 +12,16 @@ module LedgerSync
         super()
       end
 
+      def error_message(attribute:, resource:, value:)
+        "Attribute #{attribute.name} for #{resource.class.name} should be a #{resource_class.name}.  Given #{value.class.name}"
+      end
+
       def type
         :reference_one
       end
 
       def valid_without_casting?(value:)
+        return true if value.nil?
         return true if value.is_a?(resource_class)
 
         false

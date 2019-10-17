@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Adaptors
     module Test
@@ -24,7 +26,10 @@ module LedgerSync
                 id: resource.ledger_id
               )
 
-              success(response: response)
+              success(
+                resource: Test::LedgerSerializer.new(resource: resource).deserialize(hash: response),
+                response: response
+              )
             end
           end
         end

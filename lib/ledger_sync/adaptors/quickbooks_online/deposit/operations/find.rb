@@ -3,7 +3,7 @@ module LedgerSync
     module QuickBooksOnline
       module Deposit
         module Operations
-          class Find < Operation::Find
+          class Find < QuickBooksOnline::Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 required(:ledger_id).filled(:string)
@@ -14,19 +14,6 @@ module LedgerSync
                 required(:exchange_rate).maybe(:float)
                 required(:line_items).array(Types::Reference)
               end
-            end
-
-            private
-
-            def operate
-              return failure(nil) if resource.ledger_id.nil?
-
-              response = adaptor.find(
-                resource: 'deposit',
-                id: resource.ledger_id
-              )
-
-              success(response: response)
             end
           end
         end

@@ -15,19 +15,6 @@ module LedgerSync
                 optional(:email).maybe(:string)
               end
             end
-
-            private
-
-            def operate
-              return failure(nil) if resource.ledger_id.nil?
-
-              response = adaptor.find(
-                resource: 'vendor',
-                id: resource.ledger_id
-              )
-
-              success(response: response)
-            end
           end
         end
       end

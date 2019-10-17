@@ -15,19 +15,6 @@ module LedgerSync
                 required(:transaction_date).maybe(:date?)
               end
             end
-
-            private
-
-            def operate
-              return failure(nil) if resource.ledger_id.nil?
-
-              response = adaptor.find(
-                resource: 'transfer',
-                id: resource.ledger_id
-              )
-
-              success(response: response)
-            end
           end
         end
       end

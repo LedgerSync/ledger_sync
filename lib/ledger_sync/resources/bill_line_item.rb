@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   class BillLineItem < LedgerSync::Resource
     references_one :account, to: Account

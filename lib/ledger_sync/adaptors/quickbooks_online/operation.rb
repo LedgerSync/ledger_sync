@@ -4,8 +4,6 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module Operation
-        TYPES = %i[create find update].freeze
-
         module Mixin
           def self.included(base)
             base.include Adaptors::Operation::Mixin
@@ -16,13 +14,10 @@ module LedgerSync
           rescue OAuth2::Error => e
             failure(e)
           end
-        end
 
-        TYPES.each do |type|
-          klass = Class.new do
-            include QuickBooksOnline::Operation::Mixin
+          def quickbooks_online_resource_type
+            @quickbooks_online_resource_type ||= ledger_serializer.class.quickbooks_online_resource_type
           end
-          Operation.const_set(LedgerSync::Util::StringHelpers.camelcase(type.to_s), klass)
         end
       end
     end

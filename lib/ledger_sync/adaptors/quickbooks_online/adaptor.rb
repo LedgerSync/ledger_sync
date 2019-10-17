@@ -44,6 +44,7 @@ module LedgerSync
         end
 
         def find(resource:, id:)
+          resource = resource.to_s
           url = "#{oauth_base_uri}/#{resourcify(resource)}/#{id}"
 
           response = request(:get, url, headers: OAUTH_HEADERS.dup)
@@ -60,6 +61,7 @@ module LedgerSync
         end
 
         def post(resource:, payload:)
+          resource = resource.to_s
           url = "#{oauth_base_uri}/#{resourcify(resource)}"
 
           response = request(:post, url, headers: OAUTH_HEADERS.dup, body: payload.to_json)
@@ -67,6 +69,7 @@ module LedgerSync
         end
 
         def query(resource:, query:, limit: 10, offset: 1)
+          resource = resource.to_s
           full_query = "SELECT * FROM #{resource.classify} WHERE #{query} STARTPOSITION #{offset} MAXRESULTS #{limit}"
           url = "#{oauth_base_uri}/query?query=#{CGI.escape(full_query)}"
 

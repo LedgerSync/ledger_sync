@@ -48,6 +48,7 @@ module LedgerSync
                     :before_operations,
                     :operations,
                     :resource,
+                    :resource_before_perform,
                     :root_operation,
                     :result,
                     :response,
@@ -64,6 +65,7 @@ module LedgerSync
           @before_operations = []
           @operations = []
           @resource = resource
+          @resource_before_perform = resource.dup
           @result = nil
           @root_operation = nil
         end
@@ -104,12 +106,21 @@ module LedgerSync
           @performed == true
         end
 
+        def ledger_serializer
+          @ledger_serializer ||= begin
+            modules = self.class.name.split('::Operations::').first
+            Object.const_get("#{modules}::LedgerSerializer").new(resource: resource)
+          end
+        end
+
         # Results
 
-        def failure(error)
+        def failure(error, resource: nil)
+          @response = error
           @result = LedgerSync::OperationResult.Failure(
             error,
             operation: self,
+            resource: resource,
             response: error
           )
         end
@@ -118,10 +129,12 @@ module LedgerSync
           result.failure?
         end
 
-        def success(response:)
+        def success(resource:, response:)
+          @response = response
           @result = LedgerSync::OperationResult.Success(
             self,
             operation: self,
+            resource: resource,
             response: response
           )
         end
@@ -173,13 +186,6 @@ module LedgerSync
           define_method "convert_to_#{type.to_s.downcase}" do
             update_klass_name = self.class.name.split('::')[0..-2].append(LedgerSync::Util::StringHelpers.camelcase(type.to_s)).join('::')
             Object.const_get(update_klass_name).new(adaptor: adaptor, resource: resource)
-          end
-        end
-
-        def merge_into(from:, to:)
-          case to
-          when *(Resource::PRIMITIVES | [Array]) then from
-          else to.merge!(from) { |_key, new_value, old_value| merge_into(from: old_value, to: new_value) } if to && from
           end
         end
 

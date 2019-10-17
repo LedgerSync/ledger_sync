@@ -32,7 +32,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
     serialized_operation = operation.serialize
 
     h = {
-      root: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/08435416a2b7c5ef92e012e03cc0fd63',
+      root: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/a655f101ad00f03c69d52894f92c1b83',
       objects: {
         'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff' => {
           data: {
@@ -57,7 +57,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
           id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
           object: 'LedgerSync::Adaptors::Test::Adaptor'
         },
-        'LedgerSync::Adaptors::Test::Customer::Operations::Create/08435416a2b7c5ef92e012e03cc0fd63' => {
+        'LedgerSync::Adaptors::Test::Customer::Operations::Create/a655f101ad00f03c69d52894f92c1b83' => {
           data: {
             adaptor: {
               id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
@@ -73,13 +73,13 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
             },
             response: nil,
             result: {
-              id: 'LedgerSync::OperationResult::Success/79dd28dcc06cef93c675406126ebf3cb',
+              id: 'LedgerSync::OperationResult::Success/ebec7a91733762725f45b6d49257aec3',
               object: :reference
             },
             root_operation: nil
           },
-          fingeprint: '08435416a2b7c5ef92e012e03cc0fd63',
-          id: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/08435416a2b7c5ef92e012e03cc0fd63',
+          fingeprint: 'a655f101ad00f03c69d52894f92c1b83',
+          id: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/a655f101ad00f03c69d52894f92c1b83',
           object: 'LedgerSync::Adaptors::Test::Customer::Operations::Create'
         },
         'LedgerSync::Customer/d9f523a3395af66f5bfe48b79e657b34' => {
@@ -95,10 +95,14 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
           id: 'LedgerSync::Customer/d9f523a3395af66f5bfe48b79e657b34',
           object: 'LedgerSync::Customer'
         },
-        'LedgerSync::OperationResult::Success/79dd28dcc06cef93c675406126ebf3cb' => {
+        'LedgerSync::OperationResult::Success/ebec7a91733762725f45b6d49257aec3' => {
           data: {
             operation: {
-              id: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/08435416a2b7c5ef92e012e03cc0fd63',
+              id: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/a655f101ad00f03c69d52894f92c1b83',
+              object: :reference
+            },
+            resource: {
+              id: 'LedgerSync::Customer/d9f523a3395af66f5bfe48b79e657b34',
               object: :reference
             },
             response: {
@@ -108,12 +112,12 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
               'phone_number' => nil
             },
             value: {
-              id: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/08435416a2b7c5ef92e012e03cc0fd63',
+              id: 'LedgerSync::Adaptors::Test::Customer::Operations::Create/a655f101ad00f03c69d52894f92c1b83',
               object: :reference
             }
           },
-          fingeprint: '79dd28dcc06cef93c675406126ebf3cb',
-          id: 'LedgerSync::OperationResult::Success/79dd28dcc06cef93c675406126ebf3cb',
+          fingeprint: 'ebec7a91733762725f45b6d49257aec3',
+          id: 'LedgerSync::OperationResult::Success/ebec7a91733762725f45b6d49257aec3',
           object: 'LedgerSync::OperationResult::Success'
         }
       }

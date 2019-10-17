@@ -13,19 +13,6 @@ module LedgerSync
                 optional(:line_items).array(Types::Reference)
               end
             end
-
-            private
-
-            def operate
-              return failure(nil) if resource.ledger_id.nil?
-
-              response = adaptor.find(
-                resource: 'journal_entry',
-                id: resource.ledger_id
-              )
-
-              success(response: response)
-            end
           end
         end
       end

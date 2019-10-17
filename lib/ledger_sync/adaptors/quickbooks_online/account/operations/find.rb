@@ -17,19 +17,6 @@ module LedgerSync
                 required(:active).maybe(:bool)
               end
             end
-
-            private
-
-            def operate
-              return failure(nil) if resource.ledger_id.nil?
-
-              response = adaptor.find(
-                resource: 'account',
-                id: resource.ledger_id
-              )
-
-              success(response: response)
-            end
           end
         end
       end

@@ -21,19 +21,20 @@ module LedgerSync
               resource_attributes[name].value
             end
 
-            define_method "#{name}=" do |val|
-              public_send("#{name}_will_change!") unless val == resource_attributes[name] # For Dirty
-
-              attribute = resource_attributes[name]
-
-              unless attribute.valid_with?(value: val)
+            define_method "_#{name}_valid_with_value?" do |val|
+              unless resource_attributes[name].valid_with?(value: val)
                 raise ResourceError::AttributeTypeError.new(
-                  attribute: attribute,
+                  attribute: resource_attributes[name],
                   resource: self,
                   value: val
                 )
               end
+            end
 
+            define_method "#{name}=" do |val|
+              attribute = resource_attributes[name]
+              public_send("_#{name}_valid_with_value?", val)
+              public_send("#{name}_will_change!") unless val == resource_attributes[name] # For Dirty
               attribute.value = val
             end
 
@@ -47,8 +48,13 @@ module LedgerSync
           _define_attribute_methods(name)
 
           resource_attributes.add(resource_attribute)
+          references_many_resource_attributes << resource_attribute if resource_attribute.type.is_a?(Reference::Many)
 
           resource_attribute
+        end
+
+        def references_many_resource_attributes
+          @references_many_resource_attributes ||= []
         end
 
         def resource_attributes
@@ -80,6 +86,11 @@ module LedgerSync
       # Store attribute instance values separately
       def resource_attributes
         @resource_attributes ||= Marshal.load(Marshal.dump(self.class.resource_attributes))
+      end
+
+      def save
+        resoure_attributes.map(&:save)
+        super
       end
 
       def serialize_attributes

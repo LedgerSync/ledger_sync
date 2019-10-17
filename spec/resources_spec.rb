@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Resource do
   end
 
   it 'does not permit unknown attributes' do
-    expect { LedgerSync::Customer.new(foo: :bar) }.to raise_error(RuntimeError)
+    expect { LedgerSync::Customer.new(foo: :bar) }.to raise_error(NoMethodError)
   end
 
   it 'keeps resources separate' do
@@ -22,5 +22,16 @@ RSpec.describe LedgerSync::Resource do
     customer2.email = 'asdf'
     expect(customer1.email).to eq('test@example.com')
     expect(customer2.email).to eq('asdf')
+  end
+
+  describe '#assign_attributes' do
+    it do
+      resource = LedgerSync::Customer.new
+      expect(resource.ledger_id).to be_nil
+      expect(resource.name).to be_nil
+      resource.assign_attributes(ledger_id: 'foo', name: 'bar')
+      expect(resource.ledger_id).to eq('foo')
+      expect(resource.name).to eq('bar')
+    end
   end
 end
