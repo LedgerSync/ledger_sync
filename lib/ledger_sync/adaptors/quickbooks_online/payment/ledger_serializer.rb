@@ -9,7 +9,7 @@ module LedgerSync
 
           attribute ledger_attribute: 'TotalAmt',
                     resource_attribute: :amount,
-                    type: LedgerSerializerType::Amount
+                    type: LedgerSerializerType::AmountType
 
           attribute ledger_attribute: 'CurrencyRef.value',
                     resource_attribute: :currency

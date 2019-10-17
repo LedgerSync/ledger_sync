@@ -3,7 +3,7 @@
 module LedgerSync
   module Adaptors
     module LedgerSerializerType
-      class Mapping < Value
+      class MappingType < ValueType
         attr_reader :source, :value
 
         def self.mapping

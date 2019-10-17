@@ -21,10 +21,10 @@ module LedgerSync
 
             resource_attribute = deserialized_resource.resource_attributes[key.to_sym]
             if resource_attribute&.references_many?
-              type = LedgerSerializerType::ReferencesMany
+              type = LedgerSerializerType::ReferencesManyType
               resource_class = resource_attribute.type.resource_class
             else
-              type = LedgerSerializerType::Value
+              type = LedgerSerializerType::ValueType
               resource_class = resource.class
             end
 

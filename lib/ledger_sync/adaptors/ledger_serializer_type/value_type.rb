@@ -3,7 +3,7 @@
 module LedgerSync
   module Adaptors
     module LedgerSerializerType
-      class Value
+      class ValueType
         def convert_from_ledger(value:)
           value
         end

@@ -4,17 +4,17 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module LedgerSerializerType
-        class Amount < Adaptors::LedgerSerializerType::Mapping
+        class DateType < Adaptors::LedgerSerializerType::MappingType
           def convert_from_ledger(value:)
-            return if value.nil?
+            return value if value.nil?
 
-            (value * 100).to_i
+            value.to_date
           end
 
           def convert_from_local(value:)
-            return if value.nil?
+            return value if value.nil?
 
-            value / 100.0
+            value.to_s
           end
         end
       end

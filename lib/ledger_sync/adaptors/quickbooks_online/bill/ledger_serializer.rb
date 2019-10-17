@@ -13,13 +13,13 @@ module LedgerSync
 
           attribute ledger_attribute: 'DueDate',
                     resource_attribute: :due_date,
-                    type: LedgerSerializerType::Date
+                    type: LedgerSerializerType::DateType
 
           attribute ledger_attribute: 'PrivateNote', resource_attribute: :memo
 
           attribute ledger_attribute: 'TxnDate',
                     resource_attribute: :transaction_date,
-                    type: LedgerSerializerType::Date
+                    type: LedgerSerializerType::DateType
 
           attribute ledger_attribute: 'VendorRef.value',
                     resource_attribute: 'vendor.ledger_id'

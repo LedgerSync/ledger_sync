@@ -14,7 +14,7 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializerAttribute do
       ledger_attribute: :asdf,
       resource_attribute: nil,
       serializer: nil,
-      type: LedgerSync::Adaptors::LedgerSerializerType::Value
+      type: LedgerSync::Adaptors::LedgerSerializerType::ValueType
     )
   end
 

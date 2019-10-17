@@ -13,7 +13,7 @@ module LedgerSync
 
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,
-                    type: LedgerSerializerType::Amount
+                    type: LedgerSerializerType::AmountType
 
           attribute ledger_attribute: 'JournalEntryLineDetail.PostingType',
                     resource_attribute: :entry_type,

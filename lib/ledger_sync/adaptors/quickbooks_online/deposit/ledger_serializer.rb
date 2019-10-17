@@ -14,7 +14,7 @@ module LedgerSync
 
           attribute ledger_attribute: 'TxnDate',
                     resource_attribute: :transaction_date,
-                    type: LedgerSerializerType::Date
+                    type: LedgerSerializerType::DateType
 
           attribute ledger_attribute: 'PrivateNote',
                     resource_attribute: :memo

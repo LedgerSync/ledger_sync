@@ -16,7 +16,7 @@ module LedgerSync
           end
 
           def quickbooks_online_resource_type
-            resource.class.resource_type
+            @quickbooks_online_resource_type ||= ledger_serializer.class.quickbooks_online_resource_type
           end
         end
       end

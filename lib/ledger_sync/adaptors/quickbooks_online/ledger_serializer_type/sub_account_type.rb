@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module LedgerSerializerType
-        class SubAccount < Adaptors::LedgerSerializerType::Mapping
+        class SubAccountType < Adaptors::LedgerSerializerType::MappingType
           MAPPING = {
             # Bank
             'cash_and_cash_equivalents' => 'CashAndCashEquivalents',

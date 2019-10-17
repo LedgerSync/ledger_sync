@@ -17,12 +17,6 @@ module LedgerSync
                 required(:vendor).hash(Types::Reference)
               end
             end
-
-            private
-
-            def quickbooks_online_resource_type
-              'purchase'
-            end
           end
         end
       end

@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module LedgerSerializerType
-        class Account < Adaptors::LedgerSerializerType::Mapping
+        class AccountType < Adaptors::LedgerSerializerType::MappingType
           MAPPING = {
             'bank' => 'Bank',
             'other_current_assets' => 'Other Current Asset',

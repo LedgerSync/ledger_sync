@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module LedgerSerializerType
-        class JournalEntryLineItemType < Adaptors::LedgerSerializerType::Mapping
+        class JournalEntryLineItemType < Adaptors::LedgerSerializerType::MappingType
           MAPPING = {
             'debit' => 'Debit',
             'credit' => 'Credit'

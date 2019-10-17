@@ -3,7 +3,7 @@
 module LedgerSync
   module Adaptors
     module LedgerSerializerType
-      class ReferencesMany < Value
+      class ReferencesManyType < ValueType
         def convert_from_ledger(resource_class: nil, serializer:, value:)
           resource_class ||= serializer._inferred_resource_class
           return [] if value.nil?

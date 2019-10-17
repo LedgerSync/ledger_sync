@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'ledger_serializer_type/value'
+require_relative 'ledger_serializer_type/value_type'
 Gem.find_files('ledger_sync/adaptors/ledger_serializer_type/**/*.rb').each { |path| require path }
 
 module LedgerSync
@@ -14,7 +14,7 @@ module LedgerSync
                   :serializer,
                   :type
 
-      def initialize(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::Value)
+      def initialize(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::ValueType)
         raise 'block and resource_attribute cannot both be present' unless block.nil? || resource_attribute.nil?
 
         @block = block
@@ -60,7 +60,7 @@ module LedgerSync
       end
 
       def references_many?
-        type.is_a?(LedgerSerializerType::ReferencesMany)
+        type.is_a?(LedgerSerializerType::ReferencesManyType)
       end
 
       def resource_attribute?

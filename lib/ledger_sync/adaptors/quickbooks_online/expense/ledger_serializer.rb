@@ -7,6 +7,8 @@ module LedgerSync
     module QuickBooksOnline
       module Expense
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
+          quickbooks_online_resource_type :purchase
+
           id  ledger_attribute: 'Id',
               resource_attribute: :ledger_id
 
@@ -15,11 +17,11 @@ module LedgerSync
 
           attribute ledger_attribute: 'PaymentType',
                     resource_attribute: :payment_type,
-                    type: LedgerSerializerType::Payment
+                    type: LedgerSerializerType::PaymentType
 
           attribute ledger_attribute: 'TxnDate',
                     resource_attribute: :transaction_date,
-                    type: LedgerSerializerType::Date
+                    type: LedgerSerializerType::DateType
 
           attribute ledger_attribute: 'PrivateNote',
                     resource_attribute: :memo

@@ -17,12 +17,6 @@ module LedgerSync
                 required(:line_items).array(Types::Reference)
               end
             end
-
-            private
-
-            def quickbooks_online_resource_type
-              'purchase'
-            end
           end
         end
       end

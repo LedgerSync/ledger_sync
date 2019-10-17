@@ -16,19 +16,6 @@ module LedgerSync
                 required(:line_items).array(Types::Reference)
               end
             end
-
-            private
-
-            def operate
-              response = adaptor.post(
-                resource: 'bill',
-                payload: ledger_serializer.to_ledger_hash
-              )
-              success(
-                resource: ledger_serializer.deserialize(hash: response),
-                response: response
-              )
-            end
           end
         end
       end

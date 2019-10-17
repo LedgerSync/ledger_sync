@@ -9,7 +9,7 @@ module LedgerSync
 
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,
-                    type: LedgerSerializerType::Amount
+                    type: LedgerSerializerType::AmountType
 
           attribute ledger_attribute: 'PrivateNote',
                     resource_attribute: :memo
@@ -22,7 +22,7 @@ module LedgerSync
 
           attribute ledger_attribute: 'TxnDate',
                     resource_attribute: :transaction_date,
-                    type: LedgerSerializerType::Date
+                    type: LedgerSerializerType::DateType
 
           attribute ledger_attribute: 'CurrencyRef.value',
                     resource_attribute: 'currency'

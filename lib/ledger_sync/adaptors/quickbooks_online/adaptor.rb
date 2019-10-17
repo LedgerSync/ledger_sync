@@ -113,10 +113,6 @@ module LedgerSync
           @oauth_base_uri ||= "#{root_uri}/v3/company/#{realm_id}"
         end
 
-        # def underscore(str)
-        #   LedgerSync::Util::StringHelpers.underscore(str.to_s)
-        # end
-
         def oauth(force: false)
           if @oauth.nil? || force
             @oauth = OAuth2::AccessToken.new(

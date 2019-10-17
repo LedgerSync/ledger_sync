@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'ledger_serializer_type/value'
+require_relative 'ledger_serializer_type/value_type'
 require_relative 'ledger_serializer_attribute'
 require_relative 'ledger_serializer_attribute_set'
 Gem.find_files('ledger_sync/adaptors/ledger_serializer_type/**/*.rb').each { |path| require path }
@@ -59,7 +59,7 @@ module LedgerSync
         ret
       end
 
-      def self.attribute(ledger_attribute:, resource_attribute: nil, type: LedgerSerializerType::Value, &block)
+      def self.attribute(ledger_attribute:, resource_attribute: nil, type: LedgerSerializerType::ValueType, &block)
         _attribute(
           block: (block if block_given?),
           ledger_attribute: ledger_attribute,
@@ -77,7 +77,7 @@ module LedgerSync
           ledger_attribute: ledger_attribute,
           resource_attribute: resource_attribute,
           serializer: serializer,
-          type: LedgerSerializerType::ReferencesMany
+          type: LedgerSerializerType::ReferencesManyType
         )
       end
 
@@ -101,7 +101,7 @@ module LedgerSync
         )
       end
 
-      private_class_method def self._build_attribute(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::Value)
+      private_class_method def self._build_attribute(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::ValueType)
         LedgerSerializerAttribute.new(
           id: id,
           block: block,

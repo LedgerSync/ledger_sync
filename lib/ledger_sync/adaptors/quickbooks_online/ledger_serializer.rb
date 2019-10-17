@@ -67,6 +67,10 @@ module LedgerSync
           )
         end
 
+        def self.quickbooks_online_resource_type(type = nil)
+          @quickbooks_online_resource_type ||= (type || _inferred_resource_class.resource_type).to_s
+        end
+
         private
 
         def deep_merge_if_not_mapped(current_hash:, hash_to_search:)
