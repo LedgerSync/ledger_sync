@@ -11,5 +11,6 @@
 .rspec_status
 
 .byebug_history
+.qa_config.yml
 
 .DS_Store
