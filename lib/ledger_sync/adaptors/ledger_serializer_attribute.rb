@@ -107,7 +107,7 @@ module LedgerSync
 
         return value if resource_attribute_dot_parts.count <= 1
 
-        nested_resource = resource.send(resource_attribute_dot_parts.first)&.dup
+        nested_resource = resource.send(resource_attribute_dot_parts.first)
         nested_resource ||= resource_attribute_class(resource: resource).new
 
         build_resource_value_from_nested_attributes(
