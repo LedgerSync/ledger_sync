@@ -143,13 +143,13 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
       expect(resources.count).to eq(4)
 
       expect(child).to be_a(LedgerSync::TestResource::TestChildResource)
-      expect(child.external_id).to eq(:test_child_resource_external_id)
+      expect(child.external_id).to eq('test_child_resource_external_id')
 
       expect(child2).to be_a(LedgerSync::TestResource::TestChildResource)
-      expect(child2.external_id).to eq(:test_child2_resource_external_id)
+      expect(child2.external_id).to eq('test_child2_resource_external_id')
 
       expect(grandchild).to be_a(LedgerSync::TestResource::TestGrandchildResource)
-      expect(grandchild.external_id).to eq(:test_grandchild_resource_external_id)
+      expect(grandchild.external_id).to eq('test_grandchild_resource_external_id')
       expect(grandchild.useless_child).to be_nil
     end
   end

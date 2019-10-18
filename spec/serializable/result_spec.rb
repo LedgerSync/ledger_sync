@@ -149,8 +149,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
               external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 0',
-              phone_number: nil,
-              sync_token: nil
+              phone_number: nil
             },
             fingeprint: '0bce46b00949dc9db1d717d38ea9356c',
             id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
@@ -162,8 +161,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
               external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 1',
-              phone_number: nil,
-              sync_token: nil
+              phone_number: nil
             },
             fingeprint: '8fd0a86b38a3a4e127389d97a3782606',
             id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',
@@ -253,8 +251,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
               external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 0',
-              phone_number: nil,
-              sync_token: nil
+              phone_number: nil
             },
             fingeprint: '0bce46b00949dc9db1d717d38ea9356c',
             id: 'LedgerSync::Customer/0bce46b00949dc9db1d717d38ea9356c',
@@ -266,8 +263,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
               external_id: nil,
               ledger_id: :asdf,
               name: 'Test customer 1',
-              phone_number: nil,
-              sync_token: nil
+              phone_number: nil
             },
             fingeprint: '8fd0a86b38a3a4e127389d97a3782606',
             id: 'LedgerSync::Customer/8fd0a86b38a3a4e127389d97a3782606',

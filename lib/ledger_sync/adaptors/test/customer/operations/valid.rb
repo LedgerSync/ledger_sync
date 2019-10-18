@@ -8,6 +8,7 @@ module LedgerSync
           class Valid < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               schema do
+                optional(:external_id).maybe(:string)
                 optional(:ledger_id).maybe(:string)
                 optional(:email).maybe(:string)
                 optional(:name).maybe(:string)

@@ -6,6 +6,7 @@ module LedgerSync
           class Create < QuickBooksOnline::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:account).hash(Types::Reference)
                 required(:currency).filled(:string)
                 required(:exchange_rate).maybe(:float)

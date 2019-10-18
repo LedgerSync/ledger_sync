@@ -8,6 +8,7 @@ module LedgerSync
           class Update < QuickBooksOnline::Operation::FullUpdate
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:email).maybe(:string)
                 required(:name).filled(:string)

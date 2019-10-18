@@ -17,8 +17,7 @@ RSpec.describe LedgerSync::Resource, type: :serializable do
             external_id: nil,
             ledger_id: nil,
             name: 'John Doe',
-            phone_number: nil,
-            sync_token: nil
+            phone_number: nil
           },
           fingeprint: 'f402c4135c3b4ae1302a154da0740995',
           id: 'LedgerSync::Customer/f402c4135c3b4ae1302a154da0740995',
@@ -33,8 +32,7 @@ RSpec.describe LedgerSync::Resource, type: :serializable do
               object: :reference
             },
             external_id: nil,
-            ledger_id: nil,
-            sync_token: nil
+            ledger_id: nil
           },
           fingeprint: 'dd1cccdfbdbbc83533b3445f7765e94e',
           id: 'LedgerSync::Payment/dd1cccdfbdbbc83533b3445f7765e94e',

@@ -34,4 +34,18 @@ RSpec.describe LedgerSync::Resource do
       expect(resource.name).to eq('bar')
     end
   end
+
+  describe '#to_h' do
+    it do
+      resource = LedgerSync::Customer.new
+      h = {
+        ledger_id: nil,
+        external_id: nil,
+        name: nil,
+        email: nil,
+        phone_number: nil
+      }
+      expect(resource.to_h).to eq(h)
+    end
+  end
 end

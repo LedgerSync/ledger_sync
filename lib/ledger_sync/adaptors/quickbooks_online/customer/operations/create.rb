@@ -6,6 +6,7 @@ module LedgerSync
           class Create < QuickBooksOnline::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).value(:nil)
                 required(:email).maybe(:string)
                 required(:name).filled(:string)

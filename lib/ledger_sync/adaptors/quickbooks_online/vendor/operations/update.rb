@@ -8,6 +8,7 @@ module LedgerSync
           class Update < Operation::FullUpdate
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 optional(:display_name).maybe(:string)
                 optional(:first_name).maybe(:string)

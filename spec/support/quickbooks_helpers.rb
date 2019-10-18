@@ -28,7 +28,7 @@ module QuickBooksHelpers
   def stub_create_customer
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/customer')
       .with(
-        body: "{\"Id\":123,\"DisplayName\":\"Sample Customer\",\"PrimaryPhone\":{\"FreeFormNumber\":null},\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
+        body: "{\"Id\":\"123\",\"DisplayName\":\"Sample Customer\",\"PrimaryPhone\":{\"FreeFormNumber\":null},\"PrimaryEmailAddr\":{\"Address\":\"test@example.com\"}}",
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

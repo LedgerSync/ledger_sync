@@ -6,6 +6,7 @@ module LedgerSync
           class Update < QuickBooksOnline::Operation::FullUpdate
             class Contract < LedgerSync::Adaptors::Contract
               schema do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:vendor).hash(Types::Reference)
                 required(:account).hash(Types::Reference)

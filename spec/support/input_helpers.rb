@@ -3,7 +3,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # attributes
       email: 'test@example.com',
       name: 'Sample Customer'
@@ -14,7 +13,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # attributes
       email: 'test@example.com',
       display_name: 'Sample Vendor',
@@ -27,7 +25,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # attributes
       name: 'Sample Account',
       classification: 'asset',
@@ -43,7 +40,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       customer: nil,
       # attributes
@@ -56,7 +52,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       account: nil,
       vendor: nil,
@@ -74,7 +69,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       account: nil,
       # attributes
@@ -87,7 +81,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       from_account: nil,
       to_account: nil,
@@ -103,7 +96,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       account: nil,
       line_items: [],
@@ -119,7 +111,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       account: nil,
       # attributes
@@ -132,7 +123,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       account: nil,
       vendor: nil,
@@ -149,7 +139,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       account: nil,
       # attributes
@@ -162,7 +151,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       line_items: [],
       #attributes
@@ -176,7 +164,6 @@ module InputHelpers
     {
       external_id: nil,
       ledger_id: nil,
-      sync_token: nil,
       # relationships
       account: nil,
       # attributes

@@ -34,6 +34,7 @@ module LedgerSync
             define_method "#{name}=" do |val|
               attribute = resource_attributes[name]
               public_send("_#{name}_valid_with_value?", val)
+              val = attribute.type.cast(val) if attribute.type.cast?
               public_send("#{name}_will_change!") unless val == resource_attributes[name] # For Dirty
               attribute.value = val
             end

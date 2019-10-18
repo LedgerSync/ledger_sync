@@ -8,6 +8,7 @@ module LedgerSync
           class Find < Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               schema do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:account).hash(Types::Reference)
                 required(:vendor).hash(Types::Reference)

@@ -6,6 +6,7 @@ module LedgerSync
           class Update < Operation::Update
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:account).hash(Types::Reference)
                 required(:vendor).hash(Types::Reference)

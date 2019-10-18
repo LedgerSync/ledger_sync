@@ -88,8 +88,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
             external_id: nil,
             ledger_id: 'asdf',
             name: 'asdf',
-            phone_number: nil,
-            sync_token: nil
+            phone_number: nil
           },
           fingeprint: 'd9f523a3395af66f5bfe48b79e657b34',
           id: 'LedgerSync::Customer/d9f523a3395af66f5bfe48b79e657b34',
