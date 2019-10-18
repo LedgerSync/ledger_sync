@@ -7,7 +7,6 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               schema do
                 optional(:external_id).maybe(:string)
-                optional(:external_id).maybe(:string)
                 optional(:ledger_id).maybe(:string)
                 required(:name).filled(:string)
                 required(:classification).filled(:string)
