@@ -254,6 +254,26 @@ module QuickBooksHelpers
       )
   end
 
+  # Ref: https://github.com/LedgerSync/ledger_sync/issues/86
+  def stub_create_account_with_missing_classification
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
+      .with(
+        body: "{\"Id\":null,\"Name\":\"Sample Account\",\"AccountType\":\"Bank\",\"AccountSubType\":\"CashOnHand\",\"AcctNum\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"Classification\":null,\"Description\":\"This is Sample Account\",\"Active\":true}",
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Account":{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":null,"AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}},"time":"2019-09-12T12:22:16.650-07:00"}',
+        headers: {}
+      )
+  end
+
   def stub_find_account
     stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account/123')
       .with(

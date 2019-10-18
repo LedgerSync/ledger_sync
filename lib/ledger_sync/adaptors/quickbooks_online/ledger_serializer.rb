@@ -10,6 +10,12 @@ module LedgerSync
       class LedgerSerializer < Adaptors::LedgerSerializer
         def deserialize(hash:, merge_for_full_update: false)
           deserialized_resource = super(hash: hash)
+
+          # Ref: https://github.com/LedgerSync/ledger_sync/issues/86
+          if deserialized_resource.is_a?(LedgerSync::Account) && deserialized_resource.account_type
+            deserialized_resource.classification ||= LedgerSerializerType::AccountType::TYPE_TO_CLASSIFICATION_MAPPING.fetch(deserialized_resource.account_type, nil)
+          end
+
           return deserialized_resource unless merge_for_full_update
 
           merge_resources_for_full_update(

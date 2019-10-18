@@ -30,5 +30,11 @@ RSpec.describe 'quickbooks_online/accounts/create', type: :feature do
     subject { LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Create.new(**input).perform }
 
     it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
+
+    it 'populates missing classification' do
+      stub_create_account_with_missing_classification
+      resource.classification = nil
+      expect(subject.resource.classification).to eq('asset')
+    end
   end
 end
