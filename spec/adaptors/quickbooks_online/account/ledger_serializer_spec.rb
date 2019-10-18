@@ -22,7 +22,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
   let(:name) { 'account_name' }
   let(:account_type) { 'bank' }
   let(:account_sub_type) { 'cash_on_hand' }
-  let(:number) { 123 }
+  let(:number) { '123' }
   let(:classification) { 'asset' }
   let(:currency) { 'USD' }
   let(:description) { 'A descirption' }
