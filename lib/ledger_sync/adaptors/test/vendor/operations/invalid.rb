@@ -6,6 +6,7 @@ module LedgerSync
           class Invalid < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               schema do
+                required(:external_id).filled(:string)
                 required(:ledger_id).filled(:string)
                 required(:display_name).filled(:string)
                 required(:first_name).filled(:string)

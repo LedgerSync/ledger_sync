@@ -6,6 +6,7 @@ module LedgerSync
           class Update < Operation::FullUpdate
             class Contract < LedgerSync::Adaptors::Contract
               schema do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 optional(:currency).filled(:string)
                 optional(:memo).filled(:string)

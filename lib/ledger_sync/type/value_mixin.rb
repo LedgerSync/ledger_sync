@@ -4,6 +4,14 @@
 module LedgerSync
   module Type
     module ValueMixin
+      def self.included(base)
+        base.include SimplySerializable::Mixin
+      end
+
+      def cast?
+        false
+      end
+
       def error_message(attribute:, resource:, value:)
         "Attribute #{attribute.name} for #{resource.class.name} should be a class supported by #{self.class.name}.  Given: #{value.class}"
       end

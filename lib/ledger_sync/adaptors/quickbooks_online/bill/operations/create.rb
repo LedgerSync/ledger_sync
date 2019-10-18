@@ -6,6 +6,7 @@ module LedgerSync
           class Create < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).value(:nil)
                 required(:vendor).hash(Types::Reference)
                 required(:account).hash(Types::Reference)

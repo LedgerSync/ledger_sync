@@ -6,6 +6,7 @@ module LedgerSync
           class Find < Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:name).maybe(:string)
                 required(:classification).maybe(:string)

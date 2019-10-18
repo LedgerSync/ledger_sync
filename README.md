@@ -189,7 +189,7 @@ puts LedgerSync::Payment.new(
         },
         external_id: "",
         ledger_id: nil,
-        sync_token: nil
+
       }
     },
     "LedgerSync::Customer/b3eab7ec00431a4ae0468fee72e5ba8f": {
@@ -201,8 +201,7 @@ puts LedgerSync::Payment.new(
         email: nil,
         phone_number: nil,
         external_id: "",
-        ledger_id: nil,
-        sync_token: nil
+        ledger_id: nil
       }
     }
   }

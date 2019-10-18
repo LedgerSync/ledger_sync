@@ -14,6 +14,7 @@ module LedgerSync
     include ResourceAttribute::Reference::Many::Mixin
 
     PRIMITIVES = [
+      ActiveModel::Type,
       Date,
       DateTime,
       FalseClass,
@@ -26,16 +27,6 @@ module LedgerSync
     ].freeze
 
     serialize except: %i[resource_attributes references]
-
-    dirty_attribute :external_id, :ledger_id, :sync_token
-
-    def initialize(external_id: nil, ledger_id: nil, sync_token: nil, **data)
-      @external_id = external_id.try(:to_sym)
-      @ledger_id = ledger_id
-      @sync_token = sync_token
-
-      super(data)
-    end
 
     def assign_attribute(name, value)
       public_send("#{name}=", value)
@@ -65,13 +56,17 @@ module LedgerSync
       resource_attributes.to_h.merge(dirty_attributes_to_h)
     end
 
+    def self.inherited(subclass)
+      subclass.attribute :external_id, type: Type::ID
+      subclass.attribute :ledger_id, type: Type::ID
+    end
+
     def self.resource_type
       @resource_type ||= LedgerSync::Util::StringHelpers.underscore(name.split('::').last).to_sym
     end
 
     def self.serialize_attribute?(sattr)
       sattr = sattr.to_sym
-      return true if %i[external_id ledger_id sync_token].include?(sattr)
       return true if resource_attributes.key?(sattr)
 
       false
