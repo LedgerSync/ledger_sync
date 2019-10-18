@@ -108,7 +108,7 @@ module LedgerSync
         end
 
         def url_for(resource:)
-          base_url = 'https://app.sandbox.qbo.intuit.com/app'
+          base_url = test ? 'https://app.sandbox.qbo.intuit.com/app' : 'https://app.qbo.intuit.com/app'
           resource_path = case resource
                           when LedgerSync::Account
                             "/register?accountId=#{resource.ledger_id}"
