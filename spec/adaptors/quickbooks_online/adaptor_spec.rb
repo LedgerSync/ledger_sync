@@ -2,9 +2,11 @@
 
 require 'spec_helper'
 
+support :adaptor_helpers
 support :quickbooks_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
+  include AdaptorHelpers
   include QuickBooksHelpers
 
   let(:access_token) { 'access_token' }
@@ -15,6 +17,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
   let(:refresh_token) { 'refresh_token' }
   let(:refresh_token_expires_at) { nil }
   let(:test) { true }
+  let(:adaptor) { quickbooks_adaptor }
 
   subject do
     described_class.new(
@@ -61,6 +64,66 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
       subject.refresh!
       expect(subject.expires_at).to be_a(DateTime)
       expect(subject.refresh_token_expires_at).to be_a(DateTime)
+    end
+  end
+
+  describe '#url_for' do
+    it do
+      resource = LedgerSync::Account.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/register?accountId=123')
+    end
+
+    it do
+      resource = LedgerSync::Bill.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/bill?txnId=123')
+    end
+
+    it do
+      resource = LedgerSync::Customer.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/customerdetail?nameId=123')
+    end
+
+    it do
+      resource = LedgerSync::Deposit.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/deposit?txnId=123')
+    end
+
+    it do
+      resource = LedgerSync::Expense.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/expense?txnId=123')
+    end
+
+    it do
+      resource = LedgerSync::JournalEntry.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/journal?txnId=123')
+    end
+
+    it do
+      resource = LedgerSync::Payment.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/recvpayment?txnId=123')
+    end
+
+    it do
+      resource = LedgerSync::Transfer.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/transfer?txnId=123')
+    end
+
+    it do
+      resource = LedgerSync::Vendor.new(ledger_id: 123)
+      url = adaptor.url_for(resource: resource)
+      expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/vendordetail?nameId=123')
+    end
+
+
+    it do
     end
   end
 
