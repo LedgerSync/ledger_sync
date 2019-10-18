@@ -6,7 +6,7 @@ module LedgerSync
     attribute :classification, type: Type::String
     attribute :account_type, type: Type::String
     attribute :account_sub_type, type: Type::String
-    attribute :number, type: Type::Integer
+    attribute :number, type: Type::String
     attribute :currency, type: Type::String
     attribute :description, type: Type::String
     attribute :active, type: Type::Boolean
