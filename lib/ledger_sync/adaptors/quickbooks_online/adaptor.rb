@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 require 'oauth2'
 
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
       class Adaptor < LedgerSync::Adaptors::Adaptor
-        AUTHORIZE_URL     = 'https://appcenter.intuit.com/connect/oauth2'.freeze
+        AUTHORIZE_URL     = 'https://appcenter.intuit.com/connect/oauth2'
         OAUTH_HEADERS     = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }.freeze
-        ROOT_URI          = 'https://quickbooks.api.intuit.com'.freeze
-        ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'.freeze
-        SITE_URL          = 'https://appcenter.intuit.com/connect/oauth2'.freeze
-        TOKEN_URL         = 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer'.freeze
+        ROOT_URI          = 'https://quickbooks.api.intuit.com'
+        ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'
+        SITE_URL          = 'https://appcenter.intuit.com/connect/oauth2'
+        TOKEN_URL         = 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer'
 
         attr_reader :access_token,
                     :client_id,
@@ -61,7 +63,7 @@ module LedgerSync
         end
 
         def parse_operation_error(error:, operation:)
-          return nil unless error.kind_of?(OAuth2::Error)
+          return nil unless error.is_a?(OAuth2::Error)
 
           Util::OperationErrorParser.new(
             error: error,
@@ -105,16 +107,35 @@ module LedgerSync
           oauth_token
         end
 
+        def url_for(resource:)
+          base_url = test ? 'https://app.sandbox.qbo.intuit.com/app' : 'https://app.qbo.intuit.com/app'
+          resource_path = case resource
+                          when LedgerSync::Account
+                            "/register?accountId=#{resource.ledger_id}"
+                          when LedgerSync::Bill
+                            "/bill?txnId=#{resource.ledger_id}"
+                          when LedgerSync::Customer
+                            "/customerdetail?nameId=#{resource.ledger_id}"
+                          when LedgerSync::Deposit
+                            "/deposit?txnId=#{resource.ledger_id}"
+                          when LedgerSync::Expense
+                            "/expense?txnId=#{resource.ledger_id}"
+                          when LedgerSync::JournalEntry
+                            "/journal?txnId=#{resource.ledger_id}"
+                          when LedgerSync::Payment
+                            "/recvpayment?txnId=#{resource.ledger_id}"
+                          when LedgerSync::Transfer
+                            "/transfer?txnId=#{resource.ledger_id}"
+                          when LedgerSync::Vendor
+                            "/vendordetail?nameId=#{resource.ledger_id}"
+                          end
+
+          base_url + resource_path
+        end
+
         def self.ledger_attributes_to_save
           %i[access_token expires_at refresh_token refresh_token_expires_at]
         end
-
-        # def self.url_for(resource:)
-        #   case resource
-        #   when Customer
-        #     # TODO: How can we get the proper URL?  In dev, a random sandbox is used.
-        #   end
-        # end
 
         private
 
@@ -153,8 +174,8 @@ module LedgerSync
           begin
             refresh!
             oauth.send(method, *args)
-          rescue OAuth2::Error => e2
-            raise parse_error(error: e2) || e2
+          rescue OAuth2::Error => e
+            raise parse_error(error: e) || e
           end
         end
 
