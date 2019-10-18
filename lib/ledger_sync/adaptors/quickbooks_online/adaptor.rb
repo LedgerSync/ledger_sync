@@ -43,6 +43,15 @@ module LedgerSync
           @root_uri = (test ? ROOT_SANDBOX_URI : ROOT_URI)
         end
 
+        def authorization_url(redirect_uri:)
+          oauth_client.auth_code.authorize_url(
+            redirect_uri: redirect_uri,
+            response_type: 'code',
+            state: SecureRandom.hex(12),
+            scope: 'com.intuit.quickbooks.accounting'
+          )
+        end
+
         def find(resource:, id:)
           resource = resource.to_s
           url = "#{oauth_base_uri}/#{resourcify(resource)}/#{id}"
@@ -78,22 +87,22 @@ module LedgerSync
         end
 
         def refresh!
-          refreshed = oauth.refresh!
-
-          @previous_access_tokens << access_token
-          @access_token = refreshed.token
-
-          @expires_at = Time&.at(refreshed.expires_at.to_i)&.to_datetime
-          @refresh_token_expires_at = Time&.at(Time.now.to_i + refreshed.params['x_refresh_token_expires_in'])&.to_datetime unless refreshed.params['x_refresh_token_expires_in'].nil?
-
-          @previous_refresh_tokens << refresh_token
-          @refresh_token = refreshed.refresh_token
-
-          oauth(force: true) # Ensure we update the memoized @oauth
+          set_credentials_from_oauth_token(token: oauth.refresh!)
 
           self
         rescue OAuth2::Error => e
           raise parse_error(error: e)
+        end
+
+        def set_credentials_from_oauth_code(code:, redirect_uri:)
+          oauth_token = oauth_client.auth_code.get_token(
+            code,
+            redirect_uri: redirect_uri
+          )
+
+          set_credentials_from_oauth_token(token: oauth_token)
+
+          oauth_token
         end
 
         def self.ledger_attributes_to_save
@@ -158,6 +167,19 @@ module LedgerSync
 
         def resourcify(str)
           str.tr('_', '')
+        end
+
+        def set_credentials_from_oauth_token(token:)
+          @previous_access_tokens << access_token if access_token.present?
+          @access_token = token.token
+
+          @expires_at = Time&.at(token.expires_at.to_i)&.to_datetime
+          @refresh_token_expires_at = Time&.at(Time.now.to_i + token.params['x_refresh_token_expires_in'])&.to_datetime unless token.params['x_refresh_token_expires_in'].nil?
+
+          @previous_refresh_tokens << refresh_token if refresh_token.present?
+          @refresh_token = token.refresh_token
+
+          oauth(force: true) # Ensure we update the memoized @oauth
         end
       end
     end

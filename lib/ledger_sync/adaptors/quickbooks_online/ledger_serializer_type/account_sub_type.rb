@@ -89,6 +89,7 @@ module LedgerSync
             'other_long_term_loans_and_advances' => 'OtherLongTermLoansAndAdvances',
             'prepayments_and_accrued_income' => 'PrepaymentsAndAccruedIncome',
             'provisions_non_current_assets' => 'ProvisionsNonCurrentAssets',
+            'accounts_receivable' => 'AccountsReceivable',
             'security_deposits' => 'SecurityDeposits',
             # Equity
             'accumulated_adjustment' => 'AccumulatedAdjustment',
@@ -107,7 +108,7 @@ module LedgerSync
             'other_free_reserves' => 'OtherFreeReserves',
             'owners_equity' => 'OwnersEquity',
             'paid_in_capital_or_surplus' => 'PaidInCapitalOrSurplus',
-            '​partner_contributions' => '​PartnerContributions',
+            'partner_contributions' => 'PartnerContributions',
             'partner_distributions' => 'PartnerDistributions',
             'partners_equity' => 'PartnersEquity',
             'personal_expense' => 'PersonalExpense',
