@@ -17,6 +17,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       line_items: line_items,
       memo: memo,
       payment_type: payment_type,
+      reference_number: 'Ref123',
       transaction_date: transaction_date,
       vendor: vendor
     )
@@ -47,6 +48,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       'CurrencyRef' => {
         'value' => currency
       },
+      'DocNumber' => 'Ref123',
       'PaymentType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::PaymentType.mapping[payment_type],
       'TxnDate' => transaction_date.to_s, # Format: YYYY-MM-DD
       'PrivateNote' => memo,

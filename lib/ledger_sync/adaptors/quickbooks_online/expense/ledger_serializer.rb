@@ -32,6 +32,9 @@ module LedgerSync
           attribute ledger_attribute: 'EntityRef.value',
                     resource_attribute: 'vendor.ledger_id'
 
+          attribute ledger_attribute: 'DocNumber',
+                    resource_attribute: :reference_number
+
           attribute ledger_attribute: 'AccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
