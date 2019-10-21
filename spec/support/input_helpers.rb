@@ -156,6 +156,7 @@ module InputHelpers
       # relationships
       line_items: [],
       #attributes
+      reference_number: 'Ref123',
       currency: 'USD',
       memo: 'Memo',
       transaction_date: Date.parse('2019-09-01')
