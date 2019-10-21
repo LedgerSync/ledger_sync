@@ -19,6 +19,9 @@ module LedgerSync
           attribute ledger_attribute: 'PrivateNote',
                     resource_attribute: :memo
 
+          attribute ledger_attribute: 'DocNumber',
+                    resource_attribute: :reference_number
+
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,
                           serializer: JournalEntryLineItem::LedgerSerializer

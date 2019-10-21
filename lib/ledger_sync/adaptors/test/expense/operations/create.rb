@@ -18,6 +18,7 @@ module LedgerSync
                 required(:transaction_date).filled(:date?)
                 required(:exchange_rate).maybe(:float)
                 required(:line_items).array(Types::Reference)
+                required(:reference_number).filled(:string)
               end
             end
 

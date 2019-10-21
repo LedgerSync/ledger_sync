@@ -4,6 +4,7 @@ module LedgerSync
     attribute :memo, type: Type::String
     attribute :transaction_date, type: Type::Date
     attribute :due_date, type: Type::Date
+    attribute :reference_number, type: Type::String
 
     references_one :vendor, to: Vendor
     references_one :account, to: Account

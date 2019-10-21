@@ -27,6 +27,9 @@ module LedgerSync
           attribute ledger_attribute: 'APAccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
+          attribute ledger_attribute: 'DocNumber',
+                    resource_attribute: :reference_number
+
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,
                           serializer: BillLineItem::LedgerSerializer
