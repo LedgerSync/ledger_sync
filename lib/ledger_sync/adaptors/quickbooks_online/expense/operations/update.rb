@@ -8,15 +8,15 @@ module LedgerSync
               schema do
                 required(:external_id).maybe(:string)
                 required(:account).hash(Types::Reference)
-                required(:currency).filled(:string)
-                required(:exchange_rate).maybe(:float)
+                optional(:currency).filled(:string)
+                optional(:exchange_rate).maybe(:float)
                 required(:ledger_id).filled(:string)
                 required(:line_items).array(Types::Reference)
-                required(:memo).filled(:string)
+                optional(:memo).filled(:string)
                 required(:payment_type).filled(:string)
-                required(:reference_number).maybe(:string)
-                required(:transaction_date).filled(:date?)
-                required(:vendor).hash(Types::Reference)
+                optional(:reference_number).maybe(:string)
+                optional(:transaction_date).filled(:date?)
+                optional(:vendor).hash(Types::Reference)
               end
             end
           end
