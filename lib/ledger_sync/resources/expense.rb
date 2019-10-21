@@ -5,6 +5,7 @@ module LedgerSync
     attribute :payment_type, type: Type::String
     attribute :transaction_date, type: Type::Date
     attribute :exchange_rate, type: Type::Float
+    attribute :reference_number, type: Type::String
 
     references_one :vendor, to: Vendor
     references_one :account, to: Account
