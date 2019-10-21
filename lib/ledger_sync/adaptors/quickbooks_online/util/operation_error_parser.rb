@@ -87,7 +87,8 @@ module LedgerSync
 
               return matcher.error_klass.new(
                 operation: operation,
-                message: matcher.output_message
+                message: matcher.output_message,
+                response: error
               )
             end
           end

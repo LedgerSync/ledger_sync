@@ -168,8 +168,9 @@ module LedgerSync
         def request(method, *args)
           oauth.send(method, *args)
         rescue OAuth2::Error => e
-          error = parse_error(error: e)
-          raise (error || e) unless error.is_a?(Error::AdaptorError::AuthenticationError)
+          error = parse_error(error: e) || parse_operation_error(error: e, operation: nil) || e
+
+          raise error unless error.is_a?(Error::AdaptorError::AuthenticationError)
 
           begin
             refresh!
