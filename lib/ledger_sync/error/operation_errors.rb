@@ -4,9 +4,11 @@ module LedgerSync
   class Error
     class OperationError < Error
       attr_reader :operation
+      attr_reader :response
 
-      def initialize(message:, operation:)
+      def initialize(message:, operation:, response:nil)
         @operation = operation
+        @response = response
         super(message: message)
       end
 
@@ -15,10 +17,14 @@ module LedgerSync
       class LedgerValidationError < self; end
 
       class PerformedOperationError < self
-        def initialize(message: nil, operation:)
+        def initialize(message: nil, operation:, response:nil)
           message ||= 'Operation has already been performed. Please check the result.'
 
-          super(message: message, operation: operation)
+          super(
+            message: message,
+            operation: operation,
+            response: response
+          )
         end
       end
 
@@ -26,13 +32,14 @@ module LedgerSync
         attr_reader :attribute,
                     :validation
 
-        def initialize(message:, attribute:, operation:, validation:)
+        def initialize(message:, attribute:, operation:, validation:, response:nil)
           @attribute = attribute
           @validation = validation
 
           super(
             message: message,
-            operation: operation
+            operation: operation,
+            response: response
           )
         end
       end

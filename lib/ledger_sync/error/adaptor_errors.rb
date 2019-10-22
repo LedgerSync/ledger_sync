@@ -4,15 +4,20 @@ module LedgerSync
   class Error
     class AdaptorError < Error
       attr_reader :adaptor
+      attr_reader :response
 
-      def initialize(adaptor:, message:)
+      def initialize(adaptor:, message:, response:nil)
         @adaptor = adaptor
+        @response = response
         super(message: message)
       end
 
       class MissingAdaptorError < self
         def initialize(message:)
-          super(message: message, adaptor: nil)
+          super(
+            message: message,
+            adaptor: nil,
+          )
         end
       end
 
@@ -22,20 +27,27 @@ module LedgerSync
         def initialize(message:, adaptor:, attribute:, validation:)
           @attribute = attribute
           @validation = validation
-          super(message: message, adaptor: adaptor)
+          super(
+            message: message,
+            adaptor: adaptor,
+          )
         end
       end
 
       class ThrottleError < self
         attr_reader :rate_limiting_wait_in_seconds
 
-        def initialize(adaptor:, message: nil)
+        def initialize(adaptor:, message: nil, response:nil)
           message ||= 'Your request has been throttled.'
           @rate_limiting_wait_in_seconds = LedgerSync.adaptors.config_from_klass(
             klass: adaptor.class
           ).rate_limiting_wait_in_seconds
 
-          super(adaptor: adaptor, message: message)
+          super(
+            adaptor: adaptor,
+            message: message,
+            response: response
+          )
         end
       end
 

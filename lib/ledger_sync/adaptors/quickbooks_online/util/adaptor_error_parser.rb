@@ -90,7 +90,8 @@ module LedgerSync
 
               return matcher.error_klass.new(
                 adaptor: adaptor,
-                message: matcher.output_message
+                message: matcher.output_message,
+                response: error
               )
             end
             nil
