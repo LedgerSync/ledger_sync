@@ -28,7 +28,7 @@ RSpec.describe 'test/expenses/create', type: :feature do
       expense_resource(
         {
           account: account,
-          vendor: vendor,
+          entity: vendor,
           line_items: [
             line_item_1,
             line_item_2

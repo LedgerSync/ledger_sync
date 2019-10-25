@@ -22,12 +22,12 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializerAttribute do
     it do
       resource = attribute.send(
         :build_resource_value_from_nested_attributes,
-        LedgerSync::Expense.new,
+        LedgerSync::Payment.new,
         'asdf',
-        'vendor.ledger_id'.split('.')
+        'customer.ledger_id'.split('.')
       )
 
-      expect(resource.vendor.ledger_id).to eq('asdf')
+      expect(resource.customer.ledger_id).to eq('asdf')
     end
   end
 end

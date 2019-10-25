@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   class Expense < LedgerSync::Resource
     attribute :currency, type: Type::String
@@ -7,7 +9,7 @@ module LedgerSync
     attribute :exchange_rate, type: Type::Float
     attribute :reference_number, type: Type::String
 
-    references_one :vendor, to: Vendor
+    references_one :entity, to: [Customer, Vendor]
     references_one :account, to: Account
 
     references_many :line_items, to: ExpenseLineItem

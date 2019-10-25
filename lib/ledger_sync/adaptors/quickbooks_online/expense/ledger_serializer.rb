@@ -29,8 +29,9 @@ module LedgerSync
           attribute ledger_attribute: 'ExchangeRate',
                     resource_attribute: :exchange_rate
 
-          attribute ledger_attribute: 'EntityRef.value',
-                    resource_attribute: 'vendor.ledger_id'
+          attribute ledger_attribute: 'EntityRef',
+                    resource_attribute: :entity,
+                    type: LedgerSerializerType::EntityReferenceType
 
           attribute ledger_attribute: 'DocNumber',
                     resource_attribute: :reference_number

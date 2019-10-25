@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 support :input_helpers
@@ -9,37 +11,35 @@ RSpec.describe 'quickbooks_online/expenses/create', type: :feature do
   include AdaptorHelpers
   include QuickBooksHelpers
 
-  before {
+  before do
     stub_create_expense
-  }
-
-  let(:account) do
-    LedgerSync::Account.new(account_resource({ledger_id: '123'}))
   end
 
-  let(:vendor) do
-    LedgerSync::Vendor.new(vendor_resource({ledger_id: '123'}))
+  let(:account) do
+    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+  end
+
+  let(:entity) do
+    LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
   end
 
   let(:line_item_1) do
-    LedgerSync::ExpenseLineItem.new(expense_line_item_resource({account: account}))
+    LedgerSync::ExpenseLineItem.new(expense_line_item_resource(account: account))
   end
 
   let(:line_item_2) do
-    LedgerSync::ExpenseLineItem.new(expense_line_item_resource({account: account}))
+    LedgerSync::ExpenseLineItem.new(expense_line_item_resource(account: account))
   end
 
   let(:resource) do
     LedgerSync::Expense.new(
       expense_resource(
-        {
-          account: account,
-          vendor: vendor,
-          line_items: [
-            line_item_1,
-            line_item_2
-          ]
-        }
+        account: account,
+        entity: entity,
+        line_items: [
+          line_item_1,
+          line_item_2
+        ]
       )
     )
   end
@@ -51,9 +51,17 @@ RSpec.describe 'quickbooks_online/expenses/create', type: :feature do
     }
   end
 
-  context '#perform' do
+  describe '#perform' do
     subject { LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Create.new(**input).perform }
-    it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
+
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
+
+    context 'when entity is a customer' do
+      let(:entity) { LedgerSync::Customer.new(customer_resource(ledger_id: '123')) }
+
+      before { stub_create_expense_with_cutomer_entity }
+
+      it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
+    end
   end
 end

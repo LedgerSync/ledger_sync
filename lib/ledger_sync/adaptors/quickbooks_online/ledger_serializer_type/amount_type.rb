@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module LedgerSerializerType
-        class AmountType < Adaptors::LedgerSerializerType::MappingType
+        class AmountType < Adaptors::LedgerSerializerType::ValueType
           def convert_from_ledger(value:)
             return if value.nil?
 

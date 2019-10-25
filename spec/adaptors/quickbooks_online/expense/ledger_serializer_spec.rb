@@ -8,7 +8,15 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
   include LedgerSerializerHelpers
 
   let(:account) { LedgerSync::Account.new(ledger_id: 'account_ledger_id') }
-  let(:vendor) { LedgerSync::Vendor.new(ledger_id: 'vendor_ledger_id') }
+  let(:vendor_ledger_id) { 'vendor_ledger_id' }
+  let(:vendor_display_name) { 'Test Vendor' }
+  let(:entity_type) { 'Vendor' }
+  let(:vendor) do
+    LedgerSync::Vendor.new(
+      display_name: vendor_display_name,
+      ledger_id: vendor_ledger_id
+    )
+  end
   let(:resource) do
     LedgerSync::Expense.new(
       account: account,
@@ -19,7 +27,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       payment_type: payment_type,
       reference_number: 'Ref123',
       transaction_date: transaction_date,
-      vendor: vendor
+      entity: vendor
     )
   end
   let(:currency) { 'USD' }
@@ -54,7 +62,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       'PrivateNote' => memo,
       'ExchangeRate' => exchange_rate,
       'EntityRef' => {
-        'value' => vendor.ledger_id
+        'value' => vendor_ledger_id,
+        'name' => vendor_display_name,
+        'type' => entity_type
       },
       'AccountRef' => {
         'value' => account.ledger_id
@@ -96,7 +106,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
           memo
           payment_type
           transaction_date
-          vendor
         ],
         resource: LedgerSync::Expense.new,
         response_hash: h,
@@ -106,6 +115,11 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       line_items.each do |li|
         expect(deserialized_resource.line_items).to include(li)
       end
+
+      entity = deserialized_resource.entity
+      expect(entity).to be_a(LedgerSync::Vendor)
+      expect(entity.ledger_id).to eq(vendor_ledger_id)
+      expect(entity.display_name).to eq(vendor_display_name)
     end
   end
 end
