@@ -36,7 +36,7 @@ RSpec.describe 'quickbooks_online/expenses/update', type: :feature do
         {
           ledger_id: '123',
           account: account,
-          vendor: vendor,
+          entity: vendor,
           line_items: [
             line_item_1,
             line_item_2

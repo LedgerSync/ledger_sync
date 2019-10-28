@@ -12,9 +12,7 @@ module LedgerSync
           deserialized_resource = super(hash: hash)
 
           # Ref: https://github.com/LedgerSync/ledger_sync/issues/86
-          if deserialized_resource.is_a?(LedgerSync::Account) && deserialized_resource.account_type
-            deserialized_resource.classification ||= LedgerSerializerType::AccountType::TYPE_TO_CLASSIFICATION_MAPPING.fetch(deserialized_resource.account_type, nil)
-          end
+          deserialized_resource.classification ||= LedgerSerializerType::AccountType::TYPE_TO_CLASSIFICATION_MAPPING.fetch(deserialized_resource.account_type, nil) if deserialized_resource.is_a?(LedgerSync::Account) && deserialized_resource.account_type
 
           return deserialized_resource unless merge_for_full_update
 
@@ -59,10 +57,6 @@ module LedgerSync
           merged_resource
         end
 
-        def self.id(**keywords)
-          super({ ledger_attribute: 'Id', resource_attribute: :ledger_id }.merge(keywords))
-        end
-
         def to_ledger_hash(deep_merge_unmapped_values: {}, only_changes: false)
           ret = super(only_changes: only_changes)
           return ret unless deep_merge_unmapped_values.any?
@@ -73,8 +67,36 @@ module LedgerSync
           )
         end
 
+        class << self
+          attr_reader :quickbooks_online_resource_types_hash
+        end
+
+        def self.id(**keywords)
+          super({ ledger_attribute: 'Id', resource_attribute: :ledger_id }.merge(keywords))
+        end
+
+        def self.ledger_serializer_for(resource_class:)
+          QuickBooksOnline.const_get("#{resource_class.name.split('LedgerSync::')[1..-1].join('LedgerSync::')}::LedgerSerializer")
+        end
+
         def self.quickbooks_online_resource_type(type = nil)
-          @quickbooks_online_resource_type ||= (type || _inferred_resource_class.resource_type).to_s
+          @quickbooks_online_resource_type ||= begin
+            inferred_resource_class = _inferred_resource_class
+            qbo_type = (type || inferred_resource_class.resource_type).to_s
+            type_hash = QuickBooksOnline::LedgerSerializer.quickbooks_online_resource_types_hash.try(:fetch, qbo_type, nil)
+            raise "Cannot define type in #{name}.  Type already exists: #{qbo_type}.  Defined previously by #{quickbooks_online_resource_types_hash[qbo_type][:serializer_class].name}" if type_hash.present? && (type_hash[:serializer_class] != serializer_class || type_hash[:resource_class] != inferred_resource_class) if type_hash.present?
+
+            QuickBooksOnline::LedgerSerializer.class_eval do
+              @quickbooks_online_resource_types_hash ||= {}
+            end
+
+            QuickBooksOnline::LedgerSerializer.quickbooks_online_resource_types_hash[qbo_type] = {
+              resource_class: inferred_resource_class,
+              serializer_class: self
+            }
+
+            qbo_type
+          end
         end
 
         private
@@ -101,3 +123,6 @@ module LedgerSync
     end
   end
 end
+
+# Load other serializers to populate `QuickBooksOnline::LedgerSerializer.quickbooks_online_resource_types_hash`
+Gem.find_files('ledger_sync/adaptors/quickbooks_online/**/ledger_serializer.rb').each { |path| require path }

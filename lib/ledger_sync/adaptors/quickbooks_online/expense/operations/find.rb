@@ -16,7 +16,7 @@ module LedgerSync
                 optional(:payment_type).maybe(:string)
                 optional(:reference_number).maybe(:string)
                 optional(:transaction_date).filled(:date?)
-                optional(:vendor).hash(Types::Reference)
+                optional(:entity).hash(Types::Reference)
               end
             end
           end

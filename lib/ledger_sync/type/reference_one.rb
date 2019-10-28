@@ -13,7 +13,11 @@ module LedgerSync
       end
 
       def error_message(attribute:, resource:, value:)
-        "Attribute #{attribute.name} for #{resource.class.name} should be a #{resource_class.name}.  Given #{value.class.name}"
+        if resource_class.is_a?(Array)
+          "Attribute #{attribute.name} for #{resource.class.name} should be one of the following: #{resource_class.map(&:name).join(', ')}.  Given #{value.class.name}"
+        else
+          "Attribute #{attribute.name} for #{resource.class.name} should be a #{resource_class.first.name}.  Given #{value.class.name}"
+        end
       end
 
       def type
@@ -22,9 +26,19 @@ module LedgerSync
 
       def valid_without_casting?(value:)
         return true if value.nil?
-        return true if value.is_a?(resource_class)
+        return true if resource_classes.select { |e| value.is_a?(e) }.any?
 
         false
+      end
+
+      private
+
+      def resource_classes
+        @resource_classes ||= if resource_class.is_a?(Array)
+                                resource_class
+                              else
+                                [resource_class]
+                              end
       end
     end
   end

@@ -54,7 +54,7 @@ module InputHelpers
       ledger_id: nil,
       # relationships
       account: nil,
-      vendor: nil,
+      entity: nil,
       line_items: [],
       #attributes
       reference_number: 'Ref123',

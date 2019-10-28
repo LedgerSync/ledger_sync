@@ -90,9 +90,9 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         test_parent_resource: {
           test_parent_resource_external_id: {
             data: {
-              children: [
-                :test_child_resource_external_id,
-                :test_child2_resource_external_id
+              children: %i[
+                test_child_resource_external_id
+                test_child2_resource_external_id
               ],
               test_parent_resource_attribute: :test_parent_resource_value
             }
@@ -152,5 +152,62 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
       expect(grandchild.external_id).to eq('test_grandchild_resource_external_id')
       expect(grandchild.useless_child).to be_nil
     end
+  end
+
+  it do
+    h = {
+      'expense' => {
+        '3aab091a-1a8a-4c96-b86c-f145198da13d' => {
+          data: {
+            currency: 'USD',
+            memo: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at 2019-10-24 18:21:53 UTC",
+            payment_type: 'cash',
+            transaction_date: Date.new(2019, 10, 25),
+            entity: '928db55e-6552-4aaf-96d7-10c693922b1f',
+            account: 'd51889bb-7c89-4138-83f3-1489b11b8cbd',
+            line_items: [
+              'e337cbce-3765-4a82-8e6f-3f7b960f5d67'
+            ],
+            reference_number: '3aab091a1a8a4c96b86cf'
+          }
+        }
+      },
+      :vendor => {
+        '928db55e-6552-4aaf-96d7-10c693922b1f' => {
+          ledger_id: '83cf34d0-2ea3-4fe0-83ec-58e502ad6be1',
+          data: {}
+        }
+      },
+      :account => {
+        'd51889bb-7c89-4138-83f3-1489b11b8cbd' => {
+          ledger_id: '36',
+          data: {}
+        },
+        'bba2464e-cc79-4c25-9ff6-a732d53e6fa6' => {
+          ledger_id: '84',
+          data: {}
+        }
+      },
+      :expense_line_item => {
+        'e337cbce-3765-4a82-8e6f-3f7b960f5d67' => {
+          data: {
+            amount: 2500,
+            description: nil,
+            account: 'bba2464e-cc79-4c25-9ff6-a732d53e6fa6'
+          }
+        }
+      }
+    }
+
+    builder = described_class.new(
+      data: h,
+      root_resource_external_id: '3aab091a-1a8a-4c96-b86c-f145198da13d',
+      root_resource_type: 'expense'
+    )
+
+    resource = builder.resource
+
+    expect(resource).to be_a(LedgerSync::Expense)
+    expect(resource.entity).to be_a(LedgerSync::Vendor)
   end
 end
