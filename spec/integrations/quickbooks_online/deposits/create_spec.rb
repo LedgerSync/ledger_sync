@@ -19,8 +19,12 @@ RSpec.describe 'quickbooks_online/deposits/create', type: :feature do
     LedgerSync::Account.new(account_resource(ledger_id: '123'))
   end
 
+  let(:entity) do
+    LedgerSync::Vendor.new(vendor_resource(ledger_id: '245'))
+  end
+
   let(:line_item_1) do
-    LedgerSync::DepositLineItem.new(deposit_line_item_resource(account: account))
+    LedgerSync::DepositLineItem.new(deposit_line_item_resource(account: account, entity: entity))
   end
 
   let(:line_item_2) do

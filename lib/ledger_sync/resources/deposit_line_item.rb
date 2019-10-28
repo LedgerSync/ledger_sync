@@ -4,6 +4,8 @@ module LedgerSync
     attribute :amount, type: Type::Integer
     attribute :description, type: Type::String
 
+    references_one :entity, to: [Customer, Vendor]
+
     def name
       description
     end

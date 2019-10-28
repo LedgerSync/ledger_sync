@@ -410,7 +410,7 @@ module QuickBooksHelpers
   def stub_create_deposit
     stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit").
       with(
-        body: "{\"Id\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"ExchangeRate\":1.0,\"DepositToAccountRef\":{\"value\":\"123\"},\"Line\":[{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}]}",
+        body: "{\"Id\":null,\"CurrencyRef\":{\"value\":\"USD\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"ExchangeRate\":1.0,\"DepositToAccountRef\":{\"value\":\"123\"},\"Line\":[{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"EntityRef\":{\"value\":\"245\",\"name\":\"Sample Vendor\",\"type\":\"Vendor\"},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"EntityRef\":null,\"Amount\":123.45,\"Description\":\"Sample Transaction\"}]}",
         headers: {
           'Accept'=>'application/json',
           'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -445,7 +445,7 @@ module QuickBooksHelpers
   def stub_update_deposit
     stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit").
       with(
-        body: "{\"Id\":\"123\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"ExchangeRate\":1.0,\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"Line\":[{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"Amount\":123.45,\"Description\":\"Sample Transaction\"}],\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T11:54:50-07:00\",\"LastUpdatedTime\":\"2019-10-11T11:54:50-07:00\"}}",
+        body: "{\"Id\":\"123\",\"CurrencyRef\":{\"value\":\"USD\",\"name\":\"United States Dollar\"},\"TxnDate\":\"2019-09-01\",\"PrivateNote\":\"Memo\",\"ExchangeRate\":1.0,\"DepositToAccountRef\":{\"value\":\"123\",\"name\":\"Cash on hand\"},\"Line\":[{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"EntityRef\":null,\"Amount\":123.45,\"Description\":\"Sample Transaction\"},{\"Id\":null,\"DetailType\":\"DepositLineDetail\",\"DepositLineDetail\":{\"AccountRef\":{\"value\":\"123\"}},\"EntityRef\":null,\"Amount\":123.45,\"Description\":\"Sample Transaction\"}],\"TotalAmt\":246.9,\"domain\":\"QBO\",\"sparse\":false,\"SyncToken\":\"0\",\"MetaData\":{\"CreateTime\":\"2019-10-11T11:54:50-07:00\",\"LastUpdatedTime\":\"2019-10-11T11:54:50-07:00\"}}",
         headers: {
           'Accept'=>'application/json',
           'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

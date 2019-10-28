@@ -14,6 +14,10 @@ module LedgerSync
           attribute ledger_attribute: 'DepositLineDetail.AccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
+          attribute ledger_attribute: 'EntityRef',
+                    resource_attribute: :entity,
+                    type: LedgerSerializerType::EntityReferenceType
+
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,
                     type: LedgerSerializerType::AmountType
