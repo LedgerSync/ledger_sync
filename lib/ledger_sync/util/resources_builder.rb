@@ -53,9 +53,10 @@ module LedgerSync
             raise "Unrecognized attribute for #{resource_class.name}: #{k}" if attribute.nil? && !ignore_unrecognized_attributes
 
             v = if attribute.is_a?(ResourceAttribute::Reference::One)
+                  resource_type = resource_type_by(external_id: current_data[k])
                   resource_or_build(
                     external_id: current_data[k],
-                    type: attribute.type.resource_class.resource_type
+                    type: resource_type
                   )
                 elsif attribute.is_a?(ResourceAttribute::Reference::Many)
                   current_data[k].map do |many_reference|
@@ -81,6 +82,19 @@ module LedgerSync
         )
       end
 
+      # This will break if multiple objects of different types have the same external_id
+      def external_id_to_type_hash
+        @external_id_to_type_hash ||= begin
+          ret = {}
+          data.each do |type, type_resources|
+            type_resources.keys.each do |external_id|
+              ret[external_id] = type
+            end
+          end
+          ret
+        end
+      end
+
       def resource_key(external_id:, type:)
         "#{type}/#{external_id}"
       end
@@ -90,6 +104,10 @@ module LedgerSync
           resource_key(**external_id_and_type),
           build_resource(**external_id_and_type)
         )
+      end
+
+      def resource_type_by(external_id:)
+        external_id_to_type_hash[external_id.to_sym]
       end
     end
   end
