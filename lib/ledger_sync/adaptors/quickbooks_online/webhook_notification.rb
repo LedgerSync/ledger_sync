@@ -15,14 +15,13 @@ module LedgerSync
 
         def initialize(payload:, webhook: nil)
           @original_payload = payload
-          payload = JSON.parse(payload) if payload.is_a?(String)
-          @payload = payload
+          @payload = payload.is_a?(String) ? JSON.parse(payload) : payload
 
-          @realm_id = payload.dig('realmId')
+          @realm_id = @payload.dig('realmId')
           raise 'Invalid payload: Could not find realmId' if @realm_id.blank?
 
-          events_payload = payload.dig('dataChangeEvent', 'entities')
-          raise 'Invalid payload: Could not find dataChangeEvent -> entities' if events_payload.blank?
+          events_payload = @payload.dig('dataChangeEvent', 'entities')
+          raise 'Invalid payload: Could not find dataChangeEvent -> entities' unless events_payload.is_a?(Array)
 
           @events = []
 
