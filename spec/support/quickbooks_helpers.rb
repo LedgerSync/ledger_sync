@@ -23,6 +23,28 @@ module QuickBooksHelpers
       )
   end
 
+  def stub_revoke_token
+    stub_request(
+      :post,
+      "https://developer.api.intuit.com/v2/oauth2/tokens/revoke"
+    ).with(
+      body: {
+        "token"=>"access_token"
+      }.to_json,
+      headers: {
+        'Accept'=>'application/json',
+        'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'Authorization'=>'Bearer access_token',
+        'Content-Type'=>'application/json',
+        'User-Agent'=>'Faraday v0.17.0'
+      }
+    ).to_return(
+      status: 200,
+      body: "",
+      headers: {}
+    )
+  end
+
   # Customer
 
   def stub_create_customer
