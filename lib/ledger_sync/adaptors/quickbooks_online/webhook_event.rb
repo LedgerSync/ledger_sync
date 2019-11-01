@@ -40,22 +40,34 @@ module LedgerSync
         end
 
         def find(adaptor:)
-          find_operation.new(
-            adaptor: adaptor,
-            resource: resource_class.new(ledger_id: ledger_id)
-          ).perform
+          find_operation(adaptor: adaptor).perform
         end
 
-        def find_operation
-          @find_operation ||= adaptor.class.base_operation_module_for(resource_class: resource_class)::Find
+        def find_operation(adaptor:)
+          find_operation_class(adaptor: adaptor).new(
+            adaptor: adaptor,
+            resource: resource_class.new(ledger_id: ledger_id)
+          )
+        end
+
+        def find_operation_class(adaptor:)
+          adaptor.class.base_operation_module_for(resource_class: resource_class)::Find
         end
 
         def local_resource_type
           @local_resource_type ||= resource_class.resource_type
         end
 
-        def resource(adaptor:)
-          find(adaptor: adaptor).value.resource
+        def resource
+          return unless resource_class.present?
+
+          resource_class.new(ledger_id: ledger_id)
+        end
+
+        def resource!
+          raise "Resource class does not exist for QuickBooks Online object: #{quickbooks_online_resource_type}" if resource.nil?
+
+          resource
         end
 
         def resource_class

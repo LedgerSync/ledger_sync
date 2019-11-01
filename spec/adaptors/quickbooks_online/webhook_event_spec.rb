@@ -36,6 +36,27 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::WebhookEvent do
     end
   end
 
+  describe '#find' do
+    it 'finds customer' do
+      stub_find_customer
+      expect(instance.find(adaptor: quickbooks_adaptor)).to be_success
+    end
+
+    it 'finds vendor' do
+      stub_find_vendor
+      payload['name'] = 'Vendor'
+      expect(instance.find(adaptor: quickbooks_adaptor)).to be_success
+    end
+  end
+
+  describe '#find_operation' do
+    it { expect(instance.find_operation(adaptor: quickbooks_adaptor)).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Find) }
+  end
+
+  describe '#find_operation_class' do
+    it { expect(instance.find_operation_class(adaptor: quickbooks_adaptor)).to eq(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Find) }
+  end
+
   describe '#last_updated_at' do
     it { expect(instance.last_updated_at).to eq(Time.parse('2015-10-05T14:42:19-0700')) }
     it do
@@ -52,22 +73,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::WebhookEvent do
     end
   end
 
-  describe '#quickbooks_online_resource_type' do
-    it { expect(instance.quickbooks_online_resource_type).to eq('Customer') }
-    it do
-      payload.delete('name')
-      expect { instance }.to raise_error(RuntimeError)
-    end
-  end
-
-  describe '#resource_class' do
-    it { expect(instance.resource_class).to eq(LedgerSync::Customer) }
-    it do
-      payload.merge!('name' => 'Vendor')
-      expect(instance.resource_class).to eq(LedgerSync::Vendor)
-    end
-  end
-
   describe '#local_resource_type' do
     it { expect(instance.local_resource_type).to eq(:customer) }
     it do
@@ -76,18 +81,41 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::WebhookEvent do
     end
   end
 
-  describe '#find' do
-    it 'finds customer' do
-      stub_find_customer
-      expect(instance.find(adaptor: quickbooks_adaptor)).to be_success
-      expect(instance.resource(adaptor: quickbooks_adaptor)).to be_a(LedgerSync::Customer)
+  describe '#quickbooks_online_resource_type' do
+    it { expect(instance.quickbooks_online_resource_type).to eq('Customer') }
+    it do
+      payload.delete('name')
+      expect { instance }.to raise_error(RuntimeError)
+    end
+  end
+
+  describe '#resource' do
+    it do
+      expect(instance.resource).to be_a(LedgerSync::Customer)
     end
 
-    it 'finds vendor' do
-      stub_find_vendor
+    it do
       payload['name'] = 'Vendor'
-      expect(instance.find(adaptor: quickbooks_adaptor)).to be_success
-      expect(instance.resource(adaptor: quickbooks_adaptor)).to be_a(LedgerSync::Vendor)
+      expect(instance.resource).to be_a(LedgerSync::Vendor)
+    end
+  end
+
+  describe '#resource!' do
+    it do
+      expect(instance.resource!).to be_a(LedgerSync::Customer)
+    end
+
+    it do
+      payload['name'] = 'ASDF'
+      expect { instance.resource! }.to raise_error(RuntimeError)
+    end
+  end
+
+  describe '#resource_class' do
+    it { expect(instance.resource_class).to eq(LedgerSync::Customer) }
+    it do
+      payload.merge!('name' => 'Vendor')
+      expect(instance.resource_class).to eq(LedgerSync::Vendor)
     end
   end
 end

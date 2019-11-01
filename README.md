@@ -162,11 +162,16 @@ webhook.notifications.each do |notification|
 
   # Multiple events may be referenced.
   notification.events.each do |event|
-    puts event.resource # This will perform a Find operation for the resource retrieving the latest version from QuickBooks Online
+    puts event.resource # Returns a LedgerSync resource with the `ledger_id` set
+
+    # Other helpful methods
+    notification.find_operation_class(adaptor: your_quickbooks_adaptor_instance) # The respective Find class
+    notification.find_operation(adaptor: your_quickbooks_adaptor_instance) # The initialized respective Find operation
+    notification.find(adaptor: your_quickbooks_adaptor_instance) # Performs a Find operation for the resource retrieving the latest version from QuickBooks Online
   end
 
   # Other helpful methods
-  notification.resources # All events for a given webhook across all events
+  notification.resources # All resources for a given webhook across all events
 end
 
 # Other helpful methods

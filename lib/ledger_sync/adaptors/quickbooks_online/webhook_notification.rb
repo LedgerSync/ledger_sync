@@ -34,7 +34,7 @@ module LedgerSync
         end
 
         def resources
-          @resources ||= events.map(&:resource)
+          @resources ||= events.map(&:resource).compact
         end
       end
     end

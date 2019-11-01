@@ -33,7 +33,7 @@ module LedgerSync
         end
 
         def resources
-          @resources ||= events.map(&:resource)
+          @resources ||= notifications.map(&:resources).flatten.compact
         end
 
         def valid?(signature:, verification_token:)
