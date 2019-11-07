@@ -284,6 +284,17 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Run `bundle console` to start and interactive console with the library already loaded.
 
+## Deployment
+
+To deploy a new version of the gem to RubyGems, you can use the `release.sh` script in the root.  The script takes advantage of [the bump gem](https://github.com/gregorym/bump).  So you may call the script using any of the following:
+
+```bash
+# Version Format: MAJOR.MINOR.PATCH
+./release.sh patch # to bump X in 1.1.X
+./release.sh minor # to bump X in 1.X.1
+./release.sh major # to bump X in X.1.1
+```
+
 ### Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/LedgerSync/ledger_sync. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
