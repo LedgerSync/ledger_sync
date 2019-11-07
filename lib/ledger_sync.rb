@@ -11,6 +11,7 @@ require 'fingerprintable'
 require 'simply_serializable'
 require 'active_model'
 require 'stripe'
+require 'netsuite'
 
 # Version
 require 'ledger_sync/version'

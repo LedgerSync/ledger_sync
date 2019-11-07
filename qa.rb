@@ -21,6 +21,13 @@ config_path = "#{__dir__}/.qa_config.yml"
 
 unless File.file?(config_path)
   config_template = {
+    'netsuite' => {
+      'account' => 'REQUIRED',
+      'consumer_key' => 'REQUIRED',
+      'consumer_secret' => 'REQUIRED',
+      'token_id' => 'REQUIRED',
+      'token_secret' => 'REQUIRED'
+    },
     'quickbooks_online' => {
       'access_token' => 'REQUIRED',
       'client_id' => 'REQUIRED',

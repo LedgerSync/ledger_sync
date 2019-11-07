@@ -2,7 +2,7 @@
 
 module LedgerSync
   module Adaptors
-    module QuickBooksOnline
+    module NetSuite
       class Searcher < Adaptors::Searcher
         def next_searcher
           paginate(limit: limit, offset: offset + limit)
@@ -30,7 +30,7 @@ module LedgerSync
         # starts from 1, not 0
         #
         # More here:
-        # https://developer.intuit.com/app/developer/qbo/docs/develop/explore-the-quickbooks-online-api/data-queries#pagination
+        # https://developer.intuit.com/app/developer/qbo/docs/develop/explore-the-netsuite-online-api/data-queries#pagination
 
         def limit
           pagination.fetch(:limit, 10).to_i

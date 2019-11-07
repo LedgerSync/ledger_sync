@@ -1,6 +1,6 @@
 module LedgerSync
   module Adaptors
-    module QuickBooksOnline
+    module NetSuite
       module Customer
         module Operations
           class Create < Operation::Create
@@ -16,25 +16,15 @@ module LedgerSync
             private
 
             def operate
-              response = adaptor.upsert(
-                resource: 'customer',
-                payload: local_resource_data
+              customer = NetSuite::Records::Customer.new(
+
               )
 
               resource.ledger_id = response.dig('Id')
-              success(response: response)
-            end
-
-            def local_resource_data
-              {
-                'DisplayName': resource.name,
-                "PrimaryPhone": {
-                  "FreeFormNumber": resource.phone_number
-                },
-                "PrimaryEmailAddr": {
-                  "Address": resource.email
-                }
-              }
+              success(
+                response: response,
+                resource: resource
+              )
             end
           end
         end

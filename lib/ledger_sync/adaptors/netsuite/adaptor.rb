@@ -4,7 +4,10 @@ module LedgerSync
   module Adaptors
     module NetSuite
       class Adaptor < Adaptors::Adaptor
+        DEFAULT_API_VERSION = '2018_2'.freeze
+
         attr_reader :account,
+                    :api_version,
                     :consumer_key,
                     :consumer_secret,
                     :token_id,
@@ -12,13 +15,14 @@ module LedgerSync
 
         def initialize(
           account:,
-          api_version: '2018_2',
+          api_version: nil,
           consumer_key:,
           consumer_secret:,
           token_id:,
           token_secret:
         )
           @account = account
+          @api_version = api_version || DEFAULT_API_VERSION
           @consumer_key = consumer_key
           @consumer_secret = consumer_secret
           @token_id = token_id
