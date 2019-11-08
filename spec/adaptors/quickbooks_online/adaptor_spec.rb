@@ -67,6 +67,14 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
     end
   end
 
+  describe '#revoke_token!' do
+    it { expect(subject).to respond_to(:revoke_token!) }
+    it do
+      stub_revoke_token
+      expect(subject.revoke_token!).to be_truthy
+    end
+  end
+
   describe '#url_for' do
     it do
       resource = LedgerSync::Account.new(ledger_id: 123)

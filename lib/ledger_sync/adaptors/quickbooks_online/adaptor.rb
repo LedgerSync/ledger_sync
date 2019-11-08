@@ -9,6 +9,7 @@ module LedgerSync
         AUTHORIZE_URL     = 'https://appcenter.intuit.com/connect/oauth2'
         OAUTH_HEADERS     = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }.freeze
         ROOT_URI          = 'https://quickbooks.api.intuit.com'
+        REVOKE_TOKEN_URI  = 'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
         ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'
         SITE_URL          = 'https://appcenter.intuit.com/connect/oauth2'
         TOKEN_URL         = 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer'
@@ -94,6 +95,17 @@ module LedgerSync
           self
         rescue OAuth2::Error => e
           raise parse_error(error: e)
+        end
+
+        def revoke_token!
+          request(
+            :post,
+            REVOKE_TOKEN_URI,
+            body: {
+              token: access_token
+            }.to_json,
+            headers: OAUTH_HEADERS.dup
+          ).status == 200
         end
 
         def set_credentials_from_oauth_code(code:, redirect_uri:)
