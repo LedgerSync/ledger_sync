@@ -4,6 +4,10 @@ language: ruby
 cache: bundler
 rvm:
   - 2.5.1
+git:
+    submodules: false
 before_install:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule update --init --recursive
   - gem update --system
   - gem install bundler
