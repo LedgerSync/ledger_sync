@@ -295,6 +295,16 @@ To deploy a new version of the gem to RubyGems, you can use the `release.sh` scr
 ./release.sh major # to bump X in X.1.1
 ```
 
+# Site
+
+The site is viewable at: [ledgersync.github.io](https://ledgersync.github.io).
+
+Our marketing and documentation exist in the `/site` directory using [Hugo](https://gohugo.io/).  To get started, you will need to install hugo:
+
+`brew install hugo`
+
+Once installed, you can deploy changes by running `./site/deploy.sh "COMMIT MESSAGE"`.  The site public is generated and pushed to [the dedicated site repository](https://github.com/LedgerSync/ledgersync.github.io).  Once deployed, the changes will be immediately reflected.
+
 ### Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/LedgerSync/ledger_sync. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
