@@ -311,6 +311,6 @@ Everyone interacting in the LedgerSync project’s codebases, issue trackers, ch
 
 A big thank you to our maintainers:
 
-- @ryanwjackson
-- @jozefvaclavik
+- [@ryanwjackson](https://github.com/ryanwjackson)
+- [@jozefvaclavik](https://github.com/jozefvaclavik)
 - And the whole [Modern Treasury](https://www.moderntreasury.com) team
