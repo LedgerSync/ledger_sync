@@ -1,7 +1,3 @@
 [submodule "themes/cayman-hugo-theme"]
 	path = site/themes/cayman-hugo-theme
 	url = https://github.com/zwbetz-gh/cayman-hugo-theme.git
-[submodule "site/public"]
-	path = site/public
-	url = git@github.com:ledgersync/ledgersync.github.io.git
-	branch = master
