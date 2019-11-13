@@ -129,10 +129,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
       url = adaptor.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/vendordetail?nameId=123')
     end
-
-
-    it do
-    end
   end
 
   describe '.ledger_attributes_to_save' do
