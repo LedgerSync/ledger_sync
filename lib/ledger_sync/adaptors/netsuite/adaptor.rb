@@ -7,6 +7,7 @@ module LedgerSync
         DEFAULT_API_VERSION = '2018_2'.freeze
 
         attr_reader :account,
+                    :application_id,
                     :api_version,
                     :consumer_key,
                     :consumer_secret,
@@ -15,6 +16,7 @@ module LedgerSync
 
         def initialize(
           account:,
+          application_id:,
           api_version: nil,
           consumer_key:,
           consumer_secret:,
@@ -22,6 +24,7 @@ module LedgerSync
           token_secret:
         )
           @account = account
+          @application_id = application_id
           @api_version = api_version || DEFAULT_API_VERSION
           @consumer_key = consumer_key
           @consumer_secret = consumer_secret
@@ -29,14 +32,8 @@ module LedgerSync
           @token_secret = token_secret
         end
 
-        def self.ledger_attributes_to_save
-          []
-        end
-
-        private
-
         def setup
-          NetSuite.configure do
+          ::NetSuite.configure do
             reset!
 
             account @account
@@ -47,6 +44,21 @@ module LedgerSync
             api_version '2016_2'
             wsdl_domain "#{@account}.suitetalk.api.netsuite.com"
           end
+          ::NetSuite::Configuration.soap_header = {
+            'platformMsgs:ApplicationInfo' => {
+               'platformMsgs:applicationId' => application_id
+            }
+         }
+        end
+
+        def teardown
+          ::NetSuite.configure do
+            reset!
+          end
+        end
+
+        def self.ledger_attributes_to_save
+          []
         end
       end
     end

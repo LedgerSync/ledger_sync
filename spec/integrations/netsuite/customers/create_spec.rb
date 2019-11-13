@@ -11,9 +11,7 @@ RSpec.describe 'netsuite_online/customers/create', type: :feature do
   include AdaptorHelpers
   include NetSuiteHelpers
 
-  # before do
-  #   stub_create_customer
-  # end
+  before { stub_customer_create }
 
   let(:resource) do
     LedgerSync::Customer.new(customer_resource(ledger_id: 123))
@@ -30,5 +28,6 @@ RSpec.describe 'netsuite_online/customers/create', type: :feature do
     subject { LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(**input).perform }
 
     it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
+    it { expect(subject.resource.ledger_id).to eq('123') }
   end
 end

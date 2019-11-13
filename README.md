@@ -142,6 +142,8 @@ previous_searcher = searcher.previous_searcher
 
 Reference: https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTWR/NSTWR.pdf
 
+When they release the REST API: https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTRW/NSTRW.pdf
+
 
 ## QuickBooks Online
 

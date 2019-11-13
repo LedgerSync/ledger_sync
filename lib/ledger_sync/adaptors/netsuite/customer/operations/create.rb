@@ -3,7 +3,7 @@ module LedgerSync
     module NetSuite
       module Customer
         module Operations
-          class Create < Operation::Create
+          class Create < NetSuite::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:external_id).maybe(:string)
@@ -20,12 +20,15 @@ module LedgerSync
               customer = ::NetSuite::Records::Customer.new(
                 email: resource.email,
                 external_id: resource.external_id,
+                entity_id: resource.external_id,
                 first_name: resource.first_name,
                 last_name: resource.last_name,
                 phone: resource.phone_number
               )
 
-              customer.add
+              ledger_result = customer.add
+
+              raise 'Could not create customer.' unless ledger_result
 
               resource.email = customer.email
               resource.external_id = customer.external_id
