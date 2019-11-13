@@ -1,16 +1,13 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Util
     module StringHelpers
-      extend self
+      module_function
 
       def camelcase(str)
-        str.to_s.split('/').map { |e| e.split('_').collect(&:capitalize).map(&method(:inflect)).join }.join('::')
+        str.to_s.split('/').map { |e| inflect(e.split('_').collect(&:capitalize).join) }.join('::')
       end
-
-      # def underscore!(str)
-      #   str.gsub!(/(.)([A-Z])/, '\1_\2')
-      #   str.downcase!
-      # end
 
       def underscore!(str)
         str.gsub!(/::/, '/')
@@ -25,12 +22,15 @@ module LedgerSync
       end
 
       def inflect(str)
-        case str.downcase
-        when 'quickbooks'
-          'QuickBooks'
-        else
-          str
+        return str unless LedgerSync.respond_to?(:adaptors)
+
+        LedgerSync.adaptors.inflections.each do |inflection|
+          next unless inflection.downcase == str.downcase
+
+          return inflection
         end
+
+        str
       end
     end
   end

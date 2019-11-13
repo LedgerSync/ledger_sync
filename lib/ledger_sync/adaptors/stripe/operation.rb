@@ -2,7 +2,7 @@
 
 module LedgerSync
   module Adaptors
-    module QuickBooksOnline
+    module Stripe
       module Operation
         module Mixin
           def self.included(base)
@@ -12,13 +12,14 @@ module LedgerSync
 
           module InstanceMethods
             def perform
-              super
-            rescue OAuth2::Error => e
-              failure(e)
+              ::Stripe.api_key = adaptor.api_key
+              ret = super
+              ::Stripe.api_key = nil
+              ret
             end
 
-            def quickbooks_online_resource_type
-              @quickbooks_online_resource_type ||= ledger_serializer.class.quickbooks_online_resource_type
+            def stripe_resource_type
+              @stripe_resource_type ||= ledger_serializer.class.stripe_resource_type
             end
           end
         end
