@@ -138,6 +138,11 @@ next_searcher = searcher.next_searcher
 previous_searcher = searcher.previous_searcher
 ```
 
+## NetSuite
+
+Reference: https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTWR/NSTWR.pdf
+
+
 ## QuickBooks Online
 
 ### Webhooks
