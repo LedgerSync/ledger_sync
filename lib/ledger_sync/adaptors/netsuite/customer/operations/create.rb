@@ -6,6 +6,7 @@ module LedgerSync
           class Create < Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
+                required(:external_id).maybe(:string)
                 required(:ledger_id).value(:nil)
                 required(:email).maybe(:string)
                 required(:name).filled(:string)
@@ -16,13 +17,25 @@ module LedgerSync
             private
 
             def operate
-              customer = NetSuite::Records::Customer.new(
-
+              customer = ::NetSuite::Records::Customer.new(
+                email: resource.email,
+                external_id: resource.external_id,
+                first_name: resource.first_name,
+                last_name: resource.last_name,
+                phone: resource.phone_number
               )
 
-              resource.ledger_id = response.dig('Id')
+              customer.add
+
+              resource.email = customer.email
+              resource.external_id = customer.external_id
+              resource.external_id = customer.internal_id
+              resource.name = "#{customer.first_name} #{customer.last_name}"
+              resource.phone_number = customer.phone
+
+              resource.ledger_id = customer.internal_id
+
               success(
-                response: response,
                 resource: resource
               )
             end

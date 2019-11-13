@@ -29,6 +29,10 @@ module LedgerSync
           @token_secret = token_secret
         end
 
+        def self.ledger_attributes_to_save
+          []
+        end
+
         private
 
         def setup
