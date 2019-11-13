@@ -10,6 +10,7 @@ require 'colorize'
 require 'fingerprintable'
 require 'simply_serializable'
 require 'active_model'
+require 'stripe'
 
 # Version
 require 'ledger_sync/version'
