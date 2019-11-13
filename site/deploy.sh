@@ -9,7 +9,8 @@ printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 cd site
 
 # Build the project.
-hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
+# hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
+hugo -t cayman-hugo-theme
 
 # Go To Public folder
 cd public
