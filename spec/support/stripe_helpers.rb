@@ -11,14 +11,7 @@ module StripeHelpers
     stub_request(:post, 'https://api.stripe.com/v1/customers')
       .with(
         body: { 'email' => 'test@example.com', 'name' => 'Sample Customer' },
-        headers: {
-          'Accept' => '*/*',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer api_key',
-          'Content-Type' => 'application/x-www-form-urlencoded',
-          'User-Agent' => 'Stripe/v1 RubyBindings/5.8.0',
-          'X-Stripe-Client-User-Agent' => '{"bindings_version":"5.8.0","lang":"ruby","lang_version":"2.6.3 p62 (2019-04-16)","platform":"x86_64-darwin18","engine":"ruby","publisher":"stripe","uname":"Darwin ryMac 18.7.0 Darwin Kernel Version 18.7.0: Sat Oct 12 00:02:19 PDT 2019; root:xnu-4903.278.12~1/RELEASE_X86_64 x86_64","hostname":"ryMac"}'
-        }
+        headers: stripe_request_headers
       ).to_return(status: 200, body: {
                     "id": 'cus_123',
                     "object": 'customer',
@@ -71,14 +64,7 @@ module StripeHelpers
     stub_request(:get, 'https://api.stripe.com/v1/customers/cus_123')
       .with(
         body: {},
-        headers: {
-          'Accept' => '*/*',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer api_key',
-          'Content-Type' => 'application/x-www-form-urlencoded',
-          'User-Agent' => 'Stripe/v1 RubyBindings/5.8.0',
-          'X-Stripe-Client-User-Agent' => '{"bindings_version":"5.8.0","lang":"ruby","lang_version":"2.6.3 p62 (2019-04-16)","platform":"x86_64-darwin18","engine":"ruby","publisher":"stripe","uname":"Darwin ryMac 18.7.0 Darwin Kernel Version 18.7.0: Sat Oct 12 00:02:19 PDT 2019; root:xnu-4903.278.12~1/RELEASE_X86_64 x86_64","hostname":"ryMac"}'
-        }
+        headers: stripe_request_headers
       ).to_return(status: 200, body: {
                     "id": 'cus_123',
                     "object": 'customer',
@@ -125,5 +111,16 @@ module StripeHelpers
                     "tax_info": nil,
                     "tax_info_verification": nil
                   }.to_json, headers: {})
+  end
+
+  def stripe_request_headers
+    {
+      'Accept' => '*/*',
+      'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization' => 'Bearer api_key',
+      'Content-Type' => 'application/x-www-form-urlencoded',
+      'User-Agent' => 'Stripe/v1 RubyBindings/5.8.0',
+      'X-Stripe-Client-User-Agent' => /.*/
+    }
   end
 end
