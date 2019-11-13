@@ -20,7 +20,7 @@ module LedgerSync
       end
 
       def base_module
-        adaptor_configuration.base_module
+        self.class.base_module
       end
 
       def ledger_attributes_to_save
@@ -47,6 +47,14 @@ module LedgerSync
 
       def parse_operation_error(*)
         nil
+      end
+
+      def self.base_module
+        config.base_module
+      end
+
+      def self.base_operation_module_for(resource_class:)
+        base_module.const_get("#{resource_class.resource_module_str}::Operations")
       end
 
       def self.config
