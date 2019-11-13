@@ -48,7 +48,6 @@ config = YAML.safe_load(File.read(config_path))
 ### End: Config
 
 ### END: Test Details
-
 TEST_RUN_ID = (0...8).map { rand(65..90).chr }.join
 
 puts "Running Test: #{TEST_RUN_ID}"
@@ -61,6 +60,8 @@ config = qbo_qa_test.config
 
 puts "Writing updated QBO secrets.yml...\n\n"
 File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
+
+config = QA::NetSuiteTest.new(config: config, test_run_id: TEST_RUN_ID).run
 
 config = QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
 
