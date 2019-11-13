@@ -61,6 +61,10 @@ module LedgerSync
       subclass.attribute :ledger_id, type: Type::ID
     end
 
+    def self.resource_module_str
+      @resource_module_str ||= name.split('LedgerSync::')[1..-1].join('LedgerSync::')
+    end
+
     def self.resource_type
       @resource_type ||= LedgerSync::Util::StringHelpers.underscore(name.split('::').last).to_sym
     end
