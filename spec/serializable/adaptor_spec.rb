@@ -13,31 +13,31 @@ RSpec.describe LedgerSync::Adaptors::Test::Adaptor, type: :serializable do
     h = {
       root: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
       objects: {
-        'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce' => {
+        'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce' =>
+        {
           id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
           object: 'LedgerSync::Adaptors::Test::Adaptor',
           fingeprint: 'd751713988987e9331980363e24189ce',
           data: {
             adaptor_configuration: {
               object: :reference,
-              id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff'
+              id: 'LedgerSync::AdaptorConfiguration/0997cbf8db8b154bcaa6668078de52d1'
             }
           }
         },
-        'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff' => {
-          id: 'LedgerSync::AdaptorConfiguration/7ff9ef0b13e681003c8015f59d0b5eff',
-          object: 'LedgerSync::AdaptorConfiguration',
-          fingeprint: '7ff9ef0b13e681003c8015f59d0b5eff',
-          data: {
-            aliases: [
-              :test
-            ],
-            module: 'Test',
-            root_key: :test,
-            rate_limiting_wait_in_seconds: 47,
-            test: true
-          }
-        }
+        'LedgerSync::AdaptorConfiguration/0997cbf8db8b154bcaa6668078de52d1' =>
+         {
+           id: 'LedgerSync::AdaptorConfiguration/0997cbf8db8b154bcaa6668078de52d1',
+           object: 'LedgerSync::AdaptorConfiguration',
+           fingeprint: '0997cbf8db8b154bcaa6668078de52d1',
+           data: {
+             aliases: [:test],
+             module_string: 'Test',
+             root_key: :test,
+             rate_limiting_wait_in_seconds: 47,
+             test: true
+           }
+         }
       }
     }
     expect(subject).to eq(h)

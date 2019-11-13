@@ -84,13 +84,13 @@ module LedgerSync
     @logger = val
   end
 
-  def self.register_adaptor(adaptor_key)
+  def self.register_adaptor(adaptor_key, module_string: nil)
     adaptor_root_path = "ledger_sync/adaptors/#{adaptor_key}"
     require "#{adaptor_root_path}/adaptor"
     self.adaptors ||= LedgerSync::AdaptorConfigurationStore.new
-    self.adaptors.register_adaptor(adaptor_key)
-
-    yield(adaptors.send(adaptor_key))
+    adaptor_config = LedgerSync::AdaptorConfiguration.new(adaptor_key, module_string: module_string)
+    yield(adaptor_config)
+    self.adaptors.register_adaptor(adaptor_config: adaptor_config)
 
     adaptor_files = Gem.find_files("#{adaptor_root_path}/**/*.rb")
     # Sort the files to include BFS-style as most dependencies are in parent folders

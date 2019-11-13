@@ -2,11 +2,12 @@ module LedgerSync
   class AdaptorConfigurationStore
     include Enumerable
 
-    attr_reader :configs
+    attr_reader :configs, :inflections
 
     def initialize
       @keys = []
       @configs = {}
+      @inflections = []
       @klass_configs = {}
     end
 
@@ -17,7 +18,7 @@ module LedgerSync
         return
       end
 
-      instance_methods_for(adaptor_key, existing_config)
+      _instance_methods_for(adaptor_key: adaptor_key, adaptor_config: existing_config)
     end
 
     def config_from_klass(klass:)
@@ -28,24 +29,27 @@ module LedgerSync
       configs.each { |k, v| yield(k, v) }
     end
 
-    def register_adaptor(adaptor_key)
-      instance_methods_for(adaptor_key)
+    def register_adaptor(adaptor_config:)
+      _instance_methods_for(
+        adaptor_key: adaptor_config.root_key,
+        adaptor_config: adaptor_config
+      )
     end
 
     private
 
-    def instance_methods_for(adaptor_key, existing_config = nil)
+    def _instance_methods_for(adaptor_key:, adaptor_config:)
       @keys << adaptor_key.to_sym
 
-      config = existing_config || LedgerSync::AdaptorConfiguration.new(adaptor_key)
-      @configs[adaptor_key] = config
-      @klass_configs[config.adaptor_klass] = config
+      @configs[adaptor_key] = adaptor_config
+      @klass_configs[adaptor_config.adaptor_klass] = adaptor_config
 
       instance_variable_set(
         "@#{adaptor_key}",
-        config
+        adaptor_config
       )
 
+      @inflections |= [adaptor_config.module_string]
       self.class.class_eval { attr_reader adaptor_key }
     end
   end

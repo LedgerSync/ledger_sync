@@ -5,7 +5,7 @@ module LedgerSync
     include Fingerprintable::Mixin
     include SimplySerializable::Mixin
 
-    attr_accessor :module,
+    attr_accessor :module_string,
                   :name,
                   :rate_limiting_wait_in_seconds,
                   :test
@@ -15,26 +15,20 @@ module LedgerSync
 
     serialize only: %i[
       aliases
-      module
+      module_string
       root_key
       rate_limiting_wait_in_seconds
       test
     ]
 
-    def initialize(root_key)
+    def initialize(root_key, module_string: nil)
       @root_key = root_key
       @aliases = []
-      @module = LedgerSync::Util::StringHelpers.camelcase(root_key)
+      @module_string = module_string || LedgerSync::Util::StringHelpers.camelcase(root_key)
     end
 
     def adaptor_klass
       @adaptor_klass ||= base_module::Adaptor
-    end
-
-    def base_module
-      @base_module ||= begin
-        LedgerSync::Adaptors.const_get(@module)
-      end
     end
 
     def add_alias(new_alias)
@@ -42,7 +36,13 @@ module LedgerSync
       LedgerSync.adaptors.add_alias(new_alias, self)
     end
 
-    # Delegate new to the adaptor class enabling faster adaptor initialization
+    def base_module
+      @base_module ||= begin
+        LedgerSync::Adaptors.const_get(@module_string)
+      end
+    end
+
+    # Delegate #new to the adaptor class enabling faster adaptor initialization
     # e.g. LedgerSync.adaptors.test.new(...)
     def new(*args)
       adaptor_klass.new(*args)
