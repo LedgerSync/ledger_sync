@@ -41,8 +41,8 @@ params:
 
   # Header colors
   header_heading_color: "#fff"
-  header_background_color: "#159957"
-  header_background_color_secondary: "#155799"
+  header_background_color: "#28a979"
+  header_background_color_secondary: "#28a979"
 
   # Text colors
   section_headings_color: "#159957"
@@ -59,17 +59,17 @@ params:
   table_border_color: "#e9ebec"
   hr_border_color: "#eff0f1"
 
-menu:
-  nav:
-    - name: Blog
-      url: /
-      weight: 1
-    - name: Tags
-      url: /tags/
-      weight: 2
-    - name: About
-      url: /about/
-      weight: 3
-    - name: RSS
-      url: /index.xml
-      weight: 4
+# menu:
+#   nav:
+#     - name: LedgerSync
+#       url: /
+#       weight: 1
+#     - name: Tags
+#       url: /tags/
+#       weight: 2
+#     - name: About
+#       url: /about/
+#       weight: 3
+#     - name: RSS
+#       url: /index.xml
+#       weight: 4
