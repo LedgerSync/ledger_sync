@@ -49,4 +49,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('oauth2', '>= 0')
   spec.add_runtime_dependency('resonad', '>= 0')
   spec.add_runtime_dependency('simply_serializable', '>= 1.3.0')
+  spec.add_runtime_dependency('stripe')
 end

@@ -27,6 +27,9 @@ unless File.file?(config_path)
       'client_secret' => 'REQUIRED',
       'realm_id' => 'REQUIRED',
       'refresh_token' => 'REQUIRED'
+    },
+    'stripe' => {
+      'api_key' => 'REQUIRED'
     }
   }
   File.open(config_path, 'w') { |file| file.write(config_template.to_yaml) }
@@ -45,9 +48,13 @@ puts "Running Test: #{TEST_RUN_ID}"
 
 ### END: Test Details
 
-config = QA::QuickBooksOnlineTest.new(config: config, test_run_id: TEST_RUN_ID).run
+qbo_qa_test = QA::QuickBooksOnlineTest.new(config: config, test_run_id: TEST_RUN_ID)
+qbo_qa_test.run
+config = qbo_qa_test.config
 
 puts "Writing updated QBO secrets.yml...\n\n"
 File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
 
-# puts "BYE!\n\n"
+config = QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
+
+puts "BYE!\n\n"

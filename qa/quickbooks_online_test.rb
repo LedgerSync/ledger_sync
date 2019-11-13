@@ -83,6 +83,7 @@ module QA
 
       config['quickbooks_online']['access_token'] = quickbooks_online_adaptor.access_token
       config['quickbooks_online']['refresh_token'] = quickbooks_online_adaptor.refresh_token
+      config
     end
   end
 end
