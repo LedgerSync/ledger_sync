@@ -305,6 +305,14 @@ Our marketing and documentation exist in the `/site` directory using [Hugo](http
 
 Once installed, you can deploy changes by running `./site/deploy.sh "COMMIT MESSAGE"`.  The site public is generated and pushed to [the dedicated site repository](https://github.com/LedgerSync/ledgersync.github.io).  Once deployed, the changes will be immediately reflected.
 
+## Tips
+
+If you want to convert markdown (e.g. this README) to HTML, you can use [grip](https://github.com/joeyespo/grip):
+
+```bash
+grip README.md --export
+```
+
 ### Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/LedgerSync/ledger_sync. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
