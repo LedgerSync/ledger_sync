@@ -23,6 +23,7 @@ unless File.file?(config_path)
   config_template = {
     'netsuite' => {
       'account' => 'REQUIRED',
+      'application_id' => 'REQUIRED',
       'consumer_key' => 'REQUIRED',
       'consumer_secret' => 'REQUIRED',
       'token_id' => 'REQUIRED',

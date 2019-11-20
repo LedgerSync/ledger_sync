@@ -17,6 +17,7 @@ module QA
         return result
       end
 
+      byebug
       raise op.validate
     end
 

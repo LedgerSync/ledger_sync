@@ -7,16 +7,31 @@ module QA
 
       netsuite_adaptor = LedgerSync::Adaptors::NetSuite::Adaptor.new(
         account: config['netsuite']['account'],
+        api_version: config['netsuite']['api_version'],
+        application_id: config['netsuite']['application_id'],
         consumer_key: config['netsuite']['consumer_key'],
         consumer_secret: config['netsuite']['consumer_secret'],
         token_id: config['netsuite']['token_id'],
         token_secret: config['netsuite']['token_secret']
       )
 
+      # customer = NetSuite::Records::Customer.get(:internal_id => 309)
+
+      result = perform(
+        LedgerSync::Adaptors::NetSuite::Customer::Operations::Find.new(
+          adaptor: netsuite_adaptor,
+          resource: LedgerSync::Customer.new(ledger_id: 309)
+        )
+      )
+
+      pdb result.success?
+
       result = perform(LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
                          adaptor: netsuite_adaptor,
                          resource: new_customer
                        ))
+
+      byebug
 
       pdb result.success?
     end

@@ -7,7 +7,7 @@ module LedgerSync
         DEFAULT_API_VERSION = '2018_2'.freeze
 
         attr_reader :account,
-                    :application_id,
+                    :application_idz,
                     :api_version,
                     :consumer_key,
                     :consumer_secret,
@@ -33,22 +33,30 @@ module LedgerSync
         end
 
         def setup
+          setup_account = account
+          # setup_application_id = application_id
+          setup_api_version = api_version
+          setup_consumer_key = consumer_key
+          setup_consumer_secret = consumer_secret
+          setup_token_id = token_id
+          setup_token_secret = token_secret
+
           ::NetSuite.configure do
             reset!
 
-            account @account
-            consumer_key @consumer_key
-            consumer_secret @consumer_secret
-            token_id @token_id
-            token_secret @token_secret
-            api_version '2016_2'
-            wsdl_domain "#{@account}.suitetalk.api.netsuite.com"
+            account setup_account
+            consumer_key setup_consumer_key
+            consumer_secret setup_consumer_secret
+            token_id setup_token_id
+            token_secret setup_token_secret
+            api_version setup_api_version
+            wsdl_domain "#{setup_account}.suitetalk.api.netsuite.com"
           end
-          ::NetSuite::Configuration.soap_header = {
-            'platformMsgs:ApplicationInfo' => {
-               'platformMsgs:applicationId' => application_id
-            }
-         }
+        #   ::NetSuite::Configuration.soap_header = {
+        #     'platformMsgs:ApplicationInfo' => {
+        #        'platformMsgs:applicationId' => application_id
+        #     }
+        #  }
         end
 
         def teardown

@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Adaptors
     module NetSuite
       module Customer
         module Operations
-          class Create < NetSuite::Operation::Create
+          class Find < NetSuite::Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:external_id).maybe(:string)
-                required(:ledger_id).value(:nil)
+                required(:ledger_id).filled(:string)
                 required(:email).maybe(:string)
-                required(:name).filled(:string)
+                required(:name).maybe(:string)
                 required(:phone_number).maybe(:string)
               end
             end
@@ -17,30 +19,25 @@ module LedgerSync
             private
 
             def operate
-              customer = ::NetSuite::Records::Customer.new(
-                company_name: resource.name,
-                email: resource.email,
-                external_id: resource.external_id,
-                entity_id: resource.external_id,
-                first_name: resource.first_name,
-                last_name: resource.last_name,
-                phone: resource.phone_number
+              customer = ::NetSuite::Records::Customer.get(
+                internal_id: resource.ledger_id
               )
-
-              ledger_result = customer.add
-
-              raise 'Could not create customer.' unless ledger_result
 
               resource.email = customer.email
               resource.external_id = customer.external_id
               resource.external_id = customer.internal_id
-              resource.name = "#{customer.first_name} #{customer.last_name}"
+              resource.name = if customer.is_person
+                                "#{customer.first_name} #{customer.last_name}"
+                              else
+                                customer.company_name
+                              end
               resource.phone_number = customer.phone
 
               resource.ledger_id = customer.internal_id
 
               success(
-                resource: resource
+                resource: resource,
+                response: customer
               )
             end
           end
