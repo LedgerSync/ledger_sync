@@ -18,17 +18,24 @@ module QA
       # customer = NetSuite::Records::Customer.get(:internal_id => 309)
 
       result = perform(
-        LedgerSync::Adaptors::NetSuite::Customer::Operations::Find.new(
+        LedgerSync::Adaptors::NetSuite::Subsidiary::Operations::Create.new(
           adaptor: netsuite_adaptor,
-          resource: LedgerSync::Customer.new(ledger_id: 309)
+          resource: LedgerSync::Subsidiary.new(external_id: 'asdf', name: "Subsidiary - #{TEST_RUN_ID}")
         )
       )
 
-      pdb result.success?
+      # result = perform(
+      #   LedgerSync::Adaptors::NetSuite::Customer::Operations::Find.new(
+      #     adaptor: netsuite_adaptor,
+      #     resource: LedgerSync::Customer.new(ledger_id: 309)
+      #   )
+      # )
 
       result = perform(LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
                          adaptor: netsuite_adaptor,
-                         resource: new_customer
+                         resource: new_customer(
+                           subsidiary: result.resource
+                          )
                        ))
 
       byebug

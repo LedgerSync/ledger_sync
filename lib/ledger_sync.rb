@@ -42,6 +42,7 @@ require 'ledger_sync/adaptors/contract'
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class
 require 'ledger_sync/resources/account'
+require 'ledger_sync/resources/subsidiary'
 require 'ledger_sync/resources/customer'
 require 'ledger_sync/resources/vendor'
 require 'ledger_sync/resources/payment'

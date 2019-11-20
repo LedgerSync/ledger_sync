@@ -11,6 +11,7 @@ module LedgerSync
                 required(:email).maybe(:string)
                 required(:name).filled(:string)
                 required(:phone_number).maybe(:string)
+                required(:subsidiary).hash(Types::Reference)
               end
             end
 
@@ -24,7 +25,8 @@ module LedgerSync
                 entity_id: resource.external_id,
                 first_name: resource.first_name,
                 last_name: resource.last_name,
-                phone: resource.phone_number
+                phone: resource.phone_number,
+                subsidiary: resource.subsidiary
               )
 
               ledger_result = customer.add
