@@ -13,7 +13,7 @@ module LedgerSync
 
           def operate
             response = adaptor.post(
-              resource: quickbooks_online_resource_type,
+              resource: netsuite_rest_resource_type,
               payload: ledger_serializer.to_ledger_hash
             )
 

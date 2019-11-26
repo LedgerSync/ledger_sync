@@ -54,8 +54,16 @@ module LedgerSync
 
         private
 
+        def base_url
+          "https://#{account_id_for_url}.suitetalk.api.netsuite.com/rest/platform/v1/record"
+        end
+
         # ref: https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSATH/NSATH.pdf
         def request(method:, url:, body: {})
+          request_url = base_url
+          request_url += '/' unless url.starts_with?('/')
+          request_url += url
+
           nonce = SecureRandom.alphanumeric
           timestamp = Time.zone.now.to_i.to_s
           signature_data = [
@@ -73,7 +81,7 @@ module LedgerSync
 
           signature = OpenSSL::HMAC.hexdigest('SHA256', signature_key, signature_data)
 
-          Faraday.send(method, url) do |req|
+          Faraday.send(method, request_url) do |req|
             req.headers['Authorization'] = "OAuth realm=\"#{account_id_for_oauth}\",oauth_consumer_key=\"#{consumer_key}\",oauth_token=\"#{token_id}\",oauth_signature_method=\"HMAC-SHA1\",oauth_signature=\"#{signature}\",oauth_timestamp=\"#{timestamp}\",oauth_nonce=\"#{nonce}\",oauth_version=\"1.0\"",
             req.headers['Accept'] = 'application/swagger+json',
             req.body = body.to_json

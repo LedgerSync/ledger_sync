@@ -15,7 +15,7 @@ module LedgerSync
             return failure(nil) if resource.ledger_id.nil?
 
             response = adaptor.find(
-              resource: quickbooks_online_resource_type,
+              resource: netsuite_rest_resource_type,
               id: resource.ledger_id
             )
 

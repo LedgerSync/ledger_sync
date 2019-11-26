@@ -4,12 +4,12 @@ require 'spec_helper'
 
 support :input_helpers
 support :adaptor_helpers
-support :quickbooks_helpers
+support :netsuite_rest_helpers
 
-RSpec.describe 'quickbooks_online/customers/create', type: :feature do
+RSpec.describe 'netsuite_rest/customers/create', type: :feature do
   include InputHelpers
   include AdaptorHelpers
-  include QuickBooksHelpers
+  include NetSuiteRESTHelpers
 
   before do
     stub_create_customer

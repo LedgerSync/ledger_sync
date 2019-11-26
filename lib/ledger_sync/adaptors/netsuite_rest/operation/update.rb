@@ -13,7 +13,7 @@ module LedgerSync
 
           def find_resource
             adaptor.find(
-              resource: quickbooks_online_resource_type,
+              resource: netsuite_rest_resource_type,
               id: resource.ledger_id
             )
           end
@@ -27,7 +27,7 @@ module LedgerSync
             merged_serializer = ledger_serializer.class.new(resource: merged_resource)
 
             response = adaptor.post(
-              resource: quickbooks_online_resource_type,
+              resource: netsuite_rest_resource_type,
               payload: merged_serializer.to_ledger_hash(deep_merge_unmapped_values: find_result_hash)
             )
 

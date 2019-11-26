@@ -37,6 +37,13 @@ unless File.file?(config_path)
       'token_id' => 'REQUIRED',
       'token_secret' => 'REQUIRED'
     },
+    'netsuite_rest' => {
+      'account_id' => 'REQUIRED',
+      'consumer_key' => 'REQUIRED',
+      'consumer_secret' => 'REQUIRED',
+      'token_id' => 'REQUIRED',
+      'token_secret' => 'REQUIRED'
+    },
     'quickbooks_online' => {
       'access_token' => 'REQUIRED',
       'client_id' => 'REQUIRED',
@@ -72,5 +79,6 @@ File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
 
 QA::NetSuiteTest.new(config: config, test_run_id: TEST_RUN_ID).run
 QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
+QA::NetSuiteRESTTest.new(config: config, test_run_id: TEST_RUN_ID).run
 
 puts "BYE!\n\n"
