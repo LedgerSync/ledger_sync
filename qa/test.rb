@@ -13,7 +13,10 @@ module QA
     def perform(op)
       if op.valid?
         result = op.perform
-        byebug if op.failure?
+        if op.failure?
+          byebug
+          raise op.error
+        end
         return result
       end
 

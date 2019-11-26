@@ -5,26 +5,22 @@ module LedgerSync
     module NetSuite
       module Subsidiary
         module Operations
-          class Create < NetSuite::Operation::Create
+          class Find < NetSuite::Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               params do
-                required(:external_id).filled(:string)
-                required(:ledger_id).value(:nil)
-                required(:name).filled(:string)
+                required(:external_id).maybe(:string)
+                required(:ledger_id).filled(:string)
+                required(:name).maybe(:string)
+                required(:state).maybe(:string)
               end
             end
 
             private
 
             def operate
-              netsuite_resource = ::NetSuite::Records::Subsidiary.new(
-                external_id: resource.external_id,
-                name: resource.name
+              netsuite_resource = ::NetSuite::Records::Subsidiary.get(
+                internal_id: resource.ledger_id
               )
-
-              netsuite_resource.add
-
-              raise 'Could not create subsidiary.' unless netsuite_resource
 
               resource.name = netsuite_resource.name
               resource.ledger_id = netsuite_resource.internal_id

@@ -6,25 +6,23 @@ module LedgerSync
       class Adaptor < Adaptors::Adaptor
         DEFAULT_API_VERSION = '2018_2'.freeze
 
-        attr_reader :account,
-                    :application_idz,
+        attr_reader :account_id,
                     :api_version,
                     :consumer_key,
                     :consumer_secret,
+                    :account_id,
                     :token_id,
                     :token_secret
 
         def initialize(
-          account:,
-          application_id:,
+          account_id:,
           api_version: nil,
           consumer_key:,
           consumer_secret:,
           token_id:,
           token_secret:
         )
-          @account = account
-          @application_id = application_id
+          @account_id = account_id
           @api_version = api_version || DEFAULT_API_VERSION
           @consumer_key = consumer_key
           @consumer_secret = consumer_secret
@@ -32,9 +30,27 @@ module LedgerSync
           @token_secret = token_secret
         end
 
+        #
+        # Converts an account_id for use by the NetSuite gem
+        #
+        # @return [String] Converted account_id
+        #
+        def account_id_for_gem
+          account_id.split('-sb').join('_SB')
+        end
+
+        #
+        # Converts an account_id for use in the API URL
+        #
+        # @return [String] API URL compliant account_id
+        #
+        def account_id_for_url
+          account_id.split('_SB').join('-sb')
+        end
+
         def setup
-          setup_account = account
-          # setup_application_id = application_id
+          setup_account_id_for_gem = account_id_for_gem
+          setup_account_id_for_url = account_id_for_url
           setup_api_version = api_version
           setup_consumer_key = consumer_key
           setup_consumer_secret = consumer_secret
@@ -44,19 +60,14 @@ module LedgerSync
           ::NetSuite.configure do
             reset!
 
-            account setup_account
+            account setup_account_id_for_gem
             consumer_key setup_consumer_key
             consumer_secret setup_consumer_secret
             token_id setup_token_id
             token_secret setup_token_secret
             api_version setup_api_version
-            wsdl_domain "#{setup_account}.suitetalk.api.netsuite.com"
+            wsdl_domain "#{setup_account_id_for_url}.suitetalk.api.netsuite.com"
           end
-        #   ::NetSuite::Configuration.soap_header = {
-        #     'platformMsgs:ApplicationInfo' => {
-        #        'platformMsgs:applicationId' => application_id
-        #     }
-        #  }
         end
 
         def teardown

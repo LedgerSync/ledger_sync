@@ -18,12 +18,24 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Adaptor do
 
   subject do
     described_class.new(
-      account: 'account',
+      account_id: 'account-id',
       consumer_key: 'consumer_key',
       consumer_secret: 'consumer_secret',
       token_id: 'token_id',
       token_secret: 'token_secret'
     )
+  end
+
+  describe '#account_id' do
+    it { expect(subject).to respond_to(:account_id) }
+  end
+
+  describe '#account_id_for_gem' do
+    it { expect(subject).to respond_to(:account_id_for_gem) }
+  end
+
+  describe '#account_id_for_url' do
+    it { expect(subject).to respond_to(:account_id_for_url) }
   end
 
   xdescribe '#find' do

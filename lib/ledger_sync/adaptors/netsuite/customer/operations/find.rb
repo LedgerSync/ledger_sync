@@ -8,11 +8,12 @@ module LedgerSync
           class Find < NetSuite::Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               params do
-                required(:external_id).maybe(:string)
+                optional(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
-                required(:email).maybe(:string)
-                required(:name).maybe(:string)
-                required(:phone_number).maybe(:string)
+                optional(:email).maybe(:string)
+                optional(:name).maybe(:string)
+                optional(:phone_number).maybe(:string)
+                required(:subsidiary).maybe(:hash, Types::Reference)
               end
             end
 

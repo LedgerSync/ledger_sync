@@ -11,6 +11,7 @@ module LedgerSync
                 required(:email).maybe(:string)
                 required(:name).filled(:string)
                 required(:phone_number).maybe(:string)
+                required(:subsidiary).maybe(:hash, Types::Reference)
               end
             end
 

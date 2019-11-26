@@ -9,6 +9,8 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create do
 
   it do
     instance = described_class.new(resource: customer, adaptor: test_adaptor)
+    pdb instance.valid?
+    pdb instance.errors
     expect(instance).to be_valid
   end
 end

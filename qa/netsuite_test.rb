@@ -6,9 +6,8 @@ module QA
       puts 'Testing NetSuite'
 
       netsuite_adaptor = LedgerSync::Adaptors::NetSuite::Adaptor.new(
-        account: config['netsuite']['account'],
+        account_id: config['netsuite']['account_id'],
         api_version: config['netsuite']['api_version'],
-        application_id: config['netsuite']['application_id'],
         consumer_key: config['netsuite']['consumer_key'],
         consumer_secret: config['netsuite']['consumer_secret'],
         token_id: config['netsuite']['token_id'],
@@ -20,25 +19,36 @@ module QA
       result = perform(
         LedgerSync::Adaptors::NetSuite::Subsidiary::Operations::Create.new(
           adaptor: netsuite_adaptor,
-          resource: LedgerSync::Subsidiary.new(external_id: 'asdf', name: "Subsidiary - #{TEST_RUN_ID}")
+          resource: LedgerSync::Subsidiary.new(
+            external_id: "ext_#{TEST_RUN_ID}",
+            name: "Subsidiary - #{TEST_RUN_ID}",
+            state: 'CA'
+          )
         )
       )
 
-      # result = perform(
-      #   LedgerSync::Adaptors::NetSuite::Customer::Operations::Find.new(
-      #     adaptor: netsuite_adaptor,
-      #     resource: LedgerSync::Customer.new(ledger_id: 309)
-      #   )
-      # )
+      result = perform(
+        LedgerSync::Adaptors::NetSuite::Subsidiary::Operations::Find.new(
+          adaptor: netsuite_adaptor,
+          resource: result.resource
+        )
+      )
 
-      result = perform(LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
-                         adaptor: netsuite_adaptor,
-                         resource: new_customer(
-                           subsidiary: result.resource
-                          )
-                       ))
+      result = perform(
+        LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
+          adaptor: netsuite_adaptor,
+          resource: new_customer(
+            subsidiary: result.resource
+          )
+        )
+      )
 
-      byebug
+      result = perform(
+        LedgerSync::Adaptors::NetSuite::Customer::Operations::Find.new(
+          adaptor: netsuite_adaptor,
+          resource: result.resource
+        )
+      )
 
       pdb result.success?
     end

@@ -6,7 +6,7 @@ module LedgerSync
       attr_reader :operation
       attr_reader :response
 
-      def initialize(message:, operation:, response:nil)
+      def initialize(message:, operation:, response: nil)
         @operation = operation
         @response = response
         super(message: message)
