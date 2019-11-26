@@ -13,6 +13,15 @@ gemfile do
   # gem 'ledger_sync'
   gem 'ledger_sync', path: '/Users/ryanwjackson/dev/ledger_sync/ledger_sync'
   gem 'activemodel'
+  gem 'httplog'
+end
+
+require 'httplog'
+
+HttpLog.configure do |config|
+  config.color = { color: :black, background: :yellow }
+  config.compact_log = true
+  config.log_headers = true
 end
 
 ### START: Config

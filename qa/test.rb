@@ -10,6 +10,9 @@ module QA
       @test_run_id = test_run_id
     end
 
+    def cleanup
+    end
+
     def perform(op)
       if op.valid?
         result = op.perform

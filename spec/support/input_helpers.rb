@@ -181,4 +181,12 @@ module InputHelpers
       api_token: 'this_is_a_token'
     }
   end
+
+  def subsidiary_resource(**merge)
+    {
+      external_id: 'sub_123',
+      name: 'Test subsidiary',
+      state: 'CA'
+    }.merge(merge)
+  end
 end

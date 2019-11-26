@@ -18,6 +18,19 @@ module LedgerSync
             private
 
             def operate
+              netsuite_subsidiary = ::NetSuite::Records::Subsidiary.get(
+                internal_id: resource.subsidiary.ledger_id
+              )
+
+              unless netsuite_subsidiary
+                return failure(
+                  error: Error::OperationError.new(
+                    message: "Subsidiary with ID '#{resource.subsidiary.ledger_id}' does not exist.",
+                    operation: self
+                  )
+                )
+              end
+
               netsuite_resource = ::NetSuite::Records::Customer.new(
                 company_name: resource.name,
                 email: resource.email,
@@ -26,7 +39,7 @@ module LedgerSync
                 first_name: resource.first_name,
                 last_name: resource.last_name,
                 phone: resource.phone_number,
-                subsidiary: resource.subsidiary
+                subsidiary: netsuite_subsidiary
               )
 
               return netsuite_failure(netsuite_resource: netsuite_resource) unless netsuite_resource.add
