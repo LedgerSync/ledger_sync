@@ -47,8 +47,8 @@ module QA
         LedgerSync::Adaptors::NetSuite::Subsidiary::Operations::Create.new(
           adaptor: netsuite_adaptor,
           resource: LedgerSync::Subsidiary.new(
-            external_id: "ext_#{TEST_RUN_ID}",
-            name: "Subsidiary - #{TEST_RUN_ID}",
+            external_id: "ext_#{test_run_id}",
+            name: "Subsidiary - #{test_run_id}",
             state: 'CA'
           )
         )

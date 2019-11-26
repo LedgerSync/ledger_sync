@@ -70,8 +70,7 @@ config = qbo_qa_test.config
 puts "Writing updated QBO secrets.yml...\n\n"
 File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
 
-config = QA::NetSuiteTest.new(config: config, test_run_id: TEST_RUN_ID).run
-
-config = QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
+QA::NetSuiteTest.new(config: config, test_run_id: TEST_RUN_ID).run
+QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
 
 puts "BYE!\n\n"
