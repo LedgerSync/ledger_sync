@@ -45,9 +45,16 @@ module InputHelpers
       ledger_id: nil,
       # relationships
       customer: nil,
+      deposit_account: nil,
+      account: nil,
+      line_items: [],
       # attributes
       amount: 12_345,
-      currency: 'USD'
+      currency: 'USD',
+      reference_number: 'Ref123',
+      memo: 'Memo',
+      exchange_rate: 1.0,
+      transaction_date: Date.parse('2019-09-01')
     }.merge(merge)
   end
 
