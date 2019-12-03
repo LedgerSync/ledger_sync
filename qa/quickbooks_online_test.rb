@@ -17,12 +17,12 @@ module QA
       quickbooks_online_adaptor.refresh!
 
       account = LedgerSync::Account.new(
-        name: "Test Account #{TEST_RUN_ID}",
+        name: "Test Account #{test_run_id}",
         classification: 'asset',
         account_type: 'bank',
         account_sub_type: 'cash_on_hand',
         currency: 'usd',
-        description: "Test #{TEST_RUN_ID} Account description",
+        description: "Test #{test_run_id} Account description",
         active: true
       )
 
@@ -34,10 +34,10 @@ module QA
       account = result.resource
 
       vendor = LedgerSync::Vendor.new(
-        email: "test-#{TEST_RUN_ID}-vendor@example.com",
-        first_name: "TestFirst#{TEST_RUN_ID}",
-        last_name: "TestLast#{TEST_RUN_ID}",
-        display_name: "Test #{TEST_RUN_ID} Display Name"
+        email: "test-#{test_run_id}-vendor@example.com",
+        first_name: "TestFirst#{test_run_id}",
+        last_name: "TestLast#{test_run_id}",
+        display_name: "Test #{test_run_id} Display Name"
       )
 
       result = perform(LedgerSync::Adaptors::QuickBooksOnline::Vendor::Operations::Create.new(
@@ -50,13 +50,13 @@ module QA
       expense_line_item_1 = LedgerSync::ExpenseLineItem.new(
         account: account,
         amount: 12_345,
-        description: "Test #{TEST_RUN_ID} Line Item 1"
+        description: "Test #{test_run_id} Line Item 1"
       )
 
       expense_line_item_2 = LedgerSync::ExpenseLineItem.new(
         account: account,
         amount: 23_456,
-        description: "Test #{TEST_RUN_ID} Line Item 2"
+        description: "Test #{test_run_id} Line Item 2"
       )
 
       expense = LedgerSync::Expense.new(

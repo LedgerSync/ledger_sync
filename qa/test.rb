@@ -10,13 +10,20 @@ module QA
       @test_run_id = test_run_id
     end
 
+    def cleanup
+    end
+
     def perform(op)
       if op.valid?
         result = op.perform
-        byebug if op.failure?
+        if op.failure?
+          byebug
+          raise op.error
+        end
         return result
       end
 
+      byebug
       raise op.validate
     end
 

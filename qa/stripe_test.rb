@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module QA
-  class QuickBooksOnlineTest < QA::Test
+  class StripeTest < QA::Test
     def adaptor
       @adaptor ||= LedgerSync.adaptors.stripe.new(
         api_key: config['stripe']['api_key']

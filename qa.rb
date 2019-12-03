@@ -13,6 +13,15 @@ gemfile do
   # gem 'ledger_sync'
   gem 'ledger_sync', path: '/Users/ryanwjackson/dev/ledger_sync/ledger_sync'
   gem 'activemodel'
+  gem 'httplog'
+end
+
+require 'httplog'
+
+HttpLog.configure do |config|
+  config.color = { color: :black, background: :yellow }
+  config.compact_log = true
+  config.log_headers = true
 end
 
 ### START: Config
@@ -21,6 +30,13 @@ config_path = "#{__dir__}/.qa_config.yml"
 
 unless File.file?(config_path)
   config_template = {
+    'netsuite' => {
+      'account_id' => 'REQUIRED',
+      'consumer_key' => 'REQUIRED',
+      'consumer_secret' => 'REQUIRED',
+      'token_id' => 'REQUIRED',
+      'token_secret' => 'REQUIRED'
+    },
     'quickbooks_online' => {
       'access_token' => 'REQUIRED',
       'client_id' => 'REQUIRED',
@@ -41,7 +57,6 @@ config = YAML.safe_load(File.read(config_path))
 ### End: Config
 
 ### END: Test Details
-
 TEST_RUN_ID = (0...8).map { rand(65..90).chr }.join
 
 puts "Running Test: #{TEST_RUN_ID}"
@@ -55,6 +70,7 @@ config = qbo_qa_test.config
 puts "Writing updated QBO secrets.yml...\n\n"
 File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
 
-config = QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
+QA::NetSuiteTest.new(config: config, test_run_id: TEST_RUN_ID).run
+QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
 
 puts "BYE!\n\n"

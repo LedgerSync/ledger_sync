@@ -43,7 +43,8 @@ RSpec.describe LedgerSync::Resource do
         external_id: nil,
         name: nil,
         email: nil,
-        phone_number: nil
+        phone_number: nil,
+        subsidiary: nil
       }
       expect(resource.to_h).to eq(h)
     end

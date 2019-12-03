@@ -6,6 +6,8 @@ module LedgerSync
     attribute :name, type: Type::String
     attribute :phone_number, type: Type::String
 
+    references_one :subsidiary, to: Subsidiary
+
     def first_name
       return '' if name.blank?
 
