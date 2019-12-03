@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module NetSuite
       class Adaptor < Adaptors::Adaptor
-        DEFAULT_API_VERSION = '2018_2'.freeze
+        DEFAULT_API_VERSION = '2016_2'.freeze
 
         attr_reader :account_id,
                     :api_version,
@@ -36,7 +36,7 @@ module LedgerSync
         # @return [String] Converted account_id
         #
         def account_id_for_gem
-          account_id.split('-sb').join('_SB')
+          account_id.downcase.split('-sb').join('_SB')
         end
 
         #
@@ -45,7 +45,7 @@ module LedgerSync
         # @return [String] API URL compliant account_id
         #
         def account_id_for_url
-          account_id.split('_SB').join('-sb')
+          account_id.downcase.split('_SB').join('-sb')
         end
 
         def setup
@@ -74,6 +74,13 @@ module LedgerSync
           ::NetSuite.configure do
             reset!
           end
+        end
+
+        def wrap_perform
+          setup
+          yield
+        ensure
+          teardown
         end
 
         def self.ledger_attributes_to_save

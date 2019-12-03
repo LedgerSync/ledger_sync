@@ -46,7 +46,6 @@ module LedgerSync
 
               resource.email = netsuite_resource.email
               resource.external_id = netsuite_resource.external_id
-              resource.external_id = netsuite_resource.internal_id
               resource.name = "#{netsuite_resource.first_name} #{netsuite_resource.last_name}"
               resource.phone_number = netsuite_resource.phone
 

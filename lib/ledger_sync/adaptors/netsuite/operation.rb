@@ -28,10 +28,9 @@ module LedgerSync
             end
 
             def perform
-              adaptor.setup
-              ret = super
-              adaptor.teardown
-              ret
+              adaptor.wrap_perform do
+                super
+              end
             end
           end
         end
