@@ -5,6 +5,10 @@ module QA
     def run
       puts 'Testing NetSuite REST API'
 
+      test_request = adaptor.get(url: '/metadata-catalog/record?select=customer')
+
+      byebug
+
       result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
         resource: customer_resource
       )

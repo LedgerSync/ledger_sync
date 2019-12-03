@@ -70,12 +70,12 @@ puts "Running Test: #{TEST_RUN_ID}"
 
 ### END: Test Details
 
-qbo_qa_test = QA::QuickBooksOnlineTest.new(config: config, test_run_id: TEST_RUN_ID)
-qbo_qa_test.run
-config = qbo_qa_test.config
+# qbo_qa_test = QA::QuickBooksOnlineTest.new(config: config, test_run_id: TEST_RUN_ID)
+# qbo_qa_test.run
+# config = qbo_qa_test.config
 
-puts "Writing updated QBO secrets.yml...\n\n"
-File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
+# puts "Writing updated QBO secrets.yml...\n\n"
+# File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
 
 QA::NetSuiteTest.new(config: config, test_run_id: TEST_RUN_ID).run
 QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
