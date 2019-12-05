@@ -70,15 +70,38 @@ puts "Running Test: #{TEST_RUN_ID}"
 
 ### END: Test Details
 
-# qbo_qa_test = QA::QuickBooksOnlineTest.new(config: config, test_run_id: TEST_RUN_ID)
-# qbo_qa_test.run
-# config = qbo_qa_test.config
+### START: Run Tests
 
-# puts "Writing updated QBO secrets.yml...\n\n"
-# File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
+test_suites = [
+  QA::NetSuiteTest,
+  QA::QuickBooksOnlineTest,
+  QA::StripeTest,
+  QA::NetSuiteRESTTest
+]
 
-QA::NetSuiteTest.new(config: config, test_run_id: TEST_RUN_ID).run
-QA::StripeTest.new(config: config, test_run_id: TEST_RUN_ID).run
-QA::NetSuiteRESTTest.new(config: config, test_run_id: TEST_RUN_ID).run
+test_suite_ids = test_suites.count.times.map(&:to_s)
+
+loop do
+  puts 'Test Suites'
+  test_suites.each_with_index do |suite, i|
+    puts "#{i}. #{suite.name}"
+  end
+  puts 'Please enter the number of the test suite to run:'
+  chosen_suite = gets.chomp
+  break unless test_suite_ids.include?(chosen_suite)
+
+  suite_class_to_run = test_suites[chosen_suite.to_i]
+
+  suite_to_run = suite_class_to_run.new(config: config, test_run_id: TEST_RUN_ID)
+  puts "Running: #{suite_class_to_run.name}"
+  suite_to_run.run
+  puts "Finished: #{suite_class_to_run.name}"
+  next unless config != suite_to_run.config
+
+  config = suite_to_run.config
+  puts 'Starting: Updating secrets...'
+  File.open(config_path, 'w') { |file| file.write(config.to_yaml) }
+  puts 'Completed: Updating secrets...'
+end
 
 puts "BYE!\n\n"

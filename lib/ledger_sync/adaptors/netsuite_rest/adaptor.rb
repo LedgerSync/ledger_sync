@@ -8,7 +8,7 @@ module LedgerSync
       class Adaptor < LedgerSync::Adaptors::Adaptor
         HEADERS = {
           'Accept' => 'application/swagger+json'
-        }
+        }.freeze
 
         attr_reader :account_id,
                     :consumer_key,
@@ -52,7 +52,7 @@ module LedgerSync
         end
 
         def get(url:)
-          response = request(method: :get, url: url)
+          response = request(http_method: :get, url: url)
           JSON.parse(response.body)
         end
 
@@ -62,31 +62,23 @@ module LedgerSync
 
         private
 
-        # ref: https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSATH/NSATH.pdf
-        def request(method:, url:, body: {})
+        def request(body: {}, http_method:, url:)
           request_url = api_base_url
           request_url += '/' unless url.start_with?('/')
           request_url += url
 
-          nonce = SecureRandom.alphanumeric
-          timestamp = Time.now.to_i.to_s
-          signature_data = [
-            CGI.escape(account_id_for_oauth),
-            CGI.escape(consumer_key),
-            CGI.escape(token_id),
-            CGI.escape(nonce),
-            CGI.escape(timestamp)
-          ].join('&')
+          token = Token.new(
+            account_id: account_id_for_oauth,
+            consumer_key: consumer_key,
+            consumer_secret: consumer_secret,
+            http_method: http_method,
+            token_id: token_id,
+            token_secret: token_secret,
+            url: request_url
+          )
 
-          signature_key = [
-            CGI.escape(consumer_secret),
-            CGI.escape(token_secret)
-          ].join('&')
-
-          signature = OpenSSL::HMAC.hexdigest('SHA256', signature_key, signature_data)
-
-          Faraday.send(method, request_url) do |req|
-            req.headers['Authorization'] = "OAuth realm=\"#{account_id_for_oauth}\",oauth_consumer_key=\"#{consumer_key}\",oauth_token=\"#{token_id}\",oauth_signature_method=\"HMAC-SHA1\",oauth_signature=\"#{signature}\",oauth_timestamp=\"#{timestamp}\",oauth_nonce=\"#{nonce}\",oauth_version=\"1.0\""
+          Faraday.send(http_method, request_url) do |req|
+            req.headers.merge!(token.headers)
             req.headers.merge!(HEADERS)
             req.body = body.to_json
           end

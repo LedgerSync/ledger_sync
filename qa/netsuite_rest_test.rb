@@ -7,11 +7,11 @@ module QA
 
       test_request = adaptor.get(url: '/metadata-catalog/record?select=customer')
 
-      byebug
+      pdb test_request
 
-      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
-        resource: customer_resource
-      )
+      # result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
+      #   resource: customer_resource
+      # )
 
     end
 
