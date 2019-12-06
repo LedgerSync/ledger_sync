@@ -69,7 +69,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
 
   describe '#revoke_token!' do
     it { expect(subject).to respond_to(:revoke_token!) }
-    it do
+    it 'revokes token', vcr: false do
       stub_revoke_token
       expect(subject.revoke_token!).to be_truthy
     end

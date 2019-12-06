@@ -33,11 +33,11 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
   describe '#signature' do
     it do
       allow(token).to receive(:signature_data_string) { expected_signature_data_string }
-      expect(token.signature).to eq('he6PiRPNQnRlrUOwFB6zzHBcHOYLBulKXn9WIWHsjhc')
+      expect(token.signature).to eq('i7MEtGwhCTIZbTsTrNGw9LdcERn4wsjt5C7TxmKWIfU=')
     end
 
     it do
-      expect(token.signature).to eq('he6PiRPNQnRlrUOwFB6zzHBcHOYLBulKXn9WIWHsjhc')
+      expect(token.signature).to eq('i7MEtGwhCTIZbTsTrNGw9LdcERn4wsjt5C7TxmKWIfU=')
     end
   end
 
