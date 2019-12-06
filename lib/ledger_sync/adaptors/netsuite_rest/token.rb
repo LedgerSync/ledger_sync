@@ -37,15 +37,17 @@ module LedgerSync
         def headers
           @headers ||= begin
             authorization_parts = [
-              [:realm, account_id],
-              [:oauth_consumer_key, consumer_key],
-              [:oauth_token, token_id],
+              [:realm, escape(account_id)],
+              [:oauth_consumer_key, escape(consumer_key)],
+              [:oauth_token, escape(token_id)],
               [:oauth_signature_method, SIGNATURE_METHOD],
-              [:oauth_signature, signature],
+              [:oauth_signature, escape(signature)],
               [:oauth_timestamp, timestamp],
-              [:oauth_nonce, nonce],
+              [:oauth_nonce, escape(nonce)],
               [:oauth_version, OAUTH_VERSION]
             ]
+
+            pdb authorization_parts
 
             {
               'Authorization' => "OAuth #{authorization_parts.map { |k, v| "#{k}=\"#{v}\"" }.join(',')}"
@@ -104,6 +106,8 @@ module LedgerSync
         end
 
         def url_params
+          return {} if uri.query.nil?
+
           @url_params ||= Hash[CGI.parse(uri.query).map { |k, v| [k, v.first] }]
         end
 
