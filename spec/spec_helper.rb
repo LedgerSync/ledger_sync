@@ -26,6 +26,7 @@ require 'vcr'
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into :webmock
+  config.configure_rspec_metadata!
 
   # These need to match the defaults in support/netsuite_helpers.rb for the
   # stubs to work.
@@ -47,6 +48,14 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.around(:each) do |ex|
+    if ex.metadata.key?(:vcr) && ex.metadata[:vcr] != false
+      ex.run
+    else
+      VCR.turned_off { ex.run }
+    end
   end
 end
 
