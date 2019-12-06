@@ -13,9 +13,11 @@ module LedgerSync
 
           def operate
             response = adaptor.post(
-              resource: netsuite_rest_resource_type,
-              payload: ledger_serializer.to_ledger_hash
+              body: ledger_serializer.to_ledger_hash,
+              path: ledger_serializer.class.api_resource_path
             )
+
+            pdb response
 
             success(
               resource: ledger_serializer.deserialize(hash: response),

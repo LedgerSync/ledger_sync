@@ -51,8 +51,13 @@ module LedgerSync
           )
         end
 
-        def get(url:)
-          response = request(http_method: :get, url: url)
+        def get(**keywords)
+          response = request(keywords.merge(http_method: :get))
+          JSON.parse(response.body)
+        end
+
+        def post(**keywords)
+          response = request(keywords.merge(http_method: :post))
           JSON.parse(response.body)
         end
 
@@ -62,10 +67,10 @@ module LedgerSync
 
         private
 
-        def request(body: {}, http_method:, url:)
+        def request(body: {}, http_method:, path: nil)
           request_url = api_base_url
-          request_url += '/' unless url.start_with?('/')
-          request_url += url
+          request_url += '/' unless path.start_with?('/')
+          request_url += path
 
           token = Token.new(
             account_id: account_id_for_oauth,
