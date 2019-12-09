@@ -11,6 +11,12 @@ module LedgerSync
           end
 
           module InstanceMethods
+            def success
+              super(
+                resource: ledger_serializer.deserialize(hash: response.body),
+                response: response
+              )
+            end
           end
         end
       end

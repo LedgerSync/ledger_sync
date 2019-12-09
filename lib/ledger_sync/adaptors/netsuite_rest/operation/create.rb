@@ -11,15 +11,29 @@ module LedgerSync
 
           private
 
+          def find_in_ledger
+            case response.status
+            when 200..299
+              LedgerSync::Result.Success(response)
+            else
+              failure(
+                Error::OperationError.new(
+                  operation: self,
+                  response: response
+                )
+              )
+            end
+          end
+
           def operate
-            response = adaptor.post(
+            find_in_ledger
+              .and_then { success }
+          end
+
+          def response
+            @response ||= adaptor.post(
               body: ledger_serializer.to_ledger_hash,
               path: ledger_serializer.class.api_resource_path
-            )
-
-            success(
-              resource: ledger_serializer.deserialize(hash: response),
-              response: response
             )
           end
         end

@@ -7,7 +7,8 @@ module LedgerSync
     module NetSuiteREST
       class Adaptor < LedgerSync::Adaptors::Adaptor
         POST_HEADERS = {
-          'Accept' => 'application/schema+json'
+          'Accept' => 'application/schema+json',
+          'Content-Type' => 'application/json'
         }.freeze
 
         attr_reader :account_id,
@@ -46,14 +47,13 @@ module LedgerSync
           request(keywords.merge(method: :get))
         end
 
-        def post(**keywords)
-          response = request(
+        def post(headers: {}, **keywords)
+          request(
             keywords.merge(
-              headers: (keywords[:headers] || {}).merge(POST_HEADERS),
+              headers: headers.merge(POST_HEADERS),
               method: :post
             )
           )
-          JSON.parse(response.body)
         end
 
         def self.ledger_attributes_to_save
@@ -62,9 +62,9 @@ module LedgerSync
 
         private
 
-        def new_token(method:, url:)
+        def new_token(body:, method:, url:)
           Token.new(
-            account_id: account_id_for_oauth,
+            body: body,
             consumer_key: consumer_key,
             consumer_secret: consumer_secret,
             method: method,
@@ -77,13 +77,14 @@ module LedgerSync
         def request(body: nil, headers: {}, method:, path: nil)
           request_url = url_from_path(path: path)
           token = new_token(
+            body: body,
             method: method,
             url: request_url
           )
 
           request = Request.new(
             body: body,
-            headers: headers.merge(token.headers),
+            headers: headers.merge(token.headers(realm: account_id_for_oauth)),
             method: method,
             url: request_url
           )

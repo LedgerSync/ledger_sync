@@ -19,23 +19,18 @@ module QA
 
       # pdb test_request
 
-      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
+      LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
         adaptor: adaptor,
         resource: LedgerSync::Customer.new(ledger_id: 1137)
       ).perform
 
-      pdb result
+      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
+        adaptor: adaptor,
+        resource: new_customer
+      ).perform
 
       byebug
 
-      # result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
-      #   adaptor: adaptor,
-      #   resource: new_customer
-      # ).perform
-
-      # pdb result
-
-      # byebug
       pdb 'Done'
     end
   end

@@ -3,10 +3,10 @@
 module LedgerSync
   class Error
     class OperationError < Error
-      attr_reader :operation
-      attr_reader :response
+      attr_reader :operation, :response
 
-      def initialize(message:, operation:, response: nil)
+      def initialize(message: nil, operation:, response: nil)
+        message ||= 'Operation failed.'
         @operation = operation
         @response = response
         super(message: message)

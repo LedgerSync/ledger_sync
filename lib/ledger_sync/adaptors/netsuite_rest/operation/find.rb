@@ -11,30 +11,30 @@ module LedgerSync
 
           private
 
-          def operate
-
-            find_in_ledger.and_then do
-              success(
-                resource: ledger_serializer.deserialize(hash: response.body),
-                response: response
-              )
-            end
-          end
-
-          private
-
           def find_in_ledger
             case response.status
+            when 200
+              LedgerSync::Result.Success(response)
             when 404
               failure(
-                OperationErrors::NotFoundError.new(
+                Error::OperationError::NotFoundError.new(
                   operation: self,
                   response: response
                 )
               )
             else
-              LedgerSync::Result.Success(response)
+              failure(
+                Error::OperationError.new(
+                  operation: self,
+                  response: response
+                )
+              )
             end
+          end
+
+          def operate
+            find_in_ledger
+              .and_then { success }
           end
 
           def response

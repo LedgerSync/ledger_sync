@@ -5,9 +5,10 @@ module QA
     attr_reader :config,
                 :test_run_id
 
-    def initialize(config:, test_run_id:)
+    def initialize(config:)
       @config = config
-      @test_run_id = test_run_id
+      @test_run_id = (0...8).map { rand(65..90).chr }.join
+      puts "Initialized Test: #{test_run_id}"
     end
 
     def cleanup
