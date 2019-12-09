@@ -38,6 +38,8 @@ require 'ledger_sync/util/string_helpers'
 require 'ledger_sync/result'
 require 'ledger_sync/adaptors/operation'
 require 'ledger_sync/adaptors/contract'
+require 'ledger_sync/adaptors/response'
+require 'ledger_sync/adaptors/request'
 
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class

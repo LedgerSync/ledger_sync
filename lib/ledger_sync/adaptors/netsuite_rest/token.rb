@@ -13,16 +13,16 @@ module LedgerSync
         attr_reader :account_id,
                     :consumer_key,
                     :consumer_secret,
-                    :http_method,
+                    :method,
                     :token_id,
                     :token_secret,
                     :url
 
-        def initialize(account_id:, consumer_key:, consumer_secret:, http_method:, nonce: nil, timestamp: nil, token_id:, token_secret:, url:)
+        def initialize(account_id:, consumer_key:, consumer_secret:, method:, nonce: nil, timestamp: nil, token_id:, token_secret:, url:)
           @account_id = account_id.to_s
           @consumer_key = consumer_key
           @consumer_secret = consumer_secret
-          @http_method = http_method.to_s.upcase
+          @method = method.to_s.upcase
           @nonce = nonce
           @timestamp = timestamp
           @token_id = token_id
@@ -75,7 +75,7 @@ module LedgerSync
             )
 
             [
-              http_method,
+              method,
               escape(url_without_params),
               data_string
             ].join('&')

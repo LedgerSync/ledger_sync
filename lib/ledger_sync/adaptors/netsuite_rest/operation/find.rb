@@ -12,15 +12,34 @@ module LedgerSync
           private
 
           def operate
-            response = adaptor.get(
+
+            find_in_ledger.and_then do
+              success(
+                resource: ledger_serializer.deserialize(hash: response.body),
+                response: response
+              )
+            end
+          end
+
+          private
+
+          def find_in_ledger
+            case response.status
+            when 404
+              failure(
+                OperationErrors::NotFoundError.new(
+                  operation: self,
+                  response: response
+                )
+              )
+            else
+              LedgerSync::Result.Success(response)
+            end
+          end
+
+          def response
+            @response ||= adaptor.get(
               path: ledger_serializer.class.api_resource_path(resource: resource)
-            )
-
-            # TODO: Raise NotFoundError when 404.  We probably should abstract out a request/response object.
-
-            success(
-              resource: ledger_serializer.deserialize(hash: response),
-              response: response
             )
           end
         end

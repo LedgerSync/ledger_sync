@@ -42,25 +42,15 @@ module LedgerSync
           @api_base_url ||= "https://#{account_id_for_url}.suitetalk.api.netsuite.com/rest/platform/v1"
         end
 
-        def authorization_url(redirect_uri:)
-          oauth_client.auth_code.authorize_url(
-            redirect_uri: redirect_uri,
-            response_type: 'code',
-            state: SecureRandom.hex(12),
-            scope: 'com.intuit.quickbooks.accounting'
-          )
-        end
-
         def get(**keywords)
-          response = request(keywords.merge(http_method: :get))
-          JSON.parse(response.body)
+          request(keywords.merge(method: :get))
         end
 
         def post(**keywords)
           response = request(
             keywords.merge(
               headers: (keywords[:headers] || {}).merge(POST_HEADERS),
-              http_method: :post
+              method: :post
             )
           )
           JSON.parse(response.body)
@@ -72,26 +62,39 @@ module LedgerSync
 
         private
 
-        def request(body: nil, headers: {}, http_method:, path: nil)
-          request_url = api_base_url
-          request_url += '/' unless path.start_with?('/')
-          request_url += path
-
-          token = Token.new(
+        def new_token(method:, url:)
+          Token.new(
             account_id: account_id_for_oauth,
             consumer_key: consumer_key,
             consumer_secret: consumer_secret,
-            http_method: http_method,
+            method: method,
             token_id: token_id,
             token_secret: token_secret,
+            url: url
+          )
+        end
+
+        def request(body: nil, headers: {}, method:, path: nil)
+          request_url = url_from_path(path: path)
+          token = new_token(
+            method: method,
             url: request_url
           )
 
-          Faraday.send(http_method, request_url) do |req|
-            req.headers.merge!(token.headers)
-            req.headers.merge!(headers)
-            req.body = body.to_json unless body.nil?
-          end
+          request = Request.new(
+            body: body,
+            headers: headers.merge(token.headers),
+            method: method,
+            url: request_url
+          )
+
+          request.perform
+        end
+
+        def url_from_path(path:)
+          request_url = api_base_url
+          request_url += '/' unless path.start_with?('/')
+          request_url + path
         end
       end
     end
