@@ -47,8 +47,6 @@ module LedgerSync
               [:oauth_version, OAUTH_VERSION]
             ]
 
-            pdb authorization_parts
-
             {
               'Authorization' => "OAuth #{authorization_parts.map { |k, v| "#{k}=\"#{v}\"" }.join(',')}"
             }

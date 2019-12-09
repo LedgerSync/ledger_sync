@@ -22,11 +22,11 @@ module LedgerSync
           attribute ledger_attribute: :phone,
                     resource_attribute: :phone_number
 
-          attribute ledger_attribute: :firstName,
-                    resource_attribute: :first_name
+          # attribute ledger_attribute: :firstName,
+          #           resource_attribute: :first_name
 
-          attribute ledger_attribute: :lastName,
-                    resource_attribute: :lastName
+          # attribute ledger_attribute: :lastName,
+          #           resource_attribute: :last_name
 
           attribute ledger_attribute: :subsidiary,
                     resource_attribute: :subsidiary,

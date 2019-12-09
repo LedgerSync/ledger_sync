@@ -7,8 +7,12 @@ module LedgerSync
   module Adaptors
     module NetSuiteREST
       class LedgerSerializer < Adaptors::LedgerSerializer
-        def self.api_resource_path
-          "resource/#{api_resource_type}"
+        def self.api_resource_path(resource: nil)
+          raise 'Resource ledger_id is required to build API request path' if resource.present? && resource.ledger_id.blank?
+
+          ret = "record/#{api_resource_type}"
+          ret += "/#{resource.ledger_id}" if resource.present?
+          ret
         end
 
         def self.api_resource_type(val = nil)

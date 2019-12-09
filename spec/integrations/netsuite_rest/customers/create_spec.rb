@@ -3,17 +3,11 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
 support :netsuite_rest_helpers
 
 RSpec.describe 'netsuite_rest/customers/create', type: :feature do
   include InputHelpers
-  include AdaptorHelpers
   include NetSuiteRESTHelpers
-
-  before do
-    stub_create_customer
-  end
 
   let(:resource) do
     LedgerSync::Customer.new(customer_resource(ledger_id: 123))
@@ -21,7 +15,7 @@ RSpec.describe 'netsuite_rest/customers/create', type: :feature do
 
   let(:input) do
     {
-      adaptor: quickbooks_adaptor,
+      adaptor: netsuite_rest_adaptor,
       resource: resource
     }
   end
@@ -29,6 +23,8 @@ RSpec.describe 'netsuite_rest/customers/create', type: :feature do
   context '#perform' do
     subject { LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(**input).perform }
 
-    it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
+    it 'creates', vcr: true do
+      expect(subject).to be_a(LedgerSync::OperationResult::Success)
+    end
   end
 end

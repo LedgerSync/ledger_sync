@@ -6,7 +6,7 @@ module LedgerSync
       module LedgerSerializerType
         class ReferenceType < Adaptors::LedgerSerializerType::ValueType
           def convert_from_ledger(value:)
-            raise NotImplementedError
+            nil
           end
 
           def convert_from_local(value:)

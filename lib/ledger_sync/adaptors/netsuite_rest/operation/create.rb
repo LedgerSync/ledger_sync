@@ -17,8 +17,6 @@ module LedgerSync
               path: ledger_serializer.class.api_resource_path
             )
 
-            pdb response
-
             success(
               resource: ledger_serializer.deserialize(hash: response),
               response: response

@@ -6,8 +6,8 @@ module LedgerSync
   module Adaptors
     module NetSuiteREST
       class Adaptor < LedgerSync::Adaptors::Adaptor
-        HEADERS = {
-          'Accept' => 'application/swagger+json'
+        POST_HEADERS = {
+          'Accept' => 'application/schema+json'
         }.freeze
 
         attr_reader :account_id,
@@ -57,7 +57,12 @@ module LedgerSync
         end
 
         def post(**keywords)
-          response = request(keywords.merge(http_method: :post))
+          response = request(
+            keywords.merge(
+              headers: (keywords[:headers] || {}).merge(POST_HEADERS),
+              http_method: :post
+            )
+          )
           JSON.parse(response.body)
         end
 
@@ -67,7 +72,7 @@ module LedgerSync
 
         private
 
-        def request(body: {}, http_method:, path: nil)
+        def request(body: nil, headers: {}, http_method:, path: nil)
           request_url = api_base_url
           request_url += '/' unless path.start_with?('/')
           request_url += path
@@ -84,8 +89,8 @@ module LedgerSync
 
           Faraday.send(http_method, request_url) do |req|
             req.headers.merge!(token.headers)
-            req.headers.merge!(HEADERS)
-            req.body = body.to_json
+            req.headers.merge!(headers)
+            req.body = body.to_json unless body.nil?
           end
         end
       end

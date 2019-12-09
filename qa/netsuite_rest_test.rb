@@ -2,19 +2,6 @@
 
 module QA
   class NetSuiteRESTTest < QA::Test
-    def run
-      puts 'Testing NetSuite REST API'
-
-      test_request = adaptor.get(url: '/metadata-catalog/record?select=customer')
-
-      pdb test_request
-
-      # result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
-      #   resource: customer_resource
-      # )
-
-    end
-
     def adaptor
       @adaptor ||= LedgerSync.adaptors.netsuite_rest.new(
         account_id: config['netsuite_rest']['account_id'],
@@ -23,6 +10,33 @@ module QA
         token_id: config['netsuite_rest']['token_id'],
         token_secret: config['netsuite_rest']['token_secret']
       )
+    end
+
+    def run
+      puts 'Testing NetSuite REST API'
+
+      # test_request = adaptor.get(path: '/metadata-catalog/record?select=customer')
+
+      # pdb test_request
+
+      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
+        adaptor: adaptor,
+        resource: LedgerSync::Customer.new(ledger_id: 1137)
+      ).perform
+
+      pdb result
+
+      byebug
+
+      # result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
+      #   adaptor: adaptor,
+      #   resource: new_customer
+      # ).perform
+
+      # pdb result
+
+      # byebug
+      pdb 'Done'
     end
   end
 end

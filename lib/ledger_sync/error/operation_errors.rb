@@ -17,7 +17,7 @@ module LedgerSync
       class LedgerValidationError < self; end
 
       class PerformedOperationError < self
-        def initialize(message: nil, operation:, response:nil)
+        def initialize(message: nil, operation:, response: nil)
           message ||= 'Operation has already been performed. Please check the result.'
 
           super(

@@ -55,6 +55,6 @@ RSpec.describe 'quickbooks_online/expenses/find', type: :feature do
   context '#perform' do
     subject { LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Find.new(**input).perform }
     it { expect(subject).to be_success }
-    it { expect(subject).to be_a(LedgerSync::OperationResult::Success)}
+    it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
   end
 end

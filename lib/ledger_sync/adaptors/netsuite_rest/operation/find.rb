@@ -12,12 +12,11 @@ module LedgerSync
           private
 
           def operate
-            return failure(nil) if resource.ledger_id.nil?
-
-            response = adaptor.find(
-              resource: netsuite_rest_resource_type,
-              id: resource.ledger_id
+            response = adaptor.get(
+              path: ledger_serializer.class.api_resource_path(resource: resource)
             )
+
+            # TODO: Raise NotFoundError when 404.  We probably should abstract out a request/response object.
 
             success(
               resource: ledger_serializer.deserialize(hash: response),

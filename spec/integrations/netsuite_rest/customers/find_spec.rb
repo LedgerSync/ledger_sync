@@ -12,11 +12,11 @@ RSpec.describe 'netsuite_rest/customers/find', type: :feature do
   include NetSuiteRESTHelpers
 
   before do
-    stub_find_customer
+    stub_customer_find
   end
 
   let(:resource) do
-    LedgerSync::Customer.new(customer_resource(ledger_id: 123))
+    LedgerSync::Customer.new(customer_resource(ledger_id: 1137))
   end
 
   let(:input) do
