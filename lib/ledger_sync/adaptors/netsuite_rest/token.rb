@@ -6,24 +6,25 @@ module LedgerSync
   module Adaptors
     module NetSuiteREST
       class Token
-        DIGEST = OpenSSL::Digest.new('sha256')
+        DEFAULT_SIGNATURE_METHOD = 'HMAC-SHA256'
         OAUTH_VERSION = '1.0'
-        SIGNATURE_METHOD = 'HMAC-SHA256'
 
         attr_reader :body,
                     :consumer_key,
                     :consumer_secret,
                     :method,
+                    :signature_method,
                     :token_id,
                     :token_secret,
                     :url
 
-        def initialize(body: {}, consumer_key:, consumer_secret:, method:, nonce: nil, timestamp: nil, token_id:, token_secret:, url:)
+        def initialize(body: {}, consumer_key:, consumer_secret:, method:, nonce: nil, signature_method: nil, timestamp: nil, token_id:, token_secret:, url:)
           @body = body || {}
           @consumer_key = consumer_key
           @consumer_secret = consumer_secret
           @method = method.to_s.upcase
           @nonce = nonce
+          @signature_method = signature_method || DEFAULT_SIGNATURE_METHOD
           @timestamp = timestamp
           @token_id = token_id
           @token_secret = token_secret
@@ -34,13 +35,22 @@ module LedgerSync
           [*'0'..'9', *'A'..'Z', *'a'..'z']
         end
 
+        def digest
+          case signature_method
+          when 'HMAC-SHA1'
+            OpenSSL::Digest.new('sha1')
+          when 'HMAC-SHA256'
+            OpenSSL::Digest.new('sha256')
+          end
+        end
+
         def headers(realm:)
           @headers ||= begin
             authorization_parts = [
               [:realm, escape(realm)],
               [:oauth_consumer_key, escape(consumer_key)],
               [:oauth_token, escape(token_id)],
-              [:oauth_signature_method, SIGNATURE_METHOD],
+              [:oauth_signature_method, signature_method],
               [:oauth_timestamp, timestamp],
               [:oauth_nonce, escape(nonce)],
               [:oauth_version, OAUTH_VERSION],
@@ -58,7 +68,7 @@ module LedgerSync
         end
 
         def signature
-          @signature ||= Base64.encode64(OpenSSL::HMAC.digest(DIGEST, signature_key, signature_data_string)).strip
+          @signature ||= Base64.encode64(OpenSSL::HMAC.digest(digest, signature_key, signature_data_string)).strip
         end
 
         # Ref: https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
@@ -107,7 +117,7 @@ module LedgerSync
                                            {
                                              oauth_consumer_key: consumer_key,
                                              oauth_nonce: nonce,
-                                             oauth_signature_method: SIGNATURE_METHOD,
+                                             oauth_signature_method: signature_method,
                                              oauth_timestamp: timestamp,
                                              oauth_token: token_id,
                                              oauth_version: OAUTH_VERSION

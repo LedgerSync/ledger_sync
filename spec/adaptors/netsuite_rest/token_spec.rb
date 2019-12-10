@@ -12,6 +12,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
   let(:consumer_secret) { 'd26ad321a4b2f23b0741c8d38392ce01c3e23e109df6c96eac6d099e9ab9e8b5' }
   let(:method) { 'POST' }
   let(:nonce) { 'fjaLirsIcCGVZWzBX0pg' }
+  let(:signature_method) { nil }
   let(:token_id) { '2b0ce516420110bcbd36b69e99196d1b7f6de3c6234c5afb799b73d87569f5cc' }
   let(:token_secret) { 'c29a677df7d5439a458c063654187e3d678d73aca8e3c9d8bea1478a3eb0d295' }
   let(:timestamp) { '1508242306' }
@@ -24,6 +25,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
       consumer_secret: consumer_secret,
       method: method,
       nonce: nonce,
+      signature_method: signature_method,
       token_id: token_id,
       token_secret: token_secret,
       timestamp: timestamp,
@@ -97,6 +99,38 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
     describe '#signature_data_string' do
       it do
         s = 'GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacation.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%3Dkllo9940pd9333jh%26oauth_signature_method%3DHMAC-SHA256%26oauth_timestamp%3D1191242096%26oauth_token%3Dnnch734d00sl2jdk%26oauth_version%3D1.0%26size%3Doriginal'
+        expect(token.send(:signature_data_string)).to eq(s)
+      end
+    end
+  end
+
+  context 'https://developer.twitter.com/en/docs/basics/authentication/guides/creating-a-signature' do
+    let(:body) do
+      {
+        include_entities: 'true',
+        'status' => 'Hello Ladies + Gentlemen, a signed OAuth request!'
+      }
+    end
+    let(:consumer_key) { 'xvz1evFS4wEEPTGEFPHBog' }
+    let(:consumer_secret) { 'kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw' }
+    let(:method) { :post }
+    let(:nonce) { 'kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg' }
+    let(:signature_method) { 'HMAC-SHA1' }
+    let(:token_id) { '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb' }
+    let(:token_secret) { 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE' }
+    let(:timestamp) { '1318622958' }
+    let(:url) { 'https://api.twitter.com/1.1/statuses/update.json' }
+
+    describe '#signature' do
+      it do
+        s = 'hCtSmYh+iHYCEqBWrE7C7hYmtUk='
+        expect(token.send(:signature)).to eq(s)
+      end
+    end
+
+    describe '#signature_data_string' do
+      it do
+        s = 'POST&https%3A%2F%2Fapi.twitter.com%2F1.1%2Fstatuses%2Fupdate.json&include_entities%3Dtrue%26oauth_consumer_key%3Dxvz1evFS4wEEPTGEFPHBog%26oauth_nonce%3DkYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1318622958%26oauth_token%3D370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb%26oauth_version%3D1.0%26status%3DHello%2520Ladies%2520%252B%2520Gentlemen%252C%2520a%2520signed%2520OAuth%2520request%2521'
         expect(token.send(:signature_data_string)).to eq(s)
       end
     end
