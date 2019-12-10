@@ -107,7 +107,6 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
   context 'https://developer.twitter.com/en/docs/basics/authentication/guides/creating-a-signature' do
     let(:body) do
       {
-        include_entities: 'true',
         'status' => 'Hello Ladies + Gentlemen, a signed OAuth request!'
       }
     end
@@ -119,7 +118,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
     let(:token_id) { '370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb' }
     let(:token_secret) { 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE' }
     let(:timestamp) { '1318622958' }
-    let(:url) { 'https://api.twitter.com/1.1/statuses/update.json' }
+    let(:url) { 'https://api.twitter.com/1.1/statuses/update.json?include_entities=true' }
 
     describe '#signature' do
       it do
