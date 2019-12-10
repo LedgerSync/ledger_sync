@@ -41,10 +41,10 @@ module LedgerSync
               [:oauth_consumer_key, escape(consumer_key)],
               [:oauth_token, escape(token_id)],
               [:oauth_signature_method, SIGNATURE_METHOD],
-              [:oauth_signature, escape(signature)],
               [:oauth_timestamp, timestamp],
               [:oauth_nonce, escape(nonce)],
-              [:oauth_version, OAUTH_VERSION]
+              [:oauth_version, OAUTH_VERSION],
+              [:oauth_signature, escape(signature)]
             ]
 
             {

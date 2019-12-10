@@ -24,9 +24,12 @@ module QA
         resource: LedgerSync::Customer.new(ledger_id: 1137)
       ).perform
 
+      customer = new_customer
+      customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2)
+
       result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
         adaptor: adaptor,
-        resource: new_customer
+        resource: customer
       ).perform
 
       byebug

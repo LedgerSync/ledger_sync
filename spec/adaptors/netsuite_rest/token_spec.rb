@@ -80,6 +80,28 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
     end
   end
 
+  context 'https://oauth.net/core/1.0a/ Appendix A.5.1' do
+    let(:body) do
+      {
+        file: 'vacation.jpg',
+        'size' => :original
+      }
+    end
+    let(:consumer_key) { 'dpf43f3p2l4k3l03' }
+    let(:method) { :get }
+    let(:nonce) { 'kllo9940pd9333jh' }
+    let(:token_id) { 'nnch734d00sl2jdk' }
+    let(:timestamp) { '1191242096' }
+    let(:url) { 'http://photos.example.net/photos' }
+
+    describe '#signature_data_string' do
+      it do
+        s = 'GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacation.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%3Dkllo9940pd9333jh%26oauth_signature_method%3DHMAC-SHA256%26oauth_timestamp%3D1191242096%26oauth_token%3Dnnch734d00sl2jdk%26oauth_version%3D1.0%26size%3Doriginal'
+        expect(token.send(:signature_data_string)).to eq(s)
+      end
+    end
+  end
+
   describe '#signature' do
     it do
       allow(token).to receive(:signature_data_string) { expected_signature_data_string }
