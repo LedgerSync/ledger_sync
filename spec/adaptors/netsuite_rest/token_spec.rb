@@ -41,11 +41,14 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
       }
     end
     let(:consumer_key) { '9djdj82h48djs9d2' }
+    let(:consumer_secret) { 'j49sk3j29djd' }
     let(:method) { 'post' }
     let(:nonce) { '7d8f3e4a' }
+    let(:signature_method) { 'HMAC-SHA1' }
     let(:token_id) { 'kkk9d7dh3k39sjv7' }
+    let(:token_secret) { 'dh893hdasih9' }
     let(:timestamp) { '137131201' }
-    let(:url) { 'https://example.com/request?b5=%3D%253D&a3=a&c%40=&a2=r%20b' }
+    let(:url) { 'http://example.com/request?b5=%3D%253D&a3=a&c%40=&a2=r%20b' }
 
     describe '#sorted_encoded_parameters' do
       it do
@@ -58,7 +61,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
           ['c2', ''],
           ['oauth_consumer_key', '9djdj82h48djs9d2'],
           ['oauth_nonce', '7d8f3e4a'],
-          ['oauth_signature_method', 'HMAC-SHA256'],
+          ['oauth_signature_method', 'HMAC-SHA1'],
           ['oauth_timestamp', '137131201'],
           ['oauth_token', 'kkk9d7dh3k39sjv7'],
           ['oauth_version', '1.0']
@@ -69,14 +72,28 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
 
     describe '#parameters_string' do
       it do
-        s = 'a2=r%20b&a3=2%20q&a3=a&b5=%3D%253D&c%40=&c2=&oauth_consumer_key=9djdj82h48djs9d2&oauth_nonce=7d8f3e4a&oauth_signature_method=HMAC-SHA256&oauth_timestamp=137131201&oauth_token=kkk9d7dh3k39sjv7&oauth_version=1.0'
+        s = 'a2=r%20b&a3=2%20q&a3=a&b5=%3D%253D&c%40=&c2=&oauth_consumer_key=9djdj82h48djs9d2&oauth_nonce=7d8f3e4a&oauth_signature_method=HMAC-SHA1&oauth_timestamp=137131201&oauth_token=kkk9d7dh3k39sjv7&oauth_version=1.0'
         expect(token.send(:parameters_string)).to eq(s)
       end
     end
 
     describe '#signature_data_string' do
       it do
-        s = 'POST&https%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3D2%2520q%26a3%3Da%26b5%3D%253D%25253D%26c%2540%3D%26c2%3D%26oauth_consumer_key%3D9djdj82h48djs9d2%26oauth_nonce%3D7d8f3e4a%26oauth_signature_method%3DHMAC-SHA256%26oauth_timestamp%3D137131201%26oauth_token%3Dkkk9d7dh3k39sjv7%26oauth_version%3D1.0'
+        s = 'bYT5CMsGcbgUdFHObYMEfcx6bsw%3D'
+        expect(token.send(:signature)).to eq(s)
+      end
+    end
+
+    describe '#signature_key' do
+      it do
+        s = "j49sk3j29djd&dh893hdasih9"
+        expect(token.send(:signature_key)).to eq(s)
+      end
+    end
+
+    describe '#signature_data_string' do
+      it do
+        s = 'POST&http%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3D2%2520q%26a3%3Da%26b5%3D%253D%25253D%26c%2540%3D%26c2%3D%26oauth_consumer_key%3D9djdj82h48djs9d2%26oauth_nonce%3D7d8f3e4a%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D137131201%26oauth_token%3Dkkk9d7dh3k39sjv7%26oauth_version%3D1.0'
         expect(token.send(:signature_data_string)).to eq(s)
       end
     end

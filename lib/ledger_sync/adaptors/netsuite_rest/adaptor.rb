@@ -6,6 +6,10 @@ module LedgerSync
   module Adaptors
     module NetSuiteREST
       class Adaptor < LedgerSync::Adaptors::Adaptor
+        HEADERS = {
+          # 'Accept' => 'application/schema+json'
+        }.freeze
+
         POST_HEADERS = {
           'Accept' => 'application/schema+json',
           'Content-Type' => 'application/json'
@@ -40,7 +44,11 @@ module LedgerSync
         end
 
         def api_base_url
-          @api_base_url ||= "https://#{account_id_for_url}.suitetalk.api.netsuite.com/rest/platform/v1"
+          @api_base_url ||= "https://#{api_host}/rest/platform/v1"
+        end
+
+        def api_host
+          @api_host ||= "#{account_id_for_url}.suitetalk.api.netsuite.com"
         end
 
         def get(**keywords)
@@ -50,7 +58,7 @@ module LedgerSync
         def post(headers: {}, **keywords)
           request(
             keywords.merge(
-              headers: headers.merge(POST_HEADERS),
+              headers: POST_HEADERS.merge(headers),
               method: :post
             )
           )
@@ -84,7 +92,16 @@ module LedgerSync
 
           request = Request.new(
             body: body,
-            headers: headers.merge(token.headers(realm: account_id_for_oauth)),
+            headers: headers
+              .merge(HEADERS)
+              .merge(
+                token.headers(
+                  realm: account_id_for_oauth
+                )
+              )
+              .merge(
+                'Host' => api_host
+              ),
             method: method,
             url: request_url
           )

@@ -19,7 +19,12 @@ module QA
 
       # pdb test_request
 
-      LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
+      # test_request = adaptor.post(path: 'record/customer')
+      # test_request = adaptor.post(path: 'record/customer', body: {'firstName': 'test'})
+
+      # byebug
+
+      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
         adaptor: adaptor,
         resource: LedgerSync::Customer.new(ledger_id: 1137)
       ).perform
@@ -32,7 +37,7 @@ module QA
         resource: customer
       ).perform
 
-      byebug
+      # byebug
 
       pdb 'Done'
     end

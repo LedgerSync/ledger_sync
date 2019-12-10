@@ -10,6 +10,7 @@ module LedgerSync
         OAUTH_VERSION = '1.0'
 
         attr_reader :body,
+                    :body_json_string,
                     :consumer_key,
                     :consumer_secret,
                     :method,
@@ -20,6 +21,7 @@ module LedgerSync
 
         def initialize(body: {}, consumer_key:, consumer_secret:, method:, nonce: nil, signature_method: nil, timestamp: nil, token_id:, token_secret:, url:)
           @body = body || {}
+          @body_json_string = body.to_json
           @consumer_key = consumer_key
           @consumer_secret = consumer_secret
           @method = method.to_s.upcase
@@ -57,9 +59,16 @@ module LedgerSync
               [:oauth_signature, escape(signature)]
             ]
 
-            {
+            ret = {
               'Authorization' => "OAuth #{authorization_parts.map { |k, v| "#{k}=\"#{v}\"" }.join(',')}"
             }
+
+            # if %w[POST PUT].include?(method)
+            #   ret['content-length'] = body_json_string.length.to_s
+            #   ret['x-content-sha256'] = escape(compute_digest(body_json_string))
+            # end
+
+            ret
           end
         end
 
@@ -68,18 +77,16 @@ module LedgerSync
         end
 
         def signature
-          @signature ||= Base64.encode64(OpenSSL::HMAC.digest(digest, signature_key, signature_data_string)).strip
+          @signature ||= compute_digest(signature_data_string)
         end
 
         # Ref: https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
         def signature_data_string
           @signature_data_string ||= begin
-            data_string = escape(parameters_string)
-
             [
               method,
               escape(url_without_params),
-              data_string
+              escape(parameters_string)
             ].join('&')
           end
         end
@@ -96,6 +103,10 @@ module LedgerSync
         end
 
         private
+
+        def compute_digest(str)
+          Base64.encode64(OpenSSL::HMAC.digest(digest, signature_key, str)).strip
+        end
 
         def escape(val)
           CGI.escape(val.to_s).gsub(/\+/, '%20')
