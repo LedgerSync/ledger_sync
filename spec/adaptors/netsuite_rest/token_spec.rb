@@ -55,15 +55,15 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
         params = [
           ['a2', 'r%20b'],
           ['a3', '2%20q'],
-          ['a3', 'a'],
+          %w[a3 a],
           ['b5', '%3D%253D'],
           ['c%40', ''],
           ['c2', ''],
-          ['oauth_consumer_key', '9djdj82h48djs9d2'],
-          ['oauth_nonce', '7d8f3e4a'],
-          ['oauth_signature_method', 'HMAC-SHA1'],
-          ['oauth_timestamp', '137131201'],
-          ['oauth_token', 'kkk9d7dh3k39sjv7'],
+          %w[oauth_consumer_key 9djdj82h48djs9d2],
+          %w[oauth_nonce 7d8f3e4a],
+          %w[oauth_signature_method HMAC-SHA1],
+          %w[oauth_timestamp 137131201],
+          %w[oauth_token kkk9d7dh3k39sjv7],
           ['oauth_version', '1.0']
         ]
         expect(token.send(:sorted_encoded_parameters)).to eq(params)
@@ -77,16 +77,16 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
       end
     end
 
-    describe '#signature_data_string' do
+    describe '#signature' do
       it do
         s = 'bYT5CMsGcbgUdFHObYMEfcx6bsw%3D'
-        expect(token.send(:signature)).to eq(s)
+        expect(token.signature).to eq(s)
       end
     end
 
     describe '#signature_key' do
       it do
-        s = "j49sk3j29djd&dh893hdasih9"
+        s = 'j49sk3j29djd&dh893hdasih9'
         expect(token.send(:signature_key)).to eq(s)
       end
     end
@@ -107,16 +107,40 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteREST::Token do
       }
     end
     let(:consumer_key) { 'dpf43f3p2l4k3l03' }
+    let(:consumer_secret) { 'kd94hf93k423kf44' }
     let(:method) { :get }
     let(:nonce) { 'kllo9940pd9333jh' }
+    let(:signature_method) { 'HMAC-SHA1' }
     let(:token_id) { 'nnch734d00sl2jdk' }
+    let(:token_secret) { 'pfkkdhi9sl3r4s00' }
     let(:timestamp) { '1191242096' }
     let(:url) { 'http://photos.example.net/photos' }
 
+    describe '#headers' do
+      it do
+        s = 'OAuth realm="http://photos.example.net/",oauth_consumer_key="dpf43f3p2l4k3l03",oauth_token="nnch734d00sl2jdk",oauth_signature_method="HMAC-SHA1",oauth_timestamp="1191242096",oauth_nonce="kllo9940pd9333jh",oauth_version="1.0",oauth_signature="tR3%2BTy81lMeYAr%2FFid0kMTYa%2FWM%3D"'
+        expect(token.send(:headers, realm: 'http://photos.example.net/')['Authorization']).to eq(s)
+      end
+    end
+
+    describe '#signature' do
+      it do
+        s = 'tR3+Ty81lMeYAr/Fid0kMTYa/WM='
+        expect(token.send(:signature)).to eq(s)
+      end
+    end
+
     describe '#signature_data_string' do
       it do
-        s = 'GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacation.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%3Dkllo9940pd9333jh%26oauth_signature_method%3DHMAC-SHA256%26oauth_timestamp%3D1191242096%26oauth_token%3Dnnch734d00sl2jdk%26oauth_version%3D1.0%26size%3Doriginal'
+        s = 'GET&http%3A%2F%2Fphotos.example.net%2Fphotos&file%3Dvacation.jpg%26oauth_consumer_key%3Ddpf43f3p2l4k3l03%26oauth_nonce%3Dkllo9940pd9333jh%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1191242096%26oauth_token%3Dnnch734d00sl2jdk%26oauth_version%3D1.0%26size%3Doriginal'
         expect(token.send(:signature_data_string)).to eq(s)
+      end
+    end
+
+    describe '#signature_key' do
+      it do
+        s = 'kd94hf93k423kf44&pfkkdhi9sl3r4s00'
+        expect(token.send(:signature_key)).to eq(s)
       end
     end
   end

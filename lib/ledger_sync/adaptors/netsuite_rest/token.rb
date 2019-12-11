@@ -37,19 +37,10 @@ module LedgerSync
           [*'0'..'9', *'A'..'Z', *'a'..'z']
         end
 
-        def digest
-          case signature_method
-          when 'HMAC-SHA1'
-            OpenSSL::Digest.new('sha1')
-          when 'HMAC-SHA256'
-            OpenSSL::Digest.new('sha256')
-          end
-        end
-
         def headers(realm:)
           @headers ||= begin
             authorization_parts = [
-              [:realm, escape(realm)],
+              [:realm, realm],
               [:oauth_consumer_key, escape(consumer_key)],
               [:oauth_token, escape(token_id)],
               [:oauth_signature_method, signature_method],
@@ -105,11 +96,18 @@ module LedgerSync
         private
 
         def compute_digest(str)
-          Base64.encode64(OpenSSL::HMAC.digest(digest, signature_key, str)).strip
+          signer = Util::Signer.new(str: str)
+
+          case signature_method
+          when 'HMAC-SHA1'
+            signer.hmac_sha1(key: signature_key)
+          when 'HMAC-SHA256'
+            signer.hmac_sha256(key: signature_key)
+          end
         end
 
         def escape(val)
-          CGI.escape(val.to_s).gsub(/\+/, '%20')
+          Util::Signer.escape(str: val.to_s)
         end
 
         def parameters_string
