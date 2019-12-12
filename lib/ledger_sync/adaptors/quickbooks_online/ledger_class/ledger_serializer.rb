@@ -7,8 +7,7 @@ module LedgerSync
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           quickbooks_online_resource_type :class
 
-          id  ledger_attribute: 'Id',
-              resource_attribute: :ledger_id
+          id
 
           attribute ledger_attribute: 'Name',
                     resource_attribute: :name

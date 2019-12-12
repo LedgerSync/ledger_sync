@@ -9,7 +9,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department::Operations::C
 
   it do
     instance = described_class.new(resource: department, adaptor: quickbooks_adaptor)
-    instance.valid?
     expect(instance).to be_valid
   end
 end

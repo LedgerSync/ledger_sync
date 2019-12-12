@@ -5,8 +5,7 @@ module LedgerSync
     module QuickBooksOnline
       module Department
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
-          id  ledger_attribute: 'Id',
-              resource_attribute: :ledger_id
+          id
 
           attribute ledger_attribute: 'Name',
                     resource_attribute: :name
@@ -20,6 +19,8 @@ module LedgerSync
           attribute ledger_attribute: 'ParentRef.value',
                     resource_attribute: 'parent.ledger_id'
 
+          # Sending "ParentRef": {"value": null} results in QBO API crash
+          # This patches serialized hash to exclude it unless we don't set value
           def to_ledger_hash(deep_merge_unmapped_values: {}, only_changes: false)
             ret = super(only_changes: only_changes)
             ret = ret.except('ParentRef') unless resource.parent_changed?
