@@ -42,6 +42,13 @@ module LedgerSync
               path: ledger_serializer.class.api_resource_path(resource: resource)
             )
           end
+
+          def success
+            super(
+              resource: ledger_deserializer.deserialize(hash: response.body),
+              response: response
+            )
+          end
         end
       end
     end

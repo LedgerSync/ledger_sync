@@ -30,7 +30,7 @@ module QA
       # ).perform
 
       customer = new_customer
-      # customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2)
+      customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2)
 
       result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
         adaptor: adaptor,

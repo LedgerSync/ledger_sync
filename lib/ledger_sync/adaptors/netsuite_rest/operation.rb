@@ -11,11 +11,11 @@ module LedgerSync
           end
 
           module InstanceMethods
-            def success
-              super(
-                resource: ledger_serializer.deserialize(hash: response.body),
-                response: response
-              )
+            def ledger_deserializer
+              @ledger_deserializer ||= begin
+                modules = self.class.name.split('::Operations::').first
+                Object.const_get("#{modules}::LedgerDeserializer").new(resource: resource)
+              end
             end
           end
         end

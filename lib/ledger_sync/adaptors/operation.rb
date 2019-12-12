@@ -11,6 +11,10 @@ module LedgerSync
             @adaptor_klass ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Adaptor")
           end
 
+          def operations_module
+            @operations_module ||= Object.const_get(name.split('::Operations::').first + '::Operations')
+          end
+
           def resource_klass
             @resource_klass ||= LedgerSync.const_get(
               name
