@@ -663,7 +663,7 @@ module QuickBooksHelpers
   def stub_create_department
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/department')
       .with(
-        body: '{"Id":null,"Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null,"ParentRef":{"value":"1"}}',
+        body: '{"Id":null,"Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null}',
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -674,7 +674,7 @@ module QuickBooksHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":"1"},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
+        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
         headers: {}
       )
   end
@@ -692,7 +692,7 @@ module QuickBooksHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":"1"},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
+        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
         headers: {}
       )
   end
@@ -710,7 +710,7 @@ module QuickBooksHelpers
       )
       .to_return(
         status: 200,
-        body: '{"QueryResponse":{"Department":[{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":"1"},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}}]}}',
+        body: '{"QueryResponse":{"Department":[{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}}]}}',
         headers: {}
       )
   end
@@ -729,7 +729,7 @@ module QuickBooksHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":"1"},"FullyQualifiedName":"Renamed Department:Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
+        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Renamed Department:Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
         headers: {}
       )
   end

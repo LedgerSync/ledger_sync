@@ -15,12 +15,8 @@ RSpec.describe 'quickbooks_online/departments/create', type: :feature do
     stub_create_department
   end
 
-  let(:parent) do
-    LedgerSync::Department.new(department_resource({ledger_id: 1}))
-  end
-
   let(:resource) do
-    LedgerSync::Department.new(department_resource({parent: parent}))
+    LedgerSync::Department.new(department_resource())
   end
 
   let(:input) do
