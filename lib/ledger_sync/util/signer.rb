@@ -27,6 +27,10 @@ module LedgerSync
       def self.escape(str:)
         CGI.escape(str).gsub(/\+/, '%20')
       end
+
+      def self.unescape(str:)
+        CGI.unescape(str.gsub(/%20/, '+'))
+      end
     end
   end
 end

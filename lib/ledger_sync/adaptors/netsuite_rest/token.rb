@@ -54,11 +54,6 @@ module LedgerSync
               'Authorization' => "OAuth #{authorization_parts.map { |k, v| "#{k}=\"#{v}\"" }.join(',')}"
             }
 
-            # if %w[POST PUT].include?(method)
-            #   ret['content-length'] = body_json_string.length.to_s
-            #   ret['x-content-sha256'] = escape(compute_digest(body_json_string))
-            # end
-
             ret
           end
         end
@@ -95,6 +90,10 @@ module LedgerSync
 
         private
 
+        def body_array
+          @body_array ||= body.to_param.split('&').map { |k| k.split('=').map { |v| unescape(v) } }
+        end
+
         def compute_digest(str)
           signer = Util::Signer.new(str: str)
 
@@ -110,6 +109,17 @@ module LedgerSync
           Util::Signer.escape(str: val.to_s)
         end
 
+        def oauth_parameters_array
+          {
+            oauth_consumer_key: consumer_key,
+            oauth_nonce: nonce,
+            oauth_signature_method: signature_method,
+            oauth_timestamp: timestamp,
+            oauth_token: token_id,
+            oauth_version: OAUTH_VERSION
+          }.to_a
+        end
+
         def parameters_string
           @parameters_string ||= sorted_encoded_parameters
                                  .map { |e| "#{e[0]}=#{e[1]}" }
@@ -117,27 +127,15 @@ module LedgerSync
         end
 
         def sorted_encoded_parameters
-          @sorted_encoded_parameters ||= body
+          @sorted_encoded_parameters ||= url_params
                                          .to_a
-                                         .concat(
-                                           url_params.to_a
-                                         )
-                                         .concat(
-                                           {
-                                             oauth_consumer_key: consumer_key,
-                                             oauth_nonce: nonce,
-                                             oauth_signature_method: signature_method,
-                                             oauth_timestamp: timestamp,
-                                             oauth_token: token_id,
-                                             oauth_version: OAUTH_VERSION
-                                           }.to_a
-                                         )
+                                         .concat(oauth_parameters_array)
                                          .map { |k, v| [escape(k), escape(v)] }
                                          .sort { |a, b| a <=> b }
         end
 
         def unescape(val)
-          CGI.unescape(val.to_s)
+          Util::Signer.unescape(str: val.to_s)
         end
 
         def uri

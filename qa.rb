@@ -20,8 +20,14 @@ require 'httplog'
 
 HttpLog.configure do |config|
   config.color = { color: :black, background: :yellow }
-  config.compact_log = true
-  config.log_headers = true
+  # config.compact_log = true
+  config.log_connect   = true
+  config.log_request   = true
+  config.log_headers   = true
+  config.log_data      = true
+  config.log_status    = true
+  config.log_response  = true
+  config.log_benchmark = true
 end
 
 ### START: Config

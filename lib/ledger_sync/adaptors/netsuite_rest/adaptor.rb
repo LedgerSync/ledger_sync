@@ -11,7 +11,7 @@ module LedgerSync
         }.freeze
 
         POST_HEADERS = {
-          'Accept' => 'application/schema+json',
+          'Accept' => '*/*',
           'Content-Type' => 'application/json'
         }.freeze
 

@@ -24,20 +24,20 @@ module QA
 
       # byebug
 
-      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
-        adaptor: adaptor,
-        resource: LedgerSync::Customer.new(ledger_id: 1137)
-      ).perform
+      # result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
+      #   adaptor: adaptor,
+      #   resource: LedgerSync::Customer.new(ledger_id: 1137)
+      # ).perform
 
       customer = new_customer
-      customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2)
+      # customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2)
 
       result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
         adaptor: adaptor,
         resource: customer
       ).perform
 
-      # byebug
+      byebug
 
       pdb 'Done'
     end
