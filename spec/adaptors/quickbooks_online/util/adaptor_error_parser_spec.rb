@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support 'adaptor_helpers'
+support :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Util::AdaptorErrorParser do
-  include AdaptorHelpers
+  include QuickBooksOnlineHelpers
 
   let(:message) { 'This is the error message.' }
   let(:error) { StandardError.new(message) }
-  let(:adaptor) { quickbooks_adaptor }
+  let(:adaptor) { quickbooks_online_adaptor }
   let(:parser) do
     described_class.new(
       adaptor: adaptor,

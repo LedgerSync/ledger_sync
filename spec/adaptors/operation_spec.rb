@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Operation do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:operation) { test_customer_create_operation }
 

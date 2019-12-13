@@ -2,16 +2,33 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
-support :operation_shared_examples
+support :input_helpers,
+        :operation_shared_examples,
+        :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Transfer::Operations::Update do
-  include AdaptorHelpers
+  include InputHelpers
+  include QuickBooksOnlineHelpers
 
-  let(:from_account) { LedgerSync::Account.new(ledger_id: '123', name: 'Test 1', account_type: 'bank', account_sub_type: 'cash_on_hand')}
-  let(:to_account) { LedgerSync::Account.new(ledger_id: '123', name: 'Test 2', account_type: 'bank', account_sub_type: 'cash_on_hand')}
-  let(:resource) { LedgerSync::Transfer.new(ledger_id: '123', from_account: from_account, to_account: to_account, amount: 0, currency: 'USD', memo: 'Memo 1', transaction_date: Date.new(2019, 9, 1))}
-  let(:adaptor) { quickbooks_adaptor }
+  let(:account) do
+    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+  end
+
+  let(:resource) do
+    LedgerSync::Transfer.new(
+      transfer_resource(
+        ledger_id: '123',
+        from_account: account,
+        to_account: account
+      )
+    )
+  end
+  let(:adaptor) { quickbooks_online_adaptor }
 
   it_behaves_like 'an operation'
+  it_behaves_like 'a successful operation',
+  stubs: %i[
+    stub_find_transfer
+    stub_update_transfer
+  ]
 end

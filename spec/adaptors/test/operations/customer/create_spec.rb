@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:customer) { LedgerSync::Customer.new(name: 'Test') }
 

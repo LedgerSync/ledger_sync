@@ -2,16 +2,51 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
-support :operation_shared_examples
+support :input_helpers,
+        :operation_shared_examples,
+        :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Bill::Operations::Create do
-  include AdaptorHelpers
+  include InputHelpers
+  include QuickBooksOnlineHelpers
 
-  let(:account) { LedgerSync::Account.new(name: 'Test', account_type: 'bank', account_sub_type: 'cash_on_hand')}
-  let(:vendor) { LedgerSync::Vendor.new(first_name: 'Test', last_name: 'Testing')}
-  let(:resource) { LedgerSync::Bill.new(account: account, vendor: vendor, reference_number: 'Ref123', currency: 'USD', memo: 'Memo 1', transaction_date: Date.new(2019, 9, 1), due_date: Date.new(2019, 9, 1), line_items: [])}
-  let(:adaptor) { quickbooks_adaptor }
+  # Account 1 needs to be Liability account
+  let(:account1) do
+    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+  end
+
+  # Account 2 needs to be different
+  let(:account2) do
+    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+  end
+
+  let(:vendor) do
+    LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
+  end
+
+  let(:line_item_1) do
+    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2))
+  end
+
+  let(:line_item_2) do
+    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2))
+  end
+
+  let(:resource) do
+    LedgerSync::Bill.new(
+      bill_resource(
+        account: account1,
+        vendor: vendor,
+        line_items: [
+          line_item_1,
+          line_item_2
+        ]
+      )
+    )
+  end
+
+  let(:adaptor) { quickbooks_online_adaptor }
 
   it_behaves_like 'an operation'
+  it_behaves_like 'a successful operation', stubs: :stub_create_bill
 end

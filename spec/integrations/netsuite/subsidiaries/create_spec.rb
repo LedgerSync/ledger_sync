@@ -3,13 +3,11 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
 support :netsuite_helpers
 support :operation_helpers
 
 RSpec.describe LedgerSync::Adaptors::NetSuite::Subsidiary::Operations::Create, type: :feature do
   include InputHelpers
-  include AdaptorHelpers
   include NetSuiteHelpers
   include OperationHelpers
 

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe 'test/accounts/search', type: :feature do
   include InputHelpers
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:input) do
     {

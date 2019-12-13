@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Test::Expense::Operations::Create do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:account) { LedgerSync::Account.new(name: 'Test', account_type: 'bank', account_sub_type: 'cash_on_hand')}
   let(:vendor) { LedgerSync::Vendor.new(first_name: 'Test', last_name: 'Testing')}

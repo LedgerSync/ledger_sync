@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
-support :quickbooks_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe 'quickbooks_online/vendors/search', type: :feature do
   include InputHelpers
-  include AdaptorHelpers
-  include QuickBooksHelpers
+  include QuickBooksOnlineHelpers
 
   before {
     stub_search_vendor
@@ -15,7 +13,7 @@ RSpec.describe 'quickbooks_online/vendors/search', type: :feature do
 
   let(:input) do
     {
-      adaptor: quickbooks_adaptor,
+      adaptor: quickbooks_online_adaptor,
       query: 'Sample Vendor'
     }
   end

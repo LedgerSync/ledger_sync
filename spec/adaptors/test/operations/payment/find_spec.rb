@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Test::Payment::Operations::Find do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:customer) { LedgerSync::Customer.new(ledger_id: '123', name: 'Test')}
   let(:payment) { LedgerSync::Payment.new(ledger_id: '123', amount: 150, currency: 'USD', customer: customer)}

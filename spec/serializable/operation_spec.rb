@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :serializable do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:adaptor) { test_adaptor }
   let(:resource) { LedgerSync::Customer.new(name: 'asdf') }

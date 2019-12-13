@@ -3,11 +3,10 @@
 require 'spec_helper'
 require 'adaptors/quickbooks_online/shared_examples'
 
-support :adaptor_helpers, :quickbooks_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::WebhookEvent do
-  include AdaptorHelpers
-  include QuickBooksHelpers
+  include QuickBooksOnlineHelpers
 
   let(:payload) { webhook_event_hash(quickbooks_online_resource_type: 'Customer') }
 
@@ -39,22 +38,22 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::WebhookEvent do
   describe '#find' do
     it 'finds customer' do
       stub_find_customer
-      expect(instance.find(adaptor: quickbooks_adaptor)).to be_success
+      expect(instance.find(adaptor: quickbooks_online_adaptor)).to be_success
     end
 
     it 'finds vendor' do
       stub_find_vendor
       payload['name'] = 'Vendor'
-      expect(instance.find(adaptor: quickbooks_adaptor)).to be_success
+      expect(instance.find(adaptor: quickbooks_online_adaptor)).to be_success
     end
   end
 
   describe '#find_operation' do
-    it { expect(instance.find_operation(adaptor: quickbooks_adaptor)).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Find) }
+    it { expect(instance.find_operation(adaptor: quickbooks_online_adaptor)).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Find) }
   end
 
   describe '#find_operation_class' do
-    it { expect(instance.find_operation_class(adaptor: quickbooks_adaptor)).to eq(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Find) }
+    it { expect(instance.find_operation_class(adaptor: quickbooks_online_adaptor)).to eq(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Find) }
   end
 
   describe '#last_updated_at' do

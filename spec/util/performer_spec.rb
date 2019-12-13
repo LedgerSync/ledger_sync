@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Util::Performer do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:valid_operation) { LedgerSync::Adaptors::Test::Customer::Operations::Valid.new(adaptor: test_adaptor, resource: resource) }
   let(:invalid_operation) { LedgerSync::Adaptors::Test::Customer::Operations::Invalid.new(adaptor: test_adaptor, resource: resource) }

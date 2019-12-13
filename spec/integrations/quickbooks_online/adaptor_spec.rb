@@ -1,22 +1,23 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support :adaptor_helpers
-support :quickbooks_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe 'quickbooks_online/adaptor', type: :feature do
-  include AdaptorHelpers
-  include QuickBooksHelpers
+  include QuickBooksOnlineHelpers
 
-  before {
+  before do
     stub_adaptor_refresh
-  }
+  end
 
-  let(:adaptor) { quickbooks_adaptor }
+  let(:adaptor) { quickbooks_online_adaptor }
 
   context '#refresh' do
     subject { adaptor.refresh! }
-    it { expect(subject.access_token).not_to eq(quickbooks_adaptor.access_token) }
-    it { expect(subject.refresh_token).not_to eq(quickbooks_adaptor.refresh_token) }
+
+    it { expect(subject.access_token).not_to eq(quickbooks_online_adaptor.access_token) }
+    it { expect(subject.refresh_token).not_to eq(quickbooks_online_adaptor.refresh_token) }
     it { expect(subject.access_token).to eq('NEW_ACCESS_TOKEN') }
     it { expect(subject.refresh_token).to eq('NEW_REFRESH_TOKEN') }
   end
