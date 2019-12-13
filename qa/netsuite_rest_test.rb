@@ -12,32 +12,60 @@ module QA
       )
     end
 
+    def cleanup; end
+
     def run
       puts 'Testing NetSuite REST API'
 
       # test_request = adaptor.get(path: '/metadata-catalog/record?select=customer')
 
-      # pdb test_request
-
-      # test_request = adaptor.post(path: 'record/customer')
-      # test_request = adaptor.post(path: 'record/customer', body: {'firstName': 'test'})
-
-      # byebug
-
-      # result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
-      #   adaptor: adaptor,
-      #   resource: LedgerSync::Customer.new(ledger_id: 1137)
-      # ).perform
-
       customer = new_customer
-      customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2)
+      customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2, name: "QA Customer #{test_run_id}")
 
-      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
+      result = perform(
+        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
+          adaptor: adaptor,
+          resource: customer
+        )
+      )
+
+      customer = result.resource
+
+      result = perform(
+        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
+          adaptor: adaptor,
+          resource: customer
+        )
+      )
+
+      customer = result.resource
+      customer.name = "QA UPDATE #{test_run_id}"
+
+      result = perform(
+        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Update.new(
+          adaptor: adaptor,
+          resource: customer
+        )
+      )
+
+      customer = result.resource
+
+      perform(
+        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Delete.new(
+          adaptor: adaptor,
+          resource: customer
+        )
+      )
+
+      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Delete.new(
         adaptor: adaptor,
         resource: customer
       ).perform
 
-      byebug
+      unless result.failure?
+        pdb 'Should be failure'
+        byebug
+      end
 
       pdb 'Done'
     end

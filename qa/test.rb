@@ -24,8 +24,11 @@ module QA
         return result
       end
 
+      pdb 'Invalid:'
+      pdb op.errors.messages
+
       byebug
-      raise op.validate
+      pdb 'Next'
     end
 
     def new_customer(**args)

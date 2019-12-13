@@ -119,7 +119,7 @@ module StripeHelpers
       'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'Authorization' => 'Bearer api_key',
       'Content-Type' => 'application/x-www-form-urlencoded',
-      'User-Agent' => 'Stripe/v1 RubyBindings/5.8.0',
+      'User-Agent' => /Stripe\/v1 RubyBindings\/[0-9]+\.[0-9]+\.[0-9]+/,
       'X-Stripe-Client-User-Agent' => /.*/
     }
   end

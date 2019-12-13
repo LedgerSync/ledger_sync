@@ -10,7 +10,7 @@ module LedgerSync
           # 'Accept' => 'application/schema+json'
         }.freeze
 
-        POST_HEADERS = {
+        WRITE_HEADERS = {
           'Accept' => '*/*',
           'Content-Type' => 'application/json'
         }.freeze
@@ -51,14 +51,27 @@ module LedgerSync
           @api_host ||= "#{account_id_for_url}.suitetalk.api.netsuite.com"
         end
 
+        def delete(**keywords)
+          request(keywords.merge(method: :delete))
+        end
+
         def get(**keywords)
           request(keywords.merge(method: :get))
+        end
+
+        def patch(headers: {}, **keywords)
+          request(
+            keywords.merge(
+              headers: WRITE_HEADERS.merge(headers),
+              method: :patch
+            )
+          )
         end
 
         def post(headers: {}, **keywords)
           request(
             keywords.merge(
-              headers: POST_HEADERS.merge(headers),
+              headers: WRITE_HEADERS.merge(headers),
               method: :post
             )
           )

@@ -6,12 +6,12 @@ module LedgerSync
   module Adaptors
     module NetSuiteREST
       module Operation
-        class Update
+        class Delete
           include NetSuiteREST::Operation::Mixin
 
           private
 
-          def update_in_ledger
+          def delete
             case response.status
             when 200..299
               LedgerSync::Result.Success(response)
@@ -25,41 +25,22 @@ module LedgerSync
             end
           end
 
-          def find
-            resource.ledger_id = ledger_id
-
-            self.class.operations_module::Find.new(
-              adaptor: adaptor,
-              resource: resource
-            ).perform
-          end
-
-          def ledger_id
-            @ledger_id ||= response.headers['Location'].split('/').last
-          end
-
           def operate
-            update_in_ledger
+            delete
               .and_then { success }
           end
 
           def response
-            ledger_hash = ledger_serializer.to_ledger_hash
-            ledger_hash.delete('entityId')
-
-            @response ||= adaptor.patch(
-              body: ledger_hash,
+            @response ||= adaptor.delete(
               path: ledger_serializer.class.api_resource_path(resource: resource)
             )
           end
 
           def success
-            find.and_then do |find_result|
-              super(
-                resource: find_result.resource,
-                response: response
-              )
-            end
+            super(
+              resource: resource,
+              response: response
+            )
           end
         end
       end
