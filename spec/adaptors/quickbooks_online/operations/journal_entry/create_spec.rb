@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 support :adaptor_helpers
+support :operation_shared_examples
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::JournalEntry::Operations::Create do
   include AdaptorHelpers
