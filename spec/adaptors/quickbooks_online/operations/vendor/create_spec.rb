@@ -1,14 +1,20 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support :adaptor_helpers
+support :input_helpers,
+        :operation_shared_examples,
+        :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Vendor::Operations::Create do
-  include AdaptorHelpers
+  include InputHelpers
+  include QuickBooksOnlineHelpers
 
-  let(:vendor) { LedgerSync::Vendor.new(display_name: 'Test Tester')}
-
-  it do
-    instance = described_class.new(resource: vendor, adaptor: quickbooks_adaptor)
-    expect(instance).to be_valid
+  let(:resource) do
+    LedgerSync::Vendor.new(vendor_resource)
   end
+  let(:adaptor) { quickbooks_online_adaptor }
+
+  it_behaves_like 'an operation'
+  it_behaves_like 'a successful operation', stubs: :stub_create_vendor
 end

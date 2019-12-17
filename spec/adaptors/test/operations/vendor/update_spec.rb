@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Test::Vendor::Operations::Update do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:vendor) { LedgerSync::Vendor.new(ledger_id: '123', display_name: 'Test Tester')}
 

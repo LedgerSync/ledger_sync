@@ -3,11 +3,10 @@
 require 'spec_helper'
 require 'adaptors/quickbooks_online/shared_examples'
 
-support :adaptor_helpers, :quickbooks_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Webhook do
-  include AdaptorHelpers
-  include QuickBooksHelpers
+  include QuickBooksOnlineHelpers
 
   let(:payload) { webhook_hash }
   let(:instance) { described_class.new(payload: payload) }

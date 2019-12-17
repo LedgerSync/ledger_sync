@@ -1,19 +1,4 @@
-module AdaptorHelpers
-  def adaptors
-    @adaptors ||= LedgerSync.adaptors
-  end
-
-  def quickbooks_adaptor
-    adaptors.quickbooks_online.new(
-      access_token: 'access_token',
-      client_id: 'client_id',
-      client_secret: 'client_secret',
-      realm_id: 'realm_id',
-      refresh_token: 'refresh_token',
-      test: true
-    )
-  end
-
+module TestAdaptorHelpers
   def test_customer(*args)
     LedgerSync::Customer.new(*args)
   end
@@ -40,6 +25,6 @@ module AdaptorHelpers
   end
 
   def test_adaptor
-    adaptors.test.new
+    LedgerSync.adaptors.test.new
   end
 end

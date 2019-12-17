@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe 'test/customers/create', type: :feature do
   include InputHelpers
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:resource) do
     LedgerSync::Customer.new(customer_resource)

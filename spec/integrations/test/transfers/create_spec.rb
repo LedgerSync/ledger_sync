@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe 'test/transfers/create', type: :feature do
   include InputHelpers
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:account) do
     LedgerSync::Account.new(account_resource({ledger_id: '123'}))

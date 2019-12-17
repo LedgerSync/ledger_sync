@@ -1,7 +1,17 @@
 # frozen_string_literal: true
 
-module QuickBooksHelpers
+module QuickBooksOnlineHelpers
   # Adaptor
+  def quickbooks_online_adaptor
+    LedgerSync.adaptors.quickbooks_online.new(
+      access_token: 'access_token',
+      client_id: 'client_id',
+      client_secret: 'client_secret',
+      realm_id: 'realm_id',
+      refresh_token: 'refresh_token',
+      test: true
+    )
+  end
 
   def stub_adaptor_refresh
     stub_request(:post, 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer')
@@ -50,7 +60,7 @@ module QuickBooksHelpers
   def stub_create_customer
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/customer')
       .with(
-        body: '{"Id":"123","DisplayName":"Sample Customer","PrimaryPhone":{"FreeFormNumber":null},"PrimaryEmailAddr":{"Address":"test@example.com"}}',
+        body: '{"Id":null,"DisplayName":"Sample Customer","PrimaryPhone":{"FreeFormNumber":null},"PrimaryEmailAddr":{"Address":"test@example.com"}}',
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -335,7 +345,7 @@ module QuickBooksHelpers
   def stub_update_account
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: '{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"},"AcctNum":null,"Description":"This is Sample Account"}',
+        body: JSON.parse('{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"},"AcctNum":null,"Description":"This is Sample Account"}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

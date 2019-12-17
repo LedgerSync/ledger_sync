@@ -1,14 +1,18 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support :adaptor_helpers
+support :input_helpers,
+        :operation_shared_examples,
+        :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Find do
-  include AdaptorHelpers
+  include InputHelpers
+  include QuickBooksOnlineHelpers
 
-  let(:customer) { LedgerSync::Customer.new(ledger_id: '123', name: 'Test')}
+  let(:adaptor) { quickbooks_online_adaptor }
+  let(:resource) { LedgerSync::Customer.new(customer_resource(ledger_id: 123)) }
 
-  it do
-    instance = described_class.new(resource: customer, adaptor: quickbooks_adaptor)
-    expect(instance).to be_valid
-  end
+  it_behaves_like 'an operation'
+  it_behaves_like 'a successful operation', stubs: :stub_find_customer
 end

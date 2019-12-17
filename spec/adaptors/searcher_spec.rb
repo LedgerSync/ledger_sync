@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Searcher do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:adaptor) { test_adaptor }
   let(:query) { 'qqq' }
