@@ -2,7 +2,7 @@
 
 module NetSuiteHelpers
   def netsuite_adaptor
-    adaptors.netsuite.new(**netsuite_adaptor_args)
+    LedgerSync.adaptors.netsuite.new(**netsuite_adaptor_args)
   end
 
   def netsuite_adaptor_args(**override)

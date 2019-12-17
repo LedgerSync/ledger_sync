@@ -2,11 +2,9 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
 support :netsuite_helpers
 
 RSpec.describe LedgerSync::Adaptors::NetSuite::Adaptor do
-  include AdaptorHelpers
   include NetSuiteHelpers
 
   let(:account) { 'account' }

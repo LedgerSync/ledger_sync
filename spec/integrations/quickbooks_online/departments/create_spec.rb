@@ -3,13 +3,11 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
-support :quickbooks_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe 'quickbooks_online/departments/create', type: :feature do
   include InputHelpers
-  include AdaptorHelpers
-  include QuickBooksHelpers
+  include QuickBooksOnlineHelpers
 
   before do
     stub_create_department
@@ -21,7 +19,7 @@ RSpec.describe 'quickbooks_online/departments/create', type: :feature do
 
   let(:input) do
     {
-      adaptor: quickbooks_adaptor,
+      adaptor: quickbooks_online_adaptor,
       resource: resource
     }
   end

@@ -1,14 +1,15 @@
 require 'spec_helper'
 
-support :adaptor_helpers
+support :input_helpers,
+        :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::LedgerClass::Operations::Find do
-  include AdaptorHelpers
+  include InputHelpers
+  include QuickBooksOnlineHelpers
 
-  let(:ledger_class) { LedgerSync::LedgerClass.new(ledger_id: '123', name: 'Test', active: true, sub_class: false)}
+  let(:resource) { LedgerSync::LedgerClass.new(ledger_id: '123', name: 'Test Class', active: true, sub_class: false)}
+  let(:adaptor) { quickbooks_online_adaptor }
 
-  it do
-    instance = described_class.new(resource: ledger_class, adaptor: quickbooks_adaptor)
-    expect(instance).to be_valid
-  end
+  it_behaves_like 'an operation'
+  it_behaves_like 'a successful operation', stubs: :stub_find_ledger_class
 end

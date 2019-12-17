@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Adaptor do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   it { expect { described_class.new }.to raise_error(NotImplementedError) }
 

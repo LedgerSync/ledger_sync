@@ -1,14 +1,17 @@
 require 'spec_helper'
 
-support :adaptor_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department::Operations::Update do
-  include AdaptorHelpers
+  include QuickBooksOnlineHelpers
 
-  let(:department) { LedgerSync::Department.new(ledger_id: '123', name: 'Test', active: true, sub_department: false)}
+  let(:resource) { LedgerSync::Department.new(ledger_id: '123', name: 'Test Department', active: true, sub_department: false)}
+  let(:adaptor) { quickbooks_online_adaptor }
 
-  it do
-    instance = described_class.new(resource: department, adaptor: quickbooks_adaptor)
-    expect(instance).to be_valid
-  end
+  it_behaves_like 'an operation'
+  it_behaves_like 'a successful operation',
+                  stubs: %i[
+                    stub_find_department
+                    stub_update_department
+                  ]
 end

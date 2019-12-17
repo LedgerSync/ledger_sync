@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Test::Error::AdaptorError::Operations::ThrottleError do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   let(:error) { LedgerSync::Error::AdaptorError::ThrottleError.new(adaptor: test_adaptor) }
   let(:op) do

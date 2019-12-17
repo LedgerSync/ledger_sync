@@ -2,8 +2,6 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
-
 module LedgerSync
   class TestResource
     class ResourceWithDate < LedgerSync::Resource
@@ -41,8 +39,6 @@ LedgerSync.register_resource(resource: LedgerSync::TestResource::TestChildResour
 LedgerSync.register_resource(resource: LedgerSync::TestResource::TestParentResource)
 
 RSpec.describe LedgerSync::Util::ResourcesBuilder do
-  include AdaptorHelpers
-
   context 'with date' do
     let(:data) do
       {
