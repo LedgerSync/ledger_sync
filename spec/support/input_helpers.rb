@@ -189,4 +189,22 @@ module InputHelpers
       state: 'CA'
     }.merge(merge)
   end
+
+  def ledger_class_resource(**merge)
+    {
+      external_id: nil,
+      name: 'Test Class',
+      active: true,
+      sub_class: false
+    }.merge(merge)
+  end
+
+  def department_resource(**merge)
+    {
+      external_id: nil,
+      name: 'Test Department',
+      active: true,
+      sub_department: false
+    }.merge(merge)
+  end
 end

@@ -668,6 +668,160 @@ module QuickBooksOnlineHelpers
       )
   end
 
+  # Department
+
+  def stub_create_department
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/department')
+      .with(
+        body: '{"Id":null,"Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null}',
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
+        headers: {}
+      )
+  end
+
+  def stub_find_department
+    stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/department/123')
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
+        headers: {}
+      )
+  end
+
+  def stub_search_department
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Department%20WHERE%20Name%20LIKE%20'%25Test%20Department%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"QueryResponse":{"Department":[{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}}]}}',
+        headers: {}
+      )
+  end
+
+  def stub_update_department
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/department')
+      .with(
+        body: '{"Id":"123","Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null,"ParentRef":{"value":null},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}}',
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Department":{"Name":"Test Department","SubDepartment":true,"ParentRef":{"value":null},"FullyQualifiedName":"Renamed Department:Test Department","Active":true,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}},"time":"2019-12-04T14:24:59.846-08:00"}',
+        headers: {}
+      )
+  end
+
+    # Class
+
+    def stub_create_ledger_class
+      stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
+        .with(
+          body: '{"Id":null,"Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null}}',
+          headers: {
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Authorization' => 'Bearer access_token',
+            'Content-Type' => 'application/json',
+            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+          }
+        )
+        .to_return(
+          status: 200,
+          body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:34:10.943-08:00"}',
+          headers: {}
+        )
+    end
+
+    def stub_find_ledger_class
+      stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class/123')
+        .with(
+          headers: {
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Authorization' => 'Bearer access_token',
+            'Content-Type' => 'application/json',
+            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+          }
+        )
+        .to_return(
+          status: 200,
+          body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:34:10.943-08:00"}',
+          headers: {}
+        )
+    end
+
+    def stub_search_ledger_class
+      stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Class%20WHERE%20Name%20LIKE%20'%25Test%20Class%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
+        .with(
+          headers: {
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Authorization' => 'Bearer access_token',
+            'Content-Type' => 'application/json',
+            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+          }
+        )
+        .to_return(
+          status: 200,
+          body: '{"QueryResponse":{"Class":[{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}]}}',
+          headers: {}
+        )
+    end
+
+    def stub_update_ledger_class
+      stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
+        .with(
+          body: '{"Id":"123","Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}',
+          headers: {
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Authorization' => 'Bearer access_token',
+            'Content-Type' => 'application/json',
+            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+          }
+        )
+        .to_return(
+          status: 200,
+          body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:35:42.814-08:00"}',
+          headers: {}
+        )
+    end
+
+  # Webhooks
+
   def webhook
     @webhook ||= LedgerSync::Adaptors::QuickBooksOnline::Webhook.new(
       payload: webhook_hash
