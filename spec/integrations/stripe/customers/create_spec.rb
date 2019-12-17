@@ -3,12 +3,10 @@
 require 'spec_helper'
 
 support :input_helpers
-support :adaptor_helpers
 support :stripe_helpers
 
 RSpec.describe 'stripe/customers/create', type: :feature do
   include InputHelpers
-  include AdaptorHelpers
   include StripeHelpers
 
   before { stub_customer_create }

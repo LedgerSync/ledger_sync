@@ -5,7 +5,8 @@ module InputHelpers
       ledger_id: nil,
       # attributes
       email: 'test@example.com',
-      name: 'Sample Customer'
+      name: 'Sample Customer',
+      subsidiary: LedgerSync::Subsidiary.new(subsidiary_resource)
     }.merge(merge)
   end
 
@@ -187,6 +188,24 @@ module InputHelpers
       external_id: 'sub_123',
       name: 'Test subsidiary',
       state: 'CA'
+    }.merge(merge)
+  end
+
+  def ledger_class_resource(**merge)
+    {
+      external_id: nil,
+      name: 'Test Class',
+      active: true,
+      sub_class: false
+    }.merge(merge)
+  end
+
+  def department_resource(**merge)
+    {
+      external_id: nil,
+      name: 'Test Department',
+      active: true,
+      sub_department: false
     }.merge(merge)
   end
 end

@@ -2,12 +2,10 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
-support :quickbooks_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
-  include AdaptorHelpers
-  include QuickBooksHelpers
+  include QuickBooksOnlineHelpers
 
   let(:access_token) { 'access_token' }
   let(:client_id) { 'client_id' }
@@ -17,7 +15,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
   let(:refresh_token) { 'refresh_token' }
   let(:refresh_token_expires_at) { nil }
   let(:test) { true }
-  let(:adaptor) { quickbooks_adaptor }
+  let(:adaptor) { quickbooks_online_adaptor }
 
   subject do
     described_class.new(

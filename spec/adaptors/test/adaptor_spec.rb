@@ -2,10 +2,10 @@
 
 require 'spec_helper'
 
-support :adaptor_helpers
+support :test_adaptor_helpers
 
 RSpec.describe LedgerSync::Adaptors::Test::Adaptor do
-  include AdaptorHelpers
+  include TestAdaptorHelpers
 
   subject { test_adaptor }
 

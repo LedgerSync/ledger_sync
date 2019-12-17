@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-support 'adaptor_helpers'
-
 RSpec.describe LedgerSync::Result, type: :serializable do
-  include AdaptorHelpers
-
-  describe LedgerSync::Result do
+    describe LedgerSync::Result do
     it do
       subject = described_class.Success(:val).serialize
       h = {
