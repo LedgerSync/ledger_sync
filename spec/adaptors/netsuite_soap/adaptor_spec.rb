@@ -2,17 +2,17 @@
 
 require 'spec_helper'
 
-support :netsuite_helpers
+support :netsuite_soap_helpers
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Adaptor do
-  include NetSuiteHelpers
+RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Adaptor do
+  include NetSuiteSOAPHelpers
 
   let(:account) { 'account' }
   let(:consumer_key) { 'consumer_key' }
   let(:consumer_secret) { 'consumer_secret' }
   let(:token_id) { 'token_id' }
   let(:token_secret) { 'token_secret' }
-  let(:adaptor) { netsuite_adaptor }
+  let(:adaptor) { netsuite_soap_adaptor }
 
   subject do
     described_class.new(

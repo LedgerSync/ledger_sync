@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module NetSuiteHelpers
-  def netsuite_adaptor
-    LedgerSync.adaptors.netsuite.new(**netsuite_adaptor_args)
+module NetSuiteSOAPHelpers
+  def netsuite_soap_adaptor
+    LedgerSync.adaptors.netsuite_soap.new(**netsuite_adaptor_args)
   end
 
   def netsuite_adaptor_args(**override)

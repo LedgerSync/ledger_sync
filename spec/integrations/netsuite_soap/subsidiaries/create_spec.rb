@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 support :input_helpers
-support :netsuite_helpers
+support :netsuite_soap_helpers
 support :operation_helpers
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Subsidiary::Operations::Create, type: :feature do
+RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Subsidiary::Operations::Create, type: :feature do
   include InputHelpers
-  include NetSuiteHelpers
+  include NetSuiteSOAPHelpers
   include OperationHelpers
 
   let(:resource) { LedgerSync::Subsidiary.new(subsidiary_resource) }
@@ -17,7 +17,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Subsidiary::Operations::Create, t
 
   let(:input) do
     {
-      adaptor: netsuite_adaptor,
+      adaptor: netsuite_soap_adaptor,
       resource: resource
     }
   end

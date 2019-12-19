@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 support :input_helpers
-support :netsuite_helpers
+support :netsuite_soap_helpers
 support :operation_helpers
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Customer::Operations::Create, type: :feature do
+RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Customer::Operations::Create, type: :feature do
   include InputHelpers
-  include NetSuiteHelpers
+  include NetSuiteSOAPHelpers
   include OperationHelpers
 
   let(:resource) do
@@ -25,7 +25,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Customer::Operations::Create, typ
 
   let(:input) do
     {
-      adaptor: netsuite_adaptor,
+      adaptor: netsuite_soap_adaptor,
       resource: resource
     }
   end

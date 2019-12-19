@@ -2,10 +2,10 @@
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       module Customer
         module Operations
-          class Find < NetSuite::Operation::Find
+          class Find < NetSuiteSOAP::Operation::Find
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 optional(:external_id).maybe(:string)

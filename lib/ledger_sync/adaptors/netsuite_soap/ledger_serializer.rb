@@ -4,7 +4,7 @@ require 'ledger_sync/adaptors/ledger_serializer'
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       class LedgerSerializer < Adaptors::LedgerSerializer
         def netsuite_lib_class
           self.class.netsuite_lib_class

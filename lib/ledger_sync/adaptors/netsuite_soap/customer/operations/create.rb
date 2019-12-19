@@ -1,9 +1,9 @@
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       module Customer
         module Operations
-          class Create < NetSuite::Operation::Create
+          class Create < NetSuiteSOAP::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:external_id).maybe(:string)

@@ -2,7 +2,7 @@ require 'oauth2'
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       class Adaptor < Adaptors::Adaptor
         DEFAULT_API_VERSION = '2016_2'.freeze
 

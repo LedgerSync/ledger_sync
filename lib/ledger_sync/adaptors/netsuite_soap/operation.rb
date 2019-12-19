@@ -2,7 +2,7 @@
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       module Operation
         module Mixin
           def self.included(base)

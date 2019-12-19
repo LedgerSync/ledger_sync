@@ -4,17 +4,19 @@ require_relative '../operation'
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       module Operation
-        class Create
-          include NetSuite::Operation::Mixin
+        class Find
+          include NetSuiteSOAP::Operation::Mixin
 
           private
 
           def operate
-            response = adaptor.post(
+            return failure(nil) if resource.ledger_id.nil?
+
+            response = adaptor.find(
               resource: netsuite_online_resource_type,
-              payload: ledger_serializer.to_ledger_hash
+              id: resource.ledger_id
             )
 
             success(

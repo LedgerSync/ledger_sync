@@ -4,17 +4,17 @@ require_relative '../operation'
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       module Operation
-        class SparseUpdate
-          include NetSuite::Operation::Mixin
+        class Create
+          include NetSuiteSOAP::Operation::Mixin
 
           private
 
           def operate
             response = adaptor.post(
               resource: netsuite_online_resource_type,
-              payload: merged_serializer.to_ledger_hash
+              payload: ledger_serializer.to_ledger_hash
             )
 
             success(

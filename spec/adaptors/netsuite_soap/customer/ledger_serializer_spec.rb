@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer do
+RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Customer::LedgerSerializer do
   let(:customer) { LedgerSync::Customer.new }
 
   describe '#netsuite_lib_class' do

@@ -4,10 +4,10 @@ require_relative '../operation'
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       module Operation
         class FullUpdate
-          include NetSuite::Operation::Mixin
+          include NetSuiteSOAP::Operation::Mixin
 
           private
 

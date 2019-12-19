@@ -2,7 +2,7 @@
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module NetSuiteSOAP
       class Searcher < Adaptors::Searcher
         def next_searcher
           paginate(limit: limit, offset: offset + limit)
