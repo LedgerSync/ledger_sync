@@ -27,7 +27,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Subsidiary::Operations::Creat
 
     it { expect_valid(operation: initialized_operation) }
     it 'creates', vcr: true do
-      VCR.use_cassette('netsuite/subsidiaries/create') do
+      VCR.use_cassette('netsuite_soap/subsidiaries/create') do
         expect(subject).to be_a(LedgerSync::OperationResult::Success)
         expect(subject.resource.ledger_id).to eq('123')
       end

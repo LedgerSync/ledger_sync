@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module QA
-  class NetSuiteRESTTest < QA::Test
+  class NetSuiteTest < QA::Test
     def adaptor
-      @adaptor ||= LedgerSync.adaptors.netsuite_rest.new(
-        account_id: config['netsuite_rest']['account_id'],
-        consumer_key: config['netsuite_rest']['consumer_key'],
-        consumer_secret: config['netsuite_rest']['consumer_secret'],
-        token_id: config['netsuite_rest']['token_id'],
-        token_secret: config['netsuite_rest']['token_secret']
+      @adaptor ||= LedgerSync.adaptors.netsuite.new(
+        account_id: config['netsuite']['account_id'],
+        consumer_key: config['netsuite']['consumer_key'],
+        consumer_secret: config['netsuite']['consumer_secret'],
+        token_id: config['netsuite']['token_id'],
+        token_secret: config['netsuite']['token_secret']
       )
     end
 
@@ -23,7 +23,7 @@ module QA
       customer.subsidiary = LedgerSync::Subsidiary.new(ledger_id: 2, name: "QA Customer #{test_run_id}")
 
       result = perform(
-        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Create.new(
+        LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
           adaptor: adaptor,
           resource: customer
         )
@@ -32,7 +32,7 @@ module QA
       customer = result.resource
 
       result = perform(
-        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Find.new(
+        LedgerSync::Adaptors::NetSuite::Customer::Operations::Find.new(
           adaptor: adaptor,
           resource: customer
         )
@@ -42,7 +42,7 @@ module QA
       customer.name = "QA UPDATE #{test_run_id}"
 
       result = perform(
-        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Update.new(
+        LedgerSync::Adaptors::NetSuite::Customer::Operations::Update.new(
           adaptor: adaptor,
           resource: customer
         )
@@ -51,13 +51,13 @@ module QA
       customer = result.resource
 
       perform(
-        LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Delete.new(
+        LedgerSync::Adaptors::NetSuite::Customer::Operations::Delete.new(
           adaptor: adaptor,
           resource: customer
         )
       )
 
-      result = LedgerSync::Adaptors::NetSuiteREST::Customer::Operations::Delete.new(
+      result = LedgerSync::Adaptors::NetSuite::Customer::Operations::Delete.new(
         adaptor: adaptor,
         resource: customer
       ).perform
