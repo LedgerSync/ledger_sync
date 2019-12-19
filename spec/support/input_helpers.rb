@@ -5,7 +5,8 @@ module InputHelpers
       ledger_id: nil,
       # attributes
       email: 'test@example.com',
-      name: 'Sample Customer'
+      name: 'Sample Customer',
+      subsidiary: LedgerSync::Subsidiary.new(subsidiary_resource)
     }.merge(merge)
   end
 

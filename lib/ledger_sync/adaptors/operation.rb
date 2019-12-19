@@ -3,12 +3,16 @@
 module LedgerSync
   module Adaptors
     module Operation
-      TYPES = %i[create find update].freeze
+      TYPES = %i[create delete find update].freeze
 
       module Mixin
         module ClassMethods
           def adaptor_klass
             @adaptor_klass ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Adaptor")
+          end
+
+          def operations_module
+            @operations_module ||= Object.const_get(name.split('::Operations::').first + '::Operations')
           end
 
           def resource_klass
@@ -25,7 +29,6 @@ module LedgerSync
         def self.included(base)
           base.include SimplySerializable::Mixin
           base.include Fingerprintable::Mixin
-          # base.include Validatable
           base.extend ClassMethods
 
           base.class_eval do
@@ -181,11 +184,6 @@ module LedgerSync
         TYPES.each do |type|
           define_method "#{type.to_s.downcase}?" do
             false
-          end
-
-          define_method "convert_to_#{type.to_s.downcase}" do
-            update_klass_name = self.class.name.split('::')[0..-2].append(LedgerSync::Util::StringHelpers.camelcase(type.to_s)).join('::')
-            Object.const_get(update_klass_name).new(adaptor: adaptor, resource: resource)
           end
         end
 

@@ -32,7 +32,7 @@ module LedgerSync
         end
 
         if attribute.resource_attribute.present?
-          raise "resource_attribute already defined for #{serializer_class.name}: #{attribute.resource_attribute}" if resource_attribute_keyed_hash.key?(attribute.resource_attribute.to_s)
+          # raise "resource_attribute already defined for #{serializer_class.name}: #{attribute.resource_attribute}" if resource_attribute_keyed_hash.key?(attribute.resource_attribute.to_s)
 
           resource_attribute_keyed_hash[attribute.resource_attribute.to_s] = attribute
         end

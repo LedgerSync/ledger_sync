@@ -28,6 +28,7 @@ Gem.find_files('ledger_sync/error/**/*.rb').each { |path| require path }
 
 # Support Classes
 require 'ledger_sync/util/debug'
+require 'ledger_sync/util/signer'
 require 'ledger_sync/util/hash_helpers'
 require 'ledger_sync/util/resources_builder'
 require 'ledger_sync/adaptor_configuration'
@@ -38,6 +39,8 @@ require 'ledger_sync/util/string_helpers'
 require 'ledger_sync/result'
 require 'ledger_sync/adaptors/operation'
 require 'ledger_sync/adaptors/contract'
+require 'ledger_sync/adaptors/response'
+require 'ledger_sync/adaptors/request'
 
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class
