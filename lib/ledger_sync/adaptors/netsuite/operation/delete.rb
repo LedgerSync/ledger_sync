@@ -6,22 +6,15 @@ module LedgerSync
   module Adaptors
     module NetSuite
       module Operation
-        class Find
+        class Delete
           include NetSuite::Operation::Mixin
 
           private
 
-          def find_in_ledger
+          def delete
             case response.status
-            when 200
+            when 200..299
               LedgerSync::Result.Success(response)
-            when 404
-              failure(
-                Error::OperationError::NotFoundError.new(
-                  operation: self,
-                  response: response
-                )
-              )
             else
               failure(
                 Error::OperationError.new(
@@ -33,19 +26,19 @@ module LedgerSync
           end
 
           def operate
-            find_in_ledger
+            delete
               .and_then { success }
           end
 
           def response
-            @response ||= adaptor.get(
+            @response ||= adaptor.delete(
               path: ledger_serializer.class.api_resource_path(resource: resource)
             )
           end
 
           def success
             super(
-              resource: ledger_deserializer.deserialize(hash: response.body),
+              resource: resource,
               response: response
             )
           end

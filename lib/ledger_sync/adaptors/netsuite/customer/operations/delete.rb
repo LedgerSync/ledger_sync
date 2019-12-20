@@ -5,15 +5,15 @@ module LedgerSync
     module NetSuite
       module Customer
         module Operations
-          class Create < NetSuite::Operation::Create
+          class Delete < NetSuite::Operation::Delete
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:external_id).maybe(:string)
-                required(:ledger_id).value(:nil)
+                required(:ledger_id).filled(:string)
                 required(:email).maybe(:string)
-                required(:name).filled(:string)
+                required(:name).maybe(:string)
                 required(:phone_number).maybe(:string)
-                required(:subsidiary).filled(:hash, Types::Reference)
+                required(:subsidiary).maybe(:hash, Types::Reference)
               end
             end
           end

@@ -43,7 +43,7 @@ unless File.file?(config_path)
       'token_id' => 'REQUIRED',
       'token_secret' => 'REQUIRED'
     },
-    'netsuite_rest' => {
+    'netsuite' => {
       'account_id' => 'REQUIRED',
       'consumer_key' => 'REQUIRED',
       'consumer_secret' => 'REQUIRED',
@@ -75,7 +75,7 @@ config = YAML.safe_load(File.read(config_path))
   QA::NetSuiteTest,
   QA::QuickBooksOnlineTest,
   QA::StripeTest,
-  QA::NetSuiteRESTTest
+  QA::NetSuiteTest
 ]
 
 @test_suite_ids = @test_suites.count.times.map(&:to_s)

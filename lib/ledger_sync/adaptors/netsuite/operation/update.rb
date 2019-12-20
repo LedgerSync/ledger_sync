@@ -6,12 +6,12 @@ module LedgerSync
   module Adaptors
     module NetSuite
       module Operation
-        class Create
+        class Update
           include NetSuite::Operation::Mixin
 
           private
 
-          def create_in_ledger
+          def update_in_ledger
             case response.status
             when 200..299
               LedgerSync::Result.Success(response)
@@ -39,7 +39,7 @@ module LedgerSync
           end
 
           def operate
-            create_in_ledger
+            update_in_ledger
               .and_then { success }
           end
 
@@ -47,9 +47,9 @@ module LedgerSync
             ledger_hash = ledger_serializer.to_ledger_hash
             ledger_hash.delete('entityId')
 
-            @response ||= adaptor.post(
+            @response ||= adaptor.patch(
               body: ledger_hash,
-              path: ledger_serializer.class.api_resource_path
+              path: ledger_serializer.class.api_resource_path(resource: resource)
             )
           end
 
