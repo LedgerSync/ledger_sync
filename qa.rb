@@ -43,7 +43,7 @@ unless File.file?(config_path)
       'token_id' => 'REQUIRED',
       'token_secret' => 'REQUIRED'
     },
-    'netsuite' => {
+    'netsuite_soap' => {
       'account_id' => 'REQUIRED',
       'consumer_key' => 'REQUIRED',
       'consumer_secret' => 'REQUIRED',
@@ -72,7 +72,7 @@ config = YAML.safe_load(File.read(config_path))
 ### START: Run Tests
 
 @test_suites = [
-  QA::NetSuiteTest,
+  QA::NetSuiteSOAPTest,
   QA::QuickBooksOnlineTest,
   QA::StripeTest,
   QA::NetSuiteTest
@@ -116,7 +116,7 @@ else
     chosen_suite_id = STDIN.gets.chomp
     break unless valid_suite_id?(chosen_suite_id)
 
-    config = run_suite_by_id(chosen_suite_id)
+    config = run_suite_by_id(config: config, id: chosen_suite_id)
   end
 end
 
