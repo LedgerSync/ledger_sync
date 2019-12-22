@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InputHelpers
   def customer_resource(**merge)
     {
@@ -57,7 +59,7 @@ module InputHelpers
       account: nil,
       entity: nil,
       line_items: [],
-      #attributes
+      # attributes
       reference_number: 'Ref123',
       currency: 'USD',
       memo: 'Memo',
@@ -86,7 +88,7 @@ module InputHelpers
       # relationships
       from_account: nil,
       to_account: nil,
-      #attributes
+      # attributes
       amount: 12_345,
       currency: 'USD',
       memo: 'Memo',
@@ -101,7 +103,7 @@ module InputHelpers
       # relationships
       account: nil,
       line_items: [],
-      #attributes
+      # attributes
       currency: 'USD',
       memo: 'Memo',
       exchange_rate: 1.0,
@@ -129,7 +131,7 @@ module InputHelpers
       account: nil,
       vendor: nil,
       line_items: [],
-      #attributes
+      # attributes
       reference_number: 'Ref123',
       currency: 'USD',
       memo: 'Memo',
@@ -156,7 +158,7 @@ module InputHelpers
       ledger_id: nil,
       # relationships
       line_items: [],
-      #attributes
+      # attributes
       reference_number: 'Ref123',
       currency: 'USD',
       memo: 'Memo',

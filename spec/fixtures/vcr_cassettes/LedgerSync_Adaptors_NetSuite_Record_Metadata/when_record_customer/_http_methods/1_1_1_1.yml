@@ -1,0 +1,165 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/metadata-catalog/record?select=customer
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/swagger+json
+      Authorization:
+      - OAuth realm="5743578_SB1",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="1577033558",oauth_nonce="lbs4PHqJ6pQN1SBdXPvt",oauth_version="1.0",oauth_signature="klVfG516hV2RFspHnU%2BeM6NM1eSAy7WfjxwbxAdgy88%3D"
+      Host:
+      - netsuite_account_id.suitetalk.api.netsuite.com
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 22 Dec 2019 16:52:38 GMT
+      X-N-Operationid:
+      - 24304f8c-f999-4df5-a2e5-c7d637b68c37
+      Ns-Rtimer-Composite:
+      - 59409844:706172746E6572733031322E70726F642E7376616C652E6E65746C65646765722E636F6D:80
+      Strict-Transport-Security:
+      - max-age=31536000
+      Pragma:
+      - No-Cache
+      Cache-Control:
+      - No-Cache
+      Expires:
+      - '0'
+      Edge-Control:
+      - no-store
+      X-Netsuite-Jobid:
+      - 81cd62ae-ac0c-4375-b2c0-46fa3b8aeb15
+      Content-Type:
+      - application/swagger+json; charset=UTF-8
+      Content-Length:
+      - '29505'
+      Set-Cookie:
+      - NS_ROUTING_VERSION=LAGGING; path=/
+      P3p:
+      - CP="CAO PSAa OUR BUS PUR"
+      Vary:
+      - User-Agent
+    body:
+      encoding: UTF-8
+      string: '{"openapi":"3.0.1","info":{"title":"NetSuite REST API (Beta)","description":"NetSuite
+        REST API (Beta) generated 2019-12-22 at 16:52:40 UTC for account 5743578_SB1,
+        user ryanwjackson@gmail.com with role LedgerSync.","termsOfService":"http://www.netsuite.com/portal/resource/terms-of-service.shtml","contact":{"name":"Oracle
+        NetSuite","url":"http://www.netsuite.com","email":"info@netsuite.com"},"version":"v1"},"servers":[{"url":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record"}],"security":[{"OAuth
+        1.0 authorization":[]}],"paths":{"/customer":{"get":{"tags":["customer"],"summary":"Get
+        list of records","parameters":[{"name":"q","in":"query","description":"Search
+        query used to filter results","required":false,"schema":{"type":"string"}}],"responses":{"200":{"description":"Get
+        record","content":{"application/vnd.oracle.resource+json; type=collection":{"schema":{"$ref":"#/components/schemas/customerCollection"}}}},"default":{"description":"Error
+        response.","content":{"application/vnd.oracle.resource+json; type=error":{"schema":{"$ref":"#/components/schemas/x-ns-error"}}}}}},"post":{"tags":["customer"],"summary":"Insert
+        record","parameters":[{"name":"replace","in":"query","description":"Names
+        of sublists on this record. All lines on these sublists will be replaced with
+        lines from input. Sublists not specified here will have lines added to record.
+        Names are delimited by comma.","required":false,"schema":{"type":"string"},"examples":{"multiple
+        sublists":{"value":"sublist1,subrecord.sublist2"},"sublist on subrecord":{"value":"subrecord.sublist"},"single
+        sublist":{"value":"sublist"}}},{"name":"X-NetSuite-TreatInputErrorsAsWarnings","in":"header","description":"Treat
+        wrong format of field data in input as warning, not as error.","required":false,"schema":{"type":"boolean","default":false}}],"requestBody":{"description":"Request
+        body","content":{"application/vnd.oracle.resource+json; type=singular":{"schema":{"$ref":"#/components/schemas/customer"}}},"required":true},"responses":{"204":{"description":"Insert
+        record"},"default":{"description":"Error response.","content":{"application/vnd.oracle.resource+json;
+        type=error":{"schema":{"$ref":"#/components/schemas/x-ns-error"}}}}}}},"/customer/{id}":{"get":{"tags":["customer"],"summary":"Get
+        record","parameters":[{"name":"id","in":"path","description":"Internal identifier","required":true,"schema":{"type":"number"}},{"name":"expandSubResources","in":"query","description":"Set
+        to \"true\" if you want to automatically expand all sublists, sublist lines
+        and subrecords on this record. Default value is \"false\"","required":false,"schema":{"type":"boolean","default":false}}],"responses":{"200":{"description":"Get
+        record","content":{"application/vnd.oracle.resource+json; type=singular":{"schema":{"$ref":"#/components/schemas/customer"}}}},"default":{"description":"Error
+        response.","content":{"application/vnd.oracle.resource+json; type=error":{"schema":{"$ref":"#/components/schemas/x-ns-error"}}}}}},"put":{"tags":["customer"],"summary":"Insert
+        or update record","parameters":[{"name":"id","in":"path","description":"externalId","required":true,"schema":{"pattern":"eid:([A-Za-z0-9_\\-]+)","type":"string"}},{"name":"X-NetSuite-TreatInputErrorsAsWarnings","in":"header","description":"Treat
+        wrong format of field data in input as warning, not as error.","required":false,"schema":{"type":"boolean"}},{"name":"replace","in":"query","description":"Names
+        of sublists on this record. All lines on these sublists will be replaced with
+        lines from input. Sublists not specified here will have lines added to record.
+        Names are delimited by comma.","required":false,"schema":{"type":"string"},"examples":{"multiple
+        sublists":{"value":"sublist1,subrecord.sublist2"},"sublist on subrecord":{"value":"subrecord.sublist"},"single
+        sublist":{"value":"sublist"}}}],"requestBody":{"description":"Request body","content":{"application/vnd.oracle.resource+json;
+        type=singular":{"schema":{"$ref":"#/components/schemas/customer"}}},"required":true},"responses":{"204":{"description":"Insert
+        or update record"},"default":{"description":"Error response.","content":{"application/vnd.oracle.resource+json;
+        type=error":{"schema":{"$ref":"#/components/schemas/x-ns-error"}}}}}},"delete":{"tags":["customer"],"summary":"Remove
+        record","parameters":[{"name":"id","in":"path","description":"Internal identifier","required":true,"schema":{"type":"number"}}],"responses":{"204":{"description":"Remove
+        record"},"default":{"description":"Error response.","content":{"application/vnd.oracle.resource+json;
+        type=error":{"schema":{"$ref":"#/components/schemas/x-ns-error"}}}}}},"patch":{"tags":["customer"],"summary":"Update
+        record","parameters":[{"name":"id","in":"path","description":"Internal identifier","required":true,"schema":{"type":"number"}},{"name":"X-NetSuite-TreatInputErrorsAsWarnings","in":"header","description":"Treat
+        wrong format of field data in input as warning, not as error.","required":false,"schema":{"type":"boolean","default":false}},{"name":"replace","in":"query","description":"Names
+        of sublists on this record. All lines on these sublists will be replaced with
+        lines from input. Sublists not specified here will have lines added to record.
+        Names are delimited by comma.","required":false,"schema":{"type":"string"},"examples":{"multiple
+        sublists":{"value":"sublist1,subrecord.sublist2"},"sublist on subrecord":{"value":"subrecord.sublist"},"single
+        sublist":{"value":"sublist"}}}],"requestBody":{"description":"Request body","content":{"application/vnd.oracle.resource+json;
+        type=singular":{"schema":{"$ref":"#/components/schemas/customer"}}},"required":true},"responses":{"204":{"description":"Update
+        record"},"default":{"description":"Error response.","content":{"application/vnd.oracle.resource+json;
+        type=error":{"schema":{"$ref":"#/components/schemas/x-ns-error"}}}}}}}},"components":{"schemas":{"x-ns-generic":{"type":"object","properties":{"id":{"title":"id","type":"string"},"refName":{"title":"refName","type":"string","readOnly":true},"externalId":{"title":"externalId","type":"string"}}},"customer-addressbook-addressbookaddress":{"type":"object","properties":{"zip":{"title":"Zip","type":"string"},"country":{"title":"Country","type":"string","enum":["PR","PS","PT","PW","PY","QA","AD","AE","AF","AG","AI","AL","AM","AN","AO","AQ","AR","AS","RE","AT","AU","AW","AX","AZ","RO","BA","BB","RS","BD","RU","BE","BF","BG","RW","BH","BI","BJ","BL","BM","BN","BO","SA","SB","BQ","SC","BR","SD","BS","SE","BT","SG","BV","SH","BW","SI","SJ","BY","BZ","SK","SL","SM","SN","SO","CA","SR","SS","CC","ST","CD","CF","SV","CG","SX","CH","SY","CI","SZ","CK","CL","CM","CN","CO","TC","CR","CS","TD","TF","CU","TG","CV","CW","TH","CX","TJ","CY","TK","CZ","TL","TM","TN","TO","TR","TT","DE","TV","TW","TZ","DJ","DK","DM","DO","UA","UG","DZ","UM","EA","US","EC","EE","EG","EH","UY","UZ","VA","VC","ER","ES","VE","ET","VG","VI","VN","VU","FI","FJ","FK","FM","FO","FR","WF","GA","GB","WS","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","XK","HK","HM","HN","HR","YE","HT","HU","IC","ID","YT","IE","IL","IM","IN","IO","ZA","IQ","IR","IS","IT","ZM","JE","ZW","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN"]},"addr2":{"title":"Address
+        2","type":"string"},"city":{"title":"City","type":"string"},"addr1":{"title":"Address
+        1","type":"string"},"addr3":{"title":"Address 3","type":"string"},"externalId":{"title":"ExternalId","type":"string"},"addrPhone":{"title":"Phone","type":"string"},"addressee":{"title":"Addressee","type":"string"},"attention":{"title":"Attention","type":"string"},"override":{"title":"Override","type":"boolean"},"state":{"title":"State/Province","type":"string"},"id":{"title":"Internal
+        ID","type":"string"},"addrText":{"title":"Address","type":"string"},"refName":{"title":"refName","type":"string","readOnly":true}},"x-ns-filterable":["zip","country","addr2","city","addr1","addr3","addrPhone","addressee","attention","override","state","addrText"],"x-ns-support-level":"beta"},"customer-currencyListCollection":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"totalResults":{"title":"totalResults","type":"integer","format":"integer","readOnly":true},"count":{"title":"count","type":"integer","format":"integer","readOnly":true},"hasMore":{"title":"hasMore","type":"boolean","readOnly":true},"offset":{"title":"offset","type":"integer","format":"integer","readOnly":true},"items":{"type":"array","items":{"$ref":"#/components/schemas/customer-currencyListElement"}}},"x-ns-support-level":"beta"},"x-ns-link":{"type":"object","properties":{"rel":{"title":"rel","type":"string","readOnly":true},"href":{"title":"href","type":"string","readOnly":true}}},"customer-creditCardsElement":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"internalId":{"title":"ID","type":"number","format":"integer"},"ccExpireDate":{"title":"Expiration
+        Date","type":"string","format":"date"},"customerCode":{"title":"Customer Code","type":"string"},"ccName":{"title":"Cardholder
+        Name","type":"string"},"ccDefault":{"title":"Default Credit Card","type":"boolean"},"ccMemo":{"title":"Memo","type":"string"},"stateFrom":{"title":"State
+        From","type":"string","format":"date-time"},"cardState":{"title":"Card State","type":"string","enum":["1","2","3","4"]},"ccNumber":{"title":"Credit
+        Card Number","type":"string"},"refName":{"title":"refName","type":"string","readOnly":true},"paymentMethod":{"$ref":"#/components/schemas/x-ns-generic"}},"x-ns-filterable":[],"x-ns-support-level":"beta"},"customer-addressbookElement":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"internalId":{"title":"Internal
+        ID","type":"number","format":"integer"},"defaultBilling":{"title":"Default
+        Billing","type":"boolean"},"defaultShipping":{"title":"Default Shipping","type":"boolean"},"isResidential":{"title":"Residential
+        Address","type":"boolean"},"label":{"title":"Label","type":"string"},"id":{"title":"","type":"string"},"addressId":{"title":"[Missing
+        Label:addressId]","type":"string"},"refName":{"title":"refName","type":"string","readOnly":true},"addressbookaddress":{"$ref":"#/components/schemas/customer-addressbook-addressbookaddress"}},"x-ns-filterable":["internalId","defaultBilling","addressbookaddress","defaultShipping","isResidential","label"],"x-ns-support-level":"beta"},"customer-grouppricingCollection":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"totalResults":{"title":"totalResults","type":"integer","format":"integer","readOnly":true},"count":{"title":"count","type":"integer","format":"integer","readOnly":true},"hasMore":{"title":"hasMore","type":"boolean","readOnly":true},"offset":{"title":"offset","type":"integer","format":"integer","readOnly":true},"items":{"type":"array","items":{"$ref":"#/components/schemas/customer-grouppricingElement"}}},"x-ns-support-level":"beta"},"customer-addressbookCollection":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"totalResults":{"title":"totalResults","type":"integer","format":"integer","readOnly":true},"count":{"title":"count","type":"integer","format":"integer","readOnly":true},"hasMore":{"title":"hasMore","type":"boolean","readOnly":true},"offset":{"title":"offset","type":"integer","format":"integer","readOnly":true},"items":{"type":"array","items":{"$ref":"#/components/schemas/customer-addressbookElement"}}},"x-ns-support-level":"beta"},"customer-itempricingElement":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"price":{"title":"Unit
+        Price","type":"number","format":"double"},"refName":{"title":"refName","type":"string","readOnly":true},"currency":{"$ref":"#/components/schemas/x-ns-generic"},"item":{"oneOf":[{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"},{"$ref":"#/components/schemas/x-ns-generic"}]},"level":{"$ref":"#/components/schemas/x-ns-generic"}},"x-ns-filterable":["item","level","price","currency"],"x-ns-support-level":"beta"},"customer-itempricingCollection":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"totalResults":{"title":"totalResults","type":"integer","format":"integer","readOnly":true},"count":{"title":"count","type":"integer","format":"integer","readOnly":true},"hasMore":{"title":"hasMore","type":"boolean","readOnly":true},"offset":{"title":"offset","type":"integer","format":"integer","readOnly":true},"items":{"type":"array","items":{"$ref":"#/components/schemas/customer-itempricingElement"}}},"x-ns-support-level":"beta"},"x-ns-genericCollection":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"totalResults":{"title":"totalResults","type":"integer","format":"integer","readOnly":true},"items":{"type":"array","items":{"$ref":"#/components/schemas/x-ns-generic"}},"count":{"title":"count","type":"integer","format":"integer","readOnly":true},"hasMore":{"title":"hasMore","type":"boolean","readOnly":true},"offset":{"title":"offset","type":"integer","format":"integer","readOnly":true}}},"customer":{"type":"object","properties":{"emailTransactions":{"title":"Email
+        Transactions","type":"boolean"},"startDate":{"title":"Start Date","type":"string","format":"date"},"thirdPartyCountry":{"title":"3rd
+        Party Billing Country","type":"string","enum":["PR","PS","PT","PW","PY","QA","AD","AE","AF","AG","AI","AL","AM","AN","AO","AQ","AR","AS","RE","AT","AU","AW","AX","AZ","RO","BA","BB","RS","BD","RU","BE","BF","BG","RW","BH","BI","BJ","BL","BM","BN","BO","SA","SB","BQ","SC","BR","SD","BS","SE","BT","SG","BV","SH","BW","SI","SJ","BY","BZ","SK","SL","SM","SN","SO","CA","SR","SS","CC","ST","CD","CF","SV","CG","SX","CH","SY","CI","SZ","CK","CL","CM","CN","CO","TC","CR","CS","TD","TF","CU","TG","CV","CW","TH","CX","TJ","CY","TK","CZ","TL","TM","TN","TO","TR","TT","DE","TV","TW","TZ","DJ","DK","DM","DO","UA","UG","DZ","UM","EA","US","EC","EE","EG","EH","UY","UZ","VA","VC","ER","ES","VE","ET","VG","VI","VN","VU","FI","FJ","FK","FM","FO","FR","WF","GA","GB","WS","GD","GE","GF","GG","GH","GI","GL","GM","GN","GP","GQ","GR","GS","GT","GU","GW","GY","XK","HK","HM","HN","HR","YE","HT","HU","IC","ID","YT","IE","IL","IM","IN","IO","ZA","IQ","IR","IS","IT","ZM","JE","ZW","JM","JO","JP","KE","KG","KH","KI","KM","KN","KP","KR","KW","KY","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MF","MG","MH","MK","ML","MM","MN","MO","MP","MQ","MR","MS","MT","MU","MV","MW","MX","MY","MZ","NA","NC","NE","NF","NG","NI","NL","NO","NP","NR","NU","NZ","OM","PA","PE","PF","PG","PH","PK","PL","PM","PN"]},"balance":{"title":"Balance","type":"number","format":"double"},"printOnCheckAs":{"title":"Print
+        on Check As","type":"string"},"id":{"title":"Internal ID","type":"string"},"fax":{"title":"Fax","type":"string"},"custentity_link_lsa":{"title":"LSA
+        Link","type":"string"},"thirdPartyZipCode":{"title":"3rd Party Billing Zip","type":"string"},"taxable":{"title":"Taxable","type":"boolean"},"dateCreated":{"title":"Date
+        Created","type":"string","format":"date-time"},"custentity_esc_last_modified_date":{"title":"Last
+        Modified Date","type":"string","format":"date"},"taxExempt":{"title":"PST
+        Exempt","type":"boolean"},"overduebalance":{"title":"Overdue","type":"number","format":"double"},"lastName":{"title":"Last
+        Name","type":"string"},"alcoholRecipientType":{"title":"Alcohol Recipient
+        Type","type":"string","enum":["CONSUMER","LICENSEE"]},"endDate":{"title":"End
+        Date","type":"string","format":"date"},"phone":{"title":"Phone","type":"string"},"companyName":{"title":"Company
+        Name","type":"string"},"defaultAddress":{"title":"Default Address","type":"string"},"taxFractionUnit":{"title":"Consumption
+        Tax Fraction Unit","type":"string","enum":["2","1","0","-1","-2"]},"openingbalance":{"title":"Opening
+        Balance","type":"number","format":"double"},"creditholdoverride":{"title":"Credit
+        Hold","type":"string","enum":["AUTO","OFF","ON"]},"isPerson":{"title":"Is
+        Individual","type":"boolean"},"email":{"title":" Email","type":"string"},"openingbalancedate":{"title":"Opening
+        Balance Date","type":"string","format":"date"},"depositbalance":{"title":"Deposit
+        Balance","type":"number","format":"double"},"url":{"title":"URL","type":"string"},"customForm":{"title":"Custom
+        Form","type":"string","enum":["-10916","-10915","-10914","-10230","-893","-892","-410","-891","-770","-10110","-10912","10","-10910","11","12","13","14","-10925","15","16","17","18","19","-10120","-10240","2","3","-300","4","-10003","5","-10002","6","7","-780","8","-10007","9","-10006","-10005","-10004","20","21","-10800","-10008","22","23","24","25","26","27","28","29","-10010","-10130","-10250","-790","-10011","-10810","-435","30","-434","31","32","33","34","-10021","-200","-10020","-10140","-201","-10821","-10700","-10820","-1005","-1004","-1007","-1006","-1009","-1008","-211","-10790","-210","-10435","-10434","-1001","-1000","-1003","-1002","-1016","-1015","-1018","-1017","-1019","-101","-221","-100","-102","-10201","-10200","-220","-900","-1010","-1012","-1011","-1014","-1013","-1027","-1026","-916","-10211","-10210","-110","-230","-912","-1021","-914","-1020","-1023","-1022","-1025","-910","-1024","-10102","-240","-10101","-10221","-10100","-10220","-120","-10104","-10103","-800","-22502","-22503","-10","-11","-22504","-10872","-130","-10871","-10750","-250","-10870","-10873","-810","-150","-20","-21","-22","-10882","-140","-10881","-10760","-10880","-10400","-700","-161","-160","-950","-10410","-10893","-10892","-10891","-10770","-834","-10411","-952","-831","-830","-833","-832","-22513","-170","-22514","-40","-22511","-41","-22512","-10780","-840","-10300","-600","-962","-720","-10959","-10958","-50","-51","-52","-10160","-851","-730","-10150","-850","-11003","-10953","-10832","-10952","-10831","-10951","-10830","-10950","-10957","-10956","-852","-10955","-10834","-10954","-10833","-2","-3","-4","-5","-6","-7","-8","-10050","-10170","-860","-10041","-862","-10161","-10040","-861","-740","-10960","-10964","-10600","-867","-10962","-10720","-10961","-10840","-864","-863","-500","-10966","-866","-10965","-865","-10060","-871","-750","-10052","-873","-10051","-872","-10850","-10852","-10851","-10730","-10507","-882","-881","-760","-400","-10861","-10740","-10860","-880","-10865","-10502","-10864","-10501","-10863","-10500","-10862","-10506","-10505","-10867","-10504","-10866","-10503"]},"autoName":{"title":"Auto","type":"boolean"},"shipComplete":{"title":"Ship
+        Complete","type":"boolean"},"custentity_date_lsa":{"title":"Last Sales Activity","type":"string","format":"date"},"thirdPartyCarrier":{"title":"3rd
+        Party Billing Carrier","type":"string","enum":["fedex","ups","usps"]},"externalId":{"title":"External
+        ID","type":"string"},"entityId":{"title":"Entity ID","type":"string"},"language":{"title":"Language","type":"string","enum":["ro_RO","af_ZA","tl_PH","pt_BR","th_TH","bn_BD","cs_CZ","ca_ES","hu_HU","kn_IN","sk_SK","es_ES","nl_NL","is_IS","te_IN","sv_SE","sq_AL","es_AR","da_DK","ta_IN","sr_RS","en","ar","hr_HR","ko_KR","en_US","lt_LT","no_NO","el_GR","it_IT","ru_RU","pl_PL","en_AU","tr_TR","id_ID","hi_IN","mr_IN","fr_FR","he_IL","ja_JP","de_DE","ms_MY","zh_TW","fr_CA","pa_IN","fa_IR","bg_BG","vi_VN","hy_AM","lb_LU","xx_US","sh_RS","ht_HT","fi_FI","en_GB","gu_IN","et_EE","en_CA","lv_LV","uk_UA","bs_BA","zh_CN","sl_SI","pt_PT"]},"emailPreference":{"title":"Email
+        Preference","type":"string","enum":["PDF","HTML","DEFAULT"]},"numberFormat":{"title":"Number
+        Format","type":"string","enum":["0","1","2","3","4","5"]},"isBudgetApproved":{"title":"Budget
+        Approved","type":"boolean"},"mobilePhone":{"title":"Mobile Phone","type":"string"},"unbilledorders":{"title":"Unbilled
+        Orders","type":"number","format":"double"},"altPhone":{"title":"Alt. Phone","type":"string"},"faxTransactions":{"title":"Fax
+        Transactions","type":"boolean"},"resaleNumber":{"title":"Resale Number","type":"string"},"altEmail":{"title":"Alt.
+        Email","type":"string"},"custentity_esc_annual_revenue":{"title":"Annual Revenue","type":"number","format":"double"},"defaultOrderPriority":{"title":"Default
+        Order Priority","type":"number","format":"float"},"taxRounding":{"title":"Tax
+        Rounding","type":"string","enum":["DOWN","UP","OFF"]},"salutation":{"title":"Mr./Ms...","type":"string"},"isinactive":{"title":"Inactive","type":"boolean"},"firstName":{"title":"First
+        Name","type":"string"},"thirdPartyAcct":{"title":"3rd Party Billing Account
+        Number","type":"string"},"homePhone":{"title":"Home Phone","type":"string"},"estimatedBudget":{"title":"Estimated
+        Budget","type":"number","format":"double"},"vatRegNumber":{"title":"VAT Registration
+        Number","type":"string"},"title":{"title":"Job Title","type":"string"},"negativeNumberFormat":{"title":"Negative
+        Number Format","type":"string","enum":["0","1"]},"shippingCarrier":{"title":"Carrier","type":"string","enum":["ups","nonups"]},"accountNumber":{"title":"Account","type":"string"},"comments":{"title":"Comments","type":"string"},"reminderDays":{"title":"Reminder
+        Days","type":"number","format":"integer"},"lastModifiedDate":{"title":"Last
+        Modified Date","type":"string","format":"date-time"},"middleName":{"title":"Middle
+        Name","type":"string"},"printTransactions":{"title":"Print Transactions","type":"boolean"},"custentity_link_name_lsa":{"title":"LSA
+        Link Name","type":"string"},"daysoverdue":{"title":"Days","type":"number","format":"integer"},"monthlyClosing":{"title":"Closing
+        Date","type":"string","enum":["1","25","15","5","20","31","10"]},"custentity_esc_no_of_employees":{"title":"No.
+        of Employees","type":"number","format":"integer"},"creditLimit":{"title":"Credit
+        Limit","type":"number","format":"double"},"refName":{"title":"refName","type":"string","readOnly":true},"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"openingbalanceaccount":{"$ref":"#/components/schemas/x-ns-generic"},"leadSource":{"$ref":"#/components/schemas/x-ns-generic"},"subsidiary":{"$ref":"#/components/schemas/x-ns-generic"},"buyingReason":{"$ref":"#/components/schemas/x-ns-generic"},"contact":{"$ref":"#/components/schemas/x-ns-generic"},"creditCards":{"$ref":"#/components/schemas/customer-creditCardsCollection"},"territory":{"$ref":"#/components/schemas/x-ns-generic"},"terms":{"$ref":"#/components/schemas/x-ns-generic"},"itempricing":{"$ref":"#/components/schemas/customer-itempricingCollection"},"buyingTimeFrame":{"$ref":"#/components/schemas/x-ns-generic"},"taxItem":{"$ref":"#/components/schemas/x-ns-generic"},"entityStatus":{"$ref":"#/components/schemas/x-ns-generic"},"currencyList":{"$ref":"#/components/schemas/customer-currencyListCollection"},"custentity_esc_industry":{"$ref":"#/components/schemas/x-ns-generic"},"defaultBankAccount":{"$ref":"#/components/schemas/x-ns-generic"},"receivablesaccount":{"$ref":"#/components/schemas/x-ns-generic"},"salesReadiness":{"$ref":"#/components/schemas/x-ns-generic"},"currency":{"$ref":"#/components/schemas/x-ns-generic"},"grouppricing":{"$ref":"#/components/schemas/customer-grouppricingCollection"},"category":{"$ref":"#/components/schemas/x-ns-generic"},"prefCcProcessor":{"$ref":"#/components/schemas/x-ns-generic"},"parent":{"$ref":"#/components/schemas/customer"},"salesRep":{"$ref":"#/components/schemas/x-ns-generic"},"priceLevel":{"$ref":"#/components/schemas/x-ns-generic"},"image":{"$ref":"#/components/schemas/x-ns-generic"},"custentity_atlas_help_entity_lp_ref":{"$ref":"#/components/schemas/x-ns-generic"},"shippingItem":{"$ref":"#/components/schemas/x-ns-generic"},"addressbook":{"$ref":"#/components/schemas/customer-addressbookCollection"}},"x-ns-filterable":["parent","emailTransactions","startDate","custentity_esc_industry","thirdPartyCountry","terms","creditCards","buyingReason","printOnCheckAs","id","fax","custentity_link_lsa","thirdPartyZipCode","dateCreated","buyingTimeFrame","lastName","alcoholRecipientType","custentity_atlas_help_entity_lp_ref","endDate","addressbook","phone","companyName","salesReadiness","grouppricing","creditholdoverride","receivablesaccount","isPerson","currency","email","salesRep","url","shipComplete","itempricing","custentity_date_lsa","thirdPartyCarrier","shippingItem","externalId","entityId","emailPreference","defaultBankAccount","numberFormat","isBudgetApproved","contact","mobilePhone","priceLevel","altPhone","faxTransactions","resaleNumber","altEmail","custentity_esc_annual_revenue","defaultOrderPriority","leadSource","salutation","isinactive","firstName","thirdPartyAcct","homePhone","estimatedBudget","title","entityStatus","negativeNumberFormat","shippingCarrier","currencyList","accountNumber","comments","reminderDays","lastModifiedDate","middleName","printTransactions","custentity_link_name_lsa","custentity_esc_no_of_employees","creditLimit","category","prefCcProcessor","territory"],"x-ns-support-level":"beta"},"customer-grouppricingElement":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"refName":{"title":"refName","type":"string","readOnly":true},"group":{"$ref":"#/components/schemas/x-ns-generic"},"level":{"$ref":"#/components/schemas/x-ns-generic"}},"x-ns-filterable":["level","group"],"x-ns-support-level":"beta"},"customerCollection":{"type":"object","properties":{"totalResults":{"title":"totalResults","type":"integer","format":"integer","readOnly":true},"items":{"title":"items","type":"array","description":"items","items":{"$ref":"#/components/schemas/customer"}},"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"count":{"title":"count","type":"integer","format":"integer","readOnly":true},"hasMore":{"title":"hasMore","type":"boolean","readOnly":true},"offset":{"title":"offset","type":"integer","format":"integer","readOnly":true}}},"customer-currencyListElement":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"overrideCurrencyFormat":{"title":"Override
+        Currency Format","type":"boolean"},"balance":{"title":"Balance","type":"number","format":"double"},"depositBalance":{"title":"Deposit
+        Balance","type":"number","format":"double"},"unbilledOrders":{"title":"Unbilled
+        Orders","type":"number","format":"double"},"symbolPlacement":{"title":"Symbol
+        Placement","type":"string","enum":["1","2"]},"overdueBalance":{"title":"Overdue
+        Balance","type":"number","format":"double"},"displaySymbol":{"title":"Symbol","type":"string"},"refName":{"title":"refName","type":"string","readOnly":true},"currency":{"$ref":"#/components/schemas/x-ns-generic"}},"x-ns-filterable":["overrideCurrencyFormat","balance","depositBalance","currency","unbilledOrders","overdueBalance"],"x-ns-support-level":"beta"},"x-ns-error":{"type":"object","properties":{"type":{"title":"type","type":"string","readOnly":true},"title":{"title":"title","type":"string","readOnly":true},"status":{"title":"status","type":"integer","readOnly":true},"o:errorCode":{"title":"o:errorCode","type":"string","readOnly":true},"detail":{"title":"detail","type":"string","readOnly":true}}},"customer-creditCardsCollection":{"type":"object","properties":{"links":{"title":"links","type":"array","readOnly":true,"items":{"$ref":"#/components/schemas/x-ns-link"}},"totalResults":{"title":"totalResults","type":"integer","format":"integer","readOnly":true},"count":{"title":"count","type":"integer","format":"integer","readOnly":true},"hasMore":{"title":"hasMore","type":"boolean","readOnly":true},"offset":{"title":"offset","type":"integer","format":"integer","readOnly":true},"items":{"type":"array","items":{"$ref":"#/components/schemas/customer-creditCardsElement"}}},"x-ns-support-level":"beta"}},"securitySchemes":{"OAuth
+        1.0 authorization":{"type":"apiKey","description":"OAuth 1.0 - https://tools.ietf.org/html/rfc5849","name":"authorization","in":"header"}}}}
+
+        '
+    http_version: 
+  recorded_at: Sun, 22 Dec 2019 16:52:41 GMT
+recorded_with: VCR 5.0.0
