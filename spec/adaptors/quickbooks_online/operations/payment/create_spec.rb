@@ -14,8 +14,20 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Payment::Operations::Crea
     LedgerSync::Customer.new(customer_resource(ledger_id: '123'))
   end
 
+  let(:invoice) do
+    LedgerSync::Invoice.new({ledger_id: '123'})
+  end
+
+  let(:txn) do
+    LedgerSync::Txn.new(linked_txn_resource({entity: invoice}))
+  end
+
+  let(:line_item) do
+    LedgerSync::PaymentLineItem.new(payment_line_item_resource({amount: 100, linked_txns: [txn]}))
+  end
+
   let(:resource) do
-    LedgerSync::Payment.new(payment_resource(customer: customer))
+    LedgerSync::Payment.new(payment_resource(customer: customer, line_items: [line_item]))
   end
 
   let(:adaptor) { quickbooks_online_adaptor }

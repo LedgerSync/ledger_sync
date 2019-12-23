@@ -58,6 +58,19 @@ module InputHelpers
     }.merge(merge)
   end
 
+  def payment_line_item_resource(**merge)
+    {
+      amount: 0,
+      linked_txns: []
+    }.merge(merge)
+  end
+
+  def linked_txn_resource(**merge)
+    {
+      entity: nil
+    }.merge(merge)
+  end
+
   def expense_resource(**merge)
     {
       external_id: nil,

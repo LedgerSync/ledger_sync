@@ -136,7 +136,7 @@ module QuickBooksOnlineHelpers
   def stub_create_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')
       .with(
-        body: '{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"USD"},"CustomerRef":{"value":"123"}}',
+        body: '{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"USD"},"CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":null},"ARAccountRef":{"value":null},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}]}',
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -147,7 +147,7 @@ module QuickBooksOnlineHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Sample Customer"},"DepositToAccountRef":{"value":"4"},"TotalAmt":123.45,"UnappliedAmt":123.45,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:54:17-07:00","LastUpdatedTime":"2019-07-11T13:54:17-07:00"},"TxnDate":"2019-07-11","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[]}}',
+        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"PaymentMethodRef":{"value":"29"},"PaymentRefNum":"123","TotalAmt":100.00,"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"},"TxnDate":"2019-12-03","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[{"Amount":100.00,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}],"LineEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnId","Value":"123"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnOpenBalance","Value":"100.00"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnReferenceNumber","Value":"1038"},"nil":false,"globalScope":true,"typeSubstituted":false}]}}]},"time":"2019-12-23T06:51:43.325-08:00"}',
         headers: {}
       )
   end
@@ -165,7 +165,7 @@ module QuickBooksOnlineHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Sample Customer"},"DepositToAccountRef":{"value":"4"},"TotalAmt":123.45,"UnappliedAmt":123.45,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:54:17-07:00","LastUpdatedTime":"2019-07-11T13:54:17-07:00"},"TxnDate":"2019-07-11","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[]}}',
+        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"PaymentMethodRef":{"value":"29"},"PaymentRefNum":"123","TotalAmt":100.00,"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"},"TxnDate":"2019-12-03","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[{"Amount":100.00,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}],"LineEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnId","Value":"123"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnOpenBalance","Value":"100.00"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnReferenceNumber","Value":"1038"},"nil":false,"globalScope":true,"typeSubstituted":false}]}}]},"time":"2019-12-23T06:51:43.325-08:00"}',
         headers: {}
       )
   end
@@ -184,7 +184,7 @@ module QuickBooksOnlineHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Sample Customer"},"DepositToAccountRef":{"value":"4"},"TotalAmt":123.45,"UnappliedAmt":123.45,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-07-11T13:54:17-07:00","LastUpdatedTime":"2019-07-11T13:54:17-07:00"},"TxnDate":"2019-07-11","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[]}}',
+        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"PaymentMethodRef":{"value":"29"},"PaymentRefNum":"123","TotalAmt":100.00,"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"},"TxnDate":"2019-12-03","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[{"Amount":100.00,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}],"LineEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnId","Value":"123"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnOpenBalance","Value":"100.00"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnReferenceNumber","Value":"1038"},"nil":false,"globalScope":true,"typeSubstituted":false}]}}]},"time":"2019-12-23T06:51:43.325-08:00"}',
         headers: {}
       )
   end
