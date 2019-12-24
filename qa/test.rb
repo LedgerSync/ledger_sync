@@ -14,6 +14,13 @@ module QA
     def cleanup
     end
 
+    def existing_netsuite_subsidiary
+      LedgerSync::Subsidiary.new(
+        ledger_id: 2,
+        name: "QA Customer #{test_run_id}"
+      )
+    end
+
     def perform(op)
       if op.valid?
         result = op.perform
@@ -44,6 +51,7 @@ module QA
     def new_vendor(**args)
       LedgerSync::Vendor.new(
         {
+          company_name: "#{test_run_id} Company",
           email: "test-#{test_run_id}-vendor@example.com",
           first_name: "TestFirst#{test_run_id}",
           last_name: "TestLast#{test_run_id}",

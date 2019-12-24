@@ -2,21 +2,21 @@
 
 module LedgerSync
   module Adaptors
-    module QuickBooksOnline
+    module NetSuite
       module Vendor
         module Operations
-          class Find < Operation::Find
+          class Create < NetSuite::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:external_id).maybe(:string)
-                required(:ledger_id).filled(:string)
-                required(:display_name).maybe(:string)
-                required(:first_name).maybe(:string)
-                required(:last_name).maybe(:string)
+                required(:ledger_id).value(:nil)
+                required(:company_name).filled(:string)
+                required(:display_name).filled(:string)
+                optional(:first_name).maybe(:string)
+                optional(:last_name).maybe(:string)
                 optional(:email).maybe(:string)
-                optional(:company_name).maybe(:string)
                 optional(:phone_number).maybe(:string)
-                optional(:subsidiary).maybe(:hash, Types::Reference)
+                required(:subsidiary).filled(:hash, Types::Reference)
               end
             end
           end

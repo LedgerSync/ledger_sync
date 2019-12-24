@@ -20,6 +20,10 @@ module LedgerSync
 
           @api_resource_type ||= val
         end
+
+        def self.id(**keywords)
+          super({ ledger_attribute: 'id', resource_attribute: :ledger_id }.merge(keywords))
+        end
       end
     end
   end
