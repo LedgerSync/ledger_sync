@@ -263,7 +263,7 @@ The serialization of any object follows the same structure.  There is a `:root` 
 }
 ```
 
-## Testing
+## Test Adaptor
 
 LedgerSync offers a test adaptor `LedgerSync::Adaptors::Test::Adaptor` that you can easily use and stub without requiring API requests.  For example:
 
@@ -285,11 +285,53 @@ expect { operation.perform }.to raise_error(PerformedOperationError)
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org)
 
-Run `bundle console` to start and interactive console with the library already loaded.
+### Testing
+
+Run `bundle exec rspec` to run all unit, feature, and integration tests.  Unlike QA Tests, all external HTTP requests and responses are stubbed.
+
+### QA Testing
+
+**BE SURE TO USE A TEST ENVIRONMENT ON YOUR LEDGER.**
+
+To fully test the library against the actual ledgers, you can run `bin/qa` which will run all tests in the `qa/` directory.  QA Tests are written in RSpec.  Unlike tests in the `spec/` directory, QA tests allow external HTTP requests.
+
+As these interact with real ledgers, you will need to provide secrets.  You can do so in a `.env` file in the root directory:
+
+```env
+NETSUITE_ACCOUNT_ID=
+NETSUITE_CONSUMER_KEY=
+NETSUITE_CONSUMER_SECRET=
+NETSUITE_TOKEN_ID=
+NETSUITE_TOKEN_SECRET=
+
+NETSUITE_SOAP_ACCOUNT_ID=
+NETSUITE_SOAP_API_VERSION=
+NETSUITE_SOAP_APPLICATION_ID=
+NETSUITE_SOAP_CONSUMER_KEY=
+NETSUITE_SOAP_CONSUMER_SECRET=
+NETSUITE_SOAP_TOKEN_ID=
+NETSUITE_SOAP_TOKEN_SECRET=
+
+QUICKBOOKS_ONLINE_ACCESS_TOKEN=
+QUICKBOOKS_ONLINE_CLIENT_ID=
+QUICKBOOKS_ONLINE_CLIENT_SECRET=
+QUICKBOOKS_ONLINE_REALM_ID=
+QUICKBOOKS_ONLINE_REFRESH_TOKEN=
+```
+
+**WARNINGS:**
+
+- **BE SURE TO USE A TEST ENVIRONMENT ON YOUR LEDGER.**
+- **NEVER CHECK IN YOUR SECRETS (e.g. the `.env` file).**
+- Because these tests actually create and modify resources, they attempt to do "cleanup" by deleting any newly created resources.  This process could fail, and you may need to delete these resources manually.
+
+### Console
+
+Run `bundle console` to start and interactive console with the library already loaded. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 ## Deployment
 

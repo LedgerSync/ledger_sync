@@ -30,10 +30,12 @@ module LedgerSync
 
     def assign_attribute(name, value)
       public_send("#{name}=", value)
+      self
     end
 
     def assign_attributes(**keywords)
       keywords.each { |k, v| assign_attribute(k, v) }
+      self
     end
 
     def changed?

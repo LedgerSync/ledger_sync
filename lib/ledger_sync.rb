@@ -27,6 +27,7 @@ require 'ledger_sync/error'
 Gem.find_files('ledger_sync/error/**/*.rb').each { |path| require path }
 
 # Support Classes
+require 'ledger_sync/util/resonad'
 require 'ledger_sync/util/debug'
 require 'ledger_sync/util/signer'
 require 'ledger_sync/util/hash_helpers'
