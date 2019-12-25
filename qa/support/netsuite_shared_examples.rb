@@ -11,9 +11,8 @@ RSpec.shared_examples 'a netsuite create' do
 
     delete_result_for(
       adaptor: adaptor,
-      raise_if_error: true,
       resource: result.resource
-    )
+    ).raise_if_error
   end
 end
 
@@ -21,9 +20,8 @@ RSpec.shared_examples 'a netsuite delete' do
   it do
     result = create_result_for(
       adaptor: adaptor,
-      raise_if_error: true,
       resource: resource
-    )
+    ).raise_if_error
 
     resource = result.resource
 
@@ -48,9 +46,8 @@ RSpec.shared_examples 'a netsuite find' do
   it do
     result = create_result_for(
       adaptor: adaptor,
-      raise_if_error: true,
       resource: resource
-    )
+    ).raise_if_error
     expect(result).to be_success
     resource = result.resource
 
@@ -61,13 +58,12 @@ RSpec.shared_examples 'a netsuite find' do
       )
 
       expect(result).to be_success
-      ensure
-        # Be sure to delete resource or raise an exception if this fails
-        delete_result_for(
-          adaptor: adaptor,
-          raise_if_error: true,
-          resource: resource
-        )
+    ensure
+      # Be sure to delete resource or raise an exception if this fails
+      delete_result_for(
+        adaptor: adaptor,
+        resource: resource
+      ).raise_if_error
     end
   end
 end
@@ -76,9 +72,8 @@ RSpec.shared_examples 'a netsuite update' do
   it do
     result = create_result_for(
       adaptor: adaptor,
-      raise_if_error: true,
       resource: resource
-    )
+    ).raise_if_error
 
     expect(result).to be_success
     resource = result.resource
@@ -105,11 +100,10 @@ RSpec.shared_examples 'a netsuite update' do
 
       result = find_result_for(
         adaptor: adaptor,
-        raise_if_error: true,
         resource: resource.class.new(
           ledger_id: resource.ledger_id
         )
-      )
+      ).raise_if_error
 
       expect(result).to be_success
       resource = result.resource
@@ -121,9 +115,8 @@ RSpec.shared_examples 'a netsuite update' do
     ensure
       delete_result_for(
         adaptor: adaptor,
-        raise_if_error: true,
         resource: resource
-      )
+      ).raise_if_error
     end
   end
 end

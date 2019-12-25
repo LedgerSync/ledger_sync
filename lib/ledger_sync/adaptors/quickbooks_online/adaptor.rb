@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'oauth2'
-
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -89,9 +87,9 @@ module LedgerSync
           JSON.parse(response.body).dig('QueryResponse', resource.classify) || []
         end
 
-        def refresh!
+        def refresh!(update_dotenv_secrets: false)
           set_credentials_from_oauth_token(token: oauth.refresh!)
-
+          update_secrets_in_dotenv if update_dotenv_secrets
           self
         rescue OAuth2::Error => e
           raise parse_error(error: e)
@@ -117,6 +115,39 @@ module LedgerSync
           set_credentials_from_oauth_token(token: oauth_token)
 
           oauth_token
+        end
+
+        def update_secrets_in_dotenv
+          pdb 'update secrets'
+          filename = File.join(LedgerSync.root, '.env')
+          prefix = 'QUICKBOOKS_ONLINE_'
+
+          Tempfile.open(".#{File.basename(filename)}", File.dirname(filename)) do |tempfile|
+            File.open(filename).each do |line|
+              env_key = line.split('=').first
+              adaptor_method = env_key.split(prefix).last.downcase
+
+              if line =~ /\A#{prefix}/ && respond_to?(adaptor_method)
+                env_value = ENV[env_key]
+                new_value = send(adaptor_method)
+                tempfile.puts "#{env_key}=#{new_value}"
+                next if env_value == new_value
+
+                pdb env_key
+                pdb env_value
+                pdb new_value
+
+                ENV[env_key] = new_value
+                tempfile.puts "# #{env_key}=#{env_value} # Updated on #{Time.now}"
+              else
+                tempfile.puts line
+              end
+            end
+            tempfile.close
+            FileUtils.mv tempfile.path, filename
+          end
+
+          Dotenv.load
         end
 
         def url_for(resource:)
@@ -147,6 +178,18 @@ module LedgerSync
 
         def self.ledger_attributes_to_save
           %i[access_token expires_at refresh_token refresh_token_expires_at]
+        end
+
+        def self.new_from_env(**override)
+          new(
+            {
+              access_token: ENV.fetch('QUICKBOOKS_ONLINE_ACCESS_TOKEN'),
+              client_id: ENV.fetch('QUICKBOOKS_ONLINE_CLIENT_ID'),
+              client_secret: ENV.fetch('QUICKBOOKS_ONLINE_CLIENT_SECRET'),
+              realm_id: ENV.fetch('QUICKBOOKS_ONLINE_REALM_ID'),
+              refresh_token: ENV.fetch('QUICKBOOKS_ONLINE_REFRESH_TOKEN')
+            }.merge(override)
+          )
         end
 
         private

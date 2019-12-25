@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('activemodel', '>= 0')
   spec.add_runtime_dependency('colorize', '>= 0')
   spec.add_runtime_dependency('coveralls')
+  spec.add_runtime_dependency('dotenv')
   spec.add_runtime_dependency('dry-schema')
   spec.add_runtime_dependency('dry-validation')
   spec.add_runtime_dependency('faraday', '>= 0')

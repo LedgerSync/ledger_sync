@@ -12,6 +12,12 @@ require 'simply_serializable'
 require 'active_model'
 require 'stripe'
 require 'netsuite'
+require 'oauth2'
+require 'tempfile'
+
+# Dotenv
+require 'dotenv'
+Dotenv.load
 
 # Version
 require 'ledger_sync/version'

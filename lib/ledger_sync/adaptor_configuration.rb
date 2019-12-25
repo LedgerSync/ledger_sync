@@ -48,6 +48,12 @@ module LedgerSync
       adaptor_klass.new(*args)
     end
 
+    # Delegate #new_from_env to the adaptor class enabling faster adaptor initialization
+    # e.g. LedgerSync.adaptors.test.new_from_env(...)
+    def new_from_env(*args)
+      adaptor_klass.new_from_env(*args)
+    end
+
     def test?
       test == true
     end

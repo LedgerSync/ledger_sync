@@ -32,7 +32,8 @@ def test_run_id
   @test_run_id ||= (0...8).map { rand(65..90).chr }.join
 end
 
-support :netsuite_helpers
+support :netsuite_helpers,
+        :quickbooks_online_helpers
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -44,6 +45,4 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
-
-  config.include NetSuiteHelpers, adaptor: :netsuite
 end
