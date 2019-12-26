@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
+# Set an environment variable to determine when we are running QA tests.
+ENV['TEST_ENV'] = 'true'
+
 require 'bundler/setup'
 require 'ap'
 require 'byebug'
 require 'ledger_sync'
-
-# Use ENV for adaptor secrets
-require 'dotenv'
-Dotenv.load
 
 #
 # Helper method for requiring support files

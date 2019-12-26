@@ -134,4 +134,19 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
 
     it { expect(subject).to eq(%i[access_token expires_at refresh_token refresh_token_expires_at]) }
   end
+
+  describe '.new_from_oauth_client_uri', vcr: true do
+    it do
+      oauth_client = LedgerSync::Adaptors::QuickBooksOnline::OAuthClient.new_from_env
+      adaptor = described_class.new_from_oauth_client_uri(
+        oauth_client: oauth_client,
+        uri: 'http://localhost:3000/?code=THIS_IS_THE_OAUTH_CODE&state=1f14489339926f9ac94cb860&realmId=1234567890'
+      )
+
+      expect(adaptor.access_token).to be_present
+      expect(adaptor.client_id).to eq(oauth_client.client_id)
+      expect(adaptor.realm_id).to be_present
+      expect(adaptor.refresh_token).to be_present
+    end
+  end
 end

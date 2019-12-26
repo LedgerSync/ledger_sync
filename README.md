@@ -147,6 +147,43 @@ When they release the REST API: https://docs.oracle.com/cloud/latest/netsuitecs_
 
 ## QuickBooks Online
 
+### OAuth
+
+QuickBooks Online utilizes OAuth 2.0, which requires frequent refreshing of the access token.  The adaptor will handle this automatically, attempting a single token refresh on any single request authentication failure.  Depending on how you use the library, every adaptor has implements a class method `ledger_attributes_to_save`, which is an array of attributes that may change as the adaptor is used.  You can also call the instance method `ledger_attributes_to_save` which will be a hash of these values.  It is a good practice to always store these attributes if you are saving access tokens in your database.
+
+The adaptor also implements some helper methods for getting tokens.  For example, you can set up an adaptor using the following:
+
+```ruby
+# Retrieve the following values from Intuit app settings
+client_id     = 'ID'
+client_secret = 'SECRET'
+redirect_uri  = 'http://localhost:3000'
+
+oauth_client = LedgerSync::Adaptors::QuickBooksOnline::OAuthClientHelper.new(
+  client_id: client_id,
+  client_secret: client_secret
+)
+
+puts oauth_client.authorization_url(redirect_uri: redirect_uri)
+
+# Visit on the output URL and authorize a company.
+# You will be redirected back to the redirect_uri.
+# Copy the full url from your browser:
+
+uri = 'https://localhost:3000/?code=FOO&state=BAR&realm_id=BAZ'
+
+adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new_from_oauth_client_uri(
+  oauth_client: oauth_client,
+  uri: uri
+)
+
+# You can test that the auth works:
+
+adaptor.refresh!
+```
+
+**Note: If you have a `.env` file storing your secrets, the adaptor will automatically update the variables and record previous values whenever values change**
+
 ### Webhooks
 
 Reference: https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks/managing-webhooks-notifications#validating-the-notification
