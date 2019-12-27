@@ -24,6 +24,13 @@ module LedgerSync
           base_url + resource_path
         end
 
+        def wrap_perform
+          ::Stripe.api_key = api_key
+          yield
+        ensure
+          ::Stripe.api_key = nil
+        end
+
         def self.ledger_attributes_to_save
           []
         end

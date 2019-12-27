@@ -37,7 +37,8 @@ end
 spec_support :factory_bot
 
 support :netsuite_helpers,
-        :quickbooks_online_helpers
+        :quickbooks_online_helpers,
+        :stripe_helpers
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
