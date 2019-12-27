@@ -12,6 +12,4 @@ RSpec.describe LedgerSync::Adaptors::Stripe::Customer, adaptor: :stripe do
   end
 
   it_behaves_like 'a full stripe resource'
-  # it_behaves_like 'a create'
-  # it_behaves_like 'a find'
 end

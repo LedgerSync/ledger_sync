@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples 'a create' do
+RSpec.shared_examples 'a create' do |delete: true|
   it do
     result = create_result_for(
       adaptor: adaptor,
@@ -9,10 +9,12 @@ RSpec.shared_examples 'a create' do
 
     expect(result).to be_success
 
-    delete_result_for(
-      adaptor: adaptor,
-      resource: result.resource
-    ).raise_if_error
+    if delete
+      delete_result_for(
+        adaptor: adaptor,
+        resource: result.resource
+      ).raise_if_error
+    end
   end
 end
 
@@ -41,7 +43,7 @@ RSpec.shared_examples 'a delete' do
   end
 end
 
-RSpec.shared_examples 'a find' do
+RSpec.shared_examples 'a find' do |delete: true|
   it do
     result = create_result_for(
       adaptor: adaptor,
@@ -58,16 +60,18 @@ RSpec.shared_examples 'a find' do
 
       expect(result).to be_success
     ensure
-      # Be sure to delete resource or raise an exception if this fails
-      delete_result_for(
-        adaptor: adaptor,
-        resource: resource
-      ).raise_if_error
+      if delete
+        # Be sure to delete resource or raise an exception if this fails
+        delete_result_for(
+          adaptor: adaptor,
+          resource: resource
+        ).raise_if_error
+      end
     end
   end
 end
 
-RSpec.shared_examples 'an update' do
+RSpec.shared_examples 'an update' do |delete: true|
   it do
     result = create_result_for(
       adaptor: adaptor,
@@ -112,10 +116,12 @@ RSpec.shared_examples 'an update' do
         expect(resource.send(k)).to eq(v)
       end
     ensure
-      delete_result_for(
-        adaptor: adaptor,
-        resource: resource
-      ).raise_if_error
+      if delete
+        delete_result_for(
+          adaptor: adaptor,
+          resource: resource
+        ).raise_if_error
+      end
     end
   end
 end

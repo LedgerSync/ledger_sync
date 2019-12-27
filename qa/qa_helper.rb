@@ -37,6 +37,7 @@ end
 spec_support :factory_bot
 
 support :netsuite_helpers,
+        :netsuite_soap_helpers,
         :quickbooks_online_helpers,
         :stripe_helpers
 
