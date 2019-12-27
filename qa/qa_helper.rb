@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Set an environment variable to determine when we are running QA tests.
-ENV['TEST_ENV'] = 'true'
+ENV['QA_ENV'] = 'true'
 
 require 'bundler/setup'
 require 'ap'
@@ -22,14 +22,19 @@ def support(*paths)
 end
 
 #
-# Old method of uniqueness until we implement FactoryBot
-# TODO: Remove when FactoryBot is implemented.
+# Helper method for requiring support files from /spec/support dir
 #
-# @return [String]
+# @param [String] *paths List of strings or symbols
 #
-def test_run_id
-  @test_run_id ||= (0...8).map { rand(65..90).chr }.join
+# @return [Boolean]
+#
+def spec_support(*paths)
+  paths.each do |path|
+    require File.join(LedgerSync.root, 'spec/support/', path.to_s)
+  end
 end
+
+spec_support :factory_bot
 
 support :netsuite_helpers,
         :quickbooks_online_helpers

@@ -7,8 +7,8 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account, adaptor: :quickb
       name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :customer }
-  let(:resource) { Resources.account }
+  let(:record) { :account }
+  let(:resource) { FactoryBot.create(:account) }
 
   it_behaves_like 'a standard quickbooks_online resource'
 end

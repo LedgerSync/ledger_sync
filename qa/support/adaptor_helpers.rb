@@ -12,6 +12,10 @@ module AdaptorHelpers
     )
   end
 
+  def create_resource_for(*args)
+    create_result_for(*args).raise_if_error.resource
+  end
+
   def create_result_for(adaptor:, resource:)
     result_for(
       adaptor: adaptor,
@@ -27,6 +31,10 @@ module AdaptorHelpers
     )
   end
 
+  def delete_resource_for(*args)
+    delete_result_for(*args).raise_if_error.resource
+  end
+
   def delete_result_for(adaptor:, resource:)
     result_for(
       adaptor: adaptor,
@@ -40,6 +48,10 @@ module AdaptorHelpers
       method: :find,
       resource: resource_class
     )
+  end
+
+  def find_resource_for(*args)
+    find_result_for(*args).raise_if_error.resource
   end
 
   def find_result_for(adaptor:, resource:)
@@ -71,6 +83,10 @@ module AdaptorHelpers
       method: :update,
       resource: resource_class
     )
+  end
+
+  def update_resource_for(*args)
+    update_result_for(*args).raise_if_error.resource
   end
 
   def update_result_for(adaptor:, resource:)

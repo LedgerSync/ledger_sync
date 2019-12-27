@@ -51,7 +51,7 @@ module LedgerSync
         end
 
         def authorization_url(redirect_uri:)
-          oauth_client.authorize_url(redirect_uri: redirect_uri)
+          oauth_client.authorization_url(redirect_uri: redirect_uri)
         end
 
         def find(resource:, id:)
@@ -258,9 +258,9 @@ module LedgerSync
 
           @realm_id = realm_id unless realm_id.nil?
 
-          update_secrets_in_dotenv if update_dotenv
-
           oauth(force: true) # Ensure we update the memoized @oauth
+        ensure
+          update_secrets_in_dotenv if update_dotenv
         end
       end
     end
