@@ -137,7 +137,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Adaptor do
 
   describe '.new_from_oauth_client_uri', vcr: true do
     it do
-      oauth_client = LedgerSync::Adaptors::QuickBooksOnline::OAuthClient.new_from_env
+      oauth_client = LedgerSync::Adaptors::QuickBooksOnline::OAuthClient.new(
+        client_id: 'client_id',
+        client_secret: 'client_secret'
+      )
       adaptor = described_class.new_from_oauth_client_uri(
         oauth_client: oauth_client,
         uri: 'http://localhost:3000/?code=THIS_IS_THE_OAUTH_CODE&state=1f14489339926f9ac94cb860&realmId=1234567890'
