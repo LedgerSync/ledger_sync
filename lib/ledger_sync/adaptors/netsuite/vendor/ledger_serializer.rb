@@ -27,7 +27,7 @@ module LedgerSync
 
           attribute ledger_attribute: :subsidiary,
                     resource_attribute: :subsidiary,
-                    type: LedgerSerializerType::ReferenceType
+                    type: LedgerSerializerType::SubsidiaryType
         end
       end
     end
