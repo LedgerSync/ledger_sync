@@ -12,6 +12,12 @@ require 'simply_serializable'
 require 'active_model'
 require 'stripe'
 require 'netsuite'
+require 'oauth2'
+require 'tempfile'
+
+# Dotenv
+require 'dotenv'
+Dotenv.load
 
 # Version
 require 'ledger_sync/version'
@@ -27,6 +33,7 @@ require 'ledger_sync/error'
 Gem.find_files('ledger_sync/error/**/*.rb').each { |path| require path }
 
 # Support Classes
+require 'ledger_sync/util/resonad'
 require 'ledger_sync/util/debug'
 require 'ledger_sync/util/signer'
 require 'ledger_sync/util/hash_helpers'

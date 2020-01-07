@@ -16,6 +16,11 @@ SimpleCov.start do
   add_filter 'lib/ledger_sync/util/debug.rb'
 end
 
+# Set an environment variable to determine when we are testing.  This
+# prevents things like the QuickBooks Online adaptor overwriting
+# environment variables with dummy values.
+ENV['TEST_ENV'] = 'true'
+
 require 'bundler/setup'
 require 'ap'
 require 'byebug'
@@ -30,8 +35,6 @@ end
 support :factory_bot
 support :vcr
 
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
-
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = 'tmp/rspec_history.txt'
@@ -41,13 +44,5 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
-  end
-
-  config.around(:each) do |ex|
-    if ex.metadata.key?(:vcr) && ex.metadata[:vcr] != false
-      ex.run
-    else
-      VCR.turned_off { ex.run }
-    end
   end
 end

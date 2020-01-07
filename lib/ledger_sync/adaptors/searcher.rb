@@ -7,8 +7,7 @@ module LedgerSync
 
       attr_reader :adaptor,
                   :query,
-                  :pagination,
-                  :resources
+                  :pagination
 
       serialize only: %i[
         adaptor

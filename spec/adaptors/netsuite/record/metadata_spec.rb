@@ -15,6 +15,12 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Record::Metadata, vcr: true do
     )
   end
 
+  before do
+    allow_any_instance_of(LedgerSync::Adaptors::NetSuite::Token).to receive(:signature) { 'SIGNATURE' }
+    allow_any_instance_of(LedgerSync::Adaptors::NetSuite::Token).to receive(:nonce) { 'NONCE' }
+    allow_any_instance_of(LedgerSync::Adaptors::NetSuite::Token).to receive(:timestamp) { '1234567890' }
+  end
+
   context 'when record=customer' do
     let(:record) { :customer }
 

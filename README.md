@@ -177,6 +177,43 @@ LedgerSync supports the NetSuite SOAP adaptor, leveraging [the NetSuite gem](htt
 
 ## QuickBooks Online
 
+### OAuth
+
+QuickBooks Online utilizes OAuth 2.0, which requires frequent refreshing of the access token.  The adaptor will handle this automatically, attempting a single token refresh on any single request authentication failure.  Depending on how you use the library, every adaptor has implements a class method `ledger_attributes_to_save`, which is an array of attributes that may change as the adaptor is used.  You can also call the instance method `ledger_attributes_to_save` which will be a hash of these values.  It is a good practice to always store these attributes if you are saving access tokens in your database.
+
+The adaptor also implements some helper methods for getting tokens.  For example, you can set up an adaptor using the following:
+
+```ruby
+# Retrieve the following values from Intuit app settings
+client_id     = 'ID'
+client_secret = 'SECRET'
+redirect_uri  = 'http://localhost:3000'
+
+oauth_client = LedgerSync::Adaptors::QuickBooksOnline::OAuthClientHelper.new(
+  client_id: client_id,
+  client_secret: client_secret
+)
+
+puts oauth_client.authorization_url(redirect_uri: redirect_uri)
+
+# Visit on the output URL and authorize a company.
+# You will be redirected back to the redirect_uri.
+# Copy the full url from your browser:
+
+uri = 'https://localhost:3000/?code=FOO&state=BAR&realm_id=BAZ'
+
+adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new_from_oauth_client_uri(
+  oauth_client: oauth_client,
+  uri: uri
+)
+
+# You can test that the auth works:
+
+adaptor.refresh!
+```
+
+**Note: If you have a `.env` file storing your secrets, the adaptor will automatically update the variables and record previous values whenever values change**
+
 ### Webhooks
 
 Reference: [QuickBooks Online Webhook Documentation](https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks/managing-webhooks-notifications#validating-the-notification)
@@ -293,7 +330,7 @@ The serialization of any object follows the same structure.  There is a `:root` 
 }
 ```
 
-## Testing
+## Test Adaptor
 
 LedgerSync offers a test adaptor `LedgerSync::Adaptors::Test::Adaptor` that you can easily use and stub without requiring API requests.  For example:
 
@@ -315,11 +352,31 @@ expect { operation.perform }.to raise_error(PerformedOperationError)
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org)
 
-Run `bundle console` to start and interactive console with the library already loaded.
+### Testing
+
+Run `bundle exec rspec` to run all unit, feature, and integration tests.  Unlike QA Tests, all external HTTP requests and responses are stubbed.
+
+### QA Testing
+
+**BE SURE TO USE A TEST ENVIRONMENT ON YOUR LEDGER.**
+
+To fully test the library against the actual ledgers, you can run `bin/qa` which will run all tests in the `qa/` directory.  QA Tests are written in RSpec.  Unlike tests in the `spec/` directory, QA tests allow external HTTP requests.
+
+As these interact with real ledgers, you will need to provide secrets.  You can do so in a `.env` file in the root directory.  Copy the `.env.template` file to get started.
+
+**WARNINGS:**
+
+- **BE SURE TO USE A TEST ENVIRONMENT ON YOUR LEDGER.**
+- **NEVER CHECK IN YOUR SECRETS (e.g. the `.env` file).**
+- Because these tests actually create and modify resources, they attempt to do "cleanup" by deleting any newly created resources.  This process could fail, and you may need to delete these resources manually.
+
+### Console
+
+Run `bundle console` to start and interactive console with the library already loaded. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 ## Deployment
 

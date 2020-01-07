@@ -10,7 +10,7 @@ http_interactions:
       Accept:
       - application/swagger+json
       Authorization:
-      - OAuth realm="5743578_SB1",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="1577033561",oauth_nonce="Zszu2WdedpMdQkPBWPBL",oauth_version="1.0",oauth_signature="xd2rejkxFDY6uGttPOM%2BBo6mjoHyb9dFcc79B4JrQvo%3D"
+      - OAuth realm="netsuite_account_id",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="1577033561",oauth_nonce="Zszu2WdedpMdQkPBWPBL",oauth_version="1.0",oauth_signature="xd2rejkxFDY6uGttPOM%2BBo6mjoHyb9dFcc79B4JrQvo%3D"
       Host:
       - netsuite_account_id.suitetalk.api.netsuite.com
       Accept-Encoding:
@@ -113,6 +113,6 @@ http_interactions:
         ID","type":"string"},"addrText":{"title":"Address","type":"string"},"refName":{"title":"refName","type":"string","readOnly":true}},"x-ns-filterable":["zip","country","addr2","city","addr1","addr3","addrPhone","addressee","attention","override","state","addrText"],"x-ns-support-level":"beta"}},"x-ns-filterable":["internalId","defaultBilling","addressbookaddress","defaultShipping","isResidential","label"],"x-ns-support-level":"beta"}}},"x-ns-support-level":"beta"}},"x-ns-filterable":["parent","emailTransactions","startDate","custentity_esc_industry","thirdPartyCountry","terms","creditCards","buyingReason","printOnCheckAs","id","fax","custentity_link_lsa","thirdPartyZipCode","dateCreated","buyingTimeFrame","lastName","alcoholRecipientType","custentity_atlas_help_entity_lp_ref","endDate","addressbook","phone","companyName","salesReadiness","grouppricing","creditholdoverride","receivablesaccount","isPerson","currency","email","salesRep","url","shipComplete","itempricing","custentity_date_lsa","thirdPartyCarrier","shippingItem","externalId","entityId","emailPreference","defaultBankAccount","numberFormat","isBudgetApproved","contact","mobilePhone","priceLevel","altPhone","faxTransactions","resaleNumber","altEmail","custentity_esc_annual_revenue","defaultOrderPriority","leadSource","salutation","isinactive","firstName","thirdPartyAcct","homePhone","estimatedBudget","title","entityStatus","negativeNumberFormat","shippingCarrier","currencyList","accountNumber","comments","reminderDays","lastModifiedDate","middleName","printTransactions","custentity_link_name_lsa","custentity_esc_no_of_employees","creditLimit","category","prefCcProcessor","territory"],"x-ns-support-level":"beta"}
 
         '
-    http_version: 
+    http_version:
   recorded_at: Sun, 22 Dec 2019 16:52:42 GMT
 recorded_with: VCR 5.0.0

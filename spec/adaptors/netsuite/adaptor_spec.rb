@@ -13,7 +13,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Adaptor do
   let(:consumer_secret) { 'consumer_secret' }
   let(:token_id) { 'token_id' }
   let(:token_secret) { 'token_secret' }
-  let(:adaptor) { quickbooks_adaptor }
+  let(:adaptor) { netsuite_adaptor }
 
   subject do
     described_class.new(

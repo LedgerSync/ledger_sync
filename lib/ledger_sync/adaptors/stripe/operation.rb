@@ -11,15 +11,21 @@ module LedgerSync
           end
 
           module InstanceMethods
-            def perform
-              ::Stripe.api_key = adaptor.api_key
-              ret = super
-              ::Stripe.api_key = nil
-              ret
-            end
-
             def stripe_resource_type
               @stripe_resource_type ||= ledger_serializer.class.stripe_resource_type
+            end
+
+            def perform
+              adaptor.wrap_perform do
+                super
+              end
+            rescue ::Stripe::StripeError => e
+              case e.code
+              when 'resource_missing'
+                failure(e)
+              else
+                raise e
+              end
             end
           end
         end

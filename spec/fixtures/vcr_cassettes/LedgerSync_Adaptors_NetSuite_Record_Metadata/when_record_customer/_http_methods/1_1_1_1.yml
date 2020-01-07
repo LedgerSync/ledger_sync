@@ -10,7 +10,7 @@ http_interactions:
       Accept:
       - application/swagger+json
       Authorization:
-      - OAuth realm="5743578_SB1",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="1577033558",oauth_nonce="lbs4PHqJ6pQN1SBdXPvt",oauth_version="1.0",oauth_signature="klVfG516hV2RFspHnU%2BeM6NM1eSAy7WfjxwbxAdgy88%3D"
+      - OAuth realm="netsuite_account_id",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="1234567890",oauth_nonce="NONCE",oauth_version="1.0",oauth_signature="SIGNATURE"
       Host:
       - netsuite_account_id.suitetalk.api.netsuite.com
       Accept-Encoding:
@@ -53,7 +53,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"openapi":"3.0.1","info":{"title":"NetSuite REST API (Beta)","description":"NetSuite
-        REST API (Beta) generated 2019-12-22 at 16:52:40 UTC for account 5743578_SB1,
+        REST API (Beta) generated 2019-12-22 at 16:52:40 UTC for account NETSUITE_ACCOUNT_ID,
         user ryanwjackson@gmail.com with role LedgerSync.","termsOfService":"http://www.netsuite.com/portal/resource/terms-of-service.shtml","contact":{"name":"Oracle
         NetSuite","url":"http://www.netsuite.com","email":"info@netsuite.com"},"version":"v1"},"servers":[{"url":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record"}],"security":[{"OAuth
         1.0 authorization":[]}],"paths":{"/customer":{"get":{"tags":["customer"],"summary":"Get
@@ -160,6 +160,6 @@ http_interactions:
         1.0 authorization":{"type":"apiKey","description":"OAuth 1.0 - https://tools.ietf.org/html/rfc5849","name":"authorization","in":"header"}}}}
 
         '
-    http_version: 
+    http_version:
   recorded_at: Sun, 22 Dec 2019 16:52:41 GMT
 recorded_with: VCR 5.0.0
