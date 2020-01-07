@@ -36,23 +36,11 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Adaptor do
     it { expect(subject).to respond_to(:account_id_for_url) }
   end
 
-  xdescribe '#find' do
-    it { expect(subject).to respond_to(:find) }
-  end
-
   describe '#ledger_attributes_to_save' do
     it do
       h = {}
       expect(subject.ledger_attributes_to_save).to eq(h)
     end
-  end
-
-  xdescribe '#post' do
-    it { expect(subject).to respond_to(:post) }
-  end
-
-  xdescribe '#query' do
-    it { expect(subject).to respond_to(:query) }
   end
 
   describe '.ledger_attributes_to_save' do
