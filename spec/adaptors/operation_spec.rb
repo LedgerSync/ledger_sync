@@ -60,20 +60,6 @@ RSpec.describe LedgerSync::Adaptors::Operation do
       expect(subject).to be_failure
       expect(subject.error.message).to eq('Test')
     end
-
-    # TODO: This fails on test adaptor because there is no error parser, and maybe it's QBO-only to have one?
-    xit do
-      headers = double('headers')
-      allow(headers).to receive(:values_at).with(any_args) { [] }
-      response = double(
-        'response',
-        body: {},
-        headers: headers
-      )
-      allow(operation).to receive(:operate) { raise OAuth2::Error, OAuth2::Response.new(response) }
-      expect(subject).to be_failure
-      expect(subject.error.message).to eq('Test')
-    end
   end
 
   describe '#success?' do
