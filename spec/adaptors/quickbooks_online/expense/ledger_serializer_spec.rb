@@ -82,16 +82,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       serializer = described_class.new(resource: resource)
       expect(serializer.to_ledger_hash).to eq(h)
     end
-
-    xit do
-      raise NotImplementedError
-      resource = nil
-      serializer = LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer.new(resource: resource)
-      h = {
-
-      }
-      expect(serializer.to_ledger_hash).to eq(h)
-    end
   end
 
   describe '#deserialize' do

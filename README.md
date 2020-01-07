@@ -14,11 +14,15 @@ gem 'ledger_sync'
 
 And then execute:
 
-    $ bundle
+```bash
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install ledger_sync
+```bash
+$ gem install ledger_sync
+```
 
 ## Usage
 
@@ -140,16 +144,42 @@ previous_searcher = searcher.previous_searcher
 
 ## NetSuite
 
-Reference: https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTWR/NSTWR.pdf
+The NetSuite adaptor leverages NetSuite's REST API.
 
-When they release the REST API: https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTRW/NSTRW.pdf
+### Resource Metadata and Schemas
+
+Due to NetSuites granular user permissions and custom attributes, resources and methods for those resources can vary from one user (a.k.a. token) to another.  Because of this variance, there are some helper classes that allow you to retrieve NetSuite records, allowed methods, attributes/parameters, etc.
+
+To retrieve the metadata for a record:
+
+```ruby
+metadata = LedgerSync::Adaptors::NetSuite::Record::Metadata.new(
+  adaptor: netsuite_adaptor, # Assuming this is previous defined
+  record: :customer
+)
+
+puts metadata.http_methods # Returns a list of LedgerSync::Adaptors::NetSuite::Record::HTTPMethod objects
+puts metadata.properties # Returns a list of LedgerSync::Adaptors::NetSuite::Record::Property objects
+```
+
+### Reference
+
+- [NetSuite REST API Documentation](https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTRW/NSTRW.pdf)
+
+## NetSuite SOAP
+
+LedgerSync supports the NetSuite SOAP adaptor, leveraging [the NetSuite gem](https://github.com/NetSweet/netsuite).  The adaptor and sample operations are provided, though the main NetSuite adaptor uses the REST API.
+
+### Reference
+
+- [NetSuite SOAP API Documentation](https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTWR/NSTWR.pdf)
 
 
 ## QuickBooks Online
 
 ### Webhooks
 
-Reference: https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks/managing-webhooks-notifications#validating-the-notification
+Reference: [QuickBooks Online Webhook Documentation](https://developer.intuit.com/app/developer/qbo/docs/develop/webhooks/managing-webhooks-notifications#validating-the-notification)
 
 LedgerSync offers an easy way to validate and parse webhook payloads.  It also allows you to easily fetch the resources referenced.  You can create and use a webhook with the following:
 
@@ -188,9 +218,9 @@ webhook.resources # All events for a given webhook across all realms and events
 
 ### Errors
 
-https://developer.intuit.com/app/developer/qbo/docs/develop/troubleshooting/error-codes
+- [QuickBooks Online Error Documentation](https://developer.intuit.com/app/developer/qbo/docs/develop/troubleshooting/error-codes)
 
-## Tips and More!
+## Tips and More
 
 ### Keyword Arguments
 
