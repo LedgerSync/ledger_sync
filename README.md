@@ -366,29 +366,7 @@ Run `bundle exec rspec` to run all unit, feature, and integration tests.  Unlike
 
 To fully test the library against the actual ledgers, you can run `bin/qa` which will run all tests in the `qa/` directory.  QA Tests are written in RSpec.  Unlike tests in the `spec/` directory, QA tests allow external HTTP requests.
 
-As these interact with real ledgers, you will need to provide secrets.  You can do so in a `.env` file in the root directory:
-
-```env
-NETSUITE_ACCOUNT_ID=
-NETSUITE_CONSUMER_KEY=
-NETSUITE_CONSUMER_SECRET=
-NETSUITE_TOKEN_ID=
-NETSUITE_TOKEN_SECRET=
-
-NETSUITE_SOAP_ACCOUNT_ID=
-NETSUITE_SOAP_API_VERSION=
-NETSUITE_SOAP_APPLICATION_ID=
-NETSUITE_SOAP_CONSUMER_KEY=
-NETSUITE_SOAP_CONSUMER_SECRET=
-NETSUITE_SOAP_TOKEN_ID=
-NETSUITE_SOAP_TOKEN_SECRET=
-
-QUICKBOOKS_ONLINE_ACCESS_TOKEN=
-QUICKBOOKS_ONLINE_CLIENT_ID=
-QUICKBOOKS_ONLINE_CLIENT_SECRET=
-QUICKBOOKS_ONLINE_REALM_ID=
-QUICKBOOKS_ONLINE_REFRESH_TOKEN=
-```
+As these interact with real ledgers, you will need to provide secrets.  You can do so in a `.env` file in the root directory.  Copy the `.env.template` file to get started.
 
 **WARNINGS:**
 
