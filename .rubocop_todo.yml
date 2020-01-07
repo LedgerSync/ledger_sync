@@ -12,7 +12,7 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Enabled: False
 
-Style/Documentation:
+Metrics/ClassLength:
   Enabled: False
 
 Metrics/LineLength:
@@ -22,4 +22,7 @@ Metrics/MethodLength:
   Enabled: False
 
 Metrics/ParameterLists:
+  Enabled: False
+
+Style/Documentation:
   Enabled: False
