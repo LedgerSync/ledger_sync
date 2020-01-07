@@ -36,10 +36,14 @@ end
 
 spec_support :factory_bot
 
-support :netsuite_helpers,
-        :netsuite_soap_helpers,
-        :quickbooks_online_helpers,
-        :stripe_helpers
+support :adaptor_support_setup
+
+setup_adaptor_support(
+  LedgerSync::Adaptors::NetSuite::Adaptor,
+  LedgerSync::Adaptors::NetSuiteSOAP::Adaptor,
+  LedgerSync::Adaptors::QuickBooksOnline::Adaptor,
+  LedgerSync::Adaptors::Stripe::Adaptor
+)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
