@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Adaptors
     module Test
@@ -12,6 +14,9 @@ module LedgerSync
                 required(:first_name).filled(:string)
                 required(:last_name).filled(:string)
                 required(:email).filled(:string)
+                required(:company_name).filled(:string)
+                required(:phone_number).filled(:string)
+                required(:subsidiary).filled(:hash, Types::Reference)
               end
             end
           end

@@ -14,6 +14,9 @@ module LedgerSync
                 optional(:first_name).maybe(:string)
                 optional(:last_name).maybe(:string)
                 optional(:email).maybe(:string)
+                optional(:company_name).maybe(:string)
+                optional(:phone_number).maybe(:string)
+                optional(:subsidiary).maybe(:hash, Types::Reference)
               end
             end
           end
