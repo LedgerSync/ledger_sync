@@ -12,16 +12,16 @@ module LedgerSync
           private
 
           def operate
-            return failure(nil) if resource.ledger_id.nil?
+            return failure(
+              Errors::OperationError::LedgerIDRequired.new(
+                operation: self
+              )
+            ) if resource.ledger_id.nil?
 
-            response = adaptor.find(
-              resource: quickbooks_online_resource_type,
-              id: resource.ledger_id
-            )
-
-            success(
-              resource: ledger_serializer.deserialize(hash: response),
-              response: response
+            result(
+              response: adaptor.find(
+                path: ledger_resource_path
+              )
             )
           end
         end

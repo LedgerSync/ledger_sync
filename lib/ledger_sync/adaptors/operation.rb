@@ -29,6 +29,7 @@ module LedgerSync
         def self.included(base)
           base.include SimplySerializable::Mixin
           base.include Fingerprintable::Mixin
+          base.include Adaptors::Mixins::InferLedgerSerializerMixin
           base.extend ClassMethods
 
           base.class_eval do
@@ -110,10 +111,7 @@ module LedgerSync
         end
 
         def ledger_serializer
-          @ledger_serializer ||= begin
-            modules = self.class.name.split('::Operations::').first
-            Object.const_get("#{modules}::LedgerSerializer").new(resource: resource)
-          end
+          self.class.inferred_ledger_serializer(resource: resource)
         end
 
         # Results

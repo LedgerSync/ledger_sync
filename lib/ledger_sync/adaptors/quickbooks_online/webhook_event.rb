@@ -71,14 +71,7 @@ module LedgerSync
         end
 
         def resource_class
-          @resource_class ||= begin
-            quickbooks_online_type_hash = QuickBooksOnline::LedgerSerializer.quickbooks_online_resource_types_hash.fetch(quickbooks_online_resource_type.downcase, nil)
-            if quickbooks_online_type_hash.present?
-              quickbooks_online_type_hash.try(:fetch, :resource_class, nil)
-            else
-              LedgerSync.resources[quickbooks_online_resource_type.downcase.to_sym]
-            end
-          end
+          @resource_class ||= Adaptor.resource_from_ledger_type(type: quickbooks_online_resource_type.downcase)
         end
       end
     end
