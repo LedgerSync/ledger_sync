@@ -38,8 +38,6 @@ module LedgerSync
             end
           end
 
-          byebug
-
           raise error
         end
 
@@ -73,18 +71,11 @@ module LedgerSync
         end
 
         def oauth
-          OAuth2::AccessToken.new(
-            oauth_client.client,
-            adaptor.access_token,
-            refresh_token: adaptor.refresh_token
-          )
+          adaptor.oauth
         end
 
         def oauth_client
-          @oauth_client ||= OAuthClient.new(
-            client_id: adaptor.client_id,
-            client_secret: adaptor.client_secret
-          )
+          adapotr.oauth_client
         end
       end
     end

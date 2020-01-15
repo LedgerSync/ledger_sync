@@ -69,6 +69,21 @@ module LedgerSync
           )
         end
 
+        def oauth
+          OAuth2::AccessToken.new(
+            oauth_client.client,
+            access_token,
+            refresh_token: refresh_token
+          )
+        end
+
+        def oauth_client
+          @oauth_client ||= OAuthClient.new(
+            client_id: client_id,
+            client_secret: client_secret
+          )
+        end
+
         def post(path:, payload:)
           url = "#{oauth_base_uri}/#{path}"
 
