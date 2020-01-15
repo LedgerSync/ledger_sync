@@ -4,7 +4,7 @@ module LedgerSync
   class PaymentLineItem < LedgerSync::Resource
     attribute :amount, type: Type::Integer
 
-    references_many :linked_txns, to: Txn
+    references_many :ledger_transactions, to: [Invoice]
 
     def name
       amount

@@ -6,7 +6,7 @@ support :input_helpers,
         :operation_shared_examples,
         :quickbooks_online_helpers
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Payment::Operations::Create do
+RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Invoice::Operations::Create do
   include InputHelpers
   include QuickBooksOnlineHelpers
 
@@ -18,21 +18,20 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Payment::Operations::Crea
     LedgerSync::Account.new(account_resource(ledger_id: '123'))
   end
 
-  let(:invoice) do
-    LedgerSync::Invoice.new({ledger_id: '123'})
+  let(:item) do
+    LedgerSync::Item.new(ledger_id: '123')
   end
 
   let(:line_item) do
-    LedgerSync::PaymentLineItem.new(payment_line_item_resource({amount: 100, ledger_transactions: [invoice]}))
+    LedgerSync::InvoiceSalesLineItem.new(invoice_line_item_resource({item: item, amount: 100, description: 'Sample Description'}))
   end
 
   let(:resource) do
-    LedgerSync::Payment.new(payment_resource(customer: customer, account: account, deposit_account: account, line_items: [line_item]))
-    # byebug
+    LedgerSync::Invoice.new(invoice_resource(customer: customer, account: account, line_items: [line_item]))
   end
 
   let(:adaptor) { quickbooks_online_adaptor }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_create_payment
+  it_behaves_like 'a successful operation', stubs: :stub_create_invoice
 end

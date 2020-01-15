@@ -69,7 +69,6 @@ require 'ledger_sync/resources/department'
 require 'ledger_sync/resources/item'
 require 'ledger_sync/resources/invoice_sales_line_item'
 require 'ledger_sync/resources/invoice'
-require 'ledger_sync/resources/txn'
 require 'ledger_sync/resources/payment_line_item'
 require 'ledger_sync/resources/payment'
 
@@ -157,6 +156,5 @@ LedgerSync.register_resource(resource: LedgerSync::Department)
 LedgerSync.register_resource(resource: LedgerSync::Item)
 LedgerSync.register_resource(resource: LedgerSync::InvoiceSalesLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Invoice)
-LedgerSync.register_resource(resource: LedgerSync::Txn)
 LedgerSync.register_resource(resource: LedgerSync::PaymentLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Payment)

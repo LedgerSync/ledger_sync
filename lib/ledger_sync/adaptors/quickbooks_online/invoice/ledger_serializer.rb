@@ -19,6 +19,9 @@ module LedgerSync
           attribute ledger_attribute: 'PrivateNote',
                     resource_attribute: :memo
 
+          attribute ledger_attribute: 'CustomerRef.value',
+                    resource_attribute: 'customer.ledger_id'
+
           attribute ledger_attribute: 'DepositToAccountRef.value',
                     resource_attribute: 'account.ledger_id'
 

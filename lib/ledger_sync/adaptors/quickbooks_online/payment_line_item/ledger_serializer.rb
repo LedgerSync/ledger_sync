@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../txn/ledger_serializer'
-
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -11,9 +9,9 @@ module LedgerSync
                     resource_attribute: :amount,
                     type: LedgerSerializerType::AmountType
 
-          references_many ledger_attribute: 'LinkedTxn',
-                    resource_attribute: :linked_txns,
-                    serializer: Txn::LedgerSerializer
+          attribute ledger_attribute: 'LinkedTxn',
+                    resource_attribute: :ledger_transactions,
+                    type: LedgerSerializerType::TransactionReferenceType
         end
       end
     end
