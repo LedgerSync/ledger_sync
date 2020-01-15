@@ -6,6 +6,7 @@ module LedgerSync
     attribute :exchange_rate, type: Type::Float
 
     references_one :account, to: Account
+    references_one :department, to: Department
 
     references_many :line_items, to: DepositLineItem
 

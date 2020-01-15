@@ -14,6 +14,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Deposit::Operations::Upda
     LedgerSync::Account.new(account_resource(ledger_id: '123'))
   end
 
+  let(:department) do
+    LedgerSync::Department.new(ledger_id: '123')
+  end
+
   let(:line_item_1) do
     LedgerSync::DepositLineItem.new(deposit_line_item_resource(account: account))
   end
@@ -27,6 +31,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Deposit::Operations::Upda
       deposit_resource(
         ledger_id: '123',
         account: account,
+        department: department,
         line_items: [
           line_item_1,
           line_item_2
