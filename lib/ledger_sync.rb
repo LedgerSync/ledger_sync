@@ -57,6 +57,8 @@ require 'ledger_sync/adaptors/request'
 
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class
+require 'ledger_sync/resources/ledger_class'
+require 'ledger_sync/resources/department'
 require 'ledger_sync/resources/account'
 require 'ledger_sync/resources/subsidiary'
 require 'ledger_sync/resources/customer'
@@ -71,8 +73,6 @@ require 'ledger_sync/resources/bill_line_item'
 require 'ledger_sync/resources/bill'
 require 'ledger_sync/resources/journal_entry_line_item'
 require 'ledger_sync/resources/journal_entry'
-require 'ledger_sync/resources/ledger_class'
-require 'ledger_sync/resources/department'
 
 module LedgerSync
   @log_level = nil
@@ -138,6 +138,8 @@ end
 Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 
 # Register Resources
+LedgerSync.register_resource(resource: LedgerSync::LedgerClass)
+LedgerSync.register_resource(resource: LedgerSync::Department)
 LedgerSync.register_resource(resource: LedgerSync::Account)
 LedgerSync.register_resource(resource: LedgerSync::Customer)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
@@ -151,5 +153,3 @@ LedgerSync.register_resource(resource: LedgerSync::BillLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Bill)
 LedgerSync.register_resource(resource: LedgerSync::JournalEntryLineItem)
 LedgerSync.register_resource(resource: LedgerSync::JournalEntry)
-LedgerSync.register_resource(resource: LedgerSync::LedgerClass)
-LedgerSync.register_resource(resource: LedgerSync::Department)
