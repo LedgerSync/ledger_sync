@@ -87,7 +87,7 @@ module LedgerSync
             type_hash = QuickBooksOnline::LedgerSerializer
                         .quickbooks_online_resource_types_hash
                         .try(:fetch, qbo_type, nil)
-            raise "Cannot define type in #{name}.  Type already exists: #{qbo_type}.  Defined previously by #{quickbooks_online_resource_types_hash[qbo_type][:serializer_class].name}" if type_hash.present? && type_hash.present? && (type_hash[:serializer_class] != serializer_class || type_hash[:resource_class] != inferred_resource_class)
+            raise "Cannot define type in #{name}.  Type already exists: #{qbo_type}.  Defined previously by #{quickbooks_online_resource_types_hash[qbo_type][:serializer_class].name}" if type_hash.present? && (type_hash[:serializer_class] != serializer_class || type_hash[:resource_class] != inferred_resource_class)
 
             QuickBooksOnline::LedgerSerializer.class_eval do
               @quickbooks_online_resource_types_hash ||= {}

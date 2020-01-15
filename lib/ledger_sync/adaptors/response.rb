@@ -20,9 +20,7 @@ module LedgerSync
       end
 
       def success?
-        return true if (200..299).include?(status)
-
-        false
+        (200..299).include?(status)
       end
 
       def self.new_from_faraday_response(faraday_response:, request:)

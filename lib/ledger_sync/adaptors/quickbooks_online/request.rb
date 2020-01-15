@@ -50,8 +50,8 @@ module LedgerSync
         private
 
         def parse_error(error:)
-          parsed_adaptor_error || \
-            parsed_operation_error || \
+          parsed_adaptor_error ||
+            parsed_operation_error ||
             error
         end
 
