@@ -75,7 +75,7 @@ module LedgerSync
         end
 
         def oauth_client
-          adapotr.oauth_client
+          adaptor.oauth_client
         end
       end
     end
