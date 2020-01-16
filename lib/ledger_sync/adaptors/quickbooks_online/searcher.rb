@@ -33,7 +33,7 @@ module LedgerSync
             'QueryResponse',
             adaptor.class.ledger_resource_type_for(
               resource_class: resource_class
-            ).classify
+            ).classify || []
           ).map do |c|
             self.class.inferred_ledger_serializer_class.new(
               resource: resource_class.new
