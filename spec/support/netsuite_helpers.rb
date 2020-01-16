@@ -17,14 +17,28 @@ module NetSuiteHelpers
     }.merge(override)
   end
 
+  def account_url(id: nil)
+    api_record_url(
+      id: id,
+      record: :account
+    )
+  end
+
+  def api_record_url(record:, id: nil)
+    ret = "https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/#{record}"
+    ret += "/#{id}" if id.present?
+    ret
+  end
+
   def customer_json
     '{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customer/1137"}],"addressbook":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customer/1137/addressbook"}]},"alcoholRecipientType":"CONSUMER","balance":0.0,"companyName":"Company 1575890547","creditCards":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customer/1137/creditCards"}]},"creditholdoverride":"AUTO","currency":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/currency/1"}],"id":"1","refName":"USA"},"currencyList":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customer/1137/currencyList"}]},"custentity_atlas_help_entity_lp_ref":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customrecord_atlas_help_reference/4"}],"id":"4","refName":"Order to Cash"},"custentity_esc_last_modified_date":"2019-12-09","customForm":"30","dateCreated":"2019-12-09T11:22:00Z","depositbalance":0.0,"email":"customer@company.com","emailPreference":"DEFAULT","emailTransactions":false,"entityId":"Company 1575890547","entityStatus":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customerstatus/13"}],"id":"13","refName":"CUSTOMER-Closed Won"},"faxTransactions":false,"grouppricing":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customer/1137/grouppricing"}]},"id":"1137","isBudgetApproved":false,"isinactive":false,"isPerson":false,"itempricing":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customer/1137/itempricing"}]},"language":"en_US","lastModifiedDate":"2019-12-09T11:22:00Z","overduebalance":0.0,"printTransactions":false,"receivablesaccount":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/account/-10"}],"id":"-10","refName":"Use System Preference"},"shipComplete":false,"shippingCarrier":"nonups","subsidiary":{"links":[{"rel":"self","href":"https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/subsidiary/2"}],"id":"2","refName":"Modern Treasury"},"taxable":false,"unbilledorders":0.0}'
   end
 
   def customer_url(id: nil)
-    ret = 'https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/record/customer'
-    ret += "/#{id}" if id.present?
-    ret
+    api_record_url(
+      id: id,
+      record: :customer
+    )
   end
 
   def netsuite_adaptor(env: false)
@@ -36,6 +50,111 @@ module NetSuiteHelpers
       token_id: env ? ENV.fetch('NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_ID') : 'NETSUITE_TOKEN_ID',
       token_secret: env ? ENV.fetch('NETSUITE_TOKEN_SECRET', 'NETSUITE_TOKEN_SECRET') : 'NETSUITE_TOKEN_SECRET'
     )
+  end
+
+  def stub_account_find
+    stub_request(:get, account_url(id: 417))
+      .with(
+        headers: authorized_headers
+      )
+      .to_return(
+        status: 200,
+        body: {
+          "links": [
+            {
+              "rel": 'self',
+              "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account/417'
+            }
+          ],
+          "acctname": 'CAD Account',
+          "acctnumber": '1010',
+          "accttype": 'Bank',
+          "cashflowrate": 'AVERAGE',
+          "currency": {
+            "links": [
+              {
+                "rel": 'self',
+                "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/currency/3'
+              }
+            ],
+            "id": '3',
+            "refName": 'Canadian Dollar'
+          },
+          "eliminate": false,
+          "generalrate": 'CURRENT',
+          "id": '417',
+          "includechildren": false,
+          "inventory": false,
+          "isinactive": false,
+          "localizations": {
+            "links": [
+              {
+                "rel": 'self',
+                "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account/417/localizations'
+              }
+            ]
+          },
+          "revalue": true,
+          "subsidiary": {
+            "links": [
+              {
+                "rel": 'self',
+                "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account/417/subsidiary'
+              }
+            ]
+          }
+        }.to_json
+      )
+  end
+
+  def stub_account_search
+    stub_request(:get, account_url + '?limit=10&offset=0')
+      .with(
+        headers: authorized_headers
+      )
+      .to_return(
+        status: 200,
+        body: {
+          "links": [
+            {
+              "rel": 'next',
+              "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account?limit=2&offset=2'
+            },
+            {
+              "rel": 'last',
+              "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account?limit=2&offset=64'
+            },
+            {
+              "rel": 'self',
+              "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account?limit=2&offset=0'
+            }
+          ],
+          "count": 2,
+          "hasMore": true,
+          "items": [
+            {
+              "links": [
+                {
+                  "rel": 'self',
+                  "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account/417'
+                }
+              ],
+              "id": '417'
+            },
+            {
+              "links": [
+                {
+                  "rel": 'self',
+                  "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/rest/platform/v1/record/account/312'
+                }
+              ],
+              "id": '312'
+            }
+          ],
+          "offset": 0,
+          "totalResults": 65
+        }.to_json
+      )
   end
 
   def stub_customer_create
