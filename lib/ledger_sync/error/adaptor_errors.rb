@@ -12,6 +12,10 @@ module LedgerSync
         super(message: message)
       end
 
+      class AuthenticationError < self; end
+      class AuthorizationError < self; end
+      class ConfigurationError < self; end
+
       class MissingAdaptorError < self
         def initialize(message:)
           super(
@@ -51,9 +55,18 @@ module LedgerSync
         end
       end
 
-      class AuthenticationError < self; end
-      class AuthorizationError < self; end
-      class ConfigurationError < self; end
+      class UnknownURLFormat < self
+        attr_reader :resource
+
+        def initialize(*args, resource:, **keywords)
+          super(
+            *args,
+            {
+              message: "Unknown URL format for #{resource.class}"
+            }.merge(keywords)
+          )
+        end
+      end
     end
   end
 end
