@@ -29,12 +29,12 @@ module LedgerSync
           )
           return [] if response.body.blank?
 
-          response.body.dig(
+          (response.body.dig(
             'QueryResponse',
             adaptor.class.ledger_resource_type_for(
               resource_class: resource_class
-            ).classify || []
-          ).map do |c|
+            ).classify
+          ) || []).map do |c|
             self.class.inferred_ledger_serializer_class.new(
               resource: resource_class.new
             ).deserialize(
