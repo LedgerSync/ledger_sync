@@ -14,6 +14,10 @@ module LedgerSync
           paginate(limit: limit, offset: offset - limit)
         end
 
+        def query_string
+          ''
+        end
+
         def resources
           resource_class = self.class.inferred_resource_class
 
