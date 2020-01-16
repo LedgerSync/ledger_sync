@@ -52,6 +52,20 @@ module NetSuiteHelpers
     )
   end
 
+  def stub_account_create
+    stub_request(:post, account_url)
+      .with(
+        headers: authorized_headers(write: true)
+      )
+      .to_return(
+        status: 200,
+        body: '',
+        headers: {
+          'Location': account_url(id: 417)
+        }
+      )
+  end
+
   def stub_account_find
     stub_request(:get, account_url(id: 417))
       .with(
