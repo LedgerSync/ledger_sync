@@ -45,7 +45,7 @@ module LedgerSync
 
             def perform
               super
-            rescue OAuth2::Error => e
+            rescue LedgerSync::Error::OperationError, OAuth2::Error => e
               failure(e)
             end
 

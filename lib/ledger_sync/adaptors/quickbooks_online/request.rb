@@ -14,25 +14,25 @@ module LedgerSync
         def perform
           raise 'Request already performed' if performed?
 
-          oauth_response = oauth.send(method, url, body: body, headers: headers)
-
-          @response = Response.new_from_oauth_response(
-            oauth_response: oauth_response,
-            request: self
+          @response = generate_response(
+            body: body,
+            headers: headers,
+            method: method,
+            url: url
           )
-
-          @performed = true
-          @response
         rescue OAuth2::Error => e
           error = parse_error(error: e)
 
           if error.is_a?(Error::AdaptorError::AuthenticationError)
             begin
               adaptor.refresh!
-              @response = Response.new_from_oauth_response(
-                oauth_response: oauth_response,
-                request: self
+              @response = generate_response(
+                body: body,
+                headers: headers,
+                method: method,
+                url: url
               )
+              return @response
             rescue OAuth2::Error => e
               raise parse_error(error: e)
             end
@@ -49,9 +49,24 @@ module LedgerSync
 
         private
 
+        def generate_response(body:, headers:, method:, url:)
+          oauth_response = oauth.send(
+            method,
+            url,
+            body: body,
+            headers: headers
+          )
+          ret = Response.new_from_oauth_response(
+            oauth_response: oauth_response,
+            request: self
+          )
+          @performed = true
+          ret
+        end
+
         def parse_error(error:)
-          parsed_adaptor_error ||
-            parsed_operation_error ||
+          parsed_adaptor_error(error: error) ||
+            parsed_operation_error(error: error) ||
             error
         end
 
