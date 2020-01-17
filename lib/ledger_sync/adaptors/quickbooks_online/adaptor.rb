@@ -11,6 +11,11 @@ module LedgerSync
         ROOT_URI          = 'https://quickbooks.api.intuit.com'
         REVOKE_TOKEN_URI  = 'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
         ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'
+        API_RESOURCE_MAPPING_OVERRIDE = {
+          LedgerSync::Expense => 'purchase',
+          LedgerSync::LedgerClass => 'class'
+        }
+        API_RESOURCE_MAPPING_OVERRIDE_REVERSE = API_RESOURCE_MAPPING_OVERRIDE.invert
 
         attr_reader :access_token,
                     :client_id,
@@ -54,50 +59,63 @@ module LedgerSync
           oauth_client.authorization_url(redirect_uri: redirect_uri)
         end
 
-        def find(resource:, id:)
-          resource = resource.to_s
-          url = "#{oauth_base_uri}/#{resourcify(resource)}/#{id}"
+        def find(path:)
+          url = "#{oauth_base_uri}/#{path}"
 
-          response = request(:get, url, headers: OAUTH_HEADERS.dup)
-          JSON.parse(response.body).dig(resource.classify)
-        end
-
-        def parse_operation_error(error:, operation:)
-          return nil unless error.is_a?(OAuth2::Error)
-
-          Util::OperationErrorParser.new(
-            error: error,
-            operation: operation
-          ).parse
-        end
-
-        def post(resource:, payload:)
-          resource = resource.to_s
-          url = "#{oauth_base_uri}/#{resourcify(resource)}"
-
-          response = request(
-            :post,
-            url,
+          request(
             headers: OAUTH_HEADERS.dup,
-            body: payload.to_json
+            method: :get,
+            url: url
           )
-          JSON.parse(response.body).dig(resource.classify)
         end
 
-        def query(resource:, query:, limit: 10, offset: 1)
-          resource = resource.to_s
-          full_query = "SELECT * FROM #{resource.classify} WHERE #{query} STARTPOSITION #{offset} MAXRESULTS #{limit}"
+        def oauth
+          OAuth2::AccessToken.new(
+            oauth_client.client,
+            access_token,
+            refresh_token: refresh_token
+          )
+        end
+
+        def oauth_client
+          @oauth_client ||= OAuthClient.new(
+            client_id: client_id,
+            client_secret: client_secret
+          )
+        end
+
+        def post(path:, payload:)
+          url = "#{oauth_base_uri}/#{path}"
+
+          request(
+            headers: OAUTH_HEADERS.dup,
+            method: :post,
+            body: payload.to_json,
+            url: url
+          )
+        end
+
+        def query(limit: 10, offset: 1, query:, resource_class:)
+          ledger_resource_type = self.class.ledger_resource_type_for(
+            resource_class: resource_class
+          ).classify
+          full_query = "SELECT * FROM #{ledger_resource_type} WHERE #{query} STARTPOSITION #{offset} MAXRESULTS #{limit}"
           url = "#{oauth_base_uri}/query?query=#{CGI.escape(full_query)}"
 
-          response = request(:get, url, headers: OAUTH_HEADERS.dup)
-          JSON.parse(response.body).dig('QueryResponse', resource.classify) || []
+          request(
+            headers: OAUTH_HEADERS.dup,
+            method: :get,
+            url: url
+          )
         end
 
         def refresh!
-          set_credentials_from_oauth_token(token: oauth.refresh!)
+          set_credentials_from_oauth_token(
+            token: Request.new(
+              adaptor: self
+            ).refresh!
+          )
           self
-        rescue OAuth2::Error => e
-          raise parse_error(error: e)
         end
 
         def revoke_token!
@@ -166,6 +184,10 @@ module LedgerSync
           %i[access_token expires_at refresh_token refresh_token_expires_at]
         end
 
+        def self.ledger_resource_type_for(resource_class:)
+          API_RESOURCE_MAPPING_OVERRIDE[resource_class] || resource_class.resource_type.to_s
+        end
+
         def self.new_from_env(**override)
           new(
             {
@@ -196,55 +218,24 @@ module LedgerSync
           )
         end
 
+        def self.resource_from_ledger_type(type:)
+          API_RESOURCE_MAPPING_OVERRIDE_REVERSE[type.downcase] || LedgerSync.resources[type.downcase.to_sym]
+        end
+
         private
 
         def oauth_base_uri
           @oauth_base_uri ||= "#{root_uri}/v3/company/#{realm_id}"
         end
 
-        def oauth(force: false)
-          if @oauth.nil? || force
-            @oauth = OAuth2::AccessToken.new(
-              oauth_client.client,
-              access_token,
-              refresh_token: refresh_token
-            )
-          end
-
-          @oauth
-        end
-
-        def oauth_client
-          @oauth_client ||= OAuthClient.new(
-            client_id: client_id,
-            client_secret: client_secret
-          )
-        end
-
-        def request(method, *args)
-          oauth.send(method, *args)
-        rescue OAuth2::Error => e
-          error = parse_error(error: e) || parse_operation_error(error: e, operation: nil) || e
-
-          raise error unless error.is_a?(Error::AdaptorError::AuthenticationError)
-
-          begin
-            refresh!
-            oauth.send(method, *args)
-          rescue OAuth2::Error => e
-            raise parse_error(error: e) || e
-          end
-        end
-
-        def parse_error(error:)
-          Util::AdaptorErrorParser.new(
-            error: error,
-            adaptor: self
-          ).parse
-        end
-
-        def resourcify(str)
-          str.tr('_', '')
+        def request(body: nil, headers: {}, method:, url:)
+          Request.new(
+            adaptor: self,
+            body: body,
+            headers: headers,
+            method: method,
+            url: url
+          ).perform
         end
 
         def set_credentials_from_oauth_token(realm_id: nil, token:)
@@ -258,8 +249,6 @@ module LedgerSync
           @refresh_token = token.refresh_token
 
           @realm_id = realm_id unless realm_id.nil?
-
-          oauth(force: true) # Ensure we update the memoized @oauth
         ensure
           update_secrets_in_dotenv if update_dotenv
         end

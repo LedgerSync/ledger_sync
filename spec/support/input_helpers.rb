@@ -102,6 +102,7 @@ module InputHelpers
       ledger_id: nil,
       # relationships
       account: nil,
+      department: nil,
       line_items: [],
       # attributes
       currency: 'USD',

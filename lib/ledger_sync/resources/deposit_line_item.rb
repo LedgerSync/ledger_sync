@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
+require_relative 'account'
+require_relative 'customer'
+require_relative 'vendor'
+
 module LedgerSync
   class DepositLineItem < LedgerSync::Resource
     references_one :account, to: Account

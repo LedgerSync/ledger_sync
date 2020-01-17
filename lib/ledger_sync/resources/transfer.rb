@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require_relative 'account'
+
 module LedgerSync
   class Transfer < LedgerSync::Resource
     attribute :currency, type: Type::String

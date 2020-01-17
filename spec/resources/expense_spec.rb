@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Expense do
-
   describe '#entity' do
     it do
       expect { described_class.new(entity: LedgerSync::Customer.new) }.not_to raise_error

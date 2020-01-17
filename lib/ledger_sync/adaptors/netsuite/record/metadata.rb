@@ -4,6 +4,11 @@ module LedgerSync
   module Adaptors
     module NetSuite
       module Record
+        #
+        # Helper class for retrieving record metadata:
+        # - available http_methods
+        # - record properties/attributes
+        #
         class Metadata
           BASE_PATH = 'metadata-catalog/record'
 

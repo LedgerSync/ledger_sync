@@ -14,6 +14,35 @@ module LedgerSync
           paginate(limit: limit, offset: offset - limit)
         end
 
+        def query_string
+          ''
+        end
+
+        def resources
+          resource_class = self.class.inferred_resource_class
+
+          response = adaptor.query(
+            limit: limit,
+            offset: offset,
+            query: query_string,
+            resource_class: resource_class
+          )
+          return [] if response.body.blank?
+
+          (response.body.dig(
+            'QueryResponse',
+            adaptor.class.ledger_resource_type_for(
+              resource_class: resource_class
+            ).classify
+          ) || []).map do |c|
+            self.class.inferred_ledger_serializer_class.new(
+              resource: resource_class.new
+            ).deserialize(
+              hash: c
+            )
+          end
+        end
+
         def search
           super
         rescue OAuth2::Error => e

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Resource do
@@ -18,7 +20,7 @@ RSpec.describe LedgerSync::Resource do
       expect(e.line_items.changes).to eq({})
       e.line_items << eli
       expect(e.line_items).to be_changed
-      expect(e.line_items.changes).to eq({ 'value' => [[], [eli]]})
+      expect(e.line_items.changes).to eq('value' => [[], [eli]])
       expect(e).to be_changed
       expect(e.changes).to have_key('line_items')
       e.save

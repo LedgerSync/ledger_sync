@@ -7,8 +7,6 @@ module LedgerSync
     module QuickBooksOnline
       module Expense
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
-          quickbooks_online_resource_type :purchase
-
           id  ledger_attribute: 'Id',
               resource_attribute: :ledger_id
 

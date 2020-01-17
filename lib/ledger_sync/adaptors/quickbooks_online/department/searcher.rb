@@ -1,24 +1,14 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module Department
         class Searcher < LedgerSync::Adaptors::QuickBooksOnline::Searcher
-          def resources
-            @resources ||= begin
-              adaptor
-                .query(
-                  resource: 'department',
-                  query: "Name LIKE '%#{query}%'",
-                  limit: limit,
-                  offset: offset
-                )
-                .map do |c|
-                  LedgerSync::Department.new(
-                    ledger_id: c.fetch('Id'),
-                    name: c.dig('Name')
-                  )
-                end
-            end
+          private
+
+          def query_string
+            @query_string ||= "Name LIKE '%#{query}%'"
           end
         end
       end

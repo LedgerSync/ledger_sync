@@ -81,6 +81,18 @@ module LedgerSync
           %i[]
         end
 
+        def self.new_from_env(**override)
+          new(
+            {
+              account_id: ENV.fetch('NETSUITE_ACCOUNT_ID', nil),
+              consumer_key: ENV.fetch('NETSUITE_CONSUMER_KEY', nil),
+              consumer_secret: ENV.fetch('NETSUITE_CONSUMER_SECRET', nil),
+              token_id: ENV.fetch('NETSUITE_TOKEN_ID', nil),
+              token_secret: ENV.fetch('NETSUITE_TOKEN_SECRET', nil)
+            }.merge(override)
+          )
+        end
+
         private
 
         def new_token(body:, method:, url:)
