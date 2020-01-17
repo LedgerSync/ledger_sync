@@ -119,14 +119,15 @@ module LedgerSync
         end
 
         def revoke_token!
-          request(
+          headers = OAUTH_HEADERS.dup.merge('Authorization' => 'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret))
+          LedgerSync::Adaptors::Request.new(
             body: {
               token: access_token
-            }.to_json,
-            headers: OAUTH_HEADERS.dup,
+            },
+            headers: headers,
             method: :post,
             url: REVOKE_TOKEN_URI
-          ).status == 200
+          ).perform.status == 200
         end
 
         def set_credentials_from_oauth_code(code:, realm_id: nil, redirect_uri:)

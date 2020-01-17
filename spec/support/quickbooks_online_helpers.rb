@@ -13,6 +13,10 @@ module QuickBooksOnlineHelpers
     )
   end
 
+  def basic_authorization_header
+    'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret)
+  end
+
   def stub_adaptor_refresh
     stub_request(:post, 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer')
       .with(
@@ -44,9 +48,9 @@ module QuickBooksOnlineHelpers
       headers: {
         'Accept'=>'application/json',
         'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'Authorization'=>'Bearer access_token',
+        'Authorization'=>basic_authorization_header,
         'Content-Type'=>'application/json',
-        'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        'User-Agent'=>'Ruby'
       }
     ).to_return(
       status: 200,
