@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'subsidiary'
+
 module LedgerSync
   class Vendor < LedgerSync::Resource
     attribute :company_name, type: Type::String
