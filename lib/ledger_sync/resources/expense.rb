@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'account'
+require_relative 'customer'
+require_relative 'expense_line_item'
+require_relative 'vendor'
+
 module LedgerSync
   class Expense < LedgerSync::Resource
     attribute :currency, type: Type::String
