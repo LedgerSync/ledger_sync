@@ -14,8 +14,8 @@ module LedgerSync
                 required(:classification).maybe(:string)
                 required(:account_type).maybe(:string)
                 required(:account_sub_type).maybe(:string)
-                required(:number).maybe(:integer)
-                required(:currency).maybe(:string)
+                required(:number).filled(:integer)
+                required(:currency).filled(:string)
                 required(:description).maybe(:string)
                 required(:active).maybe(:bool)
               end
