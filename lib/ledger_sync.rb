@@ -44,6 +44,12 @@ require 'ledger_sync/util/performer'
 require 'ledger_sync/util/validator'
 require 'ledger_sync/util/string_helpers'
 require 'ledger_sync/result'
+
+# Adaptors
+Gem.find_files('ledger_sync/adaptors/mixins/*.rb').each { |path| require path }
+require 'ledger_sync/adaptors/adaptor'
+require 'ledger_sync/adaptors/searcher'
+require 'ledger_sync/adaptors/ledger_serializer'
 require 'ledger_sync/adaptors/operation'
 require 'ledger_sync/adaptors/contract'
 require 'ledger_sync/adaptors/response'
@@ -128,10 +134,7 @@ module LedgerSync
   end
 end
 
-# Adaptors
-require 'ledger_sync/adaptors/adaptor'
-require 'ledger_sync/adaptors/searcher'
-require 'ledger_sync/adaptors/ledger_serializer'
+# Load Adaptors
 Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 
 # Register Resources

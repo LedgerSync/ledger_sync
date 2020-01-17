@@ -8,6 +8,8 @@ Gem.find_files('ledger_sync/adaptors/ledger_serializer_type/**/*.rb').each { |pa
 module LedgerSync
   module Adaptors
     class LedgerSerializer
+      include Mixins::InferResourceClassMixin
+
       attr_reader :resource
 
       def initialize(resource:)
@@ -90,11 +92,6 @@ module LedgerSync
         )
       end
 
-      def self._inferred_resource_class
-        parts = name.split('::')
-        LedgerSync.const_get(parts[parts.index('Adaptors') + 2])
-      end
-
       private_class_method def self._attribute(**keywords)
         attributes.add(
           _build_attribute(**keywords)
@@ -116,7 +113,7 @@ module LedgerSync
       private
 
       def ensure_inferred_resource_class!
-        inferred_resource_class = self.class._inferred_resource_class
+        inferred_resource_class = self.class.inferred_resource_class
         raise "Resource must be a #{inferred_resource_class.name}.  Given #{resource.class}" unless resource.is_a?(inferred_resource_class)
       end
     end

@@ -9,7 +9,7 @@ module LedgerSync
                   :response,
                   :url
 
-      def initialize(body: nil, headers: {}, method:, url:)
+      def initialize(body: nil, headers: {}, method: nil, url: nil)
         @body = body
         @headers = headers
         @method = method

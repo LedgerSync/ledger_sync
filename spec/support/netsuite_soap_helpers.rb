@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module NetSuiteSOAPHelpers
-  def netsuite_soap_adaptor
-    LedgerSync.adaptors.netsuite_soap.new(**netsuite_adaptor_args)
+  def netsuite_soap_adaptor(*args)
+    LedgerSync.adaptors.netsuite_soap.new(**netsuite_adaptor_args(*args))
   end
 
   def netsuite_adaptor_args(env: false, **override)
@@ -15,5 +15,16 @@ module NetSuiteSOAPHelpers
       token_id: (env ? ENV.fetch('NETSUITE_SOAP_TOKEN_ID', 'NETSUITE_SOAP_TOKEN_ID') : 'NETSUITE_SOAP_TOKEN_ID'),
       token_secret: (env ? ENV.fetch('NETSUITE_SOAP_TOKEN_SECRET', 'NETSUITE_SOAP_TOKEN_SECRET') : 'NETSUITE_SOAP_TOKEN_SECRET')
     }.merge(override)
+  end
+
+  def stub_customer_find
+    stub_request(:get, "https://netsuite_account_id.suitetalk.api.netsuite.com/wsdl/v2016_2_0/netsuite.wsdl").
+         with(
+           headers: {
+       	  'Accept'=>'*/*',
+       	  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+       	  'User-Agent'=>'Ruby'
+           }).
+         to_return(status: 200, body: "", headers: {})
   end
 end

@@ -6,11 +6,15 @@ module LedgerSync
       attr_reader :adaptor
       attr_reader :response
 
-      def initialize(adaptor:, message:, response:nil)
+      def initialize(adaptor:, message:, response: nil)
         @adaptor = adaptor
         @response = response
         super(message: message)
       end
+
+      class AuthenticationError < self; end
+      class AuthorizationError < self; end
+      class ConfigurationError < self; end
 
       class MissingAdaptorError < self
         def initialize(message:)
@@ -37,7 +41,7 @@ module LedgerSync
       class ThrottleError < self
         attr_reader :rate_limiting_wait_in_seconds
 
-        def initialize(adaptor:, message: nil, response:nil)
+        def initialize(adaptor:, message: nil, response: nil)
           message ||= 'Your request has been throttled.'
           @rate_limiting_wait_in_seconds = LedgerSync.adaptors.config_from_klass(
             klass: adaptor.class
@@ -51,9 +55,18 @@ module LedgerSync
         end
       end
 
-      class AuthenticationError < self; end
-      class AuthorizationError < self; end
-      class ConfigurationError < self; end
+      class UnknownURLFormat < self
+        attr_reader :resource
+
+        def initialize(*args, resource:, **keywords)
+          super(
+            *args,
+            {
+              message: "Unknown URL format for #{resource.class}"
+            }.merge(keywords)
+          )
+        end
+      end
     end
   end
 end
