@@ -4,6 +4,8 @@ module LedgerSync
   module Adaptors
     class Searcher
       include SimplySerializable::Mixin
+      include Mixins::InferResourceClassMixin
+      include Mixins::InferLedgerSerializerMixin
 
       attr_reader :adaptor,
                   :query,

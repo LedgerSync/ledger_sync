@@ -12,14 +12,11 @@ module LedgerSync
           private
 
           def operate
-            response = adaptor.post(
-              resource: quickbooks_online_resource_type,
-              payload: ledger_serializer.to_ledger_hash
-            )
-
-            success(
-              resource: ledger_serializer.deserialize(hash: response),
-              response: response
+            result(
+              response: adaptor.post(
+                path: ledger_resource_type_for_path,
+                payload: ledger_serializer.to_ledger_hash
+              )
             )
           end
         end

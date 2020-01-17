@@ -12,15 +12,7 @@ module LedgerSync
             return if value.empty?
 
             value = LedgerSync::Util::HashHelpers.deep_stringify_keys(value)
-            resource_class = begin
-              quickbooks_online_type_hash = QuickBooksOnline::LedgerSerializer.quickbooks_online_resource_types_hash.fetch(value['type'].downcase, nil)
-              if quickbooks_online_type_hash.present?
-                quickbooks_online_type_hash.try(:fetch, :resource_class, nil)
-              else
-                LedgerSync.resources[value['type'].downcase.to_sym]
-              end
-            end
-
+            resource_class = Adaptor.resource_from_ledger_type(type: value['type'])
             raise "Unknown QuickBooks Online resource type: #{value['type']}" if resource_class.blank?
 
             ret = resource_class.new(

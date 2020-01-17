@@ -12,17 +12,14 @@ module LedgerSync
           private
 
           def create_in_ledger
-            case response.status
-            when 200..299
-              LedgerSync::Result.Success(response)
-            else
-              failure(
-                Error::OperationError.new(
-                  operation: self,
-                  response: response
-                )
+            return LedgerSync::Result.Success(response) if response.success?
+
+            failure(
+              Error::OperationError.new(
+                operation: self,
+                response: response
               )
-            end
+            )
           end
 
           def find
