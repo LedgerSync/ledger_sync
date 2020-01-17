@@ -17,7 +17,7 @@ module LedgerSync
         private
 
         def default_offset
-          0
+          raise NotImplementedError
         end
 
         def default_limit
