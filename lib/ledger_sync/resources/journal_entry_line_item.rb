@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require_relative 'account'
+
 module LedgerSync
   class JournalEntryLineItem < LedgerSync::Resource
     references_one :account, to: Account

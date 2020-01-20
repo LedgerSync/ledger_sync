@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'account'
+
 module LedgerSync
   class ExpenseLineItem < LedgerSync::Resource
     references_one :account, to: Account

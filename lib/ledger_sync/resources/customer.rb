@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'subsidiary'
+
 module LedgerSync
   class Customer < LedgerSync::Resource
     attribute :email, type: Type::String

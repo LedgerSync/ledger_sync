@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'account'
-require_relative 'bill_line_item'
 require_relative 'department'
+require_relative 'deposit_line_item'
 
 module LedgerSync
   class Deposit < LedgerSync::Resource

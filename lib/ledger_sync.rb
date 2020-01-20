@@ -57,22 +57,7 @@ require 'ledger_sync/adaptors/request'
 
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class
-require 'ledger_sync/resources/ledger_class'
-require 'ledger_sync/resources/department'
-require 'ledger_sync/resources/account'
-require 'ledger_sync/resources/subsidiary'
-require 'ledger_sync/resources/customer'
-require 'ledger_sync/resources/vendor'
-require 'ledger_sync/resources/payment'
-require 'ledger_sync/resources/expense_line_item'
-require 'ledger_sync/resources/expense'
-require 'ledger_sync/resources/deposit_line_item'
-require 'ledger_sync/resources/deposit'
-require 'ledger_sync/resources/transfer'
-require 'ledger_sync/resources/bill_line_item'
-require 'ledger_sync/resources/bill'
-require 'ledger_sync/resources/journal_entry_line_item'
-require 'ledger_sync/resources/journal_entry'
+Gem.find_files('ledger_sync/resources/**/*.rb').each { |path| require path }
 
 module LedgerSync
   @log_level = nil
@@ -140,6 +125,7 @@ Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
 # Register Resources
 LedgerSync.register_resource(resource: LedgerSync::LedgerClass)
 LedgerSync.register_resource(resource: LedgerSync::Department)
+LedgerSync.register_resource(resource: LedgerSync::Currency)
 LedgerSync.register_resource(resource: LedgerSync::Account)
 LedgerSync.register_resource(resource: LedgerSync::Customer)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
