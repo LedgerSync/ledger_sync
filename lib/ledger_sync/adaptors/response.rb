@@ -15,6 +15,14 @@ module LedgerSync
         @status = status
       end
 
+      def failure?
+        !success?
+      end
+
+      def success?
+        (200..299).include?(status)
+      end
+
       def self.new_from_faraday_response(faraday_response:, request:)
         new(
           body: faraday_response.body,
@@ -22,6 +30,14 @@ module LedgerSync
           raw: faraday_response,
           request: request,
           status: faraday_response.status
+        )
+      end
+
+      def self.new_from_oauth_response(oauth_response:, request:)
+        # Uses the same API
+        new_from_faraday_response(
+          faraday_response: oauth_response,
+          request: request
         )
       end
 

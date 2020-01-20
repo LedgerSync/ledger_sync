@@ -19,6 +19,11 @@ module LedgerSync
           resource_path = case resource
                           when LedgerSync::Customer
                             "/customers/#{resource.ledger_id}"
+                          else
+                            raise Error::AdaptorError::UnknownURLFormat.new(
+                              adaptor: self,
+                              resource: resource
+                            )
                           end
 
           base_url + resource_path

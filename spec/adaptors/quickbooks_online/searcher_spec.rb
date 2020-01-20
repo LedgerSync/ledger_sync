@@ -22,10 +22,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Searcher do
   end
 
   describe '#resources' do
-    it { expect { subject.resources }.to raise_error(NotImplementedError) }
+    it { expect(subject).to respond_to(:resources) }
   end
 
   describe '#search' do
-    it { expect { subject.search }.to raise_error(NotImplementedError) }
+    it { expect(subject).to respond_to(:search) }
   end
 end

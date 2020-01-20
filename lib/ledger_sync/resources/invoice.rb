@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
+require_relative 'account'
+require_relative 'customer'
+require_relative 'invoice_sales_line_item'
+
 module LedgerSync
   class Invoice < LedgerSync::Resource
     attribute :currency, type: Type::String
@@ -11,7 +17,7 @@ module LedgerSync
     references_many :line_items, to: InvoiceSalesLineItem
 
     def name
-      "Invoice: #{transaction_date.to_s}"
+      "Invoice: #{transaction_date}"
     end
   end
 end

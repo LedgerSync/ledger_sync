@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'account'
+require_relative 'customer'
+require_relative 'payment_line_item'
+
 module LedgerSync
   class Payment < LedgerSync::Resource
     attribute :amount, type: Type::Integer

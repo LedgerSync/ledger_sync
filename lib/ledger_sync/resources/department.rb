@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'department'
+
 module LedgerSync
   class Department < LedgerSync::Resource
     attribute :name, type: Type::String

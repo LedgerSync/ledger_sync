@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'item'
+require_relative 'ledger_class'
+
 module LedgerSync
   class InvoiceSalesLineItem < LedgerSync::Resource
     references_one :item, to: Item

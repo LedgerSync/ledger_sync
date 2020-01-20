@@ -25,6 +25,9 @@ module LedgerSync
           attribute ledger_attribute: 'DepositToAccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
+          attribute ledger_attribute: 'DepartmentRef.value',
+                    resource_attribute: 'department.ledger_id'
+
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,
                           serializer: DepositLineItem::LedgerSerializer
