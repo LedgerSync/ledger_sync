@@ -30,11 +30,9 @@ module LedgerSync
             value.map do |resource|
               {
                 'TxnId' => resource.ledger_id,
-                'TxnType' => string_helpers.camelcase(
-                  QuickBooksOnline::LedgerSerializer.ledger_serializer_for(
-                    resource_class: resource.class
-                  ).quickbooks_online_resource_type
-                )
+                'TxnType' => Adaptor.ledger_resource_type_for(
+                  resource_class: resource.class
+                ).classify
               }
             end
           end
