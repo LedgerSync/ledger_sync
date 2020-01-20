@@ -45,9 +45,55 @@ module InputHelpers
       ledger_id: nil,
       # relationships
       customer: nil,
+      deposit_account: nil,
+      account: nil,
+      line_items: [],
       # attributes
       amount: 12_345,
-      currency: 'USD'
+      currency: 'USD',
+      reference_number: 'Ref123',
+      memo: 'Memo',
+      exchange_rate: 1.0,
+      transaction_date: Date.parse('2019-09-01')
+    }.merge(merge)
+  end
+
+  def payment_line_item_resource(**merge)
+    {
+      amount: 0,
+      ledger_transactions: []
+    }.merge(merge)
+  end
+
+  def linked_txn_resource(**merge)
+    {
+      entity: nil
+    }.merge(merge)
+  end
+
+  def invoice_resource(**merge)
+    {
+      external_id: nil,
+      ledger_id: nil,
+      # relationships
+      customer: nil,
+      account: nil,
+      line_items: [],
+      # attributes
+      currency: 'USD',
+      memo: 'Memo 1',
+      transaction_date: Date.parse('2019-09-01'),
+      deposit: 100
+    }.merge(merge)
+  end
+
+  def invoice_line_item_resource(**merge)
+    {
+      # relationships
+      item: nil,
+      # attributes
+      amount: 0,
+      description: 'Sample Description'
     }.merge(merge)
   end
 

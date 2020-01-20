@@ -31,11 +31,9 @@ module LedgerSync
               'value' => value.ledger_id
             }
             ret['name'] = value.display_name if value.respond_to?(:display_name)
-            ret['type'] = string_helpers.camelcase(
-              QuickBooksOnline::LedgerSerializer.ledger_serializer_for(
-                resource_class: value.class
-              ).quickbooks_online_resource_type
-            )
+            ret['type'] = Adaptor.ledger_resource_type_for(
+              resource_class: value.class
+            ).classify
             ret
           end
 

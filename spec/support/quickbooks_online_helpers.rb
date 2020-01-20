@@ -140,7 +140,7 @@ module QuickBooksOnlineHelpers
   def stub_create_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')
       .with(
-        body: '{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"USD"},"CustomerRef":{"value":"123"}}',
+        body: '{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"USD"},"CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}]}',
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -151,7 +151,7 @@ module QuickBooksOnlineHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Sample Customer"},"DepositToAccountRef":{"value":"4"},"TotalAmt":123.45,"UnappliedAmt":123.45,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:54:17-07:00","LastUpdatedTime":"2019-07-11T13:54:17-07:00"},"TxnDate":"2019-07-11","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[]}}',
+        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"PaymentMethodRef":{"value":"29"},"PaymentRefNum":"123","TotalAmt":100.00,"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"},"TxnDate":"2019-12-03","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[{"Amount":100.00,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}],"LineEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnId","Value":"123"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnOpenBalance","Value":"100.00"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnReferenceNumber","Value":"1038"},"nil":false,"globalScope":true,"typeSubstituted":false}]}}]},"time":"2019-12-23T06:51:43.325-08:00"}',
         headers: {}
       )
   end
@@ -169,7 +169,7 @@ module QuickBooksOnlineHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Sample Customer"},"DepositToAccountRef":{"value":"4"},"TotalAmt":123.45,"UnappliedAmt":123.45,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:54:17-07:00","LastUpdatedTime":"2019-07-11T13:54:17-07:00"},"TxnDate":"2019-07-11","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[]}}',
+        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"PaymentMethodRef":{"value":"29"},"PaymentRefNum":"123","TotalAmt":100.00,"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"},"TxnDate":"2019-12-03","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[{"Amount":100.00,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}],"LineEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnId","Value":"123"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnOpenBalance","Value":"100.00"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnReferenceNumber","Value":"1038"},"nil":false,"globalScope":true,"typeSubstituted":false}]}}]},"time":"2019-12-23T06:51:43.325-08:00"}',
         headers: {}
       )
   end
@@ -177,7 +177,7 @@ module QuickBooksOnlineHelpers
   def stub_update_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')
       .with(
-        body: '{"Id":"123","TotalAmt":123.45,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"CustomerRef":{"value":"123","name":"Sample Customer"},"DepositToAccountRef":{"value":"4"},"UnappliedAmt":123.45,"ProcessPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:54:17-07:00","LastUpdatedTime":"2019-07-11T13:54:17-07:00"},"TxnDate":"2019-07-11","Line":[]}',
+        body: '{"Id":"123","TotalAmt":123.45,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}],"PaymentMethodRef":{"value":"29"},"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"}}',
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -188,9 +188,63 @@ module QuickBooksOnlineHelpers
       )
       .to_return(
         status: 200,
-        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Sample Customer"},"DepositToAccountRef":{"value":"4"},"TotalAmt":123.45,"UnappliedAmt":123.45,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-07-11T13:54:17-07:00","LastUpdatedTime":"2019-07-11T13:54:17-07:00"},"TxnDate":"2019-07-11","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[]}}',
+        body: '{"Payment":{"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"PaymentMethodRef":{"value":"29"},"PaymentRefNum":"123","TotalAmt":100.00,"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"},"TxnDate":"2019-12-03","CurrencyRef":{"value":"USD","name":"United States Dollar"},"Line":[{"Amount":100.00,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}],"LineEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnId","Value":"123"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnOpenBalance","Value":"100.00"},"nil":false,"globalScope":true,"typeSubstituted":false},{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"txnReferenceNumber","Value":"1038"},"nil":false,"globalScope":true,"typeSubstituted":false}]}}]},"time":"2019-12-23T06:51:43.325-08:00"}',
         headers: {}
       )
+  end
+
+  # Invoice
+  def stub_create_invoice
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice").
+    with(
+      body: '{"Id":null,"CurrencyRef":{"value":"USD"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}]}',
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Bearer access_token',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Faraday v0.17.1'
+      }).
+    to_return(
+      status: 200,
+      body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
+      headers: {}
+    )
+  end
+
+  def stub_find_invoice
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice/123").
+    with(
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Bearer access_token',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Faraday v0.17.1'
+      }).
+    to_return(
+      status: 200,
+      body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
+      headers: {}
+    )
+  end
+
+  def stub_update_invoice
+    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice").
+    with(
+      body: '{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}],"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","LinkedTxn":[],"DueDate":"2019-09-01","TotalAmt":1.5,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.5}',
+      headers: {
+      'Accept'=>'application/json',
+      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization'=>'Bearer access_token',
+      'Content-Type'=>'application/json',
+      'User-Agent'=>'Faraday v0.17.1'
+      }).
+    to_return(
+      status: 200,
+      body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
+      headers: {}
+    )
   end
 
   # Vendor

@@ -25,8 +25,19 @@ module LedgerSync
 
       def valid_without_casting?(value:)
         return false unless value.is_a?(Array)
+        return true if (resource_classes & value.map(&:class)).any?
+        return true if value.is_a?(Array) && value.empty?
 
-        value.reject { |e| e.is_a?(resource_class) }.empty?
+        false
+      end
+      private
+
+      def resource_classes
+        @resource_classes ||= if resource_class.is_a?(Array)
+                                resource_class
+                              else
+                                [resource_class]
+                              end
       end
     end
   end
