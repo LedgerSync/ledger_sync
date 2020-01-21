@@ -46,7 +46,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Request do
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => /Bearer .*/,
           'Content-Length' => '0',
-          'User-Agent' => 'Faraday v0.17.1'
+          'User-Agent' => 'Faraday v0.17.3'
         }
       )
       .to_return(status: 200, body: '{}', headers: {})
@@ -60,7 +60,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Request do
           'Accept' => '*/*',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Content-Type' => 'application/x-www-form-urlencoded',
-          'User-Agent' => 'Faraday v0.17.1'
+          'User-Agent' => 'Faraday v0.17.3'
         }
       )
       .to_return(status: 200, body: '', headers: {})
