@@ -203,7 +203,7 @@ module QuickBooksOnlineHelpers
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'Authorization'=>'Bearer access_token',
       'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.1'
+      'User-Agent'=>'Faraday v0.17.3'
       }).
     to_return(
       status: 200,
@@ -220,7 +220,7 @@ module QuickBooksOnlineHelpers
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'Authorization'=>'Bearer access_token',
       'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.1'
+      'User-Agent'=>'Faraday v0.17.3'
       }).
     to_return(
       status: 200,
@@ -238,7 +238,7 @@ module QuickBooksOnlineHelpers
       'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
       'Authorization'=>'Bearer access_token',
       'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.1'
+      'User-Agent'=>'Faraday v0.17.3'
       }).
     to_return(
       status: 200,
