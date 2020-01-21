@@ -4,15 +4,7 @@ module LedgerSync
   module Adaptors
     module QuickBooksOnline
       class Searcher < Adaptors::Searcher
-        def next_searcher
-          paginate(limit: limit, offset: offset + limit)
-        end
-
-        def previous_searcher
-          return nil if offset <= 1
-
-          paginate(limit: limit, offset: offset - limit)
-        end
+        include Mixins::OffsetAndLimitPaginationSearcherMixin
 
         def query_string
           ''
@@ -60,13 +52,8 @@ module LedgerSync
         #
         # More here:
         # https://developer.intuit.com/app/developer/qbo/docs/develop/explore-the-quickbooks-online-api/data-queries#pagination
-
-        def limit
-          pagination.fetch(:limit, 10).to_i
-        end
-
-        def offset
-          pagination.fetch(:offset, 1).to_i
+        def default_offset
+          1
         end
       end
     end
