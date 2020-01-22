@@ -11,7 +11,8 @@ module LedgerSync
               resource_attribute: :ledger_id
 
           attribute ledger_attribute: 'CurrencyRef.value',
-                    resource_attribute: :currency
+                    resource_attribute: :currency,
+                    type: LedgerSerializerType::CurrencyType
 
           attribute ledger_attribute: 'PaymentType',
                     resource_attribute: :payment_type,

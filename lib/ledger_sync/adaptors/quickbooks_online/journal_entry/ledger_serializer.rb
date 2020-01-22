@@ -10,7 +10,8 @@ module LedgerSync
           id
 
           attribute ledger_attribute: 'CurrencyRef.value',
-                    resource_attribute: :currency
+                    resource_attribute: :currency,
+                    type: LedgerSerializerType::CurrencyType
 
           attribute ledger_attribute: 'TxnDate',
                     resource_attribute: :transaction_date,

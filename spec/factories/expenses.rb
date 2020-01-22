@@ -9,7 +9,7 @@ FactoryBot.define do
                     count: 2,
                     factory: :expense_line_item
 
-    currency { 'usd' }
+    currency { LedgerSync::Currency.new(symbol: 'usd') }
     sequence(:memo) { |n| "Testing #{rand_id(n)}" }
     payment_type { 'cash' }
     transaction_date { Date.today }

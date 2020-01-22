@@ -7,7 +7,7 @@ FactoryBot.define do
     classification { 'asset' }
     account_type { 'bank' }
     account_sub_type { 'cash_on_hand' }
-    currency { 'usd' }
+    currency { LedgerSync::Currency.new(symbol: 'usd') }
     description { "Test #{rand_id} Account description" }
     active { true }
   end

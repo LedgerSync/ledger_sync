@@ -3,6 +3,7 @@
 RSpec.shared_examples 'a valid operation' do
   it 'is valid' do
     instance = described_class.new(resource: resource, adaptor: adaptor)
+    pdb instance.errors unless instance.valid?
     expect(instance).to be_valid
   end
 end
