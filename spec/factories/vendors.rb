@@ -9,5 +9,13 @@ FactoryBot.define do
     sequence(:first_name) { |n| "TestFirst#{rand_id(n)}" }
     sequence(:last_name) { |n| "TestLast#{rand_id(n)}" }
     sequence(:display_name) { |n| "Test #{rand_id(n)} Display Name" }
+
+    trait :without_test_run_id do
+      sequence(:company_name) { |n| "Test Company #{n}" }
+      sequence(:email) { |n| "test-#{n}-vendor@example.com" }
+      sequence(:first_name) { |n| "TestFirst#{n}" }
+      sequence(:last_name) { |n| "TestLast#{n}" }
+      sequence(:display_name) { |n| "Test #{n} Display Name" }
+    end
   end
 end

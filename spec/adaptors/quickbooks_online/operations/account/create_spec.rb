@@ -13,7 +13,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Crea
   let(:resource) do
     FactoryBot.create(
       :account,
-      :no_test_run_id
+      :without_test_run_id
     )
   end
   let(:adaptor) { quickbooks_online_adaptor }

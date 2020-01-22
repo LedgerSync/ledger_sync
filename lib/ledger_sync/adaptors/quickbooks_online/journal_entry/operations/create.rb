@@ -7,7 +7,7 @@ module LedgerSync
             class Contract < LedgerSync::Adaptors::Contract
               params do
                 required(:external_id).maybe(:string)
-                optional(:currency).filled(:string)
+                optional(:currency).hash(Types::Reference)
                 required(:ledger_id).value(:nil)
                 optional(:line_items).array(Types::Reference)
                 optional(:memo).filled(:string)

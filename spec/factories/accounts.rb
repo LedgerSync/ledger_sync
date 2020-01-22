@@ -7,13 +7,14 @@ FactoryBot.define do
     classification { 'asset' }
     account_type { 'bank' }
     account_sub_type { 'cash_on_hand' }
-    currency { LedgerSync::Currency.new(symbol: 'usd') }
+    currency { FactoryBot.create(:currency) }
     description { "Test #{rand_id} Account description" }
     active { true }
 
-    trait :no_test_run_id do
+    trait :without_test_run_id do
       description { 'This is Sample Account' }
       name { 'Sample Account' }
+      currency { FactoryBot.create(:currency, :without_test_run_id) }
     end
   end
 end

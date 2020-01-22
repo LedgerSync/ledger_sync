@@ -8,7 +8,7 @@ module LedgerSync
               schema do
                 required(:external_id).maybe(:string)
                 required(:account).hash(Types::Reference)
-                optional(:currency).filled(:string)
+                optional(:currency).hash(Types::Reference)
                 optional(:exchange_rate).maybe(:float)
                 required(:ledger_id).filled(:string)
                 required(:line_items).array(Types::Reference)
