@@ -7,27 +7,45 @@ module LedgerSync
   module Adaptors
     class LedgerSerializerAttribute
       attr_reader :block,
+                  :deserialize,
                   :id,
                   :ledger_attribute,
                   :resource_attribute,
                   :resource_class,
+                  :serialize,
                   :serializer,
                   :type
 
-      def initialize(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::ValueType)
+      def initialize(
+        block: nil,
+        deserialize: true,
+        id: false,
+        ledger_attribute:,
+        resource_attribute: nil,
+        resource_class: nil,
+        serialize: true,
+        serializer: nil,
+        type: LedgerSerializerType::ValueType
+      )
         raise 'block and resource_attribute cannot both be present' unless block.nil? || resource_attribute.nil?
 
         @block = block
+        @deserialize = deserialize
         @id = id
         @ledger_attribute = ledger_attribute.to_s
         @resource_attribute = resource_attribute.to_s
         @resource_class = resource_class
+        @serialize = serialize
         @serializer = serializer
         @type = type.new
       end
 
       def block_value_for(resource:)
         block.call(resource)
+      end
+
+      def deserialize?
+        deserialize
       end
 
       # Make nested/dot calls (e.g. `vendor.ledger_id`)
@@ -69,6 +87,10 @@ module LedgerSync
 
       def resource_attribute_dot_parts
         @resource_attribute_dot_parts ||= resource_attribute.split('.')
+      end
+
+      def serialize?
+        serialize
       end
 
       def value_from_local(resource:)
