@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 support :input_helpers,
-:operation_shared_examples,
+        :operation_shared_examples,
         :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Create do
@@ -11,7 +11,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Crea
   include InputHelpers
 
   let(:resource) do
-    LedgerSync::Account.new(account_resource)
+    FactoryBot.create(
+      :account,
+      :no_test_run_id
+    )
   end
   let(:adaptor) { quickbooks_online_adaptor }
 

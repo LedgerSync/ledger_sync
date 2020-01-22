@@ -9,14 +9,18 @@ module LedgerSync
             return value if value.nil?
 
             LedgerSync::Currency.new(
-              symbol: value
+              symbol: value.fetch('value'),
+              name: value.fetch('name', nil)
             )
           end
 
           def convert_from_local(value:)
             return value if value.nil?
 
-            value.symbol
+            {
+              'value' => value.symbol,
+              'name' => value.name
+            }
           end
         end
       end

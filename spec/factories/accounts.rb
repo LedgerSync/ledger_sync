@@ -10,5 +10,10 @@ FactoryBot.define do
     currency { LedgerSync::Currency.new(symbol: 'usd') }
     description { "Test #{rand_id} Account description" }
     active { true }
+
+    trait :no_test_run_id do
+      description { 'This is Sample Account' }
+      name { 'Sample Account' }
+    end
   end
 end

@@ -9,15 +9,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Upda
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::Account.new(
-      account_sub_type: 'cash_on_hand',
-      account_type: 'bank',
-      active: true,
-      classification: 'asset',
-      currency: 'USD',
-      description: 'This is Sample Account',
-      ledger_id: '123',
-      name: 'Sample Account'
+    FactoryBot.create(
+      :account,
+      :no_test_run_id,
+      ledger_id: '123'
     )
   end
   let(:adaptor) { quickbooks_online_adaptor }

@@ -10,7 +10,7 @@ module LedgerSync
           id  ledger_attribute: 'Id',
               resource_attribute: :ledger_id
 
-          attribute ledger_attribute: 'CurrencyRef.value',
+          attribute ledger_attribute: :CurrencyRef,
                     resource_attribute: :currency,
                     type: LedgerSerializerType::CurrencyType
 

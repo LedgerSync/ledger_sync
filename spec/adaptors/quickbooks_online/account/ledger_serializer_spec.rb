@@ -24,7 +24,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
   let(:account_sub_type) { 'cash_on_hand' }
   let(:number) { '123' }
   let(:classification) { 'asset' }
-  let(:currency) { 'USD' }
+  let(:currency) { FactoryBot.create(:currency, exchange_rate: nil) }
   let(:description) { 'A descirption' }
   let(:active) { true }
 
@@ -36,7 +36,8 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::LedgerSerializer
       'AcctNum' => number,
       'Classification' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::ClassificationType.mapping[classification],
       'CurrencyRef' => {
-        'value' => currency
+        'name' => currency.name,
+        'value' => currency.symbol
       },
       'Description' => description,
       'Id' => nil,

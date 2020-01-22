@@ -13,7 +13,7 @@ module LedgerSync
                     resource_attribute: :amount,
                     type: LedgerSerializerType::AmountType
 
-          attribute ledger_attribute: 'CurrencyRef.value',
+          attribute ledger_attribute: :CurrencyRef,
                     resource_attribute: :currency,
                     type: LedgerSerializerType::CurrencyType
 
