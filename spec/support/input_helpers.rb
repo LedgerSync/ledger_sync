@@ -33,7 +33,7 @@ module InputHelpers
       classification: 'asset',
       account_type: 'bank',
       account_sub_type: 'cash_on_hand',
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       description: 'This is Sample Account',
       active: true
     }.merge(merge)
@@ -50,7 +50,7 @@ module InputHelpers
       line_items: [],
       # attributes
       amount: 12_345,
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       reference_number: 'Ref123',
       memo: 'Memo',
       exchange_rate: 1.0,
@@ -80,7 +80,7 @@ module InputHelpers
       account: nil,
       line_items: [],
       # attributes
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       memo: 'Memo 1',
       transaction_date: Date.parse('2019-09-01'),
       deposit: 100
@@ -107,7 +107,7 @@ module InputHelpers
       line_items: [],
       # attributes
       reference_number: 'Ref123',
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       memo: 'Memo',
       payment_type: 'cash',
       exchange_rate: 1.0,
@@ -136,7 +136,7 @@ module InputHelpers
       to_account: nil,
       # attributes
       amount: 12_345,
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       memo: 'Memo',
       transaction_date: Date.parse('2019-09-01')
     }.merge(merge)
@@ -151,7 +151,7 @@ module InputHelpers
       department: nil,
       line_items: [],
       # attributes
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       memo: 'Memo',
       exchange_rate: 1.0,
       transaction_date: Date.parse('2019-09-01')
@@ -180,7 +180,7 @@ module InputHelpers
       line_items: [],
       # attributes
       reference_number: 'Ref123',
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       memo: 'Memo',
       transaction_date: Date.parse('2019-09-01'),
       due_date: Date.parse('2019-09-01')
@@ -207,7 +207,7 @@ module InputHelpers
       line_items: [],
       # attributes
       reference_number: 'Ref123',
-      currency: 'USD',
+      currency: FactoryBot.create(:currency),
       memo: 'Memo',
       transaction_date: Date.parse('2019-09-01')
     }.merge(merge)

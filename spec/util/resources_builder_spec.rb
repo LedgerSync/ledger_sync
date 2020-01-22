@@ -155,7 +155,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
       'expense' => {
         '3aab091a-1a8a-4c96-b86c-f145198da13d' => {
           data: {
-            currency: 'USD',
+            currency: FactoryBot.create(:currency),
             memo: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at 2019-10-24 18:21:53 UTC",
             payment_type: 'cash',
             transaction_date: Date.new(2019, 10, 25),

@@ -57,6 +57,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Bill::Operations::Create 
       :bill,
       :without_test_run_id,
       account: account1,
+      due_date: Date.new(2019, 9, 1),
       vendor: vendor,
       line_items: [
         line_item_1,

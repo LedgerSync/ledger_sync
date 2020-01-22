@@ -5,6 +5,7 @@ FactoryBot.define do
     references_one :account
 
     sequence(:memo) { |n| "Memo #{n}" }
+    sequence(:reference_number) { |n| "Ref#{n}" }
     currency { FactoryBot.create(:currency) }
 
     trait :without_test_run_id do

@@ -126,7 +126,7 @@ module QuickBooksOnlineHelpers
   def stub_create_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')
       .with(
-        body: '{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"USD"},"CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}]}',
+        body: '{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"},"CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}]}',
         headers: headers
       )
       .to_return(
@@ -165,7 +165,7 @@ module QuickBooksOnlineHelpers
   def stub_create_invoice
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}]}',
+        body: '{"Id":null,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}]}',
         headers: headers
       )
       .to_return(
@@ -284,7 +284,7 @@ module QuickBooksOnlineHelpers
   def stub_create_account_with_missing_classification
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: '{"Id":null,"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":null,"CurrencyRef":{"value":"USD"},"Classification":null,"Description":"This is Sample Account","Active":true}',
+        body: '{"Id":null,"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":null,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"},"Classification":null,"Description":"This is Sample Account","Active":true}',
         headers: headers
       )
       .to_return(
@@ -336,7 +336,7 @@ module QuickBooksOnlineHelpers
   def stub_create_expense
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: '{"Id":null,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
         headers: headers
       )
       .to_return(
@@ -349,7 +349,7 @@ module QuickBooksOnlineHelpers
   def stub_create_expense_with_cutomer_entity
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","type":"Customer"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: '{"Id":null,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","type":"Customer"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
         headers: headers
       )
       .to_return(
@@ -388,7 +388,7 @@ module QuickBooksOnlineHelpers
   def stub_create_deposit
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"Entity":{"value":"245","name":"Sample Vendor","type":"Vendor"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: '{"Id":null,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"Entity":{"value":"245","name":"Sample Vendor","type":"Vendor"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"}]}',
         headers: headers
       )
       .to_return(
@@ -428,7 +428,7 @@ module QuickBooksOnlineHelpers
   def stub_create_transfer
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer')
       .with(
-        body: '{"Id":null,"Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123"},"ToAccountRef":{"value":"123"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD"}}',
+        body: '{"Id":null,"Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123"},"ToAccountRef":{"value":"123"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"}}',
         headers: headers
       )
       .to_return(
@@ -468,12 +468,12 @@ module QuickBooksOnlineHelpers
   def stub_create_bill
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD"},"DueDate":"2019-09-01","PrivateNote":"Memo","TxnDate":"2019-09-01","VendorRef":{"value":"123"},"APAccountRef":{"value":"123"},"DocNumber":"Ref123","Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: '{"Id":null,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 3"},"DueDate":"2019-09-01","PrivateNote":"Memo 1","TxnDate":null,"VendorRef":{"value":"123"},"APAccountRef":{"value":"123"},"DocNumber":"Ref1","Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"124"}},"Amount":123.45,"Description":"Test Line Item 1"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"124"}},"Amount":123.45,"Description":"Test Line Item 2"}]}',
         headers: headers
       )
       .to_return(
         status: 200,
-        body: '{"Bill":{"DueDate":"2019-09-01","Balance":246.9,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-13T10:43:04-07:00","LastUpdatedTime":"2019-10-13T10:43:04-07:00"},"DocNumber":"Ref123","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","LineNum":1,"Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}},{"Id":"2","LineNum":2,"Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}}],"VendorRef":{"value":"123","name":"Sample Vendor"},"APAccountRef":{"value":"123","name":"Accounts Payable (A/P)"},"TotalAmt":246.9},"time":"2019-10-13T10:43:04.169-07:00"}',
+        body: '{"Bill":{"DueDate":"2019-09-01","Balance":246.9,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-13T10:43:04-07:00","LastUpdatedTime":"2019-10-13T10:43:04-07:00"},"DocNumber":"Ref1","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","LineNum":1,"Description":"Test Line Item 2","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"124","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}},{"Id":"2","LineNum":2,"Description":"Test Line Item 1","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","TaxCodeRef":{"value":"NON"}}}],"VendorRef":{"value":"123","name":"Sample Vendor"},"APAccountRef":{"value":"123","name":"Accounts Payable (A/P)"},"TotalAmt":246.9},"time":"2019-10-13T10:43:04.169-07:00"}',
         headers: {}
       )
   end
@@ -507,7 +507,7 @@ module QuickBooksOnlineHelpers
   def stub_create_journal_entry
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD"},"TxnDate":"2019-09-01","PrivateNote":"Memo","DocNumber":"Ref123","Line":[{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Credit","AccountRef":{"value":"123"}},"Description":"Sample Transaction"},{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Debit","AccountRef":{"value":"123"}},"Description":"Sample Transaction"}]}',
+        body: '{"Id":null,"CurrencyRef":{"value":"ZZZ","name":"Test Currency 1"},"TxnDate":"2019-09-01","PrivateNote":"Memo","DocNumber":"Ref123","Line":[{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Credit","AccountRef":{"value":"123"}},"Description":"Sample Transaction"},{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Debit","AccountRef":{"value":"123"}},"Description":"Sample Transaction"}]}',
         headers: headers
       )
       .to_return(
