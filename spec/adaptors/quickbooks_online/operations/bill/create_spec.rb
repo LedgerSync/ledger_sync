@@ -12,57 +12,36 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Bill::Operations::Create 
 
   # Account 1 needs to be Liability account
   let(:account1) do
-    FactoryBot.create(
-      :account,
-      :without_test_run_id,
-      ledger_id: 123
-    )
+    LedgerSync::Account.new(account_resource(ledger_id: '123'))
   end
 
   # Account 2 needs to be different
   let(:account2) do
-    FactoryBot.create(
-      :account,
-      :without_test_run_id,
-      ledger_id: 124
-    )
+    LedgerSync::Account.new(account_resource(ledger_id: '123'))
   end
 
   let(:vendor) do
-    FactoryBot.create(
-      :vendor,
-      :without_test_run_id,
-      ledger_id: 123
-    )
+    LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
   end
 
   let(:line_item_1) do
-    FactoryBot.create(
-      :bill_line_item,
-      :without_test_run_id,
-      account: account2
-    )
+    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2))
   end
 
   let(:line_item_2) do
-    FactoryBot.create(
-      :bill_line_item,
-      :without_test_run_id,
-      account: account2
-    )
+    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2))
   end
 
   let(:resource) do
-    FactoryBot.create(
-      :bill,
-      :without_test_run_id,
-      account: account1,
-      due_date: Date.new(2019, 9, 1),
-      vendor: vendor,
-      line_items: [
-        line_item_1,
-        line_item_2
-      ]
+    LedgerSync::Bill.new(
+      bill_resource(
+        account: account1,
+        vendor: vendor,
+        line_items: [
+          line_item_1,
+          line_item_2
+        ]
+      )
     )
   end
 

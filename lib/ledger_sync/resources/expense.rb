@@ -25,7 +25,7 @@ module LedgerSync
     end
 
     def name
-      "Purchase: #{amount} #{currency}"
+      "Purchase: #{amount} #{currency.try(:symbol)}"
     end
   end
 end

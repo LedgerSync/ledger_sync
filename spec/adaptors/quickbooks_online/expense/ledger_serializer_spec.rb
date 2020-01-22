@@ -99,10 +99,11 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
         ],
         resource: LedgerSync::Expense.new,
         response_hash: h,
-        serializer_class: described_class
+        serializer_class: described_class,
+        values: {
+          currency: currency
+        }
       )
-
-      expect(deserialized_resource.currency.symbol).to eq(currency.symbol)
 
       line_items.each do |li|
         expect(deserialized_resource.line_items).to include(li)

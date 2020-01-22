@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::JournalEntry::Operations:
     LedgerSync::JournalEntry.new(
       ledger_id: '123',
       reference_number: 'Ref123',
-      currency: FactoryBot.create(:currency, :without_test_run_id, name: 'United States Dollars', symbol: 'USD'),
+      currency: FactoryBot.create(:currency),
       memo: 'Memo 1',
       transaction_date: Date.new(2019, 9, 1),
       line_items: []

@@ -10,11 +10,5 @@ FactoryBot.define do
     currency { FactoryBot.create(:currency) }
     description { "Test #{rand_id} Account description" }
     active { true }
-
-    trait :without_test_run_id do
-      description { 'This is Sample Account' }
-      name { 'Sample Account' }
-      currency { FactoryBot.create(:currency, :without_test_run_id) }
-    end
   end
 end

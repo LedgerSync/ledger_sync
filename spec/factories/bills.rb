@@ -3,13 +3,8 @@
 FactoryBot.define do
   factory :bill, class: LedgerSync::Bill do
     references_one :account
+    references_one :currency
 
     sequence(:memo) { |n| "Memo #{n}" }
-    sequence(:reference_number) { |n| "Ref#{n}" }
-    currency { FactoryBot.create(:currency) }
-
-    trait :without_test_run_id do
-      currency { FactoryBot.create(:currency, :without_test_run_id) }
-    end
   end
 end
