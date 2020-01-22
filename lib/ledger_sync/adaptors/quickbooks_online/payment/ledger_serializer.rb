@@ -14,7 +14,8 @@ module LedgerSync
                     type: LedgerSerializerType::AmountType
 
           attribute ledger_attribute: 'CurrencyRef.value',
-                    resource_attribute: :currency
+                    resource_attribute: :currency,
+                    type: LedgerSerializerType::CurrencyType
 
           attribute ledger_attribute: 'CustomerRef.value',
                     resource_attribute: 'customer.ledger_id'
