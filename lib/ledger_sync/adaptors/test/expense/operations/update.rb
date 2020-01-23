@@ -10,7 +10,7 @@ module LedgerSync
                 required(:ledger_id).filled(:string)
                 required(:account).hash(Types::Reference)
                 required(:entity).hash(Types::Reference)
-                required(:currency).filled(:string)
+                required(:currency).filled(:hash, Types::Reference)
                 required(:memo).filled(:string)
                 required(:payment_type).filled(:string)
                 required(:transaction_date).filled(:date?)

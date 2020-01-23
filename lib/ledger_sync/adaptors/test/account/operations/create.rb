@@ -13,7 +13,7 @@ module LedgerSync
                 required(:account_type).filled(:string)
                 required(:account_sub_type).filled(:string)
                 required(:number).maybe(:integer)
-                required(:currency).maybe(:string)
+                required(:currency).maybe(:hash, Types::Reference)
                 required(:description).maybe(:string)
                 required(:active).maybe(:bool)
               end

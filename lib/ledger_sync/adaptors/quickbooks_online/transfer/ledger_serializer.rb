@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../currency/ledger_serializer'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -24,8 +26,9 @@ module LedgerSync
                     resource_attribute: :transaction_date,
                     type: LedgerSerializerType::DateType
 
-          attribute ledger_attribute: 'CurrencyRef.value',
-                    resource_attribute: 'currency'
+          references_one ledger_attribute: :CurrencyRef,
+                         resource_attribute: :currency,
+                         serializer: Currency::LedgerSerializer
         end
       end
     end

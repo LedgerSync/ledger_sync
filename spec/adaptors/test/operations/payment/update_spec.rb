@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Payment::Operations::Update do
     LedgerSync::Payment.new(
       ledger_id: '123',
       amount: 12_345,
-      currency: 'USD',
+      currency: FactoryBot.create(:currency, symbol: 'USD'),
       reference_number: 'Ref123',
       memo: 'Memo',
       exchange_rate: 1.0,

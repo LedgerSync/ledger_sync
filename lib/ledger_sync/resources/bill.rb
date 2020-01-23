@@ -2,11 +2,11 @@
 
 require_relative 'account'
 require_relative 'bill_line_item'
+require_relative 'currency'
 require_relative 'vendor'
 
 module LedgerSync
   class Bill < LedgerSync::Resource
-    attribute :currency, type: Type::String
     attribute :memo, type: Type::String
     attribute :transaction_date, type: Type::Date
     attribute :due_date, type: Type::Date
@@ -14,6 +14,7 @@ module LedgerSync
 
     references_one :vendor, to: Vendor
     references_one :account, to: Account
+    references_one :currency, to: Currency
 
     references_many :line_items, to: BillLineItem
 

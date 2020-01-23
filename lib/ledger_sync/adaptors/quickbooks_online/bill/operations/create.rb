@@ -8,7 +8,7 @@ module LedgerSync
               params do
                 required(:external_id).maybe(:string)
                 optional(:account).hash(Types::Reference)
-                optional(:currency).filled(:string)
+                optional(:currency).hash(Types::Reference)
                 optional(:due_date).maybe(:date?)
                 optional(:ledger_id).value(:nil)
                 required(:line_items).array(Types::Reference)

@@ -59,8 +59,16 @@ module LedgerSync
         ledger_attribute_dot_parts.reverse.inject(value) { |a, n| { n => a } }
       end
 
+      def reference?
+        references_many? || references_one?
+      end
+
       def references_many?
         type.is_a?(LedgerSerializerType::ReferencesManyType)
+      end
+
+      def references_one?
+        type.is_a?(LedgerSerializerType::ReferencesOneType)
       end
 
       def resource_attribute?
@@ -78,7 +86,7 @@ module LedgerSync
                   block_value_for(resource: resource)
                 end
 
-        if references_many?
+        if reference?
           type.convert_from_local(
             serializer: serializer,
             value: value
@@ -93,7 +101,7 @@ module LedgerSync
       def value_from_ledger(hash:, resource:)
         value = hash.dig(*ledger_attribute_dot_parts)
 
-        value = if references_many?
+        value = if reference?
                   type.convert_from_ledger(
                     resource_class: resource_class,
                     serializer: serializer,

@@ -30,7 +30,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       entity: vendor
     )
   end
-  let(:currency) { 'USD' }
+  let(:currency) { FactoryBot.create(:currency) }
   let(:line_items) do
     [
       LedgerSync::ExpenseLineItem.new(
@@ -54,7 +54,8 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
     {
       'Id' => nil,
       'CurrencyRef' => {
-        'value' => currency
+        'name' => currency.name,
+        'value' => currency.symbol
       },
       'DocNumber' => 'Ref123',
       'PaymentType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::PaymentType.mapping[payment_type],
@@ -91,7 +92,6 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
       deserialized_resource = expect_deserialized_attributes(
         attributes: %i[
           account
-          currency
           exchange_rate
           memo
           payment_type
@@ -99,7 +99,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
         ],
         resource: LedgerSync::Expense.new,
         response_hash: h,
-        serializer_class: described_class
+        serializer_class: described_class,
+        values: {
+          currency: currency
+        }
       )
 
       line_items.each do |li|

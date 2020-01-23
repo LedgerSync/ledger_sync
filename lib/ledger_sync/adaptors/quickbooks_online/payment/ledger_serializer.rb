@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative '../currency/ledger_serializer'
 require_relative '../payment_line_item/ledger_serializer'
 
 module LedgerSync
@@ -13,8 +14,9 @@ module LedgerSync
                     resource_attribute: :amount,
                     type: LedgerSerializerType::AmountType
 
-          attribute ledger_attribute: 'CurrencyRef.value',
-                    resource_attribute: :currency
+          references_one ledger_attribute: :CurrencyRef,
+                         resource_attribute: :currency,
+                         serializer: Currency::LedgerSerializer
 
           attribute ledger_attribute: 'CustomerRef.value',
                     resource_attribute: 'customer.ledger_id'
@@ -39,8 +41,8 @@ module LedgerSync
                     type: LedgerSerializerType::DateType
 
           references_many ledger_attribute: 'Line',
-                    resource_attribute: :line_items,
-                    serializer: PaymentLineItem::LedgerSerializer
+                          resource_attribute: :line_items,
+                          serializer: PaymentLineItem::LedgerSerializer
         end
       end
     end

@@ -6,7 +6,7 @@ RSpec.describe LedgerSync::Resource do
   let(:resource) { LedgerSync::Customer.new }
 
   it do
-    expect(LedgerSync::Expense.new(currency: 'USD')).to be_changed
+    expect(LedgerSync::Expense.new(currency: FactoryBot.create(:currency))).to be_changed
     expense = LedgerSync::Expense.new
     expect(expense).not_to be_changed
   end
