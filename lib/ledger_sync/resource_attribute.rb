@@ -36,11 +36,19 @@ module LedgerSync
       type.cast(value)
     end
 
+    def custom?
+      is_a?(Custom)
+    end
+
     # This is for ActiveModel::Dirty, since we define @attributes
     # def forgetting_assignment; end
 
     def reference?
       is_a?(Reference)
+    end
+
+    def references_one?
+      is_a?(Reference::One)
     end
 
     def references_many?

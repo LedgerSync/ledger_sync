@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  class ResourceAttributeSet
+  class ResourceAttributeCollection
     attr_reader :attributes,
+                :custom_attributes,
                 :references,
                 :references_one,
                 :references_many,
@@ -20,6 +21,7 @@ module LedgerSync
 
     def initialize(resource:)
       @attributes = {}
+      @custom_attributes = {}
       @references = []
       @references_one = []
       @references_many = []
@@ -28,21 +30,21 @@ module LedgerSync
     end
 
     def add(attribute)
+      raise Error::UnexpectedClassError.new(expected: ResourceAttribute, given: attribute.class) unless attribute.is_a?(ResourceAttribute)
+
       name = attribute.name
       raise "Attribute #{name} already exists on #{resource.name}." if attributes.key?(name)
 
-      if attribute.is_a?(ResourceAttribute::Reference::One)
-        @attributes[attribute.name] = attribute
+      @attributes[attribute.name] = attribute
+
+      if attribute.references_one?
         @references << attribute
         @references_one << attribute
-      elsif attribute.is_a?(ResourceAttribute::Reference::Many)
-        @attributes[attribute.name] = attribute
+      elsif attribute.references_many?
         @references << attribute
         @references_many << attribute
-      elsif attribute.is_a?(ResourceAttribute)
-        @attributes[attribute.name] = attribute
-      else
-        raise 'Unknown attribute class'
+      elsif attribute.custom?
+        @custom_attributes << attribute
       end
     end
 

@@ -56,9 +56,12 @@ module LedgerSync
 
           module ClassMethods
             def references_many(name, to:)
-              resource_attribute = ResourceAttribute::Reference::Many.new(name: name, to: to)
-              resource_attributes.add resource_attribute
-              _define_attribute_methods(name)
+              _attribute(
+                ResourceAttribute::Reference::Many.new(
+                  name: name,
+                  to: to
+                )
+              )
             end
           end
         end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../resource_attribute_set'
+require_relative '../resource_attribute_collection'
 require_relative 'dirty_mixin'
 
 # Mixin for attribute functionality
@@ -13,6 +13,20 @@ module LedgerSync
       end
 
       module ClassMethods
+        def _attribute(resource_attribute)
+          _define_attribute_methods(resource_attribute.name)
+          resource_attributes.add(resource_attribute)
+          resource_attribute
+        end
+
+        def _custom_attributes(**cattrs)
+          cattrs.each do |cattr|
+            raise Error::UnexpectedClassError.new(expected: Custom, given: cattr.class) unless cattr.is_a?(Custom)
+
+            _attribute(cattr)
+          end
+        end
+
         def _define_attribute_methods(name)
           class_eval do
             define_attribute_methods name
@@ -44,14 +58,7 @@ module LedgerSync
         end
 
         def attribute(name, type:)
-          resource_attribute = ResourceAttribute.new(name: name, type: type)
-
-          _define_attribute_methods(name)
-
-          resource_attributes.add(resource_attribute)
-          references_many_resource_attributes << resource_attribute if resource_attribute.type.is_a?(Reference::Many)
-
-          resource_attribute
+          _attribute(ResourceAttribute.new(name: name, type: type))
         end
 
         def references_many_resource_attributes
@@ -59,11 +66,12 @@ module LedgerSync
         end
 
         def resource_attributes
-          @resource_attributes ||= ResourceAttributeSet.new(resource: self)
+          @resource_attributes ||= ResourceAttributeCollection.new(resource: self)
         end
       end
 
-      def initialize(**data)
+      def initialize(custom_attributes: [], **data)
+        self.class._custom_attributes(*custom_attributes)
         # Initialize empty values
         resource_attributes.keys.each { |e| instance_variable_set("@#{e}", nil) }
 
