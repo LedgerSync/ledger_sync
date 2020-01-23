@@ -17,9 +17,6 @@ module LedgerSync
                     type: LedgerSerializerType::AccountSubType
           attribute ledger_attribute: 'AcctNum',
                     resource_attribute: :number
-          attribute ledger_attribute: :CurrencyRef,
-                    resource_attribute: :currency,
-                    type: LedgerSerializerType::CurrencyType
           attribute ledger_attribute: 'Classification',
                     resource_attribute: :classification,
                     type: LedgerSerializerType::ClassificationType
@@ -27,6 +24,10 @@ module LedgerSync
                     resource_attribute: :description
           attribute ledger_attribute: 'Active',
                     resource_attribute: :active
+
+          references_one ledger_attribute: :CurrencyRef,
+                         resource_attribute: :currency,
+                         serializer: Currency::LedgerSerializer
         end
       end
     end

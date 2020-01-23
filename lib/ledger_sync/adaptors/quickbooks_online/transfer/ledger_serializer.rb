@@ -24,9 +24,9 @@ module LedgerSync
                     resource_attribute: :transaction_date,
                     type: LedgerSerializerType::DateType
 
-          attribute ledger_attribute: :CurrencyRef,
-                    resource_attribute: :currency,
-                    type: LedgerSerializerType::CurrencyType
+          references_one ledger_attribute: :CurrencyRef,
+                         resource_attribute: :currency,
+                         serializer: Currency::LedgerSerializer
         end
       end
     end

@@ -40,21 +40,21 @@ module QuickBooksOnlineHelpers
   def stub_revoke_token
     stub_request(
       :post,
-      "https://developer.api.intuit.com/v2/oauth2/tokens/revoke"
+      'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
     ).with(
       body: {
-        "token"=>"access_token"
+        'token' => 'access_token'
       }.to_json,
       headers: {
-        'Accept'=>'application/json',
-        'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'Authorization'=>basic_authorization_header,
-        'Content-Type'=>'application/json',
-        'User-Agent'=>'Ruby'
+        'Accept' => 'application/json',
+        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'Authorization' => basic_authorization_header,
+        'Content-Type' => 'application/json',
+        'User-Agent' => 'Ruby'
       }
     ).to_return(
       status: 200,
-      body: "",
+      body: '',
       headers: {}
     )
   end
@@ -195,56 +195,59 @@ module QuickBooksOnlineHelpers
 
   # Invoice
   def stub_create_invoice
-    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice").
-    with(
-      body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}]}',
-      headers: {
-      'Accept'=>'application/json',
-      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization'=>'Bearer access_token',
-      'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.3'
-      }).
-    to_return(
-      status: 200,
-      body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
-      headers: {}
-    )
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice')
+      .with(
+        body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}]}',
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.17.3'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
+        headers: {}
+      )
   end
 
   def stub_find_invoice
-    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice/123").
-    with(
-      headers: {
-      'Accept'=>'application/json',
-      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization'=>'Bearer access_token',
-      'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.3'
-      }).
-    to_return(
-      status: 200,
-      body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
-      headers: {}
-    )
+    stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice/123')
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.17.3'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
+        headers: {}
+      )
   end
 
   def stub_update_invoice
-    stub_request(:post, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice").
-    with(
-      body: '{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}],"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","LinkedTxn":[],"DueDate":"2019-09-01","TotalAmt":1.5,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.5}',
-      headers: {
-      'Accept'=>'application/json',
-      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization'=>'Bearer access_token',
-      'Content-Type'=>'application/json',
-      'User-Agent'=>'Faraday v0.17.3'
-      }).
-    to_return(
-      status: 200,
-      body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
-      headers: {}
-    )
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice')
+      .with(
+        body: '{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}],"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","LinkedTxn":[],"DueDate":"2019-09-01","TotalAmt":1.5,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.5}',
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => 'Faraday v0.17.3'
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Invoice":{"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"Id":"173","SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo 1","LinkedTxn":[],"Line":[{"Id":"1","LineNum":1,"Description":"Test Item","Amount":1.50,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"33","name":"Services"},"TaxCodeRef":{"value":"NON"}}},{"Amount":1.50,"DetailType":"SubTotalLineDetail","SubTotalLineDetail":{}}],"CustomerRef":{"value":"83","name":"Lola"},"DueDate":"2019-09-01","TotalAmt":1.50,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.50},"time":"2020-01-15T06:25:44.543-08:00"}',
+        headers: {}
+      )
   end
 
   # Vendor
@@ -328,7 +331,20 @@ module QuickBooksOnlineHelpers
   def stub_create_account
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: '{"Id":null,"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"Classification":"Asset","Description":"This is Sample Account","Active":true}',
+        body: {
+          'Id' => nil,
+          'Name' => 'Sample Account',
+          'AccountType' => 'Bank',
+          'AccountSubType' => 'CashOnHand',
+          'AcctNum' => nil,
+          'Classification' => 'Asset',
+          'Description' => 'This is Sample Account',
+          'Active' => true,
+          'CurrencyRef' => {
+            'value' => 'USD',
+            'name' => 'United States Dollar'
+          }
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -802,81 +818,81 @@ module QuickBooksOnlineHelpers
       )
   end
 
-    # Class
+  # Class
 
-    def stub_create_ledger_class
-      stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
-        .with(
-          body: '{"Id":null,"Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null}}',
-          headers: {
-            'Accept' => 'application/json',
-            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-            'Authorization' => 'Bearer access_token',
-            'Content-Type' => 'application/json',
-            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-          }
-        )
-        .to_return(
-          status: 200,
-          body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:34:10.943-08:00"}',
-          headers: {}
-        )
-    end
+  def stub_create_ledger_class
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
+      .with(
+        body: '{"Id":null,"Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null}}',
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:34:10.943-08:00"}',
+        headers: {}
+      )
+  end
 
-    def stub_find_ledger_class
-      stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class/123')
-        .with(
-          headers: {
-            'Accept' => 'application/json',
-            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-            'Authorization' => 'Bearer access_token',
-            'Content-Type' => 'application/json',
-            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-          }
-        )
-        .to_return(
-          status: 200,
-          body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:34:10.943-08:00"}',
-          headers: {}
-        )
-    end
+  def stub_find_ledger_class
+    stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class/123')
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:34:10.943-08:00"}',
+        headers: {}
+      )
+  end
 
-    def stub_search_ledger_class
-      stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Class%20WHERE%20Name%20LIKE%20'%25Test%20Class%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
-        .with(
-          headers: {
-            'Accept' => 'application/json',
-            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-            'Authorization' => 'Bearer access_token',
-            'Content-Type' => 'application/json',
-            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-          }
-        )
-        .to_return(
-          status: 200,
-          body: '{"QueryResponse":{"Class":[{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}]}}',
-          headers: {}
-        )
-    end
+  def stub_search_ledger_class
+    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Class%20WHERE%20Name%20LIKE%20'%25Test%20Class%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
+      .with(
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"QueryResponse":{"Class":[{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}]}}',
+        headers: {}
+      )
+  end
 
-    def stub_update_ledger_class
-      stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
-        .with(
-          body: '{"Id":"123","Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}',
-          headers: {
-            'Accept' => 'application/json',
-            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-            'Authorization' => 'Bearer access_token',
-            'Content-Type' => 'application/json',
-            'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-          }
-        )
-        .to_return(
-          status: 200,
-          body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:35:42.814-08:00"}',
-          headers: {}
-        )
-    end
+  def stub_update_ledger_class
+    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
+      .with(
+        body: '{"Id":"123","Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}',
+        headers: {
+          'Accept' => 'application/json',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Authorization' => 'Bearer access_token',
+          'Content-Type' => 'application/json',
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+        }
+      )
+      .to_return(
+        status: 200,
+        body: '{"Class":{"Name":"Test Class","SubClass":false,"FullyQualifiedName":"Test Class","Active":true,"domain":"QBO","sparse":false,"Id":"5000000000000137302","SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}},"time":"2019-12-04T08:35:42.814-08:00"}',
+        headers: {}
+      )
+  end
 
   # Webhooks
 
