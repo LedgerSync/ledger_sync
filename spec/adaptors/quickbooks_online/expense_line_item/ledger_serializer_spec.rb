@@ -8,9 +8,11 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::ExpenseLineItem::LedgerSe
   include LedgerSerializerHelpers
 
   let(:account) { LedgerSync::Account.new(ledger_id: 'account_ledger_id') }
+  let(:ledger_class) { LedgerSync::LedgerClass.new(ledger_id: 'class_ledger_id') }
   let(:resource) do
     LedgerSync::ExpenseLineItem.new(
       account: account,
+      ledger_class: ledger_class,
       amount: amount,
       description: description
     )
@@ -25,6 +27,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::ExpenseLineItem::LedgerSe
       'AccountBasedExpenseLineDetail' => {
         'AccountRef' => {
           'value' => account.ledger_id
+        },
+        'ClassRef' => {
+          'value' => ledger_class.ledger_id
         }
       },
       'Amount' => amount / 100.0,

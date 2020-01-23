@@ -16,6 +16,7 @@ module LedgerSync
 
     references_one :entity, to: [Customer, Vendor]
     references_one :account, to: Account
+    references_one :department, to: Department
     references_one :currency, to: Currency
 
     references_many :line_items, to: ExpenseLineItem

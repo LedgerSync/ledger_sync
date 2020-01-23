@@ -11,6 +11,7 @@ module LedgerSync
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:account).hash(Types::Reference)
+                required(:department).hash(Types::Reference)
                 required(:entity).hash(Types::Reference)
                 required(:currency).maybe(:hash, Types::Reference)
                 required(:memo).maybe(:string)
