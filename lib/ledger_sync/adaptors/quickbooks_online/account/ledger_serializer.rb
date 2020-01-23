@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../currency/ledger_serializer'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline

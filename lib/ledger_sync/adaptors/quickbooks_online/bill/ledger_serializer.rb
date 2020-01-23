@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../bill_line_item/ledger_serializer'
+require_relative '../currency/ledger_serializer'
 
 module LedgerSync
   module Adaptors

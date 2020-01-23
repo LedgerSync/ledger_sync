@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative '../currency/ledger_serializer'
 require_relative '../payment_line_item/ledger_serializer'
 
 module LedgerSync
