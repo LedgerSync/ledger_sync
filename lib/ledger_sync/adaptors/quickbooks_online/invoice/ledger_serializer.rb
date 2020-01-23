@@ -9,8 +9,9 @@ module LedgerSync
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 
-          attribute ledger_attribute: 'CurrencyRef.value',
-                    resource_attribute: :currency
+          references_one ledger_attribute: :CurrencyRef,
+                         resource_attribute: :currency,
+                         serializer: Currency::LedgerSerializer
 
           attribute ledger_attribute: 'TxnDate',
                     resource_attribute: :transaction_date,

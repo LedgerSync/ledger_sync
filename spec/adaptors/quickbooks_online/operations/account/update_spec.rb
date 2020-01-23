@@ -14,7 +14,11 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Account::Operations::Upda
       account_type: 'bank',
       active: true,
       classification: 'asset',
-      currency: 'USD',
+      currency: FactoryBot.create(
+        :currency,
+        name: 'United States Dollar',
+        symbol: 'USD'
+      ),
       description: 'This is Sample Account',
       ledger_id: '123',
       name: 'Sample Account'

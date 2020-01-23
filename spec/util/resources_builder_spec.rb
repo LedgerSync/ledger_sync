@@ -155,7 +155,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
       'expense' => {
         '3aab091a-1a8a-4c96-b86c-f145198da13d' => {
           data: {
-            currency: 'USD',
+            currency: 'foo',
             memo: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at 2019-10-24 18:21:53 UTC",
             payment_type: 'cash',
             transaction_date: Date.new(2019, 10, 25),
@@ -192,6 +192,14 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
             account: 'bba2464e-cc79-4c25-9ff6-a732d53e6fa6'
           }
         }
+      },
+      :currency => {
+        'foo' => {
+          data: {
+            name: 'United States Dollar',
+            symbol: 'USD'
+          }
+        }
       }
     }
 
@@ -205,5 +213,6 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
 
     expect(resource).to be_a(LedgerSync::Expense)
     expect(resource.entity).to be_a(LedgerSync::Vendor)
+    expect(resource.currency).to be_a(LedgerSync::Currency)
   end
 end

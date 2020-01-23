@@ -92,6 +92,15 @@ module LedgerSync
         )
       end
 
+      def self.references_one(ledger_attribute:, resource_attribute:, serializer:)
+        _attribute(
+          ledger_attribute: ledger_attribute,
+          resource_attribute: resource_attribute,
+          serializer: serializer,
+          type: LedgerSerializerType::ReferencesOneType
+        )
+      end
+
       def self.id(ledger_attribute:, resource_attribute:, &block)
         @id ||= _attribute(
           block: (block if block_given?),

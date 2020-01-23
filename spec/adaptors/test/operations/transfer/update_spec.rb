@@ -7,7 +7,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Transfer::Operations::Update do
 
   let(:from_account) { LedgerSync::Account.new(ledger_id: '123', name: 'Test 1', account_type: 'bank', account_sub_type: 'cash_on_hand')}
   let(:to_account) { LedgerSync::Account.new(ledger_id: '123', name: 'Test 2', account_type: 'bank', account_sub_type: 'cash_on_hand')}
-  let(:transfer) { LedgerSync::Transfer.new(ledger_id: '123', from_account: from_account, to_account: to_account, amount: 0, currency: 'USD', memo: 'Memo 1', transaction_date: Date.new(2019, 9, 1))}
+  let(:transfer) { LedgerSync::Transfer.new(ledger_id: '123', from_account: from_account, to_account: to_account, amount: 0, currency: FactoryBot.create(:currency, symbol: 'USD'), memo: 'Memo 1', transaction_date: Date.new(2019, 9, 1))}
 
 
   it do

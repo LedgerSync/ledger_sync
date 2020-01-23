@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../expense_line_item/ledger_serializer'
+require_relative '../currency/ledger_serializer'
 
 module LedgerSync
   module Adaptors
@@ -10,8 +11,9 @@ module LedgerSync
           id  ledger_attribute: 'Id',
               resource_attribute: :ledger_id
 
-          attribute ledger_attribute: 'CurrencyRef.value',
-                    resource_attribute: :currency
+          references_one ledger_attribute: :CurrencyRef,
+                          resource_attribute: :currency,
+                          serializer: Currency::LedgerSerializer
 
           attribute ledger_attribute: 'PaymentType',
                     resource_attribute: :payment_type,
