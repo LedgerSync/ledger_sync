@@ -12,9 +12,11 @@ module LedgerSync
           end
 
           def inferred_ledger_serializer_class
-            inferred_adaptor_class.base_module.const_get(
-              "#{inferred_resource_class.resource_module_str}::LedgerSerializer"
-            )
+            @inferred_ledger_serializer_class ||= begin
+              inferred_adaptor_class.base_module.const_get(
+                "#{inferred_resource_class.resource_module_str}::LedgerSerializer"
+              )
+            end
           end
         end
 
