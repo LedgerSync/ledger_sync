@@ -28,7 +28,7 @@ module LedgerSync
         deserialize_into = resource.dup # Do not overwrite values in the resource
         hash = Util::HashHelpers.deep_stringify_keys(hash)
 
-        self.class.attributes.deserialize_attributes.each do |ledger_serializer_attribute|
+        self.class.attributes.deserializable_attributes.each do |ledger_serializer_attribute|
           next unless ledger_serializer_attribute.resource_attribute?
 
           value = attribute_value_from_ledger(
@@ -49,7 +49,7 @@ module LedgerSync
       def to_ledger_hash(only_changes: false)
         ret = {}
 
-        self.class.attributes.serialize_attributes.each do |ledger_serializer_attribute|
+        self.class.attributes.serializable_attributes.each do |ledger_serializer_attribute|
           next if only_changes && !resource.attribute_changed?(ledger_serializer_attribute.resource_attribute)
 
           ret = Util::HashHelpers.deep_merge(

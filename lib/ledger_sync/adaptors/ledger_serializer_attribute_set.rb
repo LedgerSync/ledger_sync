@@ -4,11 +4,11 @@ module LedgerSync
   module Adaptors
     class LedgerSerializerAttributeSet
       attr_reader :attributes,
-                  :deserialize_attributes,
+                  :deserializable_attributes,
                   :id_attribute,
                   :ledger_attribute_keyed_hash,
                   :resource_attribute_keyed_hash,
-                  :serialize_attributes,
+                  :serializable_attributes,
                   :serializer_class
 
       delegate  :[],
@@ -19,10 +19,10 @@ module LedgerSync
 
       def initialize(serializer_class:)
         @attributes = []
-        @deserialize_attributes = []
+        @deserializable_attributes = []
         @ledger_attribute_keyed_hash = {}
         @resource_attribute_keyed_hash = {}
-        @serialize_attributes = []
+        @serializable_attributes = []
         @serializer_class = serializer_class
       end
 
@@ -41,8 +41,8 @@ module LedgerSync
           resource_attribute_keyed_hash[attribute.resource_attribute.to_s] = attribute
         end
 
-        serialize_attributes << attribute if attribute.serialize?
-        deserialize_attributes << attribute if attribute.deserialize?
+        serializable_attributes << attribute if attribute.serialize?
+        deserializable_attributes << attribute if attribute.deserialize?
 
         # TODO: Can make this validate something like `expense.vendor.id`
         # raise "#{resource_attribute} is not an attribute of the resource #{_inferred_resource_class}" if !resource_attribute.nil? && !_inferred_resource_class.serialize_attribute?(resource_attribute)
