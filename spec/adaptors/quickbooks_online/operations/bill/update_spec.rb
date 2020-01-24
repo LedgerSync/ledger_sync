@@ -24,12 +24,20 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Bill::Operations::Update 
     LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
   end
 
+  let(:department) do
+    LedgerSync::Department.new(ledger_id: '123')
+  end
+
+  let(:ledger_class) do
+    LedgerSync::LedgerClass.new(ledger_id: '123')
+  end
+
   let(:line_item_1) do
-    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2))
+    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
   end
 
   let(:line_item_2) do
-    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2))
+    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
   end
 
   let(:resource) do
@@ -37,6 +45,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Bill::Operations::Update 
       bill_resource(
         ledger_id: '123',
         account: account1,
+        department: department,
         vendor: vendor,
         line_items: [
           line_item_1,

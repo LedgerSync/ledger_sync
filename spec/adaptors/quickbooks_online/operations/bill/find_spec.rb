@@ -23,10 +23,16 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Bill::Operations::Find do
       last_name: 'Testing'
     )
   end
+
+  let(:department) do
+    LedgerSync::Department.new(ledger_id: '123')
+  end
+
   let(:resource) do
     LedgerSync::Bill.new(
       ledger_id: '123',
       account: account,
+      department: department,
       vendor: vendor,
       reference_number: 'Ref123',
       currency: FactoryBot.create(

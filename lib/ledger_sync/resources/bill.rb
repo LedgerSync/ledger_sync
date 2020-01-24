@@ -3,6 +3,7 @@
 require_relative 'account'
 require_relative 'bill_line_item'
 require_relative 'currency'
+require_relative 'department'
 require_relative 'vendor'
 
 module LedgerSync
@@ -14,6 +15,7 @@ module LedgerSync
 
     references_one :vendor, to: Vendor
     references_one :account, to: Account
+    references_one :department, to: Department
     references_one :currency, to: Currency
 
     references_many :line_items, to: BillLineItem

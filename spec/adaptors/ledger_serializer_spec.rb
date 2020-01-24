@@ -83,6 +83,12 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
         entry_type: 'debit',
         account: LedgerSync::Account.new(
           ledger_id: 'adsf'
+        ),
+        ledger_class: LedgerSync::LedgerClass.new(
+          ledger_id: 'asdf'
+        ),
+        department: LedgerSync::Department.new(
+          ledger_id: 'asdf'
         )
       )
       serializer = LedgerSync::Adaptors::QuickBooksOnline::JournalEntryLineItem::LedgerSerializer.new(resource: resource)
@@ -95,6 +101,12 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
           'PostingType' => 'Debit',
           'AccountRef' => {
             'value' => 'adsf'
+          },
+          'ClassRef' => {
+            'value' => 'asdf'
+          },
+          'DepartmentRef' => {
+            'value' => 'asdf'
           }
         }
       }
