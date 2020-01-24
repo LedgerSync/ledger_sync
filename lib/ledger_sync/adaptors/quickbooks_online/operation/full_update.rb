@@ -29,6 +29,10 @@ module LedgerSync
               resource: merged_resource
             )
 
+            pdb merged_serializer.to_ledger_hash(
+              deep_merge_unmapped_values: find_result_hash
+            )
+
             result(
               response: adaptor.post(
                 path: ledger_resource_type_for_path,

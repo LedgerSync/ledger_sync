@@ -1,6 +1,179 @@
 # frozen_string_literal: true
 
 module QuickBooksOnlineHelpers
+  STUBS = {
+    customer: {
+      ledger_id: '123',
+      ledger_resource: 'Customer',
+      request_hash: {
+        'Id' => nil,
+        'DisplayName' => 'Sample Customer',
+        'PrimaryPhone' => {
+          'FreeFormNumber' => nil
+        },
+        'PrimaryEmailAddr' => {
+          'Address' => 'test@example.com'
+        }
+      },
+      response_hash: {
+        'Taxable' => true,
+          'Job' => false,
+          'BillWithParent' => false,
+          'Balance' => 0,
+          'BalanceWithJobs' => 0,
+          'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+          'PreferredDeliveryMethod' => 'Print',
+          'domain' => 'QBO',
+          'sparse' => false,
+          'Id' => '123',
+          'SyncToken' => '0',
+          'MetaData' =>
+          { 'CreateTime' => '2019-07-11T13:04:17-07:00',
+            'LastUpdatedTime' => '2019-07-11T13:04:17-07:00' },
+          'FullyQualifiedName' => 'Sample Customer',
+          'DisplayName' => 'Sample Customer',
+          'PrintOnCheckName' => 'Sample Customer',
+          'Active' => true,
+          'PrimaryEmailAddr' => { 'Address' => 'test@example.com' },
+          'DefaultTaxCodeRef' => { 'value' => '2' }
+        },
+          search_url: "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Customer%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Customer%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
+    }
+  }.freeze
+
+  def api_url(ledger_id: nil, resource:)
+    ret = "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/#{resource}"
+    if ledger_id
+      ret += '/' unless ret.end_with?('/')
+      ret += ledger_id.to_s
+    end
+    ret
+  end
+
+  def headers
+    {
+      'Accept' => 'application/json',
+      'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+      'Authorization' => 'Bearer access_token',
+      'Content-Type' => 'application/json',
+      'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+    }
+  end
+
+  def stub_create(request_body:, response_body:, url:)
+    stub_request(:post, url)
+      .with(
+        body: (request_body.is_a?(Hash) ? request_body.to_json : request_body),
+        headers: headers
+      )
+      .to_return(
+        status: 200,
+        body: (response_body.is_a?(Hash) ? response_body.to_json : response_json)
+      )
+  end
+
+  def stub_find(response_body:, url:)
+    stub_request(:get, url)
+      .with(
+        headers: headers
+      )
+      .to_return(
+        status: 200,
+        body: (response_body.is_a?(Hash) ? response_body.to_json : response_json)
+      )
+  end
+
+  def stub_search(response_body:, url:)
+    stub_request(:get, url)
+      .with(
+        headers: headers
+      )
+      .to_return(
+        status: 200,
+        body: (response_body.is_a?(Hash) ? response_body.to_json : response_json)
+      )
+  end
+
+  def stub_update(request_body:, response_body: , url:)
+    stub_request(:post, url)
+      .with(
+        body: (request_body.is_a?(Hash) ? request_body.to_json : request_body),
+        headers: headers
+      )
+      .to_return(
+        status: 200,
+        body: (response_body.is_a?(Hash) ? response_body.to_json : response_json)
+      )
+  end
+
+  STUBS.each do |resource, stub|
+    request_body_hash = "#{resource}_request_body_hash"
+    response_body_hash = "#{resource}_response_body_hash"
+    search_response_body_hash = "#{resource}_search_response_body_hash"
+    stub_create_method = "stub_#{resource}_create"
+    stub_find_method = "stub_#{resource}_find"
+    stub_delete_method = "stub_#{resource}_delete"
+    stub_update_method = "stub_#{resource}_update"
+    stub_search_method = "stub_#{resource}_search"
+
+    define_method(request_body_hash) do
+      stub.fetch(:request_hash)
+    end
+
+    define_method(response_body_hash) do
+      {
+        stub.fetch(:ledger_resource).to_s =>
+        stub.fetch(:response_hash)
+      }
+    end
+
+    define_method(search_response_body_hash) do
+      {
+        'QueryResponse' => {
+          stub.fetch(:ledger_resource).to_s => [
+          stub.fetch(:response_hash)
+          ]
+        }
+      }
+    end
+
+    define_method(stub_create_method) do |request_body: nil, response_body: nil|
+      stub_create(
+        request_body: (request_body || send(request_body_hash)),
+        response_body: (response_body || send(response_body_hash)),
+        url: api_url(resource: resource)
+      )
+    end
+
+    define_method(stub_find_method) do |ledger_id: nil, response_body: nil|
+      stub_find(
+        response_body: (response_body || send(response_body_hash)),
+        url: api_url(
+          ledger_id: (ledger_id || stub.fetch(:ledger_id)),
+          resource: resource
+        )
+      )
+    end
+
+    define_method(stub_delete_method) do |request_body: nil, response_body: nil|
+    end
+
+    define_method(stub_update_method) do |request_body: nil, response_body: nil|
+      stub_create(
+        request_body: (request_body || send(request_body_hash).merge('Id' => stub[:ledger_id])),
+        response_body: (response_body || send(response_body_hash)),
+        url: api_url(resource: resource)
+      )
+    end
+
+    define_method(stub_search_method) do |response_body: nil, url: nil|
+      stub_search(
+        response_body: (response_body || search_response_body_hash),
+        url: (url || stub.fetch(:search_url))
+      )
+    end
+  end
+
   # Adaptor
   def quickbooks_online_adaptor
     LedgerSync.adaptors.quickbooks_online.new(
@@ -59,96 +232,8 @@ module QuickBooksOnlineHelpers
     )
   end
 
-  # Customer
 
-  def customer_request_hash(overrides)
-    {
-      'Id' => nil,
-      'DisplayName' => 'Sample Customer',
-      'PrimaryPhone' => {
-        'FreeFormNumber' => nil
-      },
-      'PrimaryEmailAddr' => {
-        'Address' => 'test@example.com'
-      }
-    }.merge(overrides)
-  end
-
-  def stub_create_customer(request_overrides: {})
-    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/customer')
-      .with(
-        body: customer_request_hash(request_overrides).to_json,
-        headers: {
-          'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer access_token',
-          'Content-Type' => 'application/json',
-          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-        }
-      )
-      .to_return(
-        status: 200,
-        body: '{"Customer":{"Taxable":true,"Job":false,"BillWithParent":false,"Balance":0,"BalanceWithJobs":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PreferredDeliveryMethod":"Print","domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:04:17-07:00","LastUpdatedTime":"2019-07-11T13:04:17-07:00"},"FullyQualifiedName":"Sample Customer","DisplayName":"Sample Customer","PrintOnCheckName":"Sample Customer","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"},"DefaultTaxCodeRef":{"value":"2"}}}',
-        headers: {}
-      )
-  end
-
-  def stub_find_customer
-    stub_request(:get, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/customer/123')
-      .with(
-        headers: {
-          'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer access_token',
-          'Content-Type' => 'application/json',
-          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-        }
-      )
-      .to_return(
-        status: 200,
-        body: '{"Customer":{"Taxable":true,"Job":false,"BillWithParent":false,"Balance":0,"BalanceWithJobs":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PreferredDeliveryMethod":"Print","domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:04:17-07:00","LastUpdatedTime":"2019-07-11T13:04:17-07:00"},"FullyQualifiedName":"Sample Customer","DisplayName":"Sample Customer","PrintOnCheckName":"Sample Customer","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"},"DefaultTaxCodeRef":{"value":"2"}}}',
-        headers: {}
-      )
-  end
-
-  def stub_search_customer
-    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Customer%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Customer%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
-      .with(
-        headers: {
-          'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer access_token',
-          'Content-Type' => 'application/json',
-          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-        }
-      )
-      .to_return(
-        status: 200,
-        body: '{"QueryResponse":{"Customer":[{"Taxable":true,"Job":false,"BillWithParent":false,"Balance":0,"BalanceWithJobs":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PreferredDeliveryMethod":"Print","domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:04:17-07:00","LastUpdatedTime":"2019-07-11T13:04:17-07:00"},"FullyQualifiedName":"Sample Customer","DisplayName":"Sample Customer","PrintOnCheckName":"Sample Customer","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"},"DefaultTaxCodeRef":{"value":"2"}}]}}',
-        headers: {}
-      )
-  end
-
-  def stub_update_customer
-    stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/customer')
-      .with(
-        body: '{"Id":"123","DisplayName":"Sample Customer","PrimaryPhone":{"FreeFormNumber":null},"PrimaryEmailAddr":{"Address":"test@example.com"},"Taxable":true,"Job":false,"BillWithParent":false,"Balance":0,"BalanceWithJobs":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PreferredDeliveryMethod":"Print","domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-07-11T13:04:17-07:00","LastUpdatedTime":"2019-07-11T13:04:17-07:00"},"FullyQualifiedName":"Sample Customer","PrintOnCheckName":"Sample Customer","Active":true,"DefaultTaxCodeRef":{"value":"2"}}',
-        headers: {
-          'Accept' => 'application/json',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Authorization' => 'Bearer access_token',
-          'Content-Type' => 'application/json',
-          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
-        }
-      )
-      .to_return(
-        status: 200,
-        body: '{"Customer":{"Taxable":true,"Job":false,"BillWithParent":false,"Balance":0,"BalanceWithJobs":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PreferredDeliveryMethod":"Print","domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-07-11T13:04:17-07:00","LastUpdatedTime":"2019-07-11T13:04:17-07:00"},"FullyQualifiedName":"Sample Customer","DisplayName":"Sample Customer","PrintOnCheckName":"Sample Customer","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"},"DefaultTaxCodeRef":{"value":"2"}}}',
-        headers: {}
-      )
-  end
-
-  # Payment
+  #####
 
   def stub_create_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')

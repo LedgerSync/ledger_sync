@@ -10,7 +10,13 @@ end
 RSpec.shared_examples 'a successful operation' do |stubs: []|
   before do
     stubs = [stubs] unless stubs.is_a?(Array)
-    stubs.each { |e| send(e) }
+    stubs.each do |stub|
+      if stub.is_a?(Array)
+        send(*stub)
+      else
+        send(stub)
+      end
+    end
   end
 
   it 'is successful' do
