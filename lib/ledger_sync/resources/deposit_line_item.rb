@@ -2,7 +2,9 @@
 
 require_relative 'account'
 require_relative 'customer'
+require_relative 'ledger_class'
 require_relative 'vendor'
+
 
 module LedgerSync
   class DepositLineItem < LedgerSync::Resource

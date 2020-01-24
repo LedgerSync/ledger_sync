@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'account'
+require_relative 'department'
+require_relative 'ledger_class'
 
 module LedgerSync
   class JournalEntryLineItem < LedgerSync::Resource

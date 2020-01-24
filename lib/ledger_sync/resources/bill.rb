@@ -3,6 +3,7 @@
 require_relative 'account'
 require_relative 'bill_line_item'
 require_relative 'currency'
+require_relative 'department'
 require_relative 'vendor'
 
 module LedgerSync

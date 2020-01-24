@@ -3,6 +3,7 @@
 require_relative 'account'
 require_relative 'currency'
 require_relative 'customer'
+require_relative 'department'
 require_relative 'expense_line_item'
 require_relative 'vendor'
 
