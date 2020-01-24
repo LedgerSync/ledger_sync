@@ -14,30 +14,42 @@ module QuickBooksOnlineHelpers
         'PrimaryEmailAddr' => {
           'Address' => 'test@example.com'
         }
+
       },
       response_hash: {
         'Taxable' => true,
-          'Job' => false,
-          'BillWithParent' => false,
-          'Balance' => 0,
-          'BalanceWithJobs' => 0,
-          'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
-          'PreferredDeliveryMethod' => 'Print',
-          'domain' => 'QBO',
-          'sparse' => false,
-          'Id' => '123',
-          'SyncToken' => '0',
-          'MetaData' =>
-          { 'CreateTime' => '2019-07-11T13:04:17-07:00',
-            'LastUpdatedTime' => '2019-07-11T13:04:17-07:00' },
-          'FullyQualifiedName' => 'Sample Customer',
-          'DisplayName' => 'Sample Customer',
-          'PrintOnCheckName' => 'Sample Customer',
-          'Active' => true,
-          'PrimaryEmailAddr' => { 'Address' => 'test@example.com' },
-          'DefaultTaxCodeRef' => { 'value' => '2' }
+        'Job' => false,
+        'BillWithParent' => false,
+        'Balance' => 0,
+        'BalanceWithJobs' => 0,
+        'CurrencyRef' => {
+          'value' => 'USD', 'name' => 'United States Dollar'
         },
-          search_url: "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Customer%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Customer%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
+        'PreferredDeliveryMethod' => 'Print',
+        'domain' => 'QBO',
+        'sparse' => false,
+        'Id' => '123',
+        'SyncToken' => '0',
+        'MetaData' =>
+          {
+            'CreateTime' => '2019-07-11T13:04:17-07:00',
+            'LastUpdatedTime' => '2019-07-11T13:04:17-07:00'
+          },
+        'FullyQualifiedName' => 'Sample Customer',
+        'DisplayName' => 'Sample Customer',
+        'PrintOnCheckName' => 'Sample Customer',
+        'Active' => true,
+        'PrimaryEmailAddr' => {
+          'Address' => 'test@example.com'
+        },
+        'PrimaryPhone' => {
+          'FreeFormNumber' => nil
+        },
+        'DefaultTaxCodeRef' => {
+          'value' => '2'
+        }
+      },
+      search_url: "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Customer%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Customer%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
     }
   }.freeze
 
@@ -57,13 +69,14 @@ module QuickBooksOnlineHelpers
       'Authorization' => 'Bearer access_token',
       'Content-Type' => 'application/json',
       'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
+
     }
   end
 
   def stub_create(request_body:, response_body:, url:)
     stub_request(:post, url)
       .with(
-        body: (request_body.is_a?(Hash) ? request_body.to_json : request_body),
+        body: request_body,
         headers: headers
       )
       .to_return(
@@ -94,10 +107,10 @@ module QuickBooksOnlineHelpers
       )
   end
 
-  def stub_update(request_body:, response_body: , url:)
+  def stub_update(request_body:, response_body:, url:)
     stub_request(:post, url)
       .with(
-        body: (request_body.is_a?(Hash) ? request_body.to_json : request_body),
+        body: request_body,
         headers: headers
       )
       .to_return(
@@ -124,6 +137,7 @@ module QuickBooksOnlineHelpers
       {
         stub.fetch(:ledger_resource).to_s =>
         stub.fetch(:response_hash)
+
       }
     end
 
@@ -131,9 +145,10 @@ module QuickBooksOnlineHelpers
       {
         'QueryResponse' => {
           stub.fetch(:ledger_resource).to_s => [
-          stub.fetch(:response_hash)
+            stub.fetch(:response_hash)
           ]
         }
+
       }
     end
 
@@ -159,8 +174,12 @@ module QuickBooksOnlineHelpers
     end
 
     define_method(stub_update_method) do |request_body: nil, response_body: nil|
-      stub_create(
-        request_body: (request_body || send(request_body_hash).merge('Id' => stub[:ledger_id])),
+      stub_update(
+        request_body: (
+          request_body ||
+          stub.fetch(:update_request_hash, nil) ||
+          stub.fetch(:response_hash) # This defaults to response body because FullUpdates are required
+        ),
         response_body: (response_body || send(response_body_hash)),
         url: api_url(resource: resource)
       )
@@ -193,7 +212,9 @@ module QuickBooksOnlineHelpers
   def stub_adaptor_refresh
     stub_request(:post, 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer')
       .with(
-        body: { 'client_id' => 'client_id', 'client_secret' => 'client_secret', 'grant_type' => 'refresh_token', 'refresh_token' => 'refresh_token' },
+        body: {
+          'client_id' => 'client_id', 'client_secret' => 'client_secret', 'grant_type' => 'refresh_token', 'refresh_token' => 'refresh_token'
+        },
         headers: {
           'Accept' => '*/*',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -217,6 +238,7 @@ module QuickBooksOnlineHelpers
     ).with(
       body: {
         'token' => 'access_token'
+
       }.to_json,
       headers: {
         'Accept' => 'application/json',
@@ -224,6 +246,7 @@ module QuickBooksOnlineHelpers
         'Authorization' => basic_authorization_header,
         'Content-Type' => 'application/json',
         'User-Agent' => 'Ruby'
+
       }
     ).to_return(
       status: 200,
@@ -231,7 +254,6 @@ module QuickBooksOnlineHelpers
       headers: {}
     )
   end
-
 
   #####
 
@@ -441,6 +463,7 @@ module QuickBooksOnlineHelpers
           'CurrencyRef' => {
             'value' => 'USD',
             'name' => 'United States Dollar'
+
           }
         },
         headers: {
@@ -1006,6 +1029,7 @@ module QuickBooksOnlineHelpers
         webhook_notification_hash(realm_id: 'realm_1'),
         webhook_notification_hash(realm_id: 'realm_2')
       ]
+
     }
   end
 
@@ -1019,6 +1043,7 @@ module QuickBooksOnlineHelpers
       'id' => '123',
       'operation' => 'Create',
       'lastUpdated' => '2015-10-05T14:42:19-0700'
+
     }
   end
 
@@ -1037,7 +1062,9 @@ module QuickBooksOnlineHelpers
       'dataChangeEvent' =>
        {
          'entities' => entities
+
        }
+
     }
   end
 end
