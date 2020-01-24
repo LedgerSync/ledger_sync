@@ -12,9 +12,9 @@ module LedgerSync
 
       attr_reader :resource
 
-      def initialize(resource:)
+      def initialize(ensure_inferred_resource_class: true, resource:)
         @resource = resource
-        ensure_inferred_resource_class!
+        ensure_inferred_resource_class! if ensure_inferred_resource_class
       end
 
       def attribute_value_from_ledger(hash:, ledger_serializer_attribute:, resource:)
@@ -28,7 +28,7 @@ module LedgerSync
         deserialize_into = resource.dup # Do not overwrite values in the resource
         hash = Util::HashHelpers.deep_stringify_keys(hash)
 
-        self.class.attributes.each do |ledger_serializer_attribute|
+        self.class.attributes.deserializable_attributes.each do |ledger_serializer_attribute|
           next unless ledger_serializer_attribute.resource_attribute?
 
           value = attribute_value_from_ledger(
@@ -49,7 +49,7 @@ module LedgerSync
       def to_ledger_hash(only_changes: false)
         ret = {}
 
-        self.class.attributes.each do |ledger_serializer_attribute|
+        self.class.attributes.serializable_attributes.each do |ledger_serializer_attribute|
           next if only_changes && !resource.attribute_changed?(ledger_serializer_attribute.resource_attribute)
 
           ret = Util::HashHelpers.deep_merge(
@@ -61,11 +61,20 @@ module LedgerSync
         ret
       end
 
-      def self.attribute(ledger_attribute:, resource_attribute: nil, type: LedgerSerializerType::ValueType, &block)
+      def self.attribute(
+        deserialize: true,
+        ledger_attribute:,
+        resource_attribute: nil,
+        serialize: true,
+        type: LedgerSerializerType::ValueType,
+        &block
+      )
         _attribute(
           block: (block if block_given?),
+          deserialize: deserialize,
           ledger_attribute: ledger_attribute,
           resource_attribute: resource_attribute,
+          serialize: serialize,
           type: type
         )
       end
@@ -107,13 +116,25 @@ module LedgerSync
         )
       end
 
-      private_class_method def self._build_attribute(block: nil, id: false, ledger_attribute:, resource_attribute: nil, resource_class: nil, serializer: nil, type: LedgerSerializerType::ValueType)
+      private_class_method def self._build_attribute(
+        block: nil,
+        deserialize: true,
+        id: false,
+        ledger_attribute:,
+        resource_attribute: nil,
+        resource_class: nil,
+        serialize: true,
+        serializer: nil,
+        type: LedgerSerializerType::ValueType
+      )
         LedgerSerializerAttribute.new(
           id: id,
           block: block,
+          deserialize: deserialize,
           ledger_attribute: ledger_attribute,
           resource_attribute: resource_attribute,
           resource_class: resource_class,
+          serialize: serialize,
           serializer: serializer,
           type: type
         )

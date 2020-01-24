@@ -53,7 +53,7 @@ module LedgerSync
           oauth_response = oauth.send(
             method,
             url,
-            body: body,
+            body: (body.to_json unless body.nil?),
             headers: headers
           )
           ret = Response.new_from_oauth_response(
