@@ -61,10 +61,23 @@ module QuickBooksOnlineHelpers
 
   # Customer
 
-  def stub_create_customer
+  def customer_request_hash(overrides)
+    {
+      'Id' => nil,
+      'DisplayName' => 'Sample Customer',
+      'PrimaryPhone' => {
+        'FreeFormNumber' => nil
+      },
+      'PrimaryEmailAddr' => {
+        'Address' => 'test@example.com'
+      }
+    }.merge(overrides)
+  end
+
+  def stub_create_customer(request_overrides: {})
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/customer')
       .with(
-        body: '{"Id":null,"DisplayName":"Sample Customer","PrimaryPhone":{"FreeFormNumber":null},"PrimaryEmailAddr":{"Address":"test@example.com"}}',
+        body: customer_request_hash(request_overrides).to_json,
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

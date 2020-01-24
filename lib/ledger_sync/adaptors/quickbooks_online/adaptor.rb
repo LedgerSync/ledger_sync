@@ -90,7 +90,7 @@ module LedgerSync
           request(
             headers: OAUTH_HEADERS.dup,
             method: :post,
-            body: payload.to_json,
+            body: payload,
             url: url
           )
         end

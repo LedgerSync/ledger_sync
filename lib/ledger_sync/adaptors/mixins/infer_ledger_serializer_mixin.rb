@@ -6,7 +6,7 @@ module LedgerSync
       module InferLedgerSerializerMixin
         module ClassMethods
           def inferred_ledger_serializer(resource:)
-            @inferred_ledger_serializer ||= inferred_ledger_serializer_class.new(
+            inferred_ledger_serializer_class.new(
               resource: resource
             )
           end
