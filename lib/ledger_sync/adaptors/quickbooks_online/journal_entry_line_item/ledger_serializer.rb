@@ -22,6 +22,12 @@ module LedgerSync
           attribute ledger_attribute: 'JournalEntryLineDetail.AccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
+          attribute ledger_attribute: 'JournalEntryLineDetail.ClassRef.value',
+                    resource_attribute: 'ledger_class.ledger_id'
+
+          attribute ledger_attribute: 'JournalEntryLineDetail.DepartmentRef.value',
+                    resource_attribute: 'department.ledger_id'
+
           attribute ledger_attribute: 'Description',
                     resource_attribute: :description
         end

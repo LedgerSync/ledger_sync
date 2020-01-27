@@ -33,6 +33,8 @@ module LedgerSync
             "/expense?txnId=#{resource.ledger_id}"
           when LedgerSync::JournalEntry
             "/journal?txnId=#{resource.ledger_id}"
+          when LedgerSync::LedgerClass
+            "/class"
           when LedgerSync::Payment
             "/recvpayment?txnId=#{resource.ledger_id}"
           when LedgerSync::Transfer

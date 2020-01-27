@@ -114,6 +114,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializer do
           'AccountBasedExpenseLineDetail' => {
             'AccountRef' => {
               'value' => '64'
+            },
+            'ClassRef' => {
+              'value' => nil
             }
           },
           'Description' => 'Lumber 1'
@@ -125,6 +128,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializer do
           'AccountBasedExpenseLineDetail' => {
             'AccountRef' => {
               'value' => '64'
+            },
+            'ClassRef' => {
+              'value' => nil
             }
           },
           'Description' => 'Lumber 2'
@@ -158,6 +164,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializer do
           'AccountBasedExpenseLineDetail' => {
             'AccountRef' => {
               'value' => '64'
+            },
+            'ClassRef' => {
+              'value' => nil
             }
           },
           'Description' => 'Lumber 1'
@@ -168,6 +177,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializer do
           'Id' => nil,
           'AccountBasedExpenseLineDetail' => {
             'AccountRef' => {
+              'value' => nil
+            },
+            'ClassRef' => {
               'value' => nil
             }
           },

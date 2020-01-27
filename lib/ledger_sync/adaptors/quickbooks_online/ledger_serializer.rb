@@ -25,7 +25,7 @@ module LedgerSync
         def merge_resources_for_full_update(hash:, ledger_resource:)
           merged_resource = resource.dup
 
-          self.class.attributes.each do |ledger_serializer_attribute|
+          self.class.attributes.deserializable_attributes.each do |ledger_serializer_attribute|
             next unless ledger_serializer_attribute.references_many?
 
             resources_from_ledger = attribute_value_from_ledger(

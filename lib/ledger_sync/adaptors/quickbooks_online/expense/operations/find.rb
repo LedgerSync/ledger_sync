@@ -9,6 +9,7 @@ module LedgerSync
                 required(:external_id).maybe(:string)
                 optional(:account).hash(Types::Reference)
                 required(:currency).maybe(:hash, Types::Reference)
+                required(:department).hash(Types::Reference)
                 optional(:exchange_rate).maybe(:float)
                 required(:ledger_id).filled(:string)
                 optional(:line_items).array(Types::Reference)

@@ -30,6 +30,9 @@ module LedgerSync
           attribute ledger_attribute: 'APAccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
+          attribute ledger_attribute: 'DepartmentRef.value',
+                    resource_attribute: 'department.ledger_id'
+
           attribute ledger_attribute: 'DocNumber',
                     resource_attribute: :reference_number
 

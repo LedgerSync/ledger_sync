@@ -8,6 +8,8 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
   include LedgerSerializerHelpers
 
   let(:account) { LedgerSync::Account.new(ledger_id: 'account_ledger_id') }
+  let(:department) { LedgerSync::Department.new(ledger_id: 'department_ledger_id') }
+  let(:ledger_class) { LedgerSync::LedgerClass.new(ledger_id: 'class_ledger_id') }
   let(:vendor_ledger_id) { 'vendor_ledger_id' }
   let(:vendor_display_name) { 'Test Vendor' }
   let(:entity_type) { 'Vendor' }
@@ -20,6 +22,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
   let(:resource) do
     LedgerSync::Expense.new(
       account: account,
+      department: department,
       currency: currency,
       exchange_rate: exchange_rate,
       line_items: line_items,
@@ -35,11 +38,13 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
     [
       LedgerSync::ExpenseLineItem.new(
         account: LedgerSync::Account.new(ledger_id: 'account_ledger_id_1'), # Account is required: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/purchase#create-a-purchase
+        ledger_class: ledger_class,
         amount: 10_000,
         description: 'Description 1'
       ),
       LedgerSync::ExpenseLineItem.new(
         account: LedgerSync::Account.new(ledger_id: 'account_ledger_id_2'),
+        ledger_class: ledger_class,
         amount: 20_000,
         description: 'Description 2'
       )
@@ -57,6 +62,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
         'name' => currency.name,
         'value' => currency.symbol
       },
+      'DepartmentRef' => {'value'=>department.ledger_id},
       'DocNumber' => 'Ref123',
       'PaymentType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::PaymentType.mapping[payment_type],
       'TxnDate' => transaction_date.to_s, # Format: YYYY-MM-DD

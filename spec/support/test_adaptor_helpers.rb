@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TestAdaptorHelpers
   def test_customer(*args)
     LedgerSync::Customer.new(*args)

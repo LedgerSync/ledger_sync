@@ -18,12 +18,20 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::JournalEntry::Operations:
     LedgerSync::Account.new(account_resource(ledger_id: '123'))
   end
 
+  let(:department) do
+    LedgerSync::Department.new(ledger_id: '123')
+  end
+
+  let(:ledger_class) do
+    LedgerSync::LedgerClass.new(ledger_id: '123')
+  end
+
   let(:line_item_1) do
-    LedgerSync::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account1, entry_type: 'credit'))
+    LedgerSync::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account1, ledger_class: ledger_class, department: department, entry_type: 'credit'))
   end
 
   let(:line_item_2) do
-    LedgerSync::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account2, entry_type: 'debit'))
+    LedgerSync::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account2, ledger_class: ledger_class, department: department, entry_type: 'debit'))
   end
 
   let(:resource) do

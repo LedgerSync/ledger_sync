@@ -16,11 +16,11 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Deposit::Operations::Find
       account_sub_type: 'cash_on_hand'
     )
   end
+
   let(:department) do
-    LedgerSync::Department.new(
-      ledger_id: '123'
-    )
+    LedgerSync::Department.new(ledger_id: '123')
   end
+
   let(:resource) do
     LedgerSync::Deposit.new(
       ledger_id: '123',
