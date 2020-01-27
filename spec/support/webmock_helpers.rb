@@ -15,7 +15,7 @@ module WebMock
     def stub_request(*args, times: 1)
       ret = WebMock::StubRegistry.instance
                                  .register_request_stub(WebMock::RequestStub.new(*args))
-      stubs_and_times << [ret, times]
+      stubs_and_times << [ret, times] unless times.nil?
       ret
     end
   end
