@@ -30,6 +30,7 @@ module LedgerSync
           base.include SimplySerializable::Mixin
           base.include Fingerprintable::Mixin
           base.include Adaptors::Mixins::InferLedgerSerializerMixin
+          base.include Adaptors::Mixins::InferValidationContractMixin
           base.extend ClassMethods
 
           base.class_eval do
@@ -58,20 +59,29 @@ module LedgerSync
                     :response,
                     :original
 
-        def initialize(adaptor:, resource:)
+        def initialize(
+          adaptor:,
+          ledger_deserializer_class: nil,
+          ledger_serializer_class: nil,
+          resource:,
+          validation_contract: nil
+        )
           raise 'Missing adaptor' if adaptor.nil?
           raise 'Missing resource' if resource.nil?
 
-          raise "#{resource.class.name} is not a valid resource type.  Expected #{self.class.resource_klass.name}" unless resource.is_a?(self.class.resource_klass)
+          raise Error::UnexpectedClassError.new(expected: self.class.resource_klass, given: resource.class.name) unless resource.is_a?(self.class.resource_klass)
 
           @adaptor = adaptor
           @after_operations = []
           @before_operations = []
+          @ledger_deserializer_class = ledger_deserializer_class
+          @ledger_serializer_class = ledger_serializer_class
           @operations = []
           @resource = resource
           @resource_before_perform = resource.dup
           @result = nil
           @root_operation = nil
+          @validation_contract = validation_contract
         end
 
         def add_after_operation(operation)
@@ -110,8 +120,20 @@ module LedgerSync
           @performed == true
         end
 
+        def ledger_deserializer
+          ledger_deserializer_class.new(resource: resource)
+        end
+
+        def ledger_deserializer_class
+          @ledger_deserializer_class ||= self.class.inferred_ledger_deserializer_class
+        end
+
         def ledger_serializer
-          self.class.inferred_ledger_serializer(resource: resource)
+          ledger_serializer_class.new(resource: resource)
+        end
+
+        def ledger_serializer_class
+          @ledger_serializer_class ||= self.class.inferred_ledger_serializer_class
         end
 
         # Results
@@ -149,12 +171,14 @@ module LedgerSync
         end
 
         def validate
-          raise "#{self.class.name}::Contract must be defined to validate." unless self.class.const_defined?('Contract')
-
           Util::Validator.new(
-            contract: self.class::Contract,
+            contract: validation_contract,
             data: validation_data
           ).validate
+        end
+
+        def validation_contract
+          @validation_contract ||= self.class.inferred_validation_contract_class
         end
 
         def validation_data
