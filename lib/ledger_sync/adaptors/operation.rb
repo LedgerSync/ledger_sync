@@ -3,8 +3,6 @@
 module LedgerSync
   module Adaptors
     module Operation
-      TYPES = %i[create delete find update].freeze
-
       module Mixin
         module ClassMethods
           def adaptor_klass
@@ -37,28 +35,18 @@ module LedgerSync
           base.class_eval do
             serialize only: %i[
                         adaptor
-                        after_operations
-                        before_operations
-                        operations
                         resource
-                        root_operation
                         result
                         response
-                        original
                       ]
           end
         end
 
         attr_reader :adaptor,
-                    :after_operations,
-                    :before_operations,
-                    :operations,
                     :resource,
                     :resource_before_perform,
-                    :root_operation,
                     :result,
-                    :response,
-                    :original
+                    :response
 
         def initialize(
           adaptor:,
@@ -70,41 +58,30 @@ module LedgerSync
           self.class.raise_if_unexpected_class(expected: self.class.resource_klass, given: resource.class)
 
           @adaptor = adaptor
-          @after_operations = []
-          @before_operations = []
-          @ledger_deserializer_class = ledger_deserializer_class
-          @ledger_serializer_class = ledger_serializer_class
-          @operations = []
+
+          unless ledger_deserializer_class.nil?
+            self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_deserializer_class)
+            @ledger_deserializer_class = ledger_deserializer_class
+          end
+
+          unless ledger_serializer_class.nil?
+            self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_serializer_class)
+            @ledger_serializer_class = ledger_serializer_class
+          end
           @resource = resource
           @resource_before_perform = resource.dup
           @result = nil
-          @root_operation = nil
-          @validation_contract = validation_contract
 
-          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::Contract, given: send(:validation_contract))
-          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: send(:ledger_deserializer_class))
-          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: send(:ledger_serializer_class))
-        end
-
-        def add_after_operation(operation)
-          @operations << operation
-          @after_operations << operation
-        end
-
-        def add_before_operation(operation)
-          @operations << operation
-          @before_operations << operation
-        end
-
-        def add_root_operation(operation)
-          @operations << operation
-          @root_operation = operation
+          unless validation_contract.nil?
+            @validation_contract = validation_contract
+            self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::Contract, given: validation_contract)
+          end
         end
 
         def perform
           failure(LedgerSync::Error::OperationError::PerformedOperationError.new(operation: self)) if @performed
 
-          begin
+          @result = begin
             operate
           rescue LedgerSync::Error => e
             failure(e)
@@ -203,30 +180,11 @@ module LedgerSync
           true
         end
 
-        # Type Methods
-
-        TYPES.each do |type|
-          define_method "#{type.to_s.downcase}?" do
-            false
-          end
-        end
-
         private
 
         def operate
           raise NotImplementedError, self.class.name
         end
-      end
-
-      TYPES.each do |type|
-        klass = Class.new do
-          include Operation::Mixin
-
-          define_method("#{type.to_s.downcase}?") do
-            true
-          end
-        end
-        Operation.const_set(LedgerSync::Util::StringHelpers.camelcase(type.to_s), klass)
       end
 
       def self.klass_from(adaptor:, method:, object:)

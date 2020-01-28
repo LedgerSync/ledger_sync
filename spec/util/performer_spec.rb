@@ -2,16 +2,54 @@
 
 require 'spec_helper'
 
-support :test_adaptor_helpers
+support :netsuite_helpers
 
 RSpec.describe LedgerSync::Util::Performer do
-  include TestAdaptorHelpers
+  include NetSuiteHelpers
 
-  let(:valid_operation) { LedgerSync::Adaptors::Test::Customer::Operations::Valid.new(adaptor: test_adaptor, resource: resource) }
-  let(:invalid_operation) { LedgerSync::Adaptors::Test::Customer::Operations::Invalid.new(adaptor: test_adaptor, resource: resource) }
   let(:resource) { LedgerSync::Customer.new(external_id: 123) }
+  let(:valid_contract) do
+    Class.new(LedgerSync::Adaptors::Contract) do
+      params do
+        required(:external_id).filled(:string)
+      end
+    end
+  end
+
+  let(:invalid_contract) do
+    Class.new(LedgerSync::Adaptors::Contract) do
+      params do
+        required(:external_id).filled(:nil)
+      end
+    end
+  end
+
+  let(:valid_operation) do
+    LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
+      adaptor: netsuite_adaptor,
+      resource: resource,
+      validation_contract: valid_contract
+    )
+  end
+
+  let(:invalid_operation) do
+    LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
+      adaptor: netsuite_adaptor,
+      resource: resource,
+      validation_contract: invalid_contract
+    )
+  end
 
   it do
+    allow(valid_operation).to receive(:perform) do
+      LedgerSync::OperationResult::Success.new(
+        nil,
+        operation: nil,
+        resource: nil,
+        response: nil
+      )
+    end
+
     operations = [
       valid_operation
     ]

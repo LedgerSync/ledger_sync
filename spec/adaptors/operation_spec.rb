@@ -2,51 +2,39 @@
 
 require 'spec_helper'
 
-support :test_adaptor_helpers
+support :netsuite_helpers
 
 RSpec.describe LedgerSync::Adaptors::Operation do
-  include TestAdaptorHelpers
+  include NetSuiteHelpers
 
-  let(:operation) do
-    operation_class.new(
-      adaptor: test_adaptor,
-      resource: test_customer
-    )
-  end
-  let(:operation_class) { LedgerSync::Adaptors::Test::Customer::Operations::Create }
+  let(:adaptor) { netsuite_adaptor }
+  let(:resource) { FactoryBot.create(:customer) }
+  let(:operation_class) { adaptor.base_module::Customer::Operations::Create }
   let(:serializer_class) do
     Class.new(LedgerSync::Adaptors::LedgerSerializer) do
       attribute ledger_attribute: :foo,
                 resource_attribute: :foo
     end
   end
+  let(:operation) do
+    operation_class.new(
+      adaptor: adaptor,
+      resource: resource
+    )
+  end
 
   subject { operation }
 
   it { expect { described_class.new }.to raise_error(NoMethodError) } # Operation is a module
 
-  describe '#add_after_operation' do
-    it do
-      op = test_customer_update_operation
-      subject.add_after_operation(op)
-      expect(subject.after_operations).to eq([op])
-    end
+  before do
+    stub_customer_create
+    stub_customer_find
   end
 
-  describe '#add_before_operation' do
-    it do
-      op = test_customer_update_operation
-      subject.add_before_operation(op)
-      expect(subject.before_operations).to eq([op])
-    end
-  end
+  subject { operation }
 
-  describe '#create?' do
-    it do
-      subject.perform
-      expect(subject).to be_create
-    end
-  end
+  it { expect { described_class.new }.to raise_error(NoMethodError) } # Operation is a module
 
   describe '#failure?' do
     it do
@@ -55,36 +43,29 @@ RSpec.describe LedgerSync::Adaptors::Operation do
     end
   end
 
-  describe '#find?' do
-    it do
-      subject.perform
-      expect(subject).not_to be_find
-    end
-  end
-
   describe '#ledger_deserializer_class' do
     it do
       op = operation_class.new(
-        adaptor: test_adaptor,
-        resource: test_customer
+        adaptor: netsuite_adaptor,
+        resource: FactoryBot.create(:customer)
       )
-      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::Test::Customer::LedgerSerializer)
+      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::NetSuite::Customer::LedgerDeserializer)
     end
 
     it do
       op = operation_class.new(
-        adaptor: test_adaptor,
+        adaptor: netsuite_adaptor,
         ledger_deserializer_class: nil,
-        resource: test_customer
+        resource: FactoryBot.create(:customer)
       )
-      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::Test::Customer::LedgerSerializer)
+      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::NetSuite::Customer::LedgerDeserializer)
     end
 
     it do
       op = operation_class.new(
-        adaptor: test_adaptor,
+        adaptor: netsuite_adaptor,
         ledger_deserializer_class: serializer_class,
-        resource: test_customer
+        resource: FactoryBot.create(:customer)
       )
       expect(op.ledger_deserializer_class).to eq(serializer_class)
     end
@@ -92,9 +73,9 @@ RSpec.describe LedgerSync::Adaptors::Operation do
     it do
       expect do
         operation_class.new(
-          adaptor: test_adaptor,
+          adaptor: netsuite_adaptor,
           ledger_deserializer_class: 'asdf',
-          resource: test_customer
+          resource: FactoryBot.create(:customer)
         )
       end.to raise_error(LedgerSync::Error::UnexpectedClassError)
     end
@@ -116,13 +97,6 @@ RSpec.describe LedgerSync::Adaptors::Operation do
     it do
       subject.perform
       expect(subject).to be_success
-    end
-  end
-
-  describe '#update?' do
-    it do
-      subject.perform
-      expect(subject).not_to be_update
     end
   end
 

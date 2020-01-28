@@ -3,12 +3,12 @@
 require 'spec_helper'
 
 support :serializable_shared_examples,
-        :test_adaptor_helpers
+        :quickbooks_online_helpers
 
-RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :serializable do
-  include TestAdaptorHelpers
+RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Create, type: :serializable do
+  include QuickBooksOnlineHelpers
 
-  let(:adaptor) { test_adaptor }
+  let(:adaptor) { quickbooks_online_adaptor }
   let(:resource) { LedgerSync::Customer.new(name: 'asdf') }
   let(:operation) { new_resource }
 
@@ -20,7 +20,7 @@ RSpec.describe LedgerSync::Adaptors::Test::Customer::Operations::Create, type: :
   end
 
   it 'does not serialize dates' do
-    operation = LedgerSync::Adaptors::Test::Expense::Operations::Find.new(
+    operation = LedgerSync::Adaptors::QuickBooksOnline::Expense::Operations::Find.new(
       adaptor: adaptor,
       resource: LedgerSync::Expense.new(transaction_date: Date.today)
     )

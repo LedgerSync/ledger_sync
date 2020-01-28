@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-support :test_adaptor_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Error::AdaptorError::ThrottleError do
-  include TestAdaptorHelpers
+  include QuickBooksOnlineHelpers
 
-  let(:error) { described_class.new(adaptor: test_adaptor) }
+  let(:error) { described_class.new(adaptor: quickbooks_online_adaptor) }
 
-  it { expect(error.rate_limiting_wait_in_seconds).to eq(47) }
+  it { expect(error.rate_limiting_wait_in_seconds).to eq(60) }
 end

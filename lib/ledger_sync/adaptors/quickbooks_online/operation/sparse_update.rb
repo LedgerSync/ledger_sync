@@ -17,7 +17,7 @@ module LedgerSync
               payload: merged_serializer.to_ledger_hash
             )
 
-            success(
+            response_to_operation_result(
               resource: ledger_serializer.deserialize(hash: response),
               response: response
             )
