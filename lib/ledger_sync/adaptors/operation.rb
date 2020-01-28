@@ -29,6 +29,7 @@ module LedgerSync
         def self.included(base)
           base.include SimplySerializable::Mixin
           base.include Fingerprintable::Mixin
+          base.include Error::HelpersMixin
           base.include Adaptors::Mixins::InferLedgerSerializerMixin
           base.include Adaptors::Mixins::InferValidationContractMixin
           base.extend ClassMethods
@@ -66,10 +67,7 @@ module LedgerSync
           resource:,
           validation_contract: nil
         )
-          raise 'Missing adaptor' if adaptor.nil?
-          raise 'Missing resource' if resource.nil?
-
-          raise Error::UnexpectedClassError.new(expected: self.class.resource_klass, given: resource.class.name) unless resource.is_a?(self.class.resource_klass)
+          self.class.raise_if_unexpected_class(expected: self.class.resource_klass, given: resource.class)
 
           @adaptor = adaptor
           @after_operations = []
@@ -82,6 +80,10 @@ module LedgerSync
           @result = nil
           @root_operation = nil
           @validation_contract = validation_contract
+
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::Contract, given: send(:validation_contract))
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: send(:ledger_deserializer_class))
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: send(:ledger_serializer_class))
         end
 
         def add_after_operation(operation)

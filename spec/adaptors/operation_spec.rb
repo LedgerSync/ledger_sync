@@ -7,7 +7,19 @@ support :test_adaptor_helpers
 RSpec.describe LedgerSync::Adaptors::Operation do
   include TestAdaptorHelpers
 
-  let(:operation) { test_customer_create_operation }
+  let(:operation) do
+    operation_class.new(
+      adaptor: test_adaptor,
+      resource: test_customer
+    )
+  end
+  let(:operation_class) { LedgerSync::Adaptors::Test::Customer::Operations::Create }
+  let(:serializer_class) do
+    Class.new(LedgerSync::Adaptors::LedgerSerializer) do
+      attribute ledger_attribute: :foo,
+                resource_attribute: :foo
+    end
+  end
 
   subject { operation }
 
@@ -47,6 +59,44 @@ RSpec.describe LedgerSync::Adaptors::Operation do
     it do
       subject.perform
       expect(subject).not_to be_find
+    end
+  end
+
+  describe '#ledger_deserializer_class' do
+    it do
+      op = operation_class.new(
+        adaptor: test_adaptor,
+        resource: test_customer
+      )
+      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::Test::Customer::LedgerSerializer)
+    end
+
+    it do
+      op = operation_class.new(
+        adaptor: test_adaptor,
+        ledger_deserializer_class: nil,
+        resource: test_customer
+      )
+      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::Test::Customer::LedgerSerializer)
+    end
+
+    it do
+      op = operation_class.new(
+        adaptor: test_adaptor,
+        ledger_deserializer_class: serializer_class,
+        resource: test_customer
+      )
+      expect(op.ledger_deserializer_class).to eq(serializer_class)
+    end
+
+    it do
+      expect do
+        operation_class.new(
+          adaptor: test_adaptor,
+          ledger_deserializer_class: 'asdf',
+          resource: test_customer
+        )
+      end.to raise_error(LedgerSync::Error::UnexpectedClassError)
     end
   end
 
