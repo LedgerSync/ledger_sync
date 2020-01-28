@@ -79,14 +79,12 @@ end
 
 ## How it Works
 
-### The Library Structure
-
 This library consists of two important layers:
 
 1. Resources
 2. Adaptors
 
-#### Resources
+### Resources
 
 Resources are named ruby objects (e.g. `Customer`, `Payment`, etc.) with strict attributes (e.g. `name`, `amount`, etc.).  They are a layer between your application and an adaptor.  They can be validated using an adaptor.  You can create and use the resources, and an adaptor will update resources as needed based on the intention and outcome of that operation.
 
@@ -96,17 +94,66 @@ Resources have defined attributes.  Attributes are explicitly defined.  An error
 
 A subset of these `attributes` may be a `reference`, which is simply a special type of attribute that references another resource.  You can retrieve the references of a resource by calling `LedgerSync::Customer.references`.
 
+#### Custom Attributes
+
+Some ledgers (e.g. NetSuite) allow for custom attributes (or "fields"), which can vary by account and user.  To allow for custom attributes, you can create new resources, ledger serializers (see below), and validation contracts (see below).  Assuming your ledger supports the string attribute `foo` for customers, you could do the following:
+
+```ruby
+class CustomCustomer < LedgerSync::Customer
+  attribute :foo, type: LedgerSync::Type::String
+end
+```
+
 ### Adaptors
 
 Adaptors are ledger-specific ruby objects that contain all the logic to authenticate to a ledger, perform ledger-specific operations, and validate resources based on the requirements of the ledger.  Adaptors contain a number of useful objects:
 
 - adaptor
+- serializers
 - operations
 - searchers
 
 #### Adaptor
 
 The adaptor handles authentication and requests to the ledger.  Each adaptors initializer will vary based on the needs of that ledger.
+
+#### Serializers
+
+Operations depend on `LedgerSync::Adaptor::LedgerSerializer`s to serialize and deserialize objects.  Most resources have a default serializer per adaptor which may acts as both a serializer and deserializer.  You can provide custom serializers, which is necessary when working with custom attributes.  For example, given the following:
+- `custom_resource` that is a `LedgerSync::Customer` (see above)
+- the attribute `foo` is used in both the request and response bodies
+- using the `NetSuite` adaptor
+
+you could implement custom serializers using the following code:
+
+```ruby
+# Extend the existing one or use
+# LedgerSync::Adaptors::NetSuite::LedgerSerializer or, more generically,
+# LedgerSync::Adaptors::LedgerSerializer
+class CustomSerializer < LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer
+  attribute ledger_attribute: :foo,
+            resource_attribute: :foo,
+            deserialize: true, # optional, default: true
+            serialize: true # optional, default: true
+end
+
+# Serializing
+custom_resource = CustomCustomer.new(foo: 'asdf') # See above under Resources -> Custom Attributes
+serializer = CustomSerializer.new(resource: custom_resource)
+serializer.to_ledger_hash # => {"foo"=>"asdf"}
+
+# Deserializing
+deserialized_resource = serializer.deserialize(hash: { foo: 'qwerty' })
+deserialized_resource.foo # => 'qwerty'
+test_resource.foo # => 'asdf'
+
+op = LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
+  adaptor: adaptor,
+  ledger_deserializer_class: CustomSerializer, # You must specify, though you could use a separate class
+  ledger_serializer_class: CustomSerializer,
+  resource: custom_resource
+)
+```
 
 #### Operation
 
@@ -116,6 +163,37 @@ Each adaptor defines operations that can be performed on specific resources (e.g
 - a `perform` instance method, which handles the actual API requests and response/error handling.
 
 Note: Adaptors may support different operations for each resource type.
+
+##### Contracts
+
+Contracts are dry-validation schemas, which determine if an operation can be performed.  You can create custom schemas and pass them to operations.  Assuming you have an `operation_class` variable and `foo` is an attribute of a `custom_resource` (see above) that is required to be a string, you can implement it with the following:
+
+```ruby
+class CustomContract < LedgerSync::Adaptors::Contract
+  params do
+    required(:foo).filled(:string)
+  end
+end
+
+# A valid case
+custom_resource = CustomResource.new(foo: 'asdf')
+op = operation_class.new(
+  adaptor: adaptor,
+  resource: resource,
+  validation_contract: CustomContract
+)
+op.valid? # => true
+
+# An invalid case
+custom_resource = CustomResource.new(foo: nil)
+operation_class.new(
+  adaptor: adaptor,
+  resource: resource,
+  validation_contract: CustomContract
+)
+op.valid? # => false
+
+```
 
 #### Searcher
 
