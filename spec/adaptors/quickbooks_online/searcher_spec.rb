@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-support :test_adaptor_helpers
+support :netsuite_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Searcher do
-  include TestAdaptorHelpers
+  include NetSuiteHelpers
 
-  let(:adaptor) { test_adaptor }
+  let(:adaptor) { netsuite_adaptor }
   let(:query) { 'qqq' }
 
   subject { described_class.new(adaptor: adaptor, query: query) }

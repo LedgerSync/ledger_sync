@@ -18,7 +18,7 @@ module LedgerSync
               )
             ) if resource.ledger_id.nil?
 
-            result(
+            response_to_operation_result(
               response: adaptor.find(
                 path: ledger_resource_path
               )
