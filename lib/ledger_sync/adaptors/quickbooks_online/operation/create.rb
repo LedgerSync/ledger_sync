@@ -12,7 +12,7 @@ module LedgerSync
           private
 
           def operate
-            result(
+            response_to_operation_result(
               response: adaptor.post(
                 path: ledger_resource_type_for_path,
                 payload: ledger_serializer.to_ledger_hash

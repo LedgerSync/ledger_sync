@@ -2,16 +2,17 @@
 
 require 'spec_helper'
 
-support :test_adaptor_helpers
+support :netsuite_helpers
 
 RSpec.describe LedgerSync::Util::Performer do
-  include TestAdaptorHelpers
+  include NetSuiteHelpers
 
-  let(:valid_operation) { LedgerSync::Adaptors::Test::Customer::Operations::Valid.new(adaptor: test_adaptor, resource: resource) }
-  let(:invalid_operation) { LedgerSync::Adaptors::Test::Customer::Operations::Invalid.new(adaptor: test_adaptor, resource: resource) }
   let(:resource) { LedgerSync::Customer.new(external_id: 123) }
+  let(:valid_operation) { LedgerSync::Adaptors::NetSuite::Customer::Operations::Valid.new(adaptor: netsuite_adaptor, resource: resource) }
+  let(:invalid_operation) { LedgerSync::Adaptors::NetSuite::Customer::Operations::Invalid.new(adaptor: netsuite_adaptor, resource: resource) }
 
   it do
+    skip 'rewrite when you can override validation_contract'
     operations = [
       valid_operation
     ]
@@ -19,6 +20,7 @@ RSpec.describe LedgerSync::Util::Performer do
   end
 
   it do
+    skip 'rewrite when you can override validation_contract'
     operations = [
       valid_operation,
       invalid_operation
@@ -27,6 +29,7 @@ RSpec.describe LedgerSync::Util::Performer do
   end
 
   it do
+    skip 'rewrite when you can override validation_contract'
     operations = [
       invalid_operation
     ]
