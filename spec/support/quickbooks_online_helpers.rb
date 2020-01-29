@@ -50,11 +50,66 @@ module QuickBooksOnlineHelpers
         }
       },
       search_url: "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Customer%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Customer%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
+    },
+    bill_payment: {
+      ledger_id: '123',
+      ledger_resource: 'BillPayment',
+      request_hash: {
+        'Id' => nil,
+        'TotalAmt' => 1.0,
+        'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+        'VendorRef' => {'value' => '123'},
+        'DepartmentRef' => {'value' => '123'},
+        'ARAccountRef' => {'value' => '123'},
+        'DocNumber' => 'Ref123',
+        'PrivateNote' => 'Note',
+        'ExchangeRate' => 1.0,
+        'TxnDate' => '2019-09-01',
+        'Line' => [
+          {
+            'Amount' => 1.0,
+            'LinkedTxn' => [{'TxnId' => "123", 'TxnType' => "Bill"}]
+          }
+        ]
+      },
+      response_hash: {
+        'VendorRef' => { 'value' => '123', 'name' => 'Vendor 123' },
+        'PayType' => 'CreditCard',
+        'CreditCardPayment' => {
+          'CCAccountRef' => { 'value' => '123', 'name' => 'Credit Card' }
+        },
+        'TotalAmt' => 1.0,
+        'domain' => 'QBO',
+        'sparse' => false,
+        'Id' => '123',
+        'SyncToken' => '0',
+        'DepartmentRef' => {'value' => '123', 'name' => 'Main Department'},
+        'ARAccountRef' => {'value' => '123', 'name' => 'Account' },
+        'DocNumber' => 'Ref123',
+        'PrivateNote' => 'Note',
+        'MetaData' => {
+          'CreateTime' => '2020-02-05T09:49:13-08:00',
+          'LastUpdatedTime' => '2020-02-05T09:49:13-08:00'
+        },
+        'ExchangeRate' => 1.0,
+        'TxnDate' => '2019-09-01',
+        'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+        'Line' => [
+          {
+            'Amount' => 1.0,
+            'LinkedTxn' => [
+              { 'TxnId' => '123', 'TxnType' => 'Bill' }
+            ]
+          }
+        ]
+      },
+      search_url: ""
     }
   }.freeze
 
   def api_url(ledger_id: nil, resource:)
-    ret = "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/#{resource}"
+    url_resource = resource.to_s.tr('_', '')
+    ret = "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/#{url_resource}"
     if ledger_id
       ret += '/' unless ret.end_with?('/')
       ret += ledger_id.to_s
