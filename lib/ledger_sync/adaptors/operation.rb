@@ -12,31 +12,23 @@ module LedgerSync
           def operations_module
             @operations_module ||= Object.const_get(name.split('::Operations::').first + '::Operations')
           end
-
-          def resource_klass
-            @resource_klass ||= LedgerSync.const_get(
-              name
-                .split("#{adaptor_klass.config.base_module.name}::")
-                .last
-                .split('::Operations')
-                .first
-            )
-          end
         end
 
         def self.included(base)
           base.include SimplySerializable::Mixin
           base.include Fingerprintable::Mixin
+          base.include Error::HelpersMixin
           base.include Adaptors::Mixins::InferLedgerSerializerMixin
+          base.include Adaptors::Mixins::InferValidationContractMixin
           base.extend ClassMethods
 
           base.class_eval do
             serialize only: %i[
-                        adaptor
-                        resource
-                        result
-                        response
-                      ]
+              adaptor
+              resource
+              result
+              response
+            ]
           end
         end
 
@@ -46,16 +38,21 @@ module LedgerSync
                     :result,
                     :response
 
-        def initialize(adaptor:, resource:)
-          raise 'Missing adaptor' if adaptor.nil?
-          raise 'Missing resource' if resource.nil?
-
-          raise "#{resource.class.name} is not a valid resource type.  Expected #{self.class.resource_klass.name}" unless resource.is_a?(self.class.resource_klass)
-
-          @adaptor = adaptor
-          @resource = resource
+        def initialize(
+          **keywords
+        )
+          @adaptor = keywords.fetch(:adaptor)
+          @ledger_deserializer_class = keywords.fetch(:ledger_deserializer_class, nil)
+          @ledger_serializer_class = keywords.fetch(:ledger_serializer_class, nil)
+          @resource = keywords.fetch(:resource)
           @resource_before_perform = resource.dup
           @result = nil
+          @validation_contract = keywords.fetch(:validation_contract, nil)
+
+          self.class.raise_if_unexpected_class(expected: self.class.inferred_resource_class, given: @resource.class)
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_deserializer_class) unless @ledger_deserializer_class.nil?
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_serializer_class) unless @ledger_serializer_class.nil?
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::Contract, given: validation_contract) unless @validation_contract.nil?
         end
 
         def perform
@@ -63,15 +60,15 @@ module LedgerSync
 
           @result = begin
             operate
-          rescue LedgerSync::Error => e
-            failure(e)
-          rescue StandardError => e
-            parsed_error = adaptor.parse_operation_error(error: e, operation: self)
-            raise e unless parsed_error
+                    rescue LedgerSync::Error => e
+                      failure(e)
+                    rescue StandardError => e
+                      parsed_error = adaptor.parse_operation_error(error: e, operation: self)
+                      raise e unless parsed_error
 
-            failure(parsed_error)
-          ensure
-            @performed = true
+                      failure(parsed_error)
+                    ensure
+                      @performed = true
           end
         end
 
@@ -79,8 +76,20 @@ module LedgerSync
           @performed == true
         end
 
+        def ledger_deserializer
+          ledger_deserializer_class.new(resource: resource)
+        end
+
+        def ledger_deserializer_class
+          @ledger_deserializer_class ||= self.class.inferred_ledger_deserializer_class
+        end
+
         def ledger_serializer
-          self.class.inferred_ledger_serializer(resource: resource)
+          ledger_serializer_class.new(resource: resource)
+        end
+
+        def ledger_serializer_class
+          @ledger_serializer_class ||= self.class.inferred_ledger_serializer_class
         end
 
         # Results
@@ -118,12 +127,14 @@ module LedgerSync
         end
 
         def validate
-          raise "#{self.class.name}::Contract must be defined to validate." unless self.class.const_defined?('Contract')
-
           Util::Validator.new(
-            contract: self.class::Contract,
+            contract: validation_contract,
             data: validation_data
           ).validate
+        end
+
+        def validation_contract
+          @validation_contract ||= self.class.inferred_validation_contract_class
         end
 
         def validation_data

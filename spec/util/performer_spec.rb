@@ -8,11 +8,48 @@ RSpec.describe LedgerSync::Util::Performer do
   include NetSuiteHelpers
 
   let(:resource) { LedgerSync::Customer.new(external_id: 123) }
-  let(:valid_operation) { LedgerSync::Adaptors::NetSuite::Customer::Operations::Valid.new(adaptor: netsuite_adaptor, resource: resource) }
-  let(:invalid_operation) { LedgerSync::Adaptors::NetSuite::Customer::Operations::Invalid.new(adaptor: netsuite_adaptor, resource: resource) }
+  let(:valid_contract) do
+    Class.new(LedgerSync::Adaptors::Contract) do
+      params do
+        required(:external_id).filled(:string)
+      end
+    end
+  end
+
+  let(:invalid_contract) do
+    Class.new(LedgerSync::Adaptors::Contract) do
+      params do
+        required(:external_id).filled(:nil)
+      end
+    end
+  end
+
+  let(:valid_operation) do
+    LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
+      adaptor: netsuite_adaptor,
+      resource: resource,
+      validation_contract: valid_contract
+    )
+  end
+
+  let(:invalid_operation) do
+    LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
+      adaptor: netsuite_adaptor,
+      resource: resource,
+      validation_contract: invalid_contract
+    )
+  end
 
   it do
-    skip 'rewrite when you can override validation_contract'
+    allow(valid_operation).to receive(:perform) do
+      LedgerSync::OperationResult::Success.new(
+        nil,
+        operation: nil,
+        resource: nil,
+        response: nil
+      )
+    end
+
     operations = [
       valid_operation
     ]
@@ -20,7 +57,6 @@ RSpec.describe LedgerSync::Util::Performer do
   end
 
   it do
-    skip 'rewrite when you can override validation_contract'
     operations = [
       valid_operation,
       invalid_operation
@@ -29,7 +65,6 @@ RSpec.describe LedgerSync::Util::Performer do
   end
 
   it do
-    skip 'rewrite when you can override validation_contract'
     operations = [
       invalid_operation
     ]
