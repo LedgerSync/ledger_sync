@@ -6,27 +6,27 @@ module TestAdaptorHelpers
   end
 
   def test_customer_create_operation
-    LedgerSync::Adaptors::Test::Customer::Operations::Create.new(
-      adaptor: test_adaptor,
+    LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
+      adaptor: netsuite_adaptor,
       resource: test_customer
     )
   end
 
   def test_customer_update_operation
-    LedgerSync::Adaptors::Test::Customer::Operations::Update.new(
-      adaptor: test_adaptor,
+    LedgerSync::Adaptors::NetSuite::Customer::Operations::Update.new(
+      adaptor: netsuite_adaptor,
       resource: test_customer
     )
   end
 
   def test_searcher
-    LedgerSync::Adaptors::Test::Customer::Searcher.new(
-      adaptor: test_adaptor,
+    LedgerSync::Adaptors::NetSuite::Customer::Searcher.new(
+      adaptor: netsuite_adaptor,
       query: ''
     )
   end
 
-  def test_adaptor
+  def netsuite_adaptor
     LedgerSync.adaptors.test.new
   end
 end

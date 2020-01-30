@@ -2,44 +2,67 @@
 
 require 'spec_helper'
 
-support :test_adaptor_helpers
+support :netsuite_helpers
 
-RSpec.describe LedgerSync::Adaptors::Test::Adaptor, type: :serializable do
-  include TestAdaptorHelpers
-
-  subject { test_adaptor.serialize }
+RSpec.describe LedgerSync::Adaptors::Adaptor, type: :serializable do
+  include NetSuiteHelpers
 
   it do
-    h = {
-      root: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
-      objects: {
-        'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce' =>
-        {
-          id: 'LedgerSync::Adaptors::Test::Adaptor/d751713988987e9331980363e24189ce',
-          object: 'LedgerSync::Adaptors::Test::Adaptor',
-          fingeprint: 'd751713988987e9331980363e24189ce',
-          data: {
-            adaptor_configuration: {
-              object: :reference,
-              id: 'LedgerSync::AdaptorConfiguration/0997cbf8db8b154bcaa6668078de52d1'
-            }
-          }
-        },
-        'LedgerSync::AdaptorConfiguration/0997cbf8db8b154bcaa6668078de52d1' =>
-         {
-           id: 'LedgerSync::AdaptorConfiguration/0997cbf8db8b154bcaa6668078de52d1',
-           object: 'LedgerSync::AdaptorConfiguration',
-           fingeprint: '0997cbf8db8b154bcaa6668078de52d1',
-           data: {
-             aliases: [:test],
-             module_string: 'Test',
-             root_key: :test,
-             rate_limiting_wait_in_seconds: 47,
-             test: true
-           }
-         }
-      }
-    }
-    expect(subject).to eq(h)
+    h = {:root=>
+      "LedgerSync::Adaptors::NetSuite::Adaptor/be8b28e86017b6ea4cc7b1cfcc36b63e",
+     :objects=>
+      {"LedgerSync::Adaptors::NetSuite::Adaptor/be8b28e86017b6ea4cc7b1cfcc36b63e"=>
+        {:id=>
+          "LedgerSync::Adaptors::NetSuite::Adaptor/be8b28e86017b6ea4cc7b1cfcc36b63e",
+         :object=>"LedgerSync::Adaptors::NetSuite::Adaptor",
+         :fingeprint=>"be8b28e86017b6ea4cc7b1cfcc36b63e",
+         :data=>
+          {:adaptor_configuration=>
+            {:object=>:reference,
+             :id=>
+              "LedgerSync::AdaptorConfiguration/258e415522e6f04aead6d578f6abf9ac"}}},
+       "LedgerSync::AdaptorConfiguration/258e415522e6f04aead6d578f6abf9ac"=>
+        {:id=>"LedgerSync::AdaptorConfiguration/258e415522e6f04aead6d578f6abf9ac",
+         :object=>"LedgerSync::AdaptorConfiguration",
+         :fingeprint=>"258e415522e6f04aead6d578f6abf9ac",
+         :data=>
+          {:aliases=>[],
+           :module_string=>"NetSuite",
+           :root_key=>:netsuite,
+           :rate_limiting_wait_in_seconds=>nil,
+           :test=>nil}}}}
+    expect(netsuite_adaptor.serialize).to eq(h)
+  end
+
+  it do
+    adaptor1 = LedgerSync.adaptors.netsuite.new(
+      account_id: 'netsuite_account_id',
+      consumer_key: 'NETSUITE_CONSUMER_KEY',
+      consumer_secret: 'NETSUITE_CONSUMER_SECRET',
+      token_id: 'NETSUITE_TOKEN_ID',
+      token_secret: 'NETSUITE_TOKEN_SECRET'
+    )
+
+    adaptor2 = LedgerSync.adaptors.netsuite.new(
+      account_id: 'netsuite_account_id',
+      consumer_key: 'NETSUITE_CONSUMER_KEY',
+      consumer_secret: 'NETSUITE_CONSUMER_SECRET',
+      token_id: 'NETSUITE_TOKEN_ID',
+      token_secret: 'NETSUITE_TOKEN_SECRET'
+    )
+
+    adaptor3 = LedgerSync.adaptors.netsuite.new(
+      account_id: 'DOES NOT MATCH',
+      consumer_key: 'NETSUITE_CONSUMER_KEY',
+      consumer_secret: 'NETSUITE_CONSUMER_SECRET',
+      token_id: 'NETSUITE_TOKEN_ID',
+      token_secret: 'NETSUITE_TOKEN_SECRET'
+    )
+
+    expect(adaptor1.serialize).to eq(adaptor2.serialize)
+    expect(adaptor1.serialize).not_to eq(adaptor3.serialize)
+
+    expect(adaptor1.fingerprint).to eq(adaptor2.fingerprint)
+    expect(adaptor1.fingerprint).not_to eq(adaptor3.fingerprint)
   end
 end

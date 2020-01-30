@@ -2,14 +2,14 @@
 
 require 'spec_helper'
 
-support :test_adaptor_helpers
+support :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Adaptors::Adaptor do
-  include TestAdaptorHelpers
+  include QuickBooksOnlineHelpers
 
   it { expect { described_class.new }.to raise_error(NotImplementedError) }
 
-  subject { test_adaptor }
+  subject { quickbooks_online_adaptor }
 
   describe '#searcher_for?' do
     it { expect(subject.searcher_for?(resource_type: :customer)).to be_truthy }
@@ -17,18 +17,11 @@ RSpec.describe LedgerSync::Adaptors::Adaptor do
   end
 
   describe '#searcher_klass_for' do
-    it { expect(subject.searcher_klass_for(resource_type: :customer)).to eq(LedgerSync::Adaptors::Test::Customer::Searcher) }
-  end
-
-  describe '#url_for' do
-    let(:resource) { LedgerSync::Customer.new(ledger_id: 'abc') }
-    let(:url) { 'http://example.com/customer/abc' }
-
-    it { expect(subject.url_for(resource: resource)).to eq(url) }
+    it { expect(subject.searcher_klass_for(resource_type: :customer)).to eq(LedgerSync::Adaptors::QuickBooksOnline::Customer::Searcher) }
   end
 
   describe '#ledger_attributes_to_save' do
     it { expect { described_class.ledger_attributes_to_save }.to raise_error(NotImplementedError) }
-    it { expect(subject.class.ledger_attributes_to_save).to eq([]) }
+    it { expect(subject.class.ledger_attributes_to_save).to eq(%i[access_token expires_at refresh_token refresh_token_expires_at]) }
   end
 end

@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+  # frozen_string_literal: true
 
 module LedgerSync
   module Adaptors
@@ -27,7 +27,7 @@ module LedgerSync
               quickbooks_online_resource_type.tr('_', '')
             end
 
-            def result(response:)
+            def response_to_operation_result(response:)
               if response.success?
                 success(
                   resource: deserialized_resource(response: response),

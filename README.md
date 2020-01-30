@@ -330,26 +330,6 @@ The serialization of any object follows the same structure.  There is a `:root` 
 }
 ```
 
-## Test Adaptor
-
-LedgerSync offers a test adaptor `LedgerSync::Adaptors::Test::Adaptor` that you can easily use and stub without requiring API requests.  For example:
-
-```ruby
-
-operation = LedgerSync::Adaptors::Test::Customer::Operations::Create.new(
-  adaptor: LedgerSync::Adaptors::Test::Adaptor.new,
-  resource: LedgerSync::Customer.new(name: 'Test Customer')
-)
-
-expect(operation).to be_valid
-
-result = operation.perform
-expect(result).to be_a(LedgerSync::OperationResult::Success)
-expect(result).to be_success
-
-expect { operation.perform }.to raise_error(PerformedOperationError)
-```
-
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
