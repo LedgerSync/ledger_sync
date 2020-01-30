@@ -24,9 +24,15 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
     end
   end
 
+  let(:custom_serializer_class) do
+    Class.new(LedgerSync::Adaptors::LedgerSerializer) do
+      attribute ledger_attribute: :foo,
+                resource_attribute: :foo
+    end
+  end
+
   let(:test_serializer) do
     test_serializer_class.new(
-      ensure_inferred_resource_class: false,
       resource: test_resource
     )
   end
@@ -36,6 +42,17 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
       name: 'test_name',
       phone_number: 'test_phone',
       email: 'test_email'
+    )
+  end
+  let(:custom_resource_class) do
+    class_name = "#{test_run_id}TestCustomResource"
+    Object.const_get(class_name)
+  rescue NameError
+    Object.const_set(
+      class_name,
+      Class.new(LedgerSync::Customer) do
+        attribute :foo, type: LedgerSync::Type::String
+      end
     )
   end
 
@@ -51,12 +68,29 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
         email: 'test_email'
       }
       test_serializer = test_serializer_class.new(
-        ensure_inferred_resource_class: false,
         resource: LedgerSync::Customer.new
       )
       resource = LedgerSync::Customer.new(**h.except(:phone_number))
       deserialized_resource = test_serializer.deserialize(hash: h)
       expect(deserialized_resource).to eq(resource)
+    end
+
+    context 'with custom attributes' do
+      let(:test_serializer) do
+        custom_serializer_class.new(
+          resource: test_resource
+        )
+      end
+      let(:test_resource) { custom_resource_class.new(foo: 'asdf') }
+
+      it do
+        h = {
+          foo: 'qwerty'
+        }
+        deserialized_resource = test_serializer.deserialize(hash: h)
+        expect(test_resource.foo).to eq('asdf')
+        expect(deserialized_resource.foo).to eq('qwerty')
+      end
     end
   end
 
@@ -112,6 +146,23 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
       }
 
       expect(serializer.to_ledger_hash).to eq(h)
+    end
+
+    context 'with custom attributes' do
+      let(:test_resource) { custom_resource_class.new(foo: 'asdf') }
+      let(:test_serializer) do
+        custom_serializer_class.new(
+          resource: test_resource
+        )
+      end
+
+      it do
+        h = {
+          'foo' => 'asdf'
+        }
+
+        expect(test_serializer.to_ledger_hash).to eq(h)
+      end
     end
   end
 end
