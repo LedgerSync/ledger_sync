@@ -45,17 +45,10 @@ RSpec.describe LedgerSync::Adaptors::Operation do
 
   it { expect { described_class.new }.to raise_error(NoMethodError) } # Operation is a module
 
-  before do
-    stub_customer_create
-    stub_customer_find
-  end
-
-  subject { operation }
-
-  it { expect { described_class.new }.to raise_error(NoMethodError) } # Operation is a module
-
   describe '#failure?' do
     it do
+      stub_customer_create
+      stub_customer_find
       subject.perform
       expect(subject).not_to be_failure
     end
@@ -140,7 +133,11 @@ RSpec.describe LedgerSync::Adaptors::Operation do
   describe '#perform' do
     subject { operation.perform }
 
-    it { expect(subject).to be_success }
+    it do
+      stub_customer_create
+      stub_customer_find
+      expect(subject).to be_success
+    end
 
     it do
       allow(operation).to receive(:operate) { raise LedgerSync::Error.new(message: 'Test') }
@@ -187,6 +184,8 @@ RSpec.describe LedgerSync::Adaptors::Operation do
 
   describe '#success?' do
     it do
+      stub_customer_create
+      stub_customer_find
       subject.perform
       expect(subject).to be_success
     end
@@ -194,6 +193,8 @@ RSpec.describe LedgerSync::Adaptors::Operation do
 
   describe '#valid?' do
     it do
+      stub_customer_create
+      stub_customer_find
       subject.perform
       expect(subject).not_to be_valid
     end

@@ -14,5 +14,5 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Fin
   let(:resource) { LedgerSync::Customer.new(customer_resource(ledger_id: 123)) }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_find_customer
+  it_behaves_like 'a successful operation', stubs: :stub_customer_find
 end

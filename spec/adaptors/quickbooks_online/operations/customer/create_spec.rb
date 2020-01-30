@@ -14,5 +14,5 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Cre
   let(:resource) { LedgerSync::Customer.new(customer_resource) }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_create_customer
+  it_behaves_like 'a successful operation', stubs: :stub_customer_create
 end
