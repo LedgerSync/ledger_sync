@@ -104,6 +104,43 @@ class CustomCustomer < LedgerSync::Customer
 end
 ```
 
+Depending on your use of LedgerSync, you may need to define resources dynamically with different custom attributes.  You could do so using something like the following:
+
+```ruby
+custom_attributes_for_customers = [
+  [
+    [:foo, LedgerSync::Type::String]
+  ],
+  [
+    [:foo, LedgerSync::Type::Integer],
+    [:bar, LedgerSync::Type::Boolean]
+  ]
+]
+
+custom_customer_classes = custom_attributes_for_customers.map do |attributes|
+  klass = Class.new(LedgerSync::Customer)
+  attributes.each do |name, type|
+    klass.attribute name, type: type
+  end
+  klass
+end
+
+klass1, klass2 = custom_customer_classes
+
+# First Custom Customer Class
+klass1.resource_attributes.include?(:foo) # => true
+klass1.resource_attributes[:foo].type # => #<LedgerSync::Type::String:0x00007fe04e9529b0 @precision=nil, @scale=nil, @limit=nil>
+klass1.resource_attributes.include?(:bar) # => false
+
+# Second Custom Customer Class
+klass2.resource_attributes.include?(:foo) # => true
+klass2.resource_attributes[:foo].type # => #<LedgerSync::Type::Integer:0x00007fe04e2c7898 @precision=nil, @scale=nil, @limit=nil, @range=-2147483648...2147483648>
+klass2.resource_attributes.include?(:bar) # => true
+klass2.resource_attributes[:bar].type # => #<LedgerSync::Type::Boolean:0x00007fe04e2e4f10 @precision=nil, @scale=nil, @limit=nil>
+```
+
+You can now use these custom resources in operations that require custom attributes.
+
 ### Adaptors
 
 Adaptors are ledger-specific ruby objects that contain all the logic to authenticate to a ledger, perform ledger-specific operations, and validate resources based on the requirements of the ledger.  Adaptors contain a number of useful objects:
@@ -127,9 +164,6 @@ Operations depend on `LedgerSync::Adaptor::LedgerSerializer`s to serialize and d
 you could implement custom serializers using the following code:
 
 ```ruby
-# Extend the existing one or use
-# LedgerSync::Adaptors::NetSuite::LedgerSerializer or, more generically,
-# LedgerSync::Adaptors::LedgerSerializer
 class CustomSerializer < LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer
   attribute ledger_attribute: :foo,
             resource_attribute: :foo,
@@ -145,7 +179,7 @@ serializer.to_ledger_hash # => {"foo"=>"asdf"}
 # Deserializing
 deserialized_resource = serializer.deserialize(hash: { foo: 'qwerty' })
 deserialized_resource.foo # => 'qwerty'
-test_resource.foo # => 'asdf'
+custom_resource.foo # => 'asdf'
 
 op = LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
   adaptor: adaptor,
@@ -154,6 +188,10 @@ op = LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
   resource: custom_resource
 )
 ```
+
+Note that in the above example, we extend an existing customer serializer in the NetSuite adaptor.  In most cases, serializers have the following inheritance pattern: `LedgerSync::Adaptors::[ADAPTOR]::[RESOURCE]::LedgerSerializer <  LedgerSync::Adaptors::[ADAPTOR]::LedgerSerializer <  LedgerSync::Adaptors::LedgerSerializer`
+
+So in this example, it would be `LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer <  LedgerSync::Adaptors::NetSuite::LedgerSerializer <  LedgerSync::Adaptors::LedgerSerializer`.  The more specific the serializer, the more helper methods are available that are adaptor and/or resource specific.
 
 #### Operation
 

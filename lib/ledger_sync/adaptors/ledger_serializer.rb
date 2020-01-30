@@ -12,8 +12,8 @@ module LedgerSync
 
       attr_reader :resource
 
-      def initialize(resource:)
-        @resource = resource
+      def initialize(**keywords)
+        @resource = keywords.fetch(:resource)
       end
 
       def attribute_value_from_ledger(hash:, ledger_serializer_attribute:, resource:)

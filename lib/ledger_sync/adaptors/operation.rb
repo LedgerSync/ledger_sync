@@ -12,16 +12,6 @@ module LedgerSync
           def operations_module
             @operations_module ||= Object.const_get(name.split('::Operations::').first + '::Operations')
           end
-
-          def resource_klass
-            @resource_klass ||= LedgerSync.const_get(
-              name
-                .split("#{adaptor_klass.config.base_module.name}::")
-                .last
-                .split('::Operations')
-                .first
-            )
-          end
         end
 
         def self.included(base)
@@ -34,11 +24,11 @@ module LedgerSync
 
           base.class_eval do
             serialize only: %i[
-                        adaptor
-                        resource
-                        result
-                        response
-                      ]
+              adaptor
+              resource
+              result
+              response
+            ]
           end
         end
 
@@ -49,33 +39,20 @@ module LedgerSync
                     :response
 
         def initialize(
-          adaptor:,
-          ledger_deserializer_class: nil,
-          ledger_serializer_class: nil,
-          resource:,
-          validation_contract: nil
+          **keywords
         )
-          self.class.raise_if_unexpected_class(expected: self.class.resource_klass, given: resource.class)
-
-          @adaptor = adaptor
-
-          unless ledger_deserializer_class.nil?
-            self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_deserializer_class)
-            @ledger_deserializer_class = ledger_deserializer_class
-          end
-
-          unless ledger_serializer_class.nil?
-            self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_serializer_class)
-            @ledger_serializer_class = ledger_serializer_class
-          end
-          @resource = resource
+          @adaptor = keywords.fetch(:adaptor)
+          @ledger_deserializer_class = keywords.fetch(:ledger_deserializer_class, nil)
+          @ledger_serializer_class = keywords.fetch(:ledger_serializer_class, nil)
+          @resource = keywords.fetch(:resource)
           @resource_before_perform = resource.dup
           @result = nil
+          @validation_contract = keywords.fetch(:validation_contract, nil)
 
-          unless validation_contract.nil?
-            @validation_contract = validation_contract
-            self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::Contract, given: validation_contract)
-          end
+          self.class.raise_if_unexpected_class(expected: self.class.inferred_resource_class, given: @resource.class)
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_deserializer_class) unless @ledger_deserializer_class.nil?
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_serializer_class) unless @ledger_serializer_class.nil?
+          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::Contract, given: validation_contract) unless @validation_contract.nil?
         end
 
         def perform
@@ -83,15 +60,15 @@ module LedgerSync
 
           @result = begin
             operate
-          rescue LedgerSync::Error => e
-            failure(e)
-          rescue StandardError => e
-            parsed_error = adaptor.parse_operation_error(error: e, operation: self)
-            raise e unless parsed_error
+                    rescue LedgerSync::Error => e
+                      failure(e)
+                    rescue StandardError => e
+                      parsed_error = adaptor.parse_operation_error(error: e, operation: self)
+                      raise e unless parsed_error
 
-            failure(parsed_error)
-          ensure
-            @performed = true
+                      failure(parsed_error)
+                    ensure
+                      @performed = true
           end
         end
 

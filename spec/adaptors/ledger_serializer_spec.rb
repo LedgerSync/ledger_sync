@@ -45,8 +45,11 @@ RSpec.describe LedgerSync::Adaptors::LedgerSerializer do
     )
   end
   let(:custom_resource_class) do
+    class_name = "#{test_run_id}TestCustomResource"
+    Object.const_get(class_name)
+  rescue NameError
     Object.const_set(
-      "#{test_run_id}TestCustomResource",
+      class_name,
       Class.new(LedgerSync::Customer) do
         attribute :foo, type: LedgerSync::Type::String
       end
