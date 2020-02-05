@@ -13,7 +13,8 @@ module LedgerSync
         ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'
         API_RESOURCE_MAPPING_OVERRIDE = {
           LedgerSync::Expense => 'purchase',
-          LedgerSync::LedgerClass => 'class'
+          LedgerSync::LedgerClass => 'class',
+          LedgerSync::Preference => 'preferences'
         }
         API_RESOURCE_MAPPING_OVERRIDE_REVERSE = API_RESOURCE_MAPPING_OVERRIDE.invert
 
