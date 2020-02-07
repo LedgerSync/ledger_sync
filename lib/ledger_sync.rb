@@ -14,6 +14,7 @@ require 'stripe'
 require 'netsuite'
 require 'oauth2'
 require 'tempfile'
+require 'pd_ruby'
 
 # Dotenv
 require 'dotenv'
@@ -34,7 +35,6 @@ Gem.find_files('ledger_sync/error/**/*.rb').each { |path| require path }
 
 # Support Classes
 require 'ledger_sync/util/resonad'
-require 'ledger_sync/util/debug'
 require 'ledger_sync/util/signer'
 require 'ledger_sync/util/hash_helpers'
 require 'ledger_sync/util/resources_builder'

@@ -30,7 +30,7 @@ module QA
         ).perform
 
         unless result.failure?
-          pdb 'Should be failure'
+          pd 'Should be failure'
           byebug
         end
 
