@@ -14,6 +14,7 @@ require 'stripe'
 require 'netsuite'
 require 'oauth2'
 require 'tempfile'
+require 'pd'
 
 # Dotenv
 require 'dotenv'
