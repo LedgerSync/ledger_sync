@@ -14,7 +14,7 @@ require 'stripe'
 require 'netsuite'
 require 'oauth2'
 require 'tempfile'
-require 'pd'
+require 'pd_ruby'
 
 # Dotenv
 require 'dotenv'
