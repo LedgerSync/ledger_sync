@@ -27,24 +27,24 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Operation do
         resource: customer2
       )
 
-      stub_create_customer(
-        request_overrides: {
+      stub_customer_create(
+        request_body: customer_request_body_hash.merge(
           'DisplayName' => 'Customer 1',
           'PrimaryEmailAddr' => {
             'Address' => nil
           }
-        }
+        )
       )
       result1 = operation1.perform
       expect(result1.response.request.body.fetch('DisplayName')).to eq('Customer 1')
 
-      stub_create_customer(
-        request_overrides: {
+      stub_customer_create(
+        request_body: customer_request_body_hash.merge(
           'DisplayName' => 'Customer 2',
           'PrimaryEmailAddr' => {
             'Address' => nil
           }
-        }
+        )
       )
       result2 = operation2.perform
       expect(result2.response.request.body.fetch('DisplayName')).to eq('Customer 2')

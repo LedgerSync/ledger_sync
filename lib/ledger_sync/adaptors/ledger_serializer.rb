@@ -12,9 +12,8 @@ module LedgerSync
 
       attr_reader :resource
 
-      def initialize(ensure_inferred_resource_class: true, resource:)
-        @resource = resource
-        ensure_inferred_resource_class! if ensure_inferred_resource_class
+      def initialize(**keywords)
+        @resource = keywords.fetch(:resource)
       end
 
       def attribute_value_from_ledger(hash:, ledger_serializer_attribute:, resource:)
@@ -138,13 +137,6 @@ module LedgerSync
           serializer: serializer,
           type: type
         )
-      end
-
-      private
-
-      def ensure_inferred_resource_class!
-        inferred_resource_class = self.class.inferred_resource_class
-        raise "Resource must be a #{inferred_resource_class.name}.  Given #{resource.class}" unless resource.is_a?(inferred_resource_class)
       end
     end
   end

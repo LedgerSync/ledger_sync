@@ -33,6 +33,7 @@ def support(*paths)
 end
 
 support :factory_bot
+support :webmock_helpers
 support :vcr
 
 RSpec.configure do |config|

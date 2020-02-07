@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Resource do
-  LedgerSync.resources.each do |key, resource_klass|
+  LedgerSync.resources.each do |key, resource_class|
     context "when #{key} resource" do
       context '#name' do
-        it { expect { resource_klass.new.name }.not_to raise_error }
+        it { expect { resource_class.new.name }.not_to raise_error }
       end
     end
   end

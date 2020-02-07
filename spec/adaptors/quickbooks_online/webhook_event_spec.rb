@@ -37,7 +37,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::WebhookEvent do
 
   describe '#find' do
     it 'finds customer' do
-      stub_find_customer
+      stub_customer_find
       expect(instance.find(adaptor: quickbooks_online_adaptor)).to be_success
     end
 

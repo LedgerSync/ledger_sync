@@ -10,7 +10,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Upd
   include InputHelpers
   include QuickBooksOnlineHelpers
 
-  let(:adaptor) { quickbooks_online_adaptor }
+  let(:adaptor) do
+    quickbooks_online_adaptor
+  end
   let(:resource) do
     LedgerSync::Customer.new(customer_resource(ledger_id: '123'))
   end
@@ -18,7 +20,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Upd
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
                   stubs: %i[
-                    stub_find_customer
-                    stub_update_customer
+                    stub_customer_find
+                    stub_customer_update
                   ]
 end
