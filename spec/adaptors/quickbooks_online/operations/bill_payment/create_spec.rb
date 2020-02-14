@@ -8,35 +8,17 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment::Operations::Create do
   include QuickBooksOnlineHelpers
 
-  let(:vendor) do
-    LedgerSync::Vendor.new(ledger_id: '123')
-  end
+  let(:vendor) { build(:vendor, ledger_id: '123') }
+  let(:account) { build(:account, ledger_id: '123') }
+  let(:bill) { build(:bill, ledger_id: '123') }
+  let(:department) { build(:department, ledger_id: '123') }
+  let(:currency) { build(:currency, name: 'United States Dollar', symbol: 'USD') }
 
-  let(:account) do
-    LedgerSync::Account.new(ledger_id: '123')
-  end
-
-  let(:bill) do
-    LedgerSync::Bill.new(ledger_id: '123')
-  end
-
-  let(:department) do
-    LedgerSync::Department.new(ledger_id: '123')
-  end
-
-  let(:currency) do
-    LedgerSync::Currency.new(
-      name: 'United States Dollar',
-      symbol: 'USD'
-    )
-  end
-
-  let(:line_item) do
-    LedgerSync::BillPaymentLineItem.new({amount: 100, ledger_transactions: [bill]})
-  end
+  let(:line_item) { build(:bill_payment_line_item, amount: 100, ledger_transactions: [bill]) }
 
   let(:resource) do
-    LedgerSync::BillPayment.new({
+    build(
+      :bill_payment,
       amount: 100,
       memo: 'Note',
       transaction_date: Date.parse('2019-09-01'),
@@ -49,7 +31,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment::Operations::
       vendor: vendor,
 
       line_items: [line_item]
-    })
+    )
   end
 
   let(:adaptor) { quickbooks_online_adaptor }

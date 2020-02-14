@@ -8,31 +8,15 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment::Operations::Find do
   include QuickBooksOnlineHelpers
 
-  let(:vendor) do
-    LedgerSync::Vendor.new(ledger_id: '123')
-  end
-
-  let(:account) do
-    LedgerSync::Account.new(ledger_id: '123')
-  end
-
-  let(:bill) do
-    LedgerSync::Bill.new(ledger_id: '123')
-  end
-
-  let(:department) do
-    LedgerSync::Department.new(ledger_id: '123')
-  end
-
-  let(:currency) do
-    LedgerSync::Currency.new(
-      name: 'United States Dollar',
-      symbol: 'USD'
-    )
-  end
+  let(:vendor) { build(:vendor, ledger_id: '123') }
+  let(:account) { build(:account, ledger_id: '123') }
+  let(:bill) { build(:bill, ledger_id: '123') }
+  let(:department) { build(:department, ledger_id: '123') }
+  let(:currency) { build(:currency, name: 'United States Dollar', symbol: 'USD') }
 
   let(:resource) do
-    LedgerSync::BillPayment.new(
+    build(
+      :bill_payment,
       ledger_id: '123',
 
       account: account,
