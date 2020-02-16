@@ -42,6 +42,10 @@ module LedgerSync
                     resource_attribute: :transaction_date,
                     type: LedgerSerializerType::DateType
 
+          attribute ledger_attribute: 'PayType',
+                    resource_attribute: :payment_type,
+                    type: LedgerSerializerType::PaymentType
+
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,
                           serializer: BillPaymentLineItem::LedgerSerializer

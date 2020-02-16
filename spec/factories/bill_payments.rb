@@ -14,6 +14,7 @@ FactoryBot.define do
     amount { 100 }
     sequence(:memo) { |n| "Testing #{rand_id(n)}" }
     transaction_date { Date.today }
+    payment_type { 'credit_card' }
     exchange_rate { 1.0 }
     sequence(:reference_number) { |n| "Ref #{rand_id(n)}" }
   end

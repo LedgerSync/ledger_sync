@@ -65,6 +65,7 @@ module QuickBooksOnlineHelpers
         'PrivateNote' => 'Note',
         'ExchangeRate' => 1.0,
         'TxnDate' => '2019-09-01',
+        'PayType' => 'CreditCard',
         'Line' => [
           {
             'Amount' => 1.0,

@@ -17,6 +17,7 @@ module LedgerSync
                 required(:ledger_id).filled(:string)
                 optional(:line_items).array(Types::Reference)
                 optional(:memo).maybe(:string)
+                optional(:payment_type).maybe(:string)
                 optional(:reference_number).maybe(:string)
                 optional(:transaction_date).maybe(:date?)
                 optional(:vendor).hash(Types::Reference)

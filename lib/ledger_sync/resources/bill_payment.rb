@@ -13,6 +13,7 @@ module LedgerSync
     attribute :transaction_date, type: Type::Date
     attribute :exchange_rate, type: Type::Float
     attribute :reference_number, type: Type::String
+    attribute :payment_type, type: Type::String
 
     references_one :account, to: Account
     references_one :currency, to: Currency
