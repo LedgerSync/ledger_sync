@@ -20,6 +20,9 @@ module LedgerSync
     references_one :department, to: Department
     references_one :vendor, to: Vendor
 
+    references_one :bank_account, to: Account
+    references_one :credit_card_account, to: Account
+
     references_many :line_items, to: BillPaymentLineItem
 
     def name

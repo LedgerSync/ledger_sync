@@ -26,7 +26,7 @@ module LedgerSync
           attribute ledger_attribute: 'DepartmentRef.value',
                     resource_attribute: 'department.ledger_id'
 
-          attribute ledger_attribute: 'ARAccountRef.value',
+          attribute ledger_attribute: 'APAccountRef.value',
                     resource_attribute: 'account.ledger_id'
 
           attribute ledger_attribute: 'DocNumber',
@@ -45,6 +45,26 @@ module LedgerSync
           attribute ledger_attribute: 'PayType',
                     resource_attribute: :payment_type,
                     type: LedgerSerializerType::PaymentType
+
+          attribute ledger_attribute: 'CreditCardPayment' do |res|
+            if res.credit_card_account
+              {
+                'CCAccountRef' => {
+                  'value' => res.credit_card_account.ledger_id
+                }
+              }
+            end
+          end
+
+          attribute ledger_attribute: 'CheckPayment' do |res|
+            if res.bank_account
+              {
+                'BankAccountRef' => {
+                  'value' => res.bank_account.ledger_id
+                }
+              }
+            end
+          end
 
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,

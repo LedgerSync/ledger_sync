@@ -16,6 +16,6 @@ FactoryBot.define do
     transaction_date { Date.today }
     payment_type { 'credit_card' }
     exchange_rate { 1.0 }
-    sequence(:reference_number) { |n| "Ref #{rand_id(n)}" }
+    sequence(:reference_number) { |n| rand_id(n) }
   end
 end
