@@ -24,6 +24,9 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment::Operations::
       department: department,
       vendor: vendor,
 
+      credit_card_account: account,
+      bank_account: nil,
+
       line_items: []
     )
   end

@@ -60,12 +60,16 @@ module QuickBooksOnlineHelpers
         'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
         'VendorRef' => {'value' => '123'},
         'DepartmentRef' => {'value' => '123'},
-        'ARAccountRef' => {'value' => '123'},
+        'APAccountRef' => {'value' => '123'},
         'DocNumber' => 'Ref123',
         'PrivateNote' => 'Note',
         'ExchangeRate' => 1.0,
         'TxnDate' => '2019-09-01',
         'PayType' => 'CreditCard',
+        'CreditCardPayment' => {
+          'CCAccountRef' => {'value' => '123'}
+        },
+        'CheckPayment' => nil,
         'Line' => [
           {
             'Amount' => 1.0,
@@ -79,13 +83,14 @@ module QuickBooksOnlineHelpers
         'CreditCardPayment' => {
           'CCAccountRef' => { 'value' => '123', 'name' => 'Credit Card' }
         },
+        'CheckPayment' => nil,
         'TotalAmt' => 1.0,
         'domain' => 'QBO',
         'sparse' => false,
         'Id' => '123',
         'SyncToken' => '0',
-        'DepartmentRef' => {'value' => '123', 'name' => 'Main Department'},
-        'ARAccountRef' => {'value' => '123', 'name' => 'Account' },
+        'DepartmentRef' => { 'value' => '123', 'name' => 'Main Department' },
+        'APAccountRef' => { 'value' => '123', 'name' => 'Account' },
         'DocNumber' => 'Ref123',
         'PrivateNote' => 'Note',
         'MetaData' => {
