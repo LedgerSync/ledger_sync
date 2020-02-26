@@ -119,7 +119,7 @@ GEM
     multipart-post (2.1.1)
     netsuite (0.8.5)
       savon (>= 2.3.0)
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     nori (2.6.0)
     oauth2 (1.4.3)
