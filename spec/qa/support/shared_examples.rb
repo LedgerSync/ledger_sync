@@ -7,6 +7,8 @@ RSpec.shared_examples 'a create' do |delete: true|
       resource: resource
     )
 
+    byebug if result.failure?
+
     expect(result).to be_success
 
     if delete
@@ -49,6 +51,8 @@ RSpec.shared_examples 'a find' do |delete: true|
       adaptor: adaptor,
       resource: resource
     )
+    # pd result.response.response.body
+    # pd result.response.response.request.body
     byebug if result.failure?
     result.raise_if_error
     expect(result).to be_success

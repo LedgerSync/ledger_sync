@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-support :shared_examples
+qa_support :shared_examples
 
 RSpec.shared_examples 'a full stripe resource' do
   it_behaves_like 'a create'

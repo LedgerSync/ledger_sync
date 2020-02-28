@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Currency, adaptor: :netsuite do
+require 'spec_helper'
+
+RSpec.describe LedgerSync::Adaptors::NetSuite::Currency, qa: true, adaptor: :netsuite do
   let(:adaptor) { netsuite_adaptor }
   let(:attribute_updates) do
     {
