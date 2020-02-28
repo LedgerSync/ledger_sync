@@ -48,7 +48,9 @@ RSpec.shared_examples 'a find' do |delete: true|
     result = create_result_for(
       adaptor: adaptor,
       resource: resource
-    ).raise_if_error
+    )
+    byebug if result.failure?
+    result.raise_if_error
     expect(result).to be_success
     resource = result.resource
 

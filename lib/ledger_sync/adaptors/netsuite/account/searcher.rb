@@ -9,7 +9,7 @@ module LedgerSync
             @resources ||= begin
               @request = adaptor
                 .get(
-                  path: "/record/account?limit=#{limit}&offset=#{offset}"
+                  path: "/account?limit=#{limit}&offset=#{offset}"
                 )
 
               request.body

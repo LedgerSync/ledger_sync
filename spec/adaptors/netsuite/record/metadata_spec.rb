@@ -27,13 +27,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Record::Metadata, vcr: true do
     describe '#http_methods' do
       subject { metadata.http_methods }
 
-      it { expect(subject.count).to eq(6) }
-    end
-
-    describe '#properties' do
-      subject { metadata.properties }
-
-      it { expect(subject.count).to eq(99) }
+      it { expect(subject.count).to eq(13) }
     end
 
     describe '#record' do
