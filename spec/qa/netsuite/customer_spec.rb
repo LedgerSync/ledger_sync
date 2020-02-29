@@ -2,8 +2,6 @@
 
 require 'spec_helper'
 
-require 'spec_helper'
-
 RSpec.describe LedgerSync::Adaptors::NetSuite::Customer, qa: true, adaptor: :netsuite do
   let(:adaptor) { netsuite_adaptor }
   let(:attribute_updates) do
