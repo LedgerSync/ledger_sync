@@ -26,6 +26,7 @@ RSpec.configure do |config|
   config.around(qa: true) do |example|
     WebMock.disable!
     example.run
+  ensure
     WebMock.enable!
   end
   config.after do
