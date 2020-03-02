@@ -3,7 +3,7 @@
 module InputHelpers
   def customer_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # attributes
       email: 'test@example.com',
@@ -14,7 +14,7 @@ module InputHelpers
 
   def vendor_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # attributes
       email: 'test@example.com',
@@ -26,7 +26,7 @@ module InputHelpers
 
   def account_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # attributes
       name: 'Sample Account',
@@ -44,7 +44,7 @@ module InputHelpers
 
   def payment_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       customer: nil,
@@ -79,7 +79,7 @@ module InputHelpers
 
   def invoice_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       customer: nil,
@@ -108,7 +108,7 @@ module InputHelpers
 
   def expense_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       account: nil,
@@ -129,7 +129,7 @@ module InputHelpers
 
   def expense_line_item_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       account: nil,
@@ -141,7 +141,7 @@ module InputHelpers
 
   def transfer_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       from_account: nil,
@@ -159,7 +159,7 @@ module InputHelpers
 
   def deposit_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       account: nil,
@@ -178,7 +178,7 @@ module InputHelpers
 
   def deposit_line_item_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       account: nil,
@@ -190,7 +190,7 @@ module InputHelpers
 
   def bill_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       account: nil,
@@ -210,7 +210,7 @@ module InputHelpers
 
   def bill_line_item_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       account: nil,
@@ -222,7 +222,7 @@ module InputHelpers
 
   def journal_entry_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       line_items: [],
@@ -239,7 +239,7 @@ module InputHelpers
 
   def journal_entry_line_item_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       ledger_id: nil,
       # relationships
       account: nil,
@@ -266,7 +266,7 @@ module InputHelpers
 
   def ledger_class_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       name: 'Test Class',
       active: true,
       sub_class: false
@@ -275,7 +275,7 @@ module InputHelpers
 
   def department_resource(**merge)
     {
-      external_id: nil,
+      external_id: :ext_id,
       name: 'Test Department',
       active: true,
       sub_department: false

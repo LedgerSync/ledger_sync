@@ -36,6 +36,13 @@ support :factory_bot
 support :webmock_helpers
 support :vcr
 
+def qa_support(*paths)
+  paths.each do |path|
+    require File.join(LedgerSync.root, 'spec/qa/support/', path.to_s)
+  end
+end
+qa_support :adaptor_support_qa_setup
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = 'tmp/rspec_history.txt'
