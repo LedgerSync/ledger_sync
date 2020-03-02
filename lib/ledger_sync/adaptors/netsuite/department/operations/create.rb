@@ -13,6 +13,10 @@ module LedgerSync
                 required(:external_id).value(:string)
                 required(:ledger_id).value(:nil)
                 required(:name).filled(:string)
+                optional(:active).maybe(:bool?)
+                optional(:sub_department).maybe(:bool?)
+                optional(:fully_qualified_name).maybe(:string)
+                optional(:parent).maybe(:hash, Types::Reference)
               end
             end
           end
