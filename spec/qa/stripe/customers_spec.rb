@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe LedgerSync::Adaptors::Stripe::Customer, adaptor: :stripe do
+require 'spec_helper'
+
+RSpec.describe LedgerSync::Adaptors::Stripe::Customer, qa: true, adaptor: :stripe do
   let(:adaptor) { stripe_adaptor }
   let(:attribute_updates) do
     {

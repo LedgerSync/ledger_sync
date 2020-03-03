@@ -9,6 +9,7 @@ FactoryBot.define do
     account_sub_type { 'cash_on_hand' }
     currency { FactoryBot.create(:currency) }
     description { "Test #{rand_id} Account description" }
+    sequence(:external_id) { |n| "acct-#{rand_id(n)}" }
     active { true }
   end
 end

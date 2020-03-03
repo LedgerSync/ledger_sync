@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer, adaptor: :quickbooks_online do
+require 'spec_helper'
+
+RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Customer, qa: true, adaptor: :quickbooks_online do
   let(:adaptor) { quickbooks_online_adaptor }
   let(:attribute_updates) do
     {

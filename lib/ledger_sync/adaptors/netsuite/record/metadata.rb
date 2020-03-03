@@ -63,9 +63,20 @@ module LedgerSync
           end
 
           def properties
-            @properties ||= Property.new_from_array(
-              metadata_response['components']['schemas'][record.to_s]
-            )
+            @properties ||= begin
+              ret = []
+              props = metadata_response.body['components']['schemas'][record.to_s]['properties']
+              props.map do |key, prop|
+                next unless prop.key?('title')
+
+                ret << Property.new_from_hash(
+                  prop.merge(
+                    key: key
+                  )
+                )
+              end
+              ret
+            end
           end
 
           def index

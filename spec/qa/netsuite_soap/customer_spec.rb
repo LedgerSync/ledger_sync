@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Customer, adaptor: :netsuite_soap do
+require 'spec_helper'
+
+RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Customer, qa: true, adaptor: :netsuite_soap do
   let(:adaptor) { netsuite_soap_adaptor }
   let(:attribute_updates) do
     {

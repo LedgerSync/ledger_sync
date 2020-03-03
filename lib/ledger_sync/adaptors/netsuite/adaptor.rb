@@ -59,6 +59,13 @@ module LedgerSync
           request(keywords.merge(method: :get))
         end
 
+        def metadata_for(record:)
+          Record::Metadata.new(
+            adaptor: self,
+            record: record
+          )
+        end
+
         def patch(headers: {}, **keywords)
           request(
             keywords.merge(

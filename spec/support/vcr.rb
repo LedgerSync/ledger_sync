@@ -40,7 +40,7 @@ end
 
 RSpec.configure do |config|
   config.around(:each) do |ex|
-    if ex.metadata.key?(:vcr) && ex.metadata[:vcr] != false
+    if ex.metadata.key?(:vcr) && ex.metadata[:vcr] != false && !ex.metadata[:qa]
       ex.run
     else
       VCR.turned_off { ex.run }
