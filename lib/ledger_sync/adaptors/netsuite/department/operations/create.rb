@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# require_relative '../../operation/create'
-
 module LedgerSync
   module Adaptors
     module NetSuite

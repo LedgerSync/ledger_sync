@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Department::Operations::Delete do
   include InputHelpers
   include NetSuiteHelpers
 
-  let(:resource) { LedgerSync::Department.new(department_resource(ledger_id: 7)) }
+  let(:resource) { FactoryBot.create(:department, ledger_id: 7) }
   let(:adaptor) { netsuite_adaptor }
 
   it_behaves_like 'an operation'

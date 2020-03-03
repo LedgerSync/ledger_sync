@@ -15,7 +15,7 @@ module LedgerSync
               request.body
                 .fetch('items')
                 .map do |c|
-                  LedgerDeserializer.new(
+                  LedgerSerializer.new(
                     resource: LedgerSync::Department.new
                   ).deserialize(hash: c)
                 end
