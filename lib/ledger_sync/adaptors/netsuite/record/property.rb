@@ -7,37 +7,14 @@ module LedgerSync
   module Adaptors
     module NetSuite
       module Record
-        class Property
-          attr_reader :enum,
-                      :format,
-                      :key,
-                      :title,
-                      :type
-
-          def initialize(
-            enum: [],
-            format: nil,
-            key:,
-            title:,
-            type:
-          )
-
-            @enum = enum
-            @format = format
-            @key = key
-            @title = title
-            @type = type
-          end
-
-          def self.new_from_hash(data:, key:)
-            new(
-              enum: data['enum'],
-              format: data['format'],
-              key: key,
-              title: data['title'],
-              type: data['type']
-            )
-          end
+        class Property < Util::ReadOnlyObject
+          attribute :enum, default: nil
+          attribute :format, default: nil
+          attribute :key
+          attribute :nullable, default: false
+          attribute :read_only, default: false, source: :readOnly
+          attribute :title
+          attribute :type
         end
       end
     end

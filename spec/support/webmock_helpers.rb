@@ -23,6 +23,12 @@ end
 
 RSpec.configure do |config|
   config.before { WebMock.reset! }
+  config.around(qa: true) do |example|
+    WebMock.disable!
+    example.run
+  ensure
+    WebMock.enable!
+  end
   config.after do
     stubs_and_times.each do |stub, times|
       expect(stub).to have_been_requested.times(times)

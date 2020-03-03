@@ -31,6 +31,16 @@ module LedgerSync
         end]
       end
 
+      def operation_for(method:, resource:)
+        self.class.operation_class_for(
+          method: method,
+          resource_class: resource.class
+        ).new(
+          adaptor: self,
+          resource: resource
+        )
+      end
+
       def searcher_for?(resource_type:)
         searcher_klass_for(resource_type: resource_type)
       rescue NameError
@@ -66,6 +76,11 @@ module LedgerSync
       # to be saved back to the application layer for future use.
       def self.ledger_attributes_to_save
         raise NotImplementedError
+      end
+
+      def self.operation_class_for(method:, resource_class:)
+        base_operation_module_for(resource_class: resource_class)
+          .const_get(LedgerSync::Util::StringHelpers.camelcase(method.to_s))
       end
 
       def self.url_for(resource: nil); end

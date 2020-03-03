@@ -384,7 +384,7 @@ module QuickBooksOnlineHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.17.3'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -402,7 +402,7 @@ module QuickBooksOnlineHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.17.3'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(
@@ -421,7 +421,7 @@ module QuickBooksOnlineHelpers
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
           'Content-Type' => 'application/json',
-          'User-Agent' => 'Faraday v0.17.3'
+          'User-Agent' => /Faraday v[0-9]+\.[0-9]+\.[0-9]+/
         }
       )
       .to_return(

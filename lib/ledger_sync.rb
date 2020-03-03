@@ -37,6 +37,7 @@ Gem.find_files('ledger_sync/error/**/*.rb').each { |path| require path }
 require 'ledger_sync/util/resonad'
 require 'ledger_sync/util/signer'
 require 'ledger_sync/util/hash_helpers'
+require 'ledger_sync/util/read_only_object'
 require 'ledger_sync/util/resources_builder'
 require 'ledger_sync/adaptor_configuration'
 require 'ledger_sync/adaptor_configuration_store'

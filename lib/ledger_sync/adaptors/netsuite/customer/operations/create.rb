@@ -8,7 +8,7 @@ module LedgerSync
           class Create < NetSuite::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
-                required(:external_id).maybe(:string)
+                required(:external_id).value(:string)
                 required(:ledger_id).value(:nil)
                 required(:email).maybe(:string)
                 required(:name).filled(:string)

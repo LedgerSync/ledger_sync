@@ -7,28 +7,23 @@ module LedgerSync
   module Adaptors
     module NetSuite
       module Record
-        class HTTPMethod
-          attr_reader :method,
-                      :parameters,
-                      :path,
-                      :raw,
-                      :summary
+        class HTTPMethod < Util::ReadOnlyObject
+          attribute :key
+          attribute :method
+          attribute :path
+          attribute :summary
 
-          def initialize(method:, parameters:, path:, raw:, summary:)
-            @method = method
-            @parameters = parameters
-            @path = path
-            @raw = raw
-            @summary = summary
+          def initialize(args = {})
+            super(
+              args.merge(
+                key: "#{method} #{path}".downcase
+              )
+            )
           end
 
-          def self.new_from_hash(data:, method:, path:)
-            new(
-              method: method,
-              parameters: data['parameters'],
-              path: path,
-              raw: data,
-              summary: data['summary']
+          def parameters
+            Parameter.new_from_array(
+              raw[:parameters]
             )
           end
         end

@@ -10,7 +10,7 @@ module LedgerSync
         # - record properties/attributes
         #
         class Metadata
-          BASE_PATH = 'metadata-catalog/record'
+          BASE_PATH = 'metadata-catalog'
 
           attr_reader :adaptor,
                       :record
@@ -20,16 +20,29 @@ module LedgerSync
             @record = record
           end
 
+          def create
+            @create ||= http_methods.find { |_e| "post /#{record}" }
+          end
+
+          def delete
+            @delete ||= http_methods.find { |_e| "delete /#{record}/{id}" }
+          end
+
+          def find
+            @find ||= show
+          end
+
           def http_methods
             @http_methods ||= begin
               ret = []
 
-              http_methods_response.body['paths'].each do |path, path_data|
+              metadata_response.body['paths'].each do |path, path_data|
                 path_data.each do |method, method_data|
                   ret << HTTPMethod.new_from_hash(
-                    data: method_data,
-                    method: method,
-                    path: path
+                    method_data.merge(
+                      method: method,
+                      path: path
+                    )
                   )
                 end
               end
@@ -38,8 +51,8 @@ module LedgerSync
             end
           end
 
-          def http_methods_response
-            @http_methods_response = begin
+          def metadata_response
+            @metadata_response = begin
               adaptor.get(
                 headers: {
                   'Accept' => 'application/swagger+json'
@@ -50,23 +63,36 @@ module LedgerSync
           end
 
           def properties
-            @properties = properties_response.body['properties'].map do |key, data|
-              Property.new_from_hash(
-                data: data,
-                key: key
-              )
+            @properties ||= begin
+              ret = []
+              props = metadata_response.body['components']['schemas'][record.to_s]['properties']
+              props.map do |key, prop|
+                next unless prop.key?('title')
+
+                ret << Property.new_from_hash(
+                  prop.merge(
+                    key: key
+                  )
+                )
+              end
+              ret
             end
           end
 
-          def properties_response
-            @properties_response = begin
-              adaptor.get(
-                headers: {
-                  'Accept' => 'application/swagger+json'
-                },
-                path: "#{BASE_PATH}/#{record}"
-              )
-            end
+          def index
+            @index ||= http_methods.find { |_e| "get /#{record}" }
+          end
+
+          def show
+            @show ||= http_methods.find { |_e| "get /#{record}/{id}" }
+          end
+
+          def update
+            @update ||= http_methods.find { |_e| "patch /#{record}/{id}" }
+          end
+
+          def upsert
+            @upsert ||= http_methods.find { |_e| "put /#{record}/{id}" }
           end
         end
       end

@@ -3,11 +3,17 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Adaptors::NetSuite::Record::Property do
-  let(:enum) { :asdf }
-  let(:format) { :asdf }
-  let(:key) { :asdf }
-  let(:title) { :asdf }
-  let(:type) { :asdf }
+  let(:enum) do
+    %w[
+      AUTO
+      OFF
+      ON
+    ]
+  end
+  let(:format) { nil }
+  let(:key) { 'creditholdoverride' }
+  let(:title) { 'Credit Hold' }
+  let(:type) { 'string' }
   let(:property) do
     described_class.new(
       enum: enum,
@@ -32,12 +38,13 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Record::Property do
     let(:title) { '3rd Party Billing Country' }
     let(:property) do
       described_class.new_from_hash(
-        data: {
-          'title' => title,
-          'type' => type,
-          'enum' => enum
-        },
-        key: key
+        {
+          key: key,
+          "title": title,
+          "type": type,
+          "nullable": true,
+          "enum": enum
+        }
       )
     end
 
