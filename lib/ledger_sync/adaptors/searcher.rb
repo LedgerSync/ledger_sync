@@ -25,6 +25,10 @@ module LedgerSync
         @pagination = pagination
       end
 
+      def ledger_deserializer_class
+        @ledger_deserializer_class ||= self.class.inferred_ledger_deserializer_class
+      end
+
       def next_searcher
         raise NotImplementedError
       end
