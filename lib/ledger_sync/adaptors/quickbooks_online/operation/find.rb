@@ -12,12 +12,6 @@ module LedgerSync
           private
 
           def operate
-            # return failure(
-            #   Error::OperationError::LedgerIDRequired.new(
-            #     operation: self
-            #   )
-            # ) if resource.ledger_id.nil?
-
             response_to_operation_result(
               response: adaptor.find(
                 path: ledger_resource_path

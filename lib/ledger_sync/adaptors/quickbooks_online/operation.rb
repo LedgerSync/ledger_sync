@@ -14,7 +14,7 @@ module LedgerSync
             def deserialized_resource(response:)
               ledger_serializer.deserialize(
                 hash: response.body.dig(
-                  quickbooks_online_resource_type.to_s.classify
+                  quickbooks_online_resource_type.to_s.camelize
                 )
               )
             end

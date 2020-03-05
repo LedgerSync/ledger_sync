@@ -60,6 +60,8 @@ require 'ledger_sync/adaptors/request'
 require 'ledger_sync/resource' # Template class
 Gem.find_files('ledger_sync/resources/**/*.rb').each { |path| require path }
 
+require 'ledger_sync/adaptors/quickbooks_online/preferences/resource'
+
 module LedgerSync
   @log_level = nil
   @logger = nil
@@ -144,3 +146,5 @@ LedgerSync.register_resource(resource: LedgerSync::Payment)
 LedgerSync.register_resource(resource: LedgerSync::PaymentLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Transfer)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
+
+LedgerSync.register_resource(resource: LedgerSync::Adaptors::QuickBooksOnline::Preferences)

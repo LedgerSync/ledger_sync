@@ -4,7 +4,7 @@ module QuickBooksOnlineHelpers
   STUBS = {
     preferences: {
       ledger_id: nil,
-      ledger_resource: 'Preference',
+      ledger_resource: 'Preferences',
       request_hash: {},
       response_hash: {
         'AccountingInfoPrefs' => {

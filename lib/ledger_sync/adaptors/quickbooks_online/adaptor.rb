@@ -14,7 +14,7 @@ module LedgerSync
         API_RESOURCE_MAPPING_OVERRIDE = {
           LedgerSync::Expense => 'purchase',
           LedgerSync::LedgerClass => 'class',
-          LedgerSync::Preference => 'preferences'
+          LedgerSync::Adaptors::QuickBooksOnline::Preferences => 'preferences'
         }
         API_RESOURCE_MAPPING_OVERRIDE_REVERSE = API_RESOURCE_MAPPING_OVERRIDE.invert
 
