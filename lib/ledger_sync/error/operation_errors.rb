@@ -15,16 +15,6 @@ module LedgerSync
       class DuplicateLedgerResourceError < self; end
       class NotFoundError < self; end
       class LedgerValidationError < self; end
-      class LedgerIDRequired < self
-        def initialize(**keywords)
-          super(
-            {
-              message: 'Resource ledger_id is required.'
-            }.merge(keywords)
-          )
-        end
-      end
-
       class PerformedOperationError < self
         def initialize(message: nil, operation:, response: nil)
           message ||= 'Operation has already been performed. Please check the result.'

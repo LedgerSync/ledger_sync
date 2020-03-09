@@ -76,6 +76,17 @@ RSpec.shared_examples 'a find' do |delete: true|
   end
 end
 
+RSpec.shared_examples 'a find only' do
+  it do
+    result = find_result_for(
+      adaptor: adaptor,
+      resource: resource
+    )
+
+    expect(result).to be_success
+  end
+end
+
 RSpec.shared_examples 'an update' do |delete: true|
   it do
     result = create_result_for(
