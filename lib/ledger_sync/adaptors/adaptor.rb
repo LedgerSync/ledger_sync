@@ -91,8 +91,9 @@ module LedgerSync
           .const_get(LedgerSync::Util::StringHelpers.camelcase(method.to_s))
       end
 
-      def self.resource_from_ledger_type(type:)
-        ledger_resource_type_overrides.invert[type.downcase] || LedgerSync.resources[type.downcase.to_sym]
+      def self.resource_from_ledger_type(type:, converter: nil)
+        converter ||= Proc.new { |n| n.underscore }
+        ledger_resource_type_overrides.invert[converter.call(type).to_sym] || LedgerSync.resources[converter.call(type).to_sym]
       end
 
       def self.url_for(resource: nil); end
