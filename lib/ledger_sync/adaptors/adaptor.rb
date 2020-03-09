@@ -78,9 +78,22 @@ module LedgerSync
         raise NotImplementedError
       end
 
+      def self.ledger_resource_type_for(resource_class:)
+        ledger_resource_type_overrides[resource_class] || resource_class.resource_type.to_s
+      end
+
+      def self.ledger_resource_type_overrides
+        {}
+      end
+
       def self.operation_class_for(method:, resource_class:)
         base_operation_module_for(resource_class: resource_class)
           .const_get(LedgerSync::Util::StringHelpers.camelcase(method.to_s))
+      end
+
+      def self.resource_from_ledger_type(type:, converter: nil)
+        converter ||= Proc.new { |n| n.underscore }
+        ledger_resource_type_overrides.invert[converter.call(type).to_sym] || LedgerSync.resources[converter.call(type).to_sym]
       end
 
       def self.url_for(resource: nil); end

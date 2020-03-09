@@ -11,12 +11,6 @@ module LedgerSync
         ROOT_URI          = 'https://quickbooks.api.intuit.com'
         REVOKE_TOKEN_URI  = 'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
         ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'
-        API_RESOURCE_MAPPING_OVERRIDE = {
-          LedgerSync::Expense => 'purchase',
-          LedgerSync::LedgerClass => 'class',
-          LedgerSync::Adaptors::QuickBooksOnline::Preferences => 'preferences'
-        }
-        API_RESOURCE_MAPPING_OVERRIDE_REVERSE = API_RESOURCE_MAPPING_OVERRIDE.invert
 
         attr_reader :access_token,
                     :client_id,
@@ -185,8 +179,12 @@ module LedgerSync
           %i[access_token expires_at refresh_token refresh_token_expires_at]
         end
 
-        def self.ledger_resource_type_for(resource_class:)
-          API_RESOURCE_MAPPING_OVERRIDE[resource_class] || resource_class.resource_type.to_s
+        def self.ledger_resource_type_overrides
+          {
+            LedgerSync::Expense => 'purchase',
+            LedgerSync::LedgerClass => 'class',
+            LedgerSync::Adaptors::QuickBooksOnline::Preferences => 'preferences'
+          }
         end
 
         def self.new_from_env(**override)
@@ -217,10 +215,6 @@ module LedgerSync
               refresh_token: oauth_token.refresh_token
             }.merge(override)
           )
-        end
-
-        def self.resource_from_ledger_type(type:)
-          API_RESOURCE_MAPPING_OVERRIDE_REVERSE[type.downcase] || LedgerSync.resources[type.downcase.to_sym]
         end
 
         private
