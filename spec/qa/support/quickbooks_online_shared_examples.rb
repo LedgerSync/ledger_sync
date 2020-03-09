@@ -80,3 +80,7 @@ RSpec.shared_examples 'a standard quickbooks_online resource' do
   it_behaves_like 'a find', delete: false
   it_behaves_like 'an update', delete: false
 end
+
+RSpec.shared_examples 'a find only quickbooks_online resource' do
+  it_behaves_like 'a find only', delete: false
+end

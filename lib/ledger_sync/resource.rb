@@ -64,7 +64,7 @@ module LedgerSync
     end
 
     def self.resource_module_str
-      @resource_module_str ||= name.split('LedgerSync::')[1..-1].join('LedgerSync::')
+      @resource_module_str ||= name.split('::').last
     end
 
     def self.resource_type
