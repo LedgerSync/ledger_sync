@@ -24,11 +24,11 @@ module LedgerSync
             end
 
             def self.inferred_resource_class
-              ::LedgerSync::Adaptors::QuickBooksOnline::Preferences
+              Preferences
             end
 
             def self.inferred_ledger_serializer_class
-              ::LedgerSync::Adaptors::QuickBooksOnline::Preferences::LedgerSerializer
+              Preferences::LedgerSerializer
             end
           end
         end

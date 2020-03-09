@@ -16,7 +16,7 @@ module LedgerSync
         attribute :other, type: Type::Hash
 
         def name
-          "Preference"
+          'Preference'
         end
       end
     end
