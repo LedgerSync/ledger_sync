@@ -4,6 +4,10 @@
 [![Gem Version](https://badge.fury.io/rb/ledger_sync.svg)](https://badge.fury.io/rb/ledger_sync)
 [![Coverage Status](https://coveralls.io/repos/github/LedgerSync/ledger_sync/badge.svg?branch=master)](https://coveralls.io/github/LedgerSync/ledger_sync?branch=master)
 
+## Join the Conversation
+
+[Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-cn4qfhb8-~6BrVy8v7~upxQk6Pfo7oQ) to join our public Slack group.
+
 ## Installation
 
 Add this line to your application's Gemfile:
