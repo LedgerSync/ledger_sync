@@ -19,10 +19,10 @@ module LedgerSync
         resources
       ]
 
-      def initialize(adaptor:, query:, pagination: {})
-        @adaptor = adaptor
-        @query = query
-        @pagination = pagination
+      def initialize(args = {})
+        @adaptor    = args.fetch(:adaptor)
+        @query      = args.fetch(:query)
+        @pagination = args.fetch(:pagination, {})
       end
 
       def ledger_deserializer_class

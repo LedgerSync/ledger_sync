@@ -8,7 +8,9 @@ module LedgerSync
     module NetSuite
       class LedgerSerializer < Adaptors::LedgerSerializer
         def self.api_resource_path(resource: nil)
-          raise 'Resource ledger_id is required to build API request path' if resource.present? && resource.ledger_id.blank?
+          if resource.present? && resource.ledger_id.blank?
+            raise 'Resource ledger_id is required to build API request path'
+          end
 
           ret = api_resource_type.to_s
           ret += "/#{resource.ledger_id}" if resource.present?
@@ -16,13 +18,18 @@ module LedgerSync
         end
 
         def self.api_resource_type(val = nil)
-          raise 'api_resource_type already set' if @api_resource_type.present? && val.present?
+          if @api_resource_type.present? && val.present?
+            raise 'api_resource_type already set'
+          end
 
           @api_resource_type ||= val
         end
 
         def self.id(**keywords)
-          super({ ledger_attribute: 'id', resource_attribute: :ledger_id }.merge(keywords))
+          super({
+            ledger_attribute: 'id',
+            resource_attribute: :ledger_id
+          }.merge(keywords))
         end
       end
     end

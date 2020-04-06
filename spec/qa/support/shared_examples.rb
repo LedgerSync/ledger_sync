@@ -7,7 +7,15 @@ RSpec.shared_examples 'a create' do |delete: true|
       resource: resource
     )
 
-    byebug if result.failure?
+    if result.failure?
+      response = result.response.response
+
+      pd response.request.url
+      pd response.request.body
+      pd response.body
+
+      byebug
+    end
 
     expect(result).to be_success
 
@@ -52,7 +60,11 @@ RSpec.shared_examples 'a find' do |delete: true|
       resource: resource
     )
 
-    byebug if result.failure?
+    if result.failure?
+      response = result.response.response
+      byebug
+    end
+
     result.raise_if_error
     expect(result).to be_success
     resource = result.resource

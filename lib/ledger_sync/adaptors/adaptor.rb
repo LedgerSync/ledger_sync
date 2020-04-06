@@ -47,8 +47,12 @@ module LedgerSync
         false
       end
 
-      def searcher_klass_for(resource_type:)
+      def searcher_class_for(resource_type:)
         base_module.const_get(LedgerSync::Util::StringHelpers.camelcase(resource_type.to_s))::Searcher
+      end
+
+      def searcher_klass_for(*args)
+        searcher_class_for(*args)
       end
 
       def url_for(*_args)

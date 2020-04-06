@@ -18,6 +18,19 @@ module QA
       )
     end
 
+    def find_first_in_netsuite(args = {})
+      use_adaptor   = args.fetch(:adaptor, adaptor)
+      resource_type = args.fetch(:resource_type)
+      query         = args.fetch(:query, '')
+
+      adaptor.searcher_class_for(
+        resource_type: resource_type
+      ).new(
+        adaptor: use_adaptor,
+        query: query
+      ).resources.first
+    end
+
     def netsuite_adaptor
       @netsuite_adaptor ||= LedgerSync.adaptors.netsuite.new(
         account_id: ENV.fetch('NETSUITE_ACCOUNT_ID'),

@@ -2,3 +2,12 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 2.6
+
+Style/HashEachMethods:
+  Enabled: True
+
+Style/HashTransformKeys:
+  Enabled: True
+
+Style/HashTransformValues:
+  Enabled: True

@@ -5,6 +5,8 @@ module LedgerSync
     module NetSuite
       module Customer
         class LedgerSerializer < NetSuite::LedgerSerializer
+          id
+
           api_resource_type :customer
 
           attribute ledger_attribute: :companyName,

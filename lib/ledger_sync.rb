@@ -146,5 +146,6 @@ LedgerSync.register_resource(resource: LedgerSync::Payment)
 LedgerSync.register_resource(resource: LedgerSync::PaymentLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Transfer)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
+LedgerSync.register_resource(resource: LedgerSync::Location)
 
 LedgerSync.register_resource(resource: LedgerSync::Adaptors::QuickBooksOnline::Preferences)

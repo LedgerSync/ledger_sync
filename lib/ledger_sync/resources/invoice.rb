@@ -3,6 +3,7 @@
 require_relative 'account'
 require_relative 'currency'
 require_relative 'customer'
+require_relative 'location'
 require_relative 'invoice_sales_line_item'
 
 module LedgerSync
@@ -12,6 +13,7 @@ module LedgerSync
     attribute :deposit, type: Type::Integer
 
     references_one :customer, to: Customer
+    references_one :location, to: Location
     references_one :account, to: Account
     references_one :currency, to: Currency
 
