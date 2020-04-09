@@ -8,16 +8,16 @@ module LedgerSync
           class Create < NetSuite::Operation::Create
             class Contract < LedgerSync::Adaptors::Contract
               params do
-                required(:external_id).filled(:string)
+                required(:external_id).maybe(:string)
+                optional(:account).hash(Types::Reference)
+                optional(:currency).maybe(:hash, Types::Reference)
+                required(:customer).hash(Types::Reference)
+                optional(:deposit).maybe(:integer)
                 required(:ledger_id).value(:nil)
-                required(:name).filled(:string)
-                required(:classification).maybe(:string)
-                required(:account_type).maybe(:string)
-                required(:account_sub_type).maybe(:string)
-                required(:number).filled(:integer)
-                required(:currency).filled(:hash, Types::Reference)
-                required(:description).maybe(:string)
-                required(:active).maybe(:bool)
+                required(:line_items).array(Types::Reference)
+                required(:location).array(Types::Reference)
+                optional(:memo).maybe(:string)
+                optional(:transaction_date).maybe(:date?)
               end
             end
           end

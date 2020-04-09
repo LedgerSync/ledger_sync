@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -13,6 +15,7 @@ module LedgerSync
                 optional(:deposit).maybe(:integer)
                 required(:ledger_id).filled(:string)
                 required(:line_items).array(Types::Reference)
+                optional(:location).array(Types::Reference)
                 optional(:memo).filled(:string)
                 optional(:transaction_date).filled(:date?)
               end

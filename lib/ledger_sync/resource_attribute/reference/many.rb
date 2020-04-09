@@ -14,6 +14,7 @@ module LedgerSync
 
           delegate  :count,
                     :each,
+                    :empty?,
                     :include?,
                     :map,
                     to: :value

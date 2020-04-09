@@ -12,8 +12,11 @@ module LedgerSync
                   :serializer_class
 
       delegate  :[],
+                :any?,
+                :count,
                 :each,
                 :include?,
+                :empty?,
                 :map,
                 to: :attributes
 
