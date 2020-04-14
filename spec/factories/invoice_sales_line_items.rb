@@ -7,5 +7,6 @@ FactoryBot.define do
 
     amount { 12_345 }
     sequence(:description) { |n| "Test Line Item #{rand_id(n)}" }
+    quantity { 1.0 }
   end
 end

@@ -11,11 +11,14 @@ module LedgerSync
                         resource_attribute: :item,
                         serializer: Item::LedgerSerializer
 
-          # attribute ledger_attribute: :amount,
-          #           resource_attribute: :amount
+          attribute ledger_attribute: :amount,
+                    resource_attribute: :amount
 
-          # attribute ledger_attribute: :description,
-          #           resource_attribute: :description
+          attribute ledger_attribute: :description,
+                    resource_attribute: :description
+
+          attribute ledger_attribute: :quantity,
+                    resource_attribute: :quantity
         end
       end
     end

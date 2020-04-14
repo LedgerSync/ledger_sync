@@ -8,6 +8,7 @@ module LedgerSync
     references_one :item, to: Item
     references_one :ledger_class, to: LedgerClass
     attribute :amount, type: Type::Integer
+    attribute :quantity, type: Type::Float
     attribute :description, type: Type::String
 
     def name

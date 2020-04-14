@@ -16,16 +16,26 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
   let(:item2) { FactoryBot.create(:item, ledger_id: item2_ledger_id) }
 
   let(:memo) { 'a memo' }
+  let(:line_item1_description) { 'line item 1' }
+  let(:line_item2_description) { 'line item 2' }
+  let(:line_item1_amount) { 123 }
+  let(:line_item2_amount) { 987 }
 
   let(:line_items) do
     [
       FactoryBot.create(
         :invoice_sales_line_item,
-        item: item1
+        description: line_item1_description,
+        amount: line_item1_amount,
+        item: item1,
+        quantity: 1.0
       ),
       FactoryBot.create(
         :invoice_sales_line_item,
-        item: item2
+        description: line_item2_description,
+        amount: line_item2_amount,
+        item: item2,
+        quantity: 2.5
       )
     ]
   end
@@ -46,10 +56,16 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
       'item' => {
         'items' => [
           {
-            'item' => { 'id' => item1_ledger_id }
+            'amount' => line_item1_amount,
+            'description' => line_item1_description,
+            'item' => { 'id' => item1_ledger_id },
+            'quantity' => 1.0
           },
           {
-            'item' => { 'id' => item2_ledger_id }
+            'amount' => line_item2_amount,
+            'description' => line_item2_description,
+            'item' => { 'id' => item2_ledger_id },
+            'quantity' => 2.5
           }
         ]
       },
@@ -60,7 +76,8 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
   describe '#to_ledger_hash' do
     it do
       serializer = described_class.new(resource: resource)
-      expect(serializer.to_ledger_hash).to eq(h)
+      ledger_hash = serializer.to_ledger_hash
+      expect(ledger_hash).to eq(h)
     end
   end
 
@@ -71,7 +88,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
       deserializer_class = LedgerSync::Adaptors::NetSuite::Invoice::LedgerDeserializer
       serializer = deserializer_class.new(resource: resource)
       invoice_ledger_id = '747'
-      response_h = h.merge(
+      response_h = {
         'id' => invoice_ledger_id,
         'entity' => {
           'links' => [
@@ -92,8 +109,19 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
           ],
           'id' => location_ledger_id,
           'refName' => 'San Francisco'
-        }
-      )
+        },
+        'item' => {
+          'items' => [
+            {
+              'item' => { 'id' => item1_ledger_id }
+            },
+            {
+              'item' => { 'id' => item2_ledger_id }
+            }
+          ]
+        },
+        'memo' => memo
+      }
       deserialized_resource = serializer.deserialize(hash: response_h)
       expect(resource.ledger_id).to be_nil
       expect(resource.location).to be_nil
