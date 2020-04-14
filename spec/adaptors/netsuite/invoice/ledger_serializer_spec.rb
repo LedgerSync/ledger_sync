@@ -15,6 +15,8 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
   let(:item2_ledger_id) { '990' }
   let(:item2) { FactoryBot.create(:item, ledger_id: item2_ledger_id) }
 
+  let(:memo) { 'a memo' }
+
   let(:line_items) do
     [
       FactoryBot.create(
@@ -32,7 +34,8 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
     LedgerSync::Invoice.new(
       customer: customer,
       line_items: line_items,
-      location: location
+      location: location,
+      memo: memo
     )
   end
 
@@ -49,7 +52,8 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
             'item' => { 'id' => item2_ledger_id }
           }
         ]
-      }
+      },
+      'memo' => memo
     }
   end
 
@@ -96,6 +100,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
       expect(resource.customer).to be_nil
       expect(resource.line_items).to be_empty
       expect(deserialized_resource.ledger_id).to eq(invoice_ledger_id)
+      expect(deserialized_resource.memo).to eq(memo)
       expect(deserialized_resource.location.ledger_id).to eq(location_ledger_id)
       expect(deserialized_resource.customer.ledger_id).to eq(customer_ledger_id)
       expect(deserialized_resource.line_items.count).to eq(2)

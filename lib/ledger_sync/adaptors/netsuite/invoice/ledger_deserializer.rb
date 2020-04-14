@@ -8,10 +8,6 @@ module LedgerSync
       module Invoice
         class LedgerDeserializer < Invoice::LedgerSerializer
           id
-
-          # attribute ledger_attribute: 'entity.id',
-          #           resource_attribute: 'customer.ledger_id',
-          #           serialize: false
         end
       end
     end
