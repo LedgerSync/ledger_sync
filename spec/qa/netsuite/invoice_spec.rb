@@ -29,9 +29,5 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice, qa: true, adaptor: :nets
     )
   end
 
-  it do
-
-  end
-
   it_behaves_like 'a full netsuite resource'
 end
