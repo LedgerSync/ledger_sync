@@ -67,7 +67,30 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Invoice::LedgerSerializer do
       deserializer_class = LedgerSync::Adaptors::NetSuite::Invoice::LedgerDeserializer
       serializer = deserializer_class.new(resource: resource)
       invoice_ledger_id = '747'
-      deserialized_resource = serializer.deserialize(hash: h.merge('id' => invoice_ledger_id))
+      response_h = h.merge(
+        'id' => invoice_ledger_id,
+        'entity' => {
+          'links' => [
+            {
+              'rel' => 'self',
+              'href' => "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customer/#{customer_ledger_id}"
+            }
+          ],
+          'id' => customer_ledger_id,
+          'refName' => 'Abodewell'
+        },
+        'location' => {
+          'links' => [
+            {
+              'rel' => 'self',
+              'href' => "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/location/#{location_ledger_id}"
+            }
+          ],
+          'id' => location_ledger_id,
+          'refName' => 'San Francisco'
+        }
+      )
+      deserialized_resource = serializer.deserialize(hash: response_h)
       expect(resource.ledger_id).to be_nil
       expect(resource.location).to be_nil
       expect(resource.customer).to be_nil

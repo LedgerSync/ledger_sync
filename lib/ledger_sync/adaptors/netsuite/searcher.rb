@@ -15,6 +15,11 @@ module LedgerSync
                 path: "/#{adaptor.class.ledger_resource_type_for(resource_class: resource_class)}?limit=#{limit}&offset=#{offset}"
               )
 
+            unless request.body.key?('items')
+              pd request.body
+              byebug
+            end
+
             request.body
               .fetch('items')
               .map do |c|

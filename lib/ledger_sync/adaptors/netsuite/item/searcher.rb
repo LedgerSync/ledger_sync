@@ -4,10 +4,7 @@ module LedgerSync
   module Adaptors
     module NetSuite
       module Item
-        class LedgerSerializer < NetSuite::LedgerSerializer
-          id
-
-          api_resource_type :items
+        class Searcher < Searcher
         end
       end
     end

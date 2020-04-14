@@ -88,6 +88,12 @@ module LedgerSync
           %i[]
         end
 
+        def self.ledger_resource_type_overrides
+          {
+            LedgerSync::Item => 'noninventoryitem'
+          }
+        end
+
         def self.new_from_env(**override)
           new(
             {
