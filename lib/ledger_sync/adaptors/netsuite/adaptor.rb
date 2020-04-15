@@ -100,6 +100,10 @@ module LedgerSync
           )
         end
 
+        def url_for(resource:)
+          DashboardURLHelper.new(resource: resource, account_id: account_id_for_url).url
+        end
+
         private
 
         def new_token(body:, method:, url:)
