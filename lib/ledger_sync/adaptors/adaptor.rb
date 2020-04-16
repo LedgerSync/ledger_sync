@@ -42,12 +42,12 @@ module LedgerSync
       end
 
       def searcher_for?(resource_type:)
-        searcher_klass_for(resource_type: resource_type)
+        searcher_class_for(resource_type: resource_type)
       rescue NameError
         false
       end
 
-      def searcher_klass_for(resource_type:)
+      def searcher_class_for(resource_type:)
         base_module.const_get(LedgerSync::Util::StringHelpers.camelcase(resource_type.to_s))::Searcher
       end
 
@@ -68,7 +68,7 @@ module LedgerSync
       end
 
       def self.config
-        @config ||= LedgerSync.adaptors.config_from_klass(klass: self)
+        @config ||= LedgerSync.adaptors.config_from_class(adaptor_class: self)
       end
 
       # These are attributes that must always be saved after the adaptor is called.

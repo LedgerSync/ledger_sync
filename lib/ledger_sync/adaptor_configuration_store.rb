@@ -8,7 +8,7 @@ module LedgerSync
       @keys = []
       @configs = {}
       @inflections = []
-      @klass_configs = {}
+      @class_configs = {}
     end
 
     def add_alias(adaptor_key, existing_config)
@@ -21,8 +21,8 @@ module LedgerSync
       _instance_methods_for(adaptor_key: adaptor_key, adaptor_config: existing_config)
     end
 
-    def config_from_klass(klass:)
-      @klass_configs.fetch(klass)
+    def config_from_class(adaptor_class:)
+      @class_configs.fetch(adaptor_class)
     end
 
     def each
@@ -42,7 +42,7 @@ module LedgerSync
       @keys << adaptor_key.to_sym
 
       @configs[adaptor_key] = adaptor_config
-      @klass_configs[adaptor_config.adaptor_klass] = adaptor_config
+      @class_configs[adaptor_config.adaptor_class] = adaptor_config
 
       instance_variable_set(
         "@#{adaptor_key}",

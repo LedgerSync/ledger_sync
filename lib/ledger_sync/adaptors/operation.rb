@@ -5,8 +5,8 @@ module LedgerSync
     module Operation
       module Mixin
         module ClassMethods
-          def adaptor_klass
-            @adaptor_klass ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Adaptor")
+          def adaptor_class
+            @adaptor_class ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Adaptor")
           end
 
           def operations_module
@@ -164,7 +164,7 @@ module LedgerSync
         end
       end
 
-      def self.klass_from(adaptor:, method:, object:)
+      def self.class_from(adaptor:, method:, object:)
         adaptor.base_module.const_get(
           LedgerSync::Util::StringHelpers.camelcase(object)
         )::Operations.const_get(
