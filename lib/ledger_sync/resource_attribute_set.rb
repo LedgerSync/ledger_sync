@@ -2,19 +2,15 @@
 
 module LedgerSync
   class ResourceAttributeSet
+    include Util::Mixins::DelegateArrayMethodsMixin
+
     attr_reader :attributes,
                 :references,
                 :references_one,
                 :references_many,
                 :resource
 
-    delegate  :[],
-              :each,
-              :include?,
-              :key?,
-              :keys,
-              :map,
-              to: :attributes
+    delegate_array_methods_to :attributes
 
     alias names keys
 
