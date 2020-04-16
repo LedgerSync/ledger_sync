@@ -43,8 +43,8 @@ module LedgerSync
 
         def initialize(adaptor:, message: nil, response: nil)
           message ||= 'Your request has been throttled.'
-          @rate_limiting_wait_in_seconds = LedgerSync.adaptors.config_from_klass(
-            klass: adaptor.class
+          @rate_limiting_wait_in_seconds = LedgerSync.adaptors.config_from_class(
+            adaptor_class: adaptor.class
           ).rate_limiting_wait_in_seconds
 
           super(
