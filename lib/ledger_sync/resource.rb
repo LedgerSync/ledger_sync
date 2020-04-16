@@ -50,7 +50,7 @@ module LedgerSync
       Marshal.load(Marshal.dump(self))
     end
 
-    def klass_from_resource_type(obj)
+    def class_from_resource_type(obj)
       LedgerSync.const_get(LedgerSync::Util::StringHelpers.camelcase(obj))
     end
 

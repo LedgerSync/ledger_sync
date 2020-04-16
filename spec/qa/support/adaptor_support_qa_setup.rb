@@ -23,5 +23,5 @@ def setup_adaptor_qa_support(*adaptors)
 end
 
 setup_adaptor_qa_support(
-  *LedgerSync.adaptors.configs.values.map(&:adaptor_klass)
+  *LedgerSync.adaptors.configs.values.map(&:adaptor_class)
 )
