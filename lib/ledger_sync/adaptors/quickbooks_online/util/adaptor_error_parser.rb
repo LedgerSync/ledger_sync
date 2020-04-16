@@ -8,7 +8,7 @@ module LedgerSync
       module Util
         class AdaptorErrorParser < ErrorParser
           class ThrottleMatcher < ErrorMatcher
-            def error_klass
+            def error_class
               Error::AdaptorError::ThrottleError
             end
 
@@ -23,7 +23,7 @@ module LedgerSync
           end
 
           class AuthenticationMatcher < ErrorMatcher
-            def error_klass
+            def error_class
               Error::AdaptorError::AuthenticationError
             end
 
@@ -39,7 +39,7 @@ module LedgerSync
           end
 
           class AuthorizationMatcher < ErrorMatcher
-            def error_klass
+            def error_class
               Error::AdaptorError::AuthorizationError
             end
 
@@ -55,7 +55,7 @@ module LedgerSync
           end
 
           class ClientMatcher < ErrorMatcher
-            def error_klass
+            def error_class
               Error::AdaptorError::ConfigurationError
             end
 
@@ -88,7 +88,7 @@ module LedgerSync
               matcher = parser.new(error: error)
               next unless matcher.match?
 
-              return matcher.error_klass.new(
+              return matcher.error_class.new(
                 adaptor: adaptor,
                 message: matcher.output_message,
                 response: error

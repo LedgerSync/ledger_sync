@@ -8,6 +8,9 @@ module LedgerSync
           id
 
           api_resource_type :location
+
+          attribute ledger_attribute: :name,
+                    resource_attribute: :name
         end
       end
     end

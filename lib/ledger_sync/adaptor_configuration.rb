@@ -27,8 +27,8 @@ module LedgerSync
       @module_string = module_string || LedgerSync::Util::StringHelpers.camelcase(root_key)
     end
 
-    def adaptor_klass
-      @adaptor_klass ||= base_module::Adaptor
+    def adaptor_class
+      @adaptor_class ||= base_module::Adaptor
     end
 
     def add_alias(new_alias)
@@ -45,13 +45,13 @@ module LedgerSync
     # Delegate #new to the adaptor class enabling faster adaptor initialization
     # e.g. LedgerSync.adaptors.test.new(...)
     def new(*args)
-      adaptor_klass.new(*args)
+      adaptor_class.new(*args)
     end
 
     # Delegate #new_from_env to the adaptor class enabling faster adaptor initialization
     # e.g. LedgerSync.adaptors.test.new_from_env(...)
     def new_from_env(*args)
-      adaptor_klass.new_from_env(*args)
+      adaptor_class.new_from_env(*args)
     end
 
     def test?

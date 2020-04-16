@@ -5,7 +5,14 @@ require 'spec_helper'
 RSpec.describe LedgerSync::Adaptors::NetSuite::Location::LedgerSerializer do
   let(:resource_type) { :location }
   let(:id) { '123' }
-  let(:resource) { FactoryBot.create(resource_type, ledger_id: id) }
+  let(:name) { 'Location Name' }
+  let(:resource) do
+    FactoryBot.create(
+      resource_type,
+      ledger_id: id,
+      name: name
+    )
+  end
 
   let(:h) do
     {
@@ -15,7 +22,8 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Location::LedgerSerializer do
           'href' => 'https://test.suitetalk.api.netsuite.com/services/rest/record/v1/location/1'
         }
       ],
-      'id' => id
+      'id' => id,
+      'name' => name
     }
   end
 
@@ -23,7 +31,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Location::LedgerSerializer do
     let(:serializer) { described_class.new(resource: resource) }
 
     it do
-      expect(serializer.to_ledger_hash).to eq(h.slice('id'))
+      expect(serializer.to_ledger_hash).to eq(h.slice('id', 'name'))
     end
   end
 
@@ -34,6 +42,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Location::LedgerSerializer do
 
     it do
       expect(deserialized_resource.ledger_id).to eq(id)
+      expect(deserialized_resource.name).to eq(name)
     end
   end
 end
