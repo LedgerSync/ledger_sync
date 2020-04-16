@@ -16,8 +16,8 @@ RSpec.describe LedgerSync::Adaptors::Adaptor do
     it { expect(subject.searcher_for?(resource_type: :asdf)).to be_falsey }
   end
 
-  describe '#searcher_klass_for' do
-    it { expect(subject.searcher_klass_for(resource_type: :customer)).to eq(LedgerSync::Adaptors::QuickBooksOnline::Customer::Searcher) }
+  describe '#searcher_class_for' do
+    it { expect(subject.searcher_class_for(resource_type: :customer)).to eq(LedgerSync::Adaptors::QuickBooksOnline::Customer::Searcher) }
   end
 
   describe '#ledger_attributes_to_save' do

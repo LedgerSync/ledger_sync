@@ -122,25 +122,25 @@ custom_attributes_for_customers = [
 ]
 
 custom_customer_classes = custom_attributes_for_customers.map do |attributes|
-  klass = Class.new(LedgerSync::Customer)
+  customer_class = Class.new(LedgerSync::Customer)
   attributes.each do |name, type|
-    klass.attribute name, type: type
+    customer_class.attribute name, type: type
   end
-  klass
+  customer_class
 end
 
-klass1, klass2 = custom_customer_classes
+customer_class_1, customer_class_2 = custom_customer_classes
 
 # First Custom Customer Class
-klass1.resource_attributes.include?(:foo) # => true
-klass1.resource_attributes[:foo].type # => #<LedgerSync::Type::String:0x00007fe04e9529b0 @precision=nil, @scale=nil, @limit=nil>
-klass1.resource_attributes.include?(:bar) # => false
+customer_class_1.resource_attributes.include?(:foo) # => true
+customer_class_1.resource_attributes[:foo].type # => #<LedgerSync::Type::String:0x00007fe04e9529b0 @precision=nil, @scale=nil, @limit=nil>
+customer_class_1.resource_attributes.include?(:bar) # => false
 
 # Second Custom Customer Class
-klass2.resource_attributes.include?(:foo) # => true
-klass2.resource_attributes[:foo].type # => #<LedgerSync::Type::Integer:0x00007fe04e2c7898 @precision=nil, @scale=nil, @limit=nil, @range=-2147483648...2147483648>
-klass2.resource_attributes.include?(:bar) # => true
-klass2.resource_attributes[:bar].type # => #<LedgerSync::Type::Boolean:0x00007fe04e2e4f10 @precision=nil, @scale=nil, @limit=nil>
+customer_class_2.resource_attributes.include?(:foo) # => true
+customer_class_2.resource_attributes[:foo].type # => #<LedgerSync::Type::Integer:0x00007fe04e2c7898 @precision=nil, @scale=nil, @limit=nil, @range=-2147483648...2147483648>
+customer_class_2.resource_attributes.include?(:bar) # => true
+customer_class_2.resource_attributes[:bar].type # => #<LedgerSync::Type::Boolean:0x00007fe04e2e4f10 @precision=nil, @scale=nil, @limit=nil>
 ```
 
 You can now use these custom resources in operations that require custom attributes.
