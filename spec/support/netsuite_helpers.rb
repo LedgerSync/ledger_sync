@@ -91,6 +91,30 @@ module NetSuiteHelpers
         "isinactive": false,
         "includechildren": false
       }
+    },
+    location: {
+      id: 1137,
+      ledger_body: {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/location/1"
+            }
+        ],
+        "id": "1",
+        "isinactive": false,
+        "makeinventoryavailable": true,
+        "name": "Modern Treasury",
+        "subsidiary": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/location/1/subsidiary"
+                }
+            ]
+        },
+        "timezone": "America/Los_Angeles"
+    }
     }
   }.freeze
 
@@ -138,7 +162,11 @@ module NetSuiteHelpers
     )
   end
 
-  def stub_create(id:, url:)
+  def stub_create_for_record
+    send("stub_#{record}_create")
+  end
+
+  def stub_create_request(id:, url:)
     stub_request(:post, url)
       .with(
         headers: authorized_headers(write: true)
@@ -152,7 +180,11 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_delete(url:)
+  def stub_delete_for_record
+    send("stub_#{record}_delete")
+  end
+
+  def stub_delete_request(url:)
     stub_request(:delete, url)
       .with(
         headers: authorized_headers
@@ -164,7 +196,11 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_find(response_body:, url:)
+  def stub_find_for_record
+    send("stub_#{record}_find")
+  end
+
+  def stub_find_request(response_body:, url:)
     stub_request(:get, url)
       .to_return(
         status: 200,
@@ -172,7 +208,11 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_search(count: 2, starting_id:, url:)
+  def stub_search_for_record
+    send("stub_#{record}_search")
+  end
+
+  def stub_search_request(count: 2, starting_id:, url:)
     items = []
     count.times do |n|
       new_id = (starting_id.to_i + n).to_s
@@ -216,7 +256,11 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_update(url:)
+  def stub_update_for_record
+    send("stub_#{record}_update")
+  end
+
+  def stub_update_request(url:)
     stub_request(:patch, url)
       .with(
         headers: authorized_headers(write: true)
@@ -243,34 +287,34 @@ module NetSuiteHelpers
     end
 
     define_method("stub_#{record}_create") do
-      stub_create(
+      stub_create_request(
         id: opts[:id],
         url: send(url_method_name)
       )
     end
 
     define_method("stub_#{record}_delete") do
-      stub_delete(
+      stub_delete_request(
         url: send(url_method_name, id: opts[:id])
       )
     end
 
     define_method("stub_#{record}_find") do
-      stub_find(
+      stub_find_request(
         response_body: opts[:ledger_body],
         url: send(url_method_name, id: opts[:id])
       )
     end
 
     define_method("stub_#{record}_search") do
-      stub_search(
+      stub_search_request(
         starting_id: opts[:id],
         url: send(url_method_name, limit: 10, offset: 0)
       )
     end
 
     define_method("stub_#{record}_update") do
-      stub_update(
+      stub_update_request(
         url: send(url_method_name, id: opts[:id])
       )
     end

@@ -13,7 +13,7 @@ module LedgerSync
             @error = error
           end
 
-          def error_klass
+          def error_class
             raise NotImplementedError
           end
 
