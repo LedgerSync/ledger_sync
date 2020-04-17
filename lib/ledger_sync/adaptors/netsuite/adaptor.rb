@@ -10,6 +10,12 @@ module LedgerSync
           # 'Accept' => 'application/schema+json'
         }.freeze
 
+        GLOBAL_REQUEST_PARAMS = {
+          get: {
+            'expandSubResources' => true
+          }
+        }.freeze
+
         WRITE_HEADERS = {
           'Accept' => '*/*',
           'Content-Type' => 'application/json'
@@ -142,6 +148,7 @@ module LedgerSync
                 'Host' => api_host
               ),
             method: method,
+            params: GLOBAL_REQUEST_PARAMS.fetch(method.to_sym, {}),
             url: request_url
           )
 
@@ -149,9 +156,10 @@ module LedgerSync
         end
 
         def url_from_path(path:)
-          request_url = api_base_url
-          request_url += '/' unless path.to_s.start_with?('/')
-          request_url + path.to_s
+          File.join(
+            api_base_url,
+            path.to_s
+          )
         end
       end
     end
