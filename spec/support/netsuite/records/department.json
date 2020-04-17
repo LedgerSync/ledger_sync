@@ -1,0 +1,10 @@
+{
+  "links": [{
+    "rel": "self",
+    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/department/7"
+  }],
+  "name": "Engineering",
+  "id": "7",
+  "isinactive": false,
+  "includechildren": false
+}

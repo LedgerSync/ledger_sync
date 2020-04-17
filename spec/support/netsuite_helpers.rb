@@ -1,123 +1,17 @@
 # frozen_string_literal: true
 
-module NetSuiteHelpers
-  # Auto-generates stub methods and helpers
-  STUBBED_RESOURCES = {
-    account: {
-      id: 417,
-      ledger_body: {
-        "links": [
-          {
-            "rel": 'self',
-            "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/417'
-          }
-        ],
-        "acctname": 'CAD Account',
-        "acctnumber": '1010',
-        "accttype": 'Bank',
-        "cashflowrate": 'AVERAGE',
-        "currency": {
-          "links": [
-            {
-              "rel": 'self',
-              "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/currency/3'
-            }
-          ],
-          "id": '3',
-          "refName": 'Canadian Dollar'
-        },
-        "eliminate": false,
-        "generalrate": 'CURRENT',
-        "id": '417',
-        "includechildren": false,
-        "inventory": false,
-        "isinactive": false,
-        "localizations": {
-          "links": [
-            {
-              "rel": 'self',
-              "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/417/localizations'
-            }
-          ]
-        },
-        "revalue": true,
-        "subsidiary": {
-          "links": [
-            {
-              "rel": 'self',
-              "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/417/subsidiary'
-            }
-          ]
-        }
-      }
-    },
-    currency: {
-      id: 2,
-      ledger_body: {
-        "links": [
-          {
-            "rel": 'self',
-            "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/currency/2'
-          }
-        ],
-        "currencyPrecision": 2,
-        "displaySymbol": '£',
-        "exchangeRate": 1.3037,
-        "id": '2',
-        "includeInFxRateUpdates": true,
-        "isBaseCurrency": false,
-        "isInactive": false,
-        "name": 'British pound',
-        "overrideCurrencyFormat": false,
-        "symbol": 'GBP',
-        "symbolPlacement": '1'
-      }
-    },
-    customer: {
-      id: 1137,
-      ledger_body: { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137' }], 'addressbook' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/addressbook' }] }, 'alcoholRecipientType' => 'CONSUMER', 'balance' => 0.0, 'companyName' => 'Company 1575890547', 'creditCards' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/creditCards' }] }, 'creditholdoverride' => 'AUTO', 'currency' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/currency/1' }], 'id' => '1', 'refName' => 'USA' }, 'currencyList' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/currencyList' }] }, 'custentity_atlas_help_entity_lp_ref' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customrecord_atlas_help_reference/4' }], 'id' => '4', 'refName' => 'Order to Cash' }, 'custentity_esc_last_modified_date' => '2019-12-09', 'customForm' => '30', 'dateCreated' => '2019-12-09T11:22:00Z', 'depositbalance' => 0.0, 'email' => 'customer@company.com', 'emailPreference' => 'DEFAULT', 'emailTransactions' => false, 'entityId' => 'Company 1575890547', 'entityStatus' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customerstatus/13' }], 'id' => '13', 'refName' => 'CUSTOMER-Closed Won' }, 'faxTransactions' => false, 'grouppricing' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/grouppricing' }] }, 'id' => '1137', 'isBudgetApproved' => false, 'isinactive' => false, 'isPerson' => false, 'itempricing' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/itempricing' }] }, 'language' => 'en_US', 'lastModifiedDate' => '2019-12-09T11:22:00Z', 'overduebalance' => 0.0, 'printTransactions' => false, 'receivablesaccount' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/account/-10' }], 'id' => '-10', 'refName' => 'Use System Preference' }, 'shipComplete' => false, 'shippingCarrier' => 'nonups', 'subsidiary' => { 'links' => [{ 'rel' => 'self', 'href' => 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/subsidiary/2' }], 'id' => '2', 'refName' => 'Modern Treasury' }, 'taxable' => false, 'unbilledorders' => 0.0 }
-    },
-    department: {
-      id: 7,
-      ledger_body: {
-        "links": [
-          {
-            "rel": 'self',
-            "href": 'https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/department/7'
-          }
-        ],
-        "name": 'Engineering',
-        "id": '7',
-        "isinactive": false,
-        "includechildren": false
-      }
-    },
-    location: {
-      id: 1137,
-      ledger_body: {
-        "links": [
-            {
-                "rel": "self",
-                "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/location/1"
-            }
-        ],
-        "id": "1",
-        "isinactive": false,
-        "makeinventoryavailable": true,
-        "name": "Modern Treasury",
-        "subsidiary": {
-            "links": [
-                {
-                    "rel": "self",
-                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/location/1/subsidiary"
-                }
-            ]
-        },
-        "timezone": "America/Los_Angeles"
+NETSUITE_RECORDS ||= Hash[Gem.find_files(File.join(LedgerSync.root, '/spec/support/netsuite/records/*.json')).map do |file_path|
+  ledger_body = JSON.parse(File.open(file_path).read)
+  [
+    File.basename(file_path, '.json').to_sym,
+    {
+      id: ledger_body.fetch('id'),
+      ledger_body: ledger_body
     }
-    }
-  }.freeze
+  ]
+end]
 
+module NetSuiteHelpers
   def authorized_headers(override = {}, write: false)
     if write
       override = override.merge(
@@ -276,7 +170,7 @@ module NetSuiteHelpers
 
   # Dynamically define helpers
 
-  STUBBED_RESOURCES.each do |record, opts|
+  NETSUITE_RECORDS.each do |record, opts|
     url_method_name = "#{record}_url"
     define_method(url_method_name) do |**keywords|
       api_record_url(
