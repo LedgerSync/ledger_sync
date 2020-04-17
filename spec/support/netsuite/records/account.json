@@ -1,0 +1,37 @@
+{
+  "links": [{
+    "rel": "self",
+    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/417"
+  }],
+  "acctname": "CAD Account",
+  "acctnumber": "1010",
+  "accttype": "Bank",
+  "cashflowrate": "AVERAGE",
+  "currency": {
+    "links": [{
+      "rel": "self",
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/currency/3"
+    }],
+    "id": "3",
+    "refName": "Canadian Dollar"
+  },
+  "eliminate": false,
+  "generalrate": "CURRENT",
+  "id": "417",
+  "includechildren": false,
+  "inventory": false,
+  "isinactive": false,
+  "localizations": {
+    "links": [{
+      "rel": "self",
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/417/localizations"
+    }]
+  },
+  "revalue": true,
+  "subsidiary": {
+    "links": [{
+      "rel": "self",
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/417/subsidiary"
+    }]
+  }
+}
