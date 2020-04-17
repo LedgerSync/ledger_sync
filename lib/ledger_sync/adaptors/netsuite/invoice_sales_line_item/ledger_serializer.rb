@@ -12,7 +12,9 @@ module LedgerSync
                         serializer: Item::LedgerSerializer
 
           attribute ledger_attribute: :amount,
-                    resource_attribute: :amount
+                    resource_attribute: :amount,
+                    type: Adaptors::LedgerSerializerType::AmountType
+
 
           attribute ledger_attribute: :description,
                     resource_attribute: :description

@@ -6,13 +6,14 @@ support :input_helpers,
         :operation_shared_examples,
         :netsuite_helpers
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Customer::Operations::Find do
+RSpec.describe LedgerSync::Adaptors::NetSuite::Location::Operations::Find do
   include InputHelpers
   include NetSuiteHelpers
 
-  let(:resource) { LedgerSync::Customer.new(customer_resource(ledger_id: 1137)) }
+  let(:record) { :location }
+  let(:resource) { FactoryBot.create(record, ledger_id: 1137) }
   let(:adaptor) { netsuite_adaptor }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_customer_find
+  it_behaves_like 'a successful operation', stubs: :stub_find_for_record
 end

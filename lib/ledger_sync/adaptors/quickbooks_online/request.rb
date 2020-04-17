@@ -6,9 +6,13 @@ module LedgerSync
       class Request < Adaptors::Request
         attr_reader :adaptor
 
-        def initialize(*args, adaptor:, **keywords)
-          @adaptor = adaptor
-          super(*args, **keywords)
+        def initialize(args = {})
+          @adaptor = args.fetch(:adaptor)
+          super(
+            args.except(:adaptor).merge(
+              url: args.fetch(:url, nil)
+            )
+          )
         end
 
         def perform

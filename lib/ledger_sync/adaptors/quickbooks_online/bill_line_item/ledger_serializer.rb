@@ -19,7 +19,7 @@ module LedgerSync
 
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,
-                    type: LedgerSerializerType::AmountType
+                    type: Adaptors::LedgerSerializerType::AmountType
 
           attribute ledger_attribute: 'Description',
                     resource_attribute: :description

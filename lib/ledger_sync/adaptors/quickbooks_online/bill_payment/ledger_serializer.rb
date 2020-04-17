@@ -14,7 +14,7 @@ module LedgerSync
 
           attribute ledger_attribute: 'TotalAmt',
                     resource_attribute: :amount,
-                    type: LedgerSerializerType::AmountType
+                    type: Adaptors::LedgerSerializerType::AmountType
 
           references_one ledger_attribute: :CurrencyRef,
                          resource_attribute: :currency,

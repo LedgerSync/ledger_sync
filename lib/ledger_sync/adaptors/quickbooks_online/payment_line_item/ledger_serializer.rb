@@ -7,7 +7,7 @@ module LedgerSync
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,
-                    type: LedgerSerializerType::AmountType
+                    type: Adaptors::LedgerSerializerType::AmountType
 
           attribute ledger_attribute: 'LinkedTxn',
                     resource_attribute: :ledger_transactions,
