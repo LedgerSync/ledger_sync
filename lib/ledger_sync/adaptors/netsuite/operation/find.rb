@@ -39,7 +39,7 @@ module LedgerSync
 
           def response
             @response ||= adaptor.get(
-              path: ledger_serializer.class.api_resource_path(resource: resource)
+              path: adaptor.api_resource_path(resource: resource)
             )
           end
 

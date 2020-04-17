@@ -5,8 +5,6 @@ module LedgerSync
     module NetSuite
       module Currency
         class LedgerDeserializer < NetSuite::LedgerSerializer
-          api_resource_type :currency
-
           attribute ledger_attribute: :id,
                     resource_attribute: :ledger_id
 

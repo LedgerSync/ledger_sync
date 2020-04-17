@@ -46,7 +46,7 @@ module LedgerSync
 
             @response ||= adaptor.post(
               body: ledger_hash,
-              path: ledger_serializer.class.api_resource_path
+              path: adaptor.api_resource_path
             )
           end
 

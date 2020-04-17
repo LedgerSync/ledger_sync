@@ -51,6 +51,20 @@ module LedgerSync
           @api_host ||= "#{account_id_for_url}.suitetalk.api.netsuite.com"
         end
 
+        def api_resource_path(resource: nil)
+          raise 'Resource ledger_id is required to build API request path' if resource.present? && resource.ledger_id.blank?
+
+          ret = api_resource_type.to_s
+          ret += "/#{resource.ledger_id}" if resource.present?
+          ret
+        end
+
+        def api_resource_type(val = nil)
+          raise 'api_resource_type already set' if @api_resource_type.present? && val.present?
+
+          @api_resource_type ||= val
+        end
+
         def delete(**keywords)
           request(keywords.merge(method: :delete))
         end
@@ -86,6 +100,16 @@ module LedgerSync
 
         def self.ledger_attributes_to_save
           %i[]
+        end
+
+        def ledger_resource_type
+          if resource.is_a?(LedgerSync::Item)
+            return LedgerSerializerType::Item::TypeType.new.convert_from_local(
+              value: resource.type
+            )
+          end
+
+          super
         end
 
         def self.new_from_env(**override)

@@ -31,6 +31,10 @@ module LedgerSync
         end]
       end
 
+      def ledger_resource_type
+        self.class.ledger_resource_type_for(resource_class: resource.class)
+      end
+
       def operation_for(method:, resource:)
         self.class.operation_class_for(
           method: method,

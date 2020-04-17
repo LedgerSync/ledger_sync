@@ -5,8 +5,6 @@ module LedgerSync
     module NetSuite
       module Vendor
         class LedgerSerializer < NetSuite::LedgerSerializer
-          api_resource_type :vendor
-
           attribute ledger_attribute: :companyName,
                     resource_attribute: :company_name
 

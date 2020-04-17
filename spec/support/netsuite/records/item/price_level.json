@@ -1,0 +1,10 @@
+{
+  "links": [{
+    "rel": "self",
+    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/pricelevel/1"
+  }],
+  "id": "1",
+  "longitemtype": "Price Level",
+  "name": "Base Price",
+  "tname": "pricetype"
+}

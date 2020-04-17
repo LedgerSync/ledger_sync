@@ -49,7 +49,7 @@ module LedgerSync
 
             @response ||= adaptor.patch(
               body: ledger_hash,
-              path: ledger_serializer.class.api_resource_path(resource: resource)
+              path: adaptor.api_resource_path(resource: resource)
             )
           end
 
