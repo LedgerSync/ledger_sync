@@ -92,6 +92,200 @@ module NetSuiteHelpers
         "includechildren": false
       }
     },
+    invoice: {
+      id: '1227',
+      ledger_body: {
+        "links": [
+            {
+                "rel": "self",
+                "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/invoice/1227"
+            }
+        ],
+        "amountpaid": 0.0,
+        "amountremaining": 2010.0,
+        "amountremainingtotalbox": 2010.0,
+        "balance": 1910.0,
+        "billingaddress": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/invoice/1227/billingaddress"
+                }
+            ]
+        },
+        "canHaveStackable": false,
+        "createdDate": "2020-04-07T11:53:00Z",
+        "currency": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/currency/1"
+                }
+            ],
+            "id": "1",
+            "refName": "USA"
+        },
+        "currencyName": "USA",
+        "currencysymbol": "USD",
+        "custbody_atlas_exist_cust_hdn": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_atlas_cust_type/2"
+                }
+            ],
+            "id": "2",
+            "refName": "Existing Customer"
+        },
+        "custbody_atlas_help_trans_lp_ref": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customrecord_atlas_help_reference/4"
+                }
+            ],
+            "id": "4",
+            "refName": "Order to Cash"
+        },
+        "custbody_atlas_new_cust_hdn": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_atlas_cust_type/1"
+                }
+            ],
+            "id": "1",
+            "refName": "New Customer"
+        },
+        "custbody_atlas_no_hdn": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_atlas_appr_by_creator/2"
+                }
+            ],
+            "id": "2",
+            "refName": "No"
+        },
+        "custbody_atlas_yes_hdn": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_atlas_appr_by_creator/1"
+                }
+            ],
+            "id": "1",
+            "refName": "Yes"
+        },
+        "custbody_esc_created_date": "2020-04-07",
+        "custbody_esc_last_modified_date": "2020-04-07",
+        "customForm": "131",
+        "discountTotal": 0.0,
+        "email": "ryan-test-co@example.com",
+        "entity": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customer/7938"
+                }
+            ],
+            "id": "7938",
+            "refName": "Ryan Test Co."
+        },
+        "entityNexus": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/nexus/2"
+                }
+            ],
+            "id": "2",
+            "refName": "CA"
+        },
+        "estGrossProfit": 2010.0,
+        "estGrossProfitPercent": 100.0,
+        "exchangeRate": 1.0,
+        "id": "1227",
+        "isBaseCurrency": true,
+        "isTaxable": false,
+        "item": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/invoice/1227/item"
+                }
+            ]
+        },
+        "lastModifiedDate": "2020-04-07T13:34:00Z",
+        "location": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/location/1"
+                }
+            ],
+            "id": "1",
+            "refName": "Modern Treasury"
+        },
+        "nexus": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/nexus/2"
+                }
+            ],
+            "id": "2",
+            "refName": "CA"
+        },
+        "postingperiod": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/accountingperiod/20"
+                }
+            ],
+            "id": "20",
+            "refName": "Jan 2018"
+        },
+        "saleseffectivedate": "2020-04-06",
+        "shipDate": "2020-04-06",
+        "shipIsResidential": false,
+        "shipOverride": false,
+        "shippingAddress": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/invoice/1227/shippingAddress"
+                }
+            ]
+        },
+        "status": "Open",
+        "subsidiary": {
+            "links": [
+                {
+                    "rel": "self",
+                    "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/subsidiary/2"
+                }
+            ],
+            "id": "2",
+            "refName": "Modern Treasury"
+        },
+        "subtotal": 2010.0,
+        "taxItem": {
+            "links": [],
+            "id": "-7",
+            "refName": "-Not Taxable-"
+        },
+        "taxRate": 0.0,
+        "toBeEmailed": false,
+        "toBeFaxed": false,
+        "toBePrinted": false,
+        "total": 2010.0,
+        "totalCostEstimate": 0.0,
+        "trandate": "2020-04-06",
+        "tranId": "INV01"
+      }
+    },
     location: {
       id: 1137,
       ledger_body: {
@@ -101,7 +295,7 @@ module NetSuiteHelpers
                 "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/location/1"
             }
         ],
-        "id": "1",
+        "id": "1137",
         "isinactive": false,
         "makeinventoryavailable": true,
         "name": "Modern Treasury",

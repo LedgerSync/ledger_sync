@@ -5,6 +5,7 @@ FactoryBot.define do
     references_one :customer
     references_one :account
     references_one :currency
+    references_one :location
 
     references_many :line_items,
                     count: 2,

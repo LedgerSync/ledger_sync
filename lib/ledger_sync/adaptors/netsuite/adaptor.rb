@@ -90,7 +90,7 @@ module LedgerSync
 
         def self.ledger_resource_type_overrides
           {
-            LedgerSync::Item => 'noninventoryitem'
+            # LedgerSync::Item => 'noninventoryitem'
           }
         end
 

@@ -15,7 +15,7 @@ module LedgerSync
                 optional(:deposit).maybe(:integer)
                 required(:ledger_id).value(:nil)
                 required(:line_items).array(Types::Reference)
-                required(:location).array(Types::Reference)
+                required(:location).hash(Types::Reference)
                 optional(:memo).maybe(:string)
                 optional(:transaction_date).maybe(:date?)
               end
