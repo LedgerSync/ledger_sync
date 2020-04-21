@@ -3,6 +3,8 @@
 module LedgerSync
   module Adaptors
     class LedgerSerializerAttributeSet
+      include Util::Mixins::DelegateArrayMethodsMixin
+
       attr_reader :attributes,
                   :deserializable_attributes,
                   :id_attribute,
@@ -11,11 +13,7 @@ module LedgerSync
                   :serializable_attributes,
                   :serializer_class
 
-      delegate  :[],
-                :each,
-                :include?,
-                :map,
-                to: :attributes
+      delegate_array_methods_to :attributes
 
       def initialize(serializer_class:)
         @attributes = []

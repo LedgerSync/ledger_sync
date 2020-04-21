@@ -44,6 +44,7 @@ require 'ledger_sync/adaptor_configuration_store'
 require 'ledger_sync/util/performer'
 require 'ledger_sync/util/validator'
 require 'ledger_sync/util/string_helpers'
+require 'ledger_sync/util/mixins/delegate_array_methods_mixin'
 require 'ledger_sync/result'
 
 # Adaptors
