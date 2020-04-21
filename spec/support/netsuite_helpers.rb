@@ -1,64 +1,6 @@
 # frozen_string_literal: true
 
-module Test
-  class NetSuiteRecord
-    attr_reader :hash, :id, :path
-
-    def initialize(args = {})
-      @hash = args.fetch(:hash)
-      @path = args.fetch(:path)
-
-      @id = hash.fetch('id', nil)
-    end
-  end
-
-  class NetSuiteRecordCollection
-    attr_reader :dir, :records
-
-    def initialize(args = {})
-      # @dir = args.fetch(:dir, File.join(LedgerSync.root, '/spec/support/netsuite/records/**/*.json'))
-      @dir = args.fetch(:dir, File.join(LedgerSync.root, '/spec/support/netsuite/records'))
-      @records = {}
-
-      # Process json files
-      Gem.find_files(File.join(dir, '*.json')).map do |file_path|
-        record = File.basename(file_path, '.json').to_sym
-        @records[record] = NetSuiteRecord.new(
-          hash: JSON.parse(File.open(file_path).read),
-          path: file_path
-        )
-        self.class.delegate record, to: :records
-      end
-
-      # Process directories
-      Dir.chdir(dir) do
-        Dir.glob('*').select { |f| File.directory? f }.each do |sub_dir|
-          sub_dir_path = File.join(dir, sub_dir)
-          next if Gem.find_files(File.join(sub_dir_path, '**/*.json')).empty?
-
-          @records[sub_dir] = NetSuiteRecordCollection.new(dir: sub_dir_path)
-          self.class.delegate sub_dir, to: :records
-        end
-      end
-    end
-
-    def all
-      @all ||= begin
-        ret = {}
-        records.each do |k, v|
-          if v.is_a?(self.class)
-            v.all.each do |sub_k, sub_v|
-              ret[[k, sub_k].join('/').to_s] = sub_v
-            end
-          else
-            ret[k.to_s] = v
-          end
-        end
-        ret
-      end
-    end
-  end
-end
+require_relative 'netsuite/record_collection'
 
 module NetSuiteHelpers
   def authorized_headers(override = {}, write: false)
@@ -106,7 +48,7 @@ module NetSuiteHelpers
   end
 
   def netsuite_records
-    @netsuite_records ||= Test::NetSuiteRecordCollection.new
+    @netsuite_records ||= Test::NetSuite::RecordCollection.new
   end
 
   def stub_create_for_record
@@ -223,9 +165,9 @@ module NetSuiteHelpers
 
   # Dynamically define helpers
 
-  Test::NetSuiteRecordCollection.new.all
+  byebug
 
-  Test::NetSuiteRecordCollection.new.all.each do |record, opts|
+  Test::NetSuite::RecordCollection.new.all.each do |record, opts|
     record = record.gsub('/', '_')
     url_method_name = "#{record}_url"
     define_method(url_method_name) do |**keywords|
