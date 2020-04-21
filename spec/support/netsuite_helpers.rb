@@ -2,6 +2,9 @@
 
 require_relative 'netsuite/record_collection'
 
+# Define globally so it's only evaluated once.
+NETSUITE_RECORD_COLLECTION = Test::NetSuite::RecordCollection.new
+
 module NetSuiteHelpers
   def authorized_headers(override = {}, write: false)
     if write
@@ -164,7 +167,7 @@ module NetSuiteHelpers
   end
 
   # Dynamically define helpers
-  Test::NetSuite::RecordCollection.new.all.each do |record, opts|
+  NETSUITE_RECORD_COLLECTION.all.each do |record, opts|
     record = record.gsub('/', '_')
     url_method_name = "#{record}_url"
     define_method(url_method_name) do |**keywords|
