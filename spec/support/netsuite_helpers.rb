@@ -51,7 +51,7 @@ module NetSuiteHelpers
   end
 
   def netsuite_records
-    @netsuite_records ||= Test::NetSuite::RecordCollection.new
+    NETSUITE_RECORD_COLLECTION
   end
 
   def stub_create_for_record
