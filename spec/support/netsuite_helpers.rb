@@ -164,9 +164,6 @@ module NetSuiteHelpers
   end
 
   # Dynamically define helpers
-
-  byebug
-
   Test::NetSuite::RecordCollection.new.all.each do |record, opts|
     record = record.gsub('/', '_')
     url_method_name = "#{record}_url"
