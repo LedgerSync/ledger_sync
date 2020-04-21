@@ -172,7 +172,10 @@ module LedgerSync
         end
 
         def url_for(resource:)
-          DashboardURLHelper.new(resource: resource, test: test).url
+          DashboardURLHelper.new(
+            resource: resource,
+            test: test
+          ).url
         end
 
         def self.ledger_attributes_to_save
