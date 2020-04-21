@@ -16,7 +16,7 @@ module LedgerSync
           def initialize(args = {})
             super(
               args.merge(
-                key: "#{method} #{path}".downcase
+                key: "#{args.fetch(:method)} #{args.fetch(:path)}".downcase
               )
             )
           end
