@@ -17,7 +17,6 @@ module Test
       attr_reader :dir, :records
 
       def initialize(args = {})
-        # @dir = args.fetch(:dir, File.join(LedgerSync.root, '/spec/support/netsuite/records/**/*.json'))
         @dir = args.fetch(:dir, File.join(LedgerSync.root, '/spec/support/netsuite/records'))
         @records = {}
 
