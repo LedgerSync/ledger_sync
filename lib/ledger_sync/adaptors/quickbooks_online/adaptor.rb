@@ -11,6 +11,8 @@ module LedgerSync
         ROOT_URI          = 'https://quickbooks.api.intuit.com'
         REVOKE_TOKEN_URI  = 'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
         ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'
+        PRODUCTION_APP_URL_BASE = 'https://qbo.intuit.com/app'
+-       SANDBOX_APP_URL_BASE    = 'https://app.sandbox.qbo.intuit.com/app'
 
         attr_reader :access_token,
                     :client_id,
@@ -174,7 +176,7 @@ module LedgerSync
         def url_for(resource:)
           DashboardURLHelper.new(
             resource: resource,
-            test: test
+            base_url: (test ? PRODUCTION_APP_URL_BASE : SANDBOX_APP_URL_BASE)
           ).url
         end
 

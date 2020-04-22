@@ -16,7 +16,8 @@ module LedgerSync
 
         def url_for(resource:)
           DashboardURLHelper.new(
-            resource: resource
+            resource: resource,
+            base_url: "https://dashboard.stripe.com"
           ).url
         end
 

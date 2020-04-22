@@ -103,7 +103,7 @@ module LedgerSync
         def url_for(resource:)
           DashboardURLHelper.new(
             resource: resource,
-            account_id: account_id_for_url
+            base_url: "https://#{account_id_for_url}.app.netsuite.com"
           ).url
         end
 

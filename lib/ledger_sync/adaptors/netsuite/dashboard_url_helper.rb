@@ -3,23 +3,7 @@
 module LedgerSync
   module Adaptors
     module NetSuite
-      class DashboardURLHelper
-        attr_reader :resource,
-                    :account_id
-
-        def initialize(resource:, account_id:)
-          @resource = resource
-          @account_id = account_id
-        end
-
-        def base_url
-          "https://#{@account_id}.app.netsuite.com"
-        end
-
-        def url
-          base_url + resource_path
-        end
-
+      class DashboardURLHelper < LedgerSync::Adaptors::DashboardURLHelper
         def resource_path
           @resource_path = case resource
           when LedgerSync::Account

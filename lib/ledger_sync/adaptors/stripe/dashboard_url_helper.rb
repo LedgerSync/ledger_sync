@@ -3,21 +3,7 @@
 module LedgerSync
   module Adaptors
     module Stripe
-      class DashboardURLHelper
-        attr_reader :resource
-
-        def initialize(resource:)
-          @resource = resource
-        end
-
-        def base_url
-          'https://dashboard.stripe.com'
-        end
-
-        def url
-          base_url + resource_path
-        end
-
+      class DashboardURLHelper < LedgerSync::Adaptors::DashboardURLHelper
         def resource_path
           @resource_path = case resource
           when LedgerSync::Customer
