@@ -176,7 +176,7 @@ module LedgerSync
         def url_for(resource:)
           DashboardURLHelper.new(
             resource: resource,
-            base_url: (test ? PRODUCTION_APP_URL_BASE : SANDBOX_APP_URL_BASE)
+            base_url: (test ? SANDBOX_APP_URL_BASE : PRODUCTION_APP_URL_BASE)
           ).url
         end
 
