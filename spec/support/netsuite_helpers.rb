@@ -1,15 +1,9 @@
 # frozen_string_literal: true
 
-NETSUITE_RECORDS ||= Hash[Gem.find_files(File.join(LedgerSync.root, '/spec/support/netsuite/records/*.json')).map do |file_path|
-  ledger_body = JSON.parse(File.open(file_path).read)
-  [
-    File.basename(file_path, '.json').to_sym,
-    {
-      id: ledger_body.fetch('id'),
-      ledger_body: ledger_body
-    }
-  ]
-end]
+require_relative 'netsuite/record_collection'
+
+# Define globally so it's only evaluated once.
+NETSUITE_RECORD_COLLECTION = Test::NetSuite::RecordCollection.new
 
 module NetSuiteHelpers
   def authorized_headers(override = {}, write: false)
@@ -54,6 +48,10 @@ module NetSuiteHelpers
       token_id: env ? ENV.fetch('NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_ID') : 'NETSUITE_TOKEN_ID',
       token_secret: env ? ENV.fetch('NETSUITE_TOKEN_SECRET', 'NETSUITE_TOKEN_SECRET') : 'NETSUITE_TOKEN_SECRET'
     )
+  end
+
+  def netsuite_records
+    @netsuite_records ||= Test::NetSuite::RecordCollection.new
   end
 
   def stub_create_for_record
@@ -169,8 +167,8 @@ module NetSuiteHelpers
   end
 
   # Dynamically define helpers
-
-  NETSUITE_RECORDS.each do |record, opts|
+  NETSUITE_RECORD_COLLECTION.all.each do |record, opts|
+    record = record.gsub('/', '_')
     url_method_name = "#{record}_url"
     define_method(url_method_name) do |**keywords|
       api_record_url(
@@ -182,34 +180,34 @@ module NetSuiteHelpers
 
     define_method("stub_#{record}_create") do
       stub_create_request(
-        id: opts[:id],
+        id: opts.id,
         url: send(url_method_name)
       )
     end
 
     define_method("stub_#{record}_delete") do
       stub_delete_request(
-        url: send(url_method_name, id: opts[:id])
+        url: send(url_method_name, id: opts.id)
       )
     end
 
     define_method("stub_#{record}_find") do
       stub_find_request(
-        response_body: opts[:ledger_body],
-        url: send(url_method_name, id: opts[:id])
+        response_body: opts.hash,
+        url: send(url_method_name, id: opts.id)
       )
     end
 
     define_method("stub_#{record}_search") do
       stub_search_request(
-        starting_id: opts[:id],
+        starting_id: opts.id,
         url: send(url_method_name, limit: 10, offset: 0)
       )
     end
 
     define_method("stub_#{record}_update") do
       stub_update_request(
-        url: send(url_method_name, id: opts[:id])
+        url: send(url_method_name, id: opts.id)
       )
     end
   end
