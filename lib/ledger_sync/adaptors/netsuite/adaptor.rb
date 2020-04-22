@@ -12,7 +12,8 @@ module LedgerSync
 
         WRITE_HEADERS = {
           'Accept' => '*/*',
-          'Content-Type' => 'application/json'
+          'Content-Type' => 'application/json',
+          'prefer' => 'transient'
         }.freeze
 
         attr_reader :account_id,
@@ -44,7 +45,7 @@ module LedgerSync
         end
 
         def api_base_url
-          @api_base_url ||= "https://#{api_host}/services/rest/record/v1"
+          @api_base_url ||= "https://#{api_host}/services/rest"
         end
 
         def api_host

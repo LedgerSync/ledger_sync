@@ -6,13 +6,18 @@ module LedgerSync
       class Searcher < Adaptors::Searcher
         include Mixins::OffsetAndLimitPaginationSearcherMixin
 
+        def query_string
+          ''
+        end
+
         def resources
           resource_class = self.class.inferred_resource_class
 
           @resources ||= begin
             @request = adaptor
-              .get(
-                path: "/#{adaptor.class.ledger_resource_type_for(resource_class: resource_class)}?limit=#{limit}&offset=#{offset}"
+              .post(
+                body: {"q": "#{query_string}"},
+                path: "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
               )
 
             request.body
