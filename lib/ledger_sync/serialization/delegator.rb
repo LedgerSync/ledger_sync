@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  class Serializer
+  class Serialization
     class Delegator
 
       def serialize(args = {})

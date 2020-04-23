@@ -3,7 +3,7 @@
 module LedgerSync
   module Adaptors
     class LedgerSerializerAttributeSet
-      include Util::Mixins::DelegateArrayMethodsMixin
+      include Util::Mixins::DelegateIterableMethodsMixin
 
       attr_reader :attributes,
                   :deserializable_attributes,

@@ -53,14 +53,13 @@ RSpec.describe LedgerSync::Serializer do
   it { expect(described_class).to respond_to(:attribute) }
   it { expect(described_class).to respond_to(:references_many) }
   it { expect(described_class).to respond_to(:references_one) }
-  it { expect(described_class).to respond_to(:id) }
 
   describe '#serialize' do
     context 'type switching' do
       let(:resource) { custom_resource_class.new(foo: 'foo_1') }
 
       let(:test_serializer) do
-        Class.new(LedgerSync::Serializer::Delegator) do
+        Class.new(LedgerSync::Serialization::Delegator) do
           private
 
           def serializer_for(args = {})
@@ -69,12 +68,12 @@ RSpec.describe LedgerSync::Serializer do
             case resource.type
             when 'type_1'
               Class.new(LedgerSync::Serializer) do
-                attribute output_attribute: :bar,
+                attribute :bar,
                           resource_attribute: :foo
               end
             when 'type_2'
               Class.new(LedgerSync::Serializer) do
-                attribute output_attribute: :baz,
+                attribute :baz,
                           resource_attribute: :foo
               end
             end

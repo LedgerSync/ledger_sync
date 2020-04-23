@@ -3,7 +3,7 @@
 require_relative 'serializer_type'
 
 module LedgerSync
-  class Serializer
+  class Serialization
     module Type
       class ReferencesOneType < SerializerType
       end
