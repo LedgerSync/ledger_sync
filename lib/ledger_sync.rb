@@ -50,6 +50,7 @@ require 'ledger_sync/result'
 # Adaptors
 Gem.find_files('ledger_sync/adaptors/mixins/**/*.rb').each { |path| require path }
 require 'ledger_sync/adaptors/adaptor'
+require 'ledger_sync/adaptors/dashboard_url_helper'
 require 'ledger_sync/adaptors/searcher'
 require 'ledger_sync/adaptors/ledger_serializer'
 require 'ledger_sync/adaptors/operation'
