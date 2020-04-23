@@ -20,11 +20,11 @@ RSpec.describe LedgerSync::Adaptors::Adaptor, type: :serializable do
           {:adaptor_configuration=>
             {:object=>:reference,
              :id=>
-              "LedgerSync::AdaptorConfiguration/258e415522e6f04aead6d578f6abf9ac"}}},
-       "LedgerSync::AdaptorConfiguration/258e415522e6f04aead6d578f6abf9ac"=>
-        {:id=>"LedgerSync::AdaptorConfiguration/258e415522e6f04aead6d578f6abf9ac",
+              "LedgerSync::AdaptorConfiguration/1cd7e22598138201307ec96400c39b23"}}},
+       "LedgerSync::AdaptorConfiguration/1cd7e22598138201307ec96400c39b23"=>
+        {:id=>"LedgerSync::AdaptorConfiguration/1cd7e22598138201307ec96400c39b23",
          :object=>"LedgerSync::AdaptorConfiguration",
-         :fingeprint=>"258e415522e6f04aead6d578f6abf9ac",
+         :fingeprint=>"1cd7e22598138201307ec96400c39b23",
          :data=>
           {:aliases=>[],
            :module_string=>"NetSuite",

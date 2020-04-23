@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Util::ErrorMatcher do
   it { expect(subject.body).to be_nil }
   it { expect(subject.detail).to be_nil }
   it { expect(subject.code).to eq(0) }
-  it { expect { subject.error_klass }.to raise_error(NotImplementedError) }
+  it { expect { subject.error_class }.to raise_error(NotImplementedError) }
   it { expect { subject.match? }.to raise_error(NotImplementedError) }
   it { expect { subject.output_message }.to raise_error(NotImplementedError) }
 end

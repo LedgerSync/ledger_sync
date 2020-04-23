@@ -8,7 +8,7 @@ module LedgerSync
       module Util
         class OperationErrorParser < ErrorParser
           class DuplicateNameMatcher < ErrorMatcher
-            def error_klass
+            def error_class
               Error::OperationError::DuplicateLedgerResourceError
             end
 
@@ -23,7 +23,7 @@ module LedgerSync
           end
 
           class NotFoundMatcher < ErrorMatcher
-            def error_klass
+            def error_class
               Error::OperationError::NotFoundError
             end
 
@@ -38,7 +38,7 @@ module LedgerSync
           end
 
           class ValidationError < ErrorMatcher
-            def error_klass
+            def error_class
               Error::OperationError::LedgerValidationError
             end
 
@@ -52,7 +52,7 @@ module LedgerSync
           end
 
           class GenericMatcher < ErrorMatcher
-            def error_klass
+            def error_class
               Error::OperationError
             end
 
@@ -85,7 +85,7 @@ module LedgerSync
               matcher = parser.new(error: error)
               next unless matcher.match?
 
-              return matcher.error_klass.new(
+              return matcher.error_class.new(
                 operation: operation,
                 message: matcher.output_message,
                 response: error

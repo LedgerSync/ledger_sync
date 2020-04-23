@@ -44,6 +44,7 @@ require 'ledger_sync/adaptor_configuration_store'
 require 'ledger_sync/util/performer'
 require 'ledger_sync/util/validator'
 require 'ledger_sync/util/string_helpers'
+require 'ledger_sync/util/mixins/delegate_array_methods_mixin'
 require 'ledger_sync/result'
 
 # Adaptors
@@ -147,5 +148,6 @@ LedgerSync.register_resource(resource: LedgerSync::Payment)
 LedgerSync.register_resource(resource: LedgerSync::PaymentLineItem)
 LedgerSync.register_resource(resource: LedgerSync::Transfer)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
+LedgerSync.register_resource(resource: LedgerSync::Location)
 
 LedgerSync.register_resource(resource: LedgerSync::Adaptors::QuickBooksOnline::Preferences)

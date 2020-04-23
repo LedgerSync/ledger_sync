@@ -21,11 +21,11 @@ module LedgerSync
           end
 
           def create
-            @create ||= http_methods.find { |_e| "post /#{record}" }
+            @create ||= http_methods.find { |e| e.key == "post /#{record}" }
           end
 
           def delete
-            @delete ||= http_methods.find { |_e| "delete /#{record}/{id}" }
+            @delete ||= http_methods.find { |e| e.key == "delete /#{record}/{id}" }
           end
 
           def find
@@ -49,6 +49,10 @@ module LedgerSync
 
               ret
             end
+          end
+
+          def index
+            @index ||= http_methods.find { |e| e.key == "get /#{record}" }
           end
 
           def metadata_response
@@ -79,20 +83,20 @@ module LedgerSync
             end
           end
 
-          def index
-            @index ||= http_methods.find { |_e| "get /#{record}" }
+          def patch
+            @patch ||= http_methods.find { |e| e.key == "patch /#{record}/{id}" }
           end
 
           def show
-            @show ||= http_methods.find { |_e| "get /#{record}/{id}" }
+            @show ||= http_methods.find { |e| e.key == "get /#{record}/{id}" }
           end
 
           def update
-            @update ||= http_methods.find { |_e| "patch /#{record}/{id}" }
+            @update ||= http_methods.find { |e| e.key == "patch /#{record}/{id}" }
           end
 
           def upsert
-            @upsert ||= http_methods.find { |_e| "put /#{record}/{id}" }
+            @upsert ||= http_methods.find { |e| e.key == "put /#{record}/{id}" }
           end
         end
       end

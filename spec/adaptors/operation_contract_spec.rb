@@ -8,10 +8,10 @@ module LedgerSync
       @operations_hash ||= begin
         Hash[operation_paths.map do |full_path|
           path = full_path.split('/adaptors/').last
-          operation_klass = operation_klass_from(path: path)
-          resource_class = operation_klass.inferred_resource_class
+          operation_class = operation_class_from(path: path)
+          resource_class = operation_class.inferred_resource_class
           [
-            operation_klass,
+            operation_class,
             {
               full_path: full_path,
               path: path,
@@ -23,7 +23,7 @@ module LedgerSync
       end
     end
 
-    def operation_klass_from(path:)
+    def operation_class_from(path:)
       LedgerSync::Adaptors.const_get(
         LedgerSync::Util::StringHelpers.camelcase(
           path[0..-4]
@@ -31,8 +31,8 @@ module LedgerSync
       )
     end
 
-    def operation_klasses
-      @operation_klasses ||= operations_hash.keys
+    def operation_classes
+      @operation_classes ||= operations_hash.keys
     end
 
     def operation_paths
@@ -47,15 +47,15 @@ module LedgerSync
   end
 end
 
-LedgerSync::TestHelpers.operations_hash.each do |operation_klass, operation_meta|
-  RSpec.describe operation_klass::Contract do
+LedgerSync::TestHelpers.operations_hash.each do |operation_class, operation_meta|
+  RSpec.describe operation_class::Contract do
     include LedgerSync::TestHelpers
 
     describe "@ #{operation_meta[:full_path]}" do
       context "given #{operation_meta[:resource_class]} attributes" do
         operation_meta[:resource_attributes].each do |attribute|
           it "it validates ##{attribute}" do
-            schema_keys = operation_klass.const_get('Contract').new.schema.key_map.map(&:name).map(&:to_sym)
+            schema_keys = operation_class.const_get('Contract').new.schema.key_map.map(&:name).map(&:to_sym)
             expect(schema_keys).to include(attribute.to_sym)
           end
         end

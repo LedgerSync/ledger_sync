@@ -1,0 +1,101 @@
+{
+  "links": [{
+    "rel": "self",
+    "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137"
+  }],
+  "addressbook": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/addressbook"
+    }]
+  },
+  "alcoholRecipientType": "CONSUMER",
+  "balance": 0.0,
+  "companyName": "Company 1575890547",
+  "creditCards": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/creditCards"
+    }]
+  },
+  "creditholdoverride": "AUTO",
+  "currency": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/currency/1"
+    }],
+    "id": "1",
+    "refName": "USA"
+  },
+  "currencyList": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/currencyList"
+    }]
+  },
+  "custentity_atlas_help_entity_lp_ref": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customrecord_atlas_help_reference/4"
+    }],
+    "id": "4",
+    "refName": "Order to Cash"
+  },
+  "custentity_esc_last_modified_date": "2019-12-09",
+  "customForm": "30",
+  "dateCreated": "2019-12-09T11:22:00Z",
+  "depositbalance": 0.0,
+  "email": "customer@company.com",
+  "emailPreference": "DEFAULT",
+  "emailTransactions": false,
+  "entityId": "Company 1575890547",
+  "entityStatus": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customerstatus/13"
+    }],
+    "id": "13",
+    "refName": "CUSTOMER-Closed Won"
+  },
+  "faxTransactions": false,
+  "grouppricing": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/grouppricing"
+    }]
+  },
+  "id": "1137",
+  "isBudgetApproved": false,
+  "isinactive": false,
+  "isPerson": false,
+  "itempricing": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/customer/1137/itempricing"
+    }]
+  },
+  "language": "en_US",
+  "lastModifiedDate": "2019-12-09T11:22:00Z",
+  "overduebalance": 0.0,
+  "printTransactions": false,
+  "receivablesaccount": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/account/-10"
+    }],
+    "id": "-10",
+    "refName": "Use System Preference"
+  },
+  "shipComplete": false,
+  "shippingCarrier": "nonups",
+  "subsidiary": {
+    "links": [{
+      "rel": "self",
+      "href": "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/subsidiary/2"
+    }],
+    "id": "2",
+    "refName": "Modern Treasury"
+  },
+  "taxable": false,
+  "unbilledorders": 0.0
+}
