@@ -9,18 +9,18 @@ RSpec.describe LedgerSync::Serializer do
 
   let(:test_serializer_class) do
     Class.new(LedgerSync::Serializer) do
-      attribute output_attribute: :name,
+      attribute :name,
                 resource_attribute: :name
-      attribute output_attribute: :phone_number,
+      attribute :phone_number,
                 resource_attribute: :phone_number
-      attribute output_attribute: :email,
+      attribute :email,
                 resource_attribute: :email
     end
   end
 
   let(:custom_serializer_class) do
     Class.new(LedgerSync::Serializer) do
-      attribute output_attribute: :foo,
+      attribute :foo,
                 resource_attribute: :foo
     end
   end
@@ -98,74 +98,73 @@ RSpec.describe LedgerSync::Serializer do
       end
     end
 
-    # it do
-    #   h = {
-    #     'phone_number' => 'test_phone',
-    #     'email' => 'test_email'
-    #   }
-    #   expect(test_serializer.serialize).to eq(h)
-    # end
+    it do
+      h = {
+        'email' => 'test_email',
+        'name' => 'test_name',
+        'phone_number' => 'test_phone'
+      }
+      expect(test_serializer.serialize(resource: test_resource)).to eq(h)
+    end
 
-    # it do
-    #   resource = LedgerSync::Customer.new
-    #   serializer = LedgerSync::Adaptors::QuickBooksOnline::Customer::LedgerSerializer.new(resource: resource)
+    it do
+      resource = LedgerSync::Customer.new
+      serializer = test_serializer_class.new
 
-    #   expect(serializer.to_ledger_hash(only_changes: true)).to eq({})
-    #   resource.name = 'Testing'
-    #   expect(serializer.to_ledger_hash(only_changes: true)).to eq('DisplayName' => 'Testing')
-    # end
+      expect(serializer.serialize(only_changes: true, resource: resource)).to eq({})
+      resource.name = 'Testing'
+      expect(serializer.serialize(only_changes: true, resource: resource)).to eq('name' => 'Testing')
+    end
 
-    # it 'allows multiple values in nested hash' do
-    #   resource = LedgerSync::JournalEntryLineItem.new(
-    #     entry_type: 'debit',
-    #     account: LedgerSync::Account.new(
-    #       ledger_id: 'adsf'
-    #     ),
-    #     ledger_class: LedgerSync::LedgerClass.new(
-    #       ledger_id: 'asdf'
-    #     ),
-    #     department: LedgerSync::Department.new(
-    #       ledger_id: 'asdf'
-    #     )
-    #   )
-    #   serializer = LedgerSync::Adaptors::QuickBooksOnline::JournalEntryLineItem::LedgerSerializer.new(resource: resource)
+    it 'allows multiple values in nested hash' do
+      resource = LedgerSync::JournalEntryLineItem.new(
+        entry_type: 'debit',
+        account: LedgerSync::Account.new(
+          ledger_id: 'adsf'
+        ),
+        ledger_class: LedgerSync::LedgerClass.new(
+          ledger_id: 'asdf'
+        ),
+        department: LedgerSync::Department.new(
+          ledger_id: 'asdf'
+        )
+      )
 
-    #   h = {
-    #     'Amount' => nil,
-    #     'Description' => nil,
-    #     'DetailType' => 'JournalEntryLineDetail',
-    #     'JournalEntryLineDetail' => {
-    #       'PostingType' => 'Debit',
-    #       'AccountRef' => {
-    #         'value' => 'adsf'
-    #       },
-    #       'ClassRef' => {
-    #         'value' => 'asdf'
-    #       },
-    #       'DepartmentRef' => {
-    #         'value' => 'asdf'
-    #       }
-    #     }
-    #   }
+      serializer_class = Class.new(LedgerSync::Serializer) do
+        attribute 'JournalEntryLineDetail.AccountRef.value',
+                  resource_attribute: 'account.ledger_id'
 
-    #   expect(serializer.to_ledger_hash).to eq(h)
-    # end
+        attribute 'JournalEntryLineDetail.ClassRef.value',
+                  resource_attribute: 'ledger_class.ledger_id'
+      end
 
-    # context 'with custom attributes' do
-    #   let(:test_resource) { custom_resource_class.new(foo: 'asdf') }
-    #   let(:test_serializer) do
-    #     custom_serializer_class.new(
-    #       resource: test_resource
-    #     )
-    #   end
+      h = {
+        'JournalEntryLineDetail' => {
+          'AccountRef' => {
+            'value' => 'adsf'
+          },
+          'ClassRef' => {
+            'value' => 'asdf'
+          }
+        }
+      }
 
-    #   it do
-    #     h = {
-    #       'foo' => 'asdf'
-    #     }
+      expect(serializer_class.new.serialize(resource: resource)).to eq(h)
+    end
 
-    #     expect(test_serializer.to_ledger_hash).to eq(h)
-    #   end
-    # end
+    context 'with custom attributes' do
+      let(:test_resource) { custom_resource_class.new(foo: 'asdf') }
+      let(:test_serializer) do
+        custom_serializer_class.new
+      end
+
+      it do
+        h = {
+          'foo' => 'asdf'
+        }
+
+        expect(test_serializer.serialize(resource: test_resource)).to eq(h)
+      end
+    end
   end
 end
