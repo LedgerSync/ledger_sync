@@ -101,6 +101,13 @@ module LedgerSync
           )
         end
 
+        def url_for(resource:)
+          DashboardURLHelper.new(
+            resource: resource,
+            base_url: "https://#{account_id_for_url}.app.netsuite.com"
+          ).url
+        end
+
         private
 
         def new_token(body:, method:, url:)
