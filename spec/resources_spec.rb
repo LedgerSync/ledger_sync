@@ -24,6 +24,38 @@ RSpec.describe LedgerSync::Resource do
     expect(customer2.email).to eq('asdf')
   end
 
+  context 'customized' do
+    let(:custom_resource_class) do
+      class_name = "#{test_run_id}Resource2"
+      Object.const_get(class_name)
+    rescue NameError
+      Object.const_set(
+        class_name,
+        Class.new(LedgerSync::Customer) do
+          attribute :foo, type: LedgerSync::Type::String
+          attribute :type, type: LedgerSync::Type::String
+        end
+      )
+    end
+
+    let(:custom_resource_instance) { custom_resource_class.new }
+
+    it { expect(custom_resource_instance).to respond_to(:name) }
+    it { expect(custom_resource_instance.name).to be_nil }
+
+    it { expect(custom_resource_instance).to respond_to(:email) }
+    it { expect(custom_resource_instance.email).to be_nil }
+
+    it { expect(custom_resource_instance).to respond_to(:phone_number) }
+    it { expect(custom_resource_instance.phone_number).to be_nil }
+
+    it { expect(custom_resource_instance).to respond_to(:foo) }
+    it { expect(custom_resource_instance.foo).to be_nil }
+
+    it { expect(custom_resource_instance).to respond_to(:type) }
+    it { expect(custom_resource_instance.type).to be_nil }
+  end
+
   describe '#assign_attributes' do
     it do
       resource = LedgerSync::Customer.new

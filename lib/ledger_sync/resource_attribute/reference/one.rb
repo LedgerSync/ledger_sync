@@ -14,17 +14,23 @@ module LedgerSync
 
           module ClassMethods
             def references_one(name, to:)
-              resource_attribute = ResourceAttribute::Reference::One.new(name: name, to: to)
+              resource_attribute = ResourceAttribute::Reference::One.new(
+                name: name,
+                resource_class: self,
+                to: to
+              )
               resource_attributes.add resource_attribute
               _define_attribute_methods(name)
             end
           end
         end
 
-        def initialize(name:, to:)
+        def initialize(args = {})
+          to = args.fetch(:to)
           super(
-            name: name,
-            type: Type::ReferenceOne.new(resource_class: to)
+            args.except(:to).merge(
+              type: Type::ReferenceOne.new(resource_class: to)
+            )
           )
         end
       end

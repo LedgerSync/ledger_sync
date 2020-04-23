@@ -45,7 +45,10 @@ require 'ledger_sync/util/performer'
 require 'ledger_sync/util/validator'
 require 'ledger_sync/util/string_helpers'
 require 'ledger_sync/util/mixins/delegate_array_methods_mixin'
+require 'ledger_sync/util/mixins/dupable_mixin'
 require 'ledger_sync/result'
+require 'ledger_sync/serializer'
+require 'ledger_sync/serializer/delegator'
 
 # Adaptors
 Gem.find_files('ledger_sync/adaptors/mixins/**/*.rb').each { |path| require path }

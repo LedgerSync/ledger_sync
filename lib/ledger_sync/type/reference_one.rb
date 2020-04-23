@@ -12,11 +12,15 @@ module LedgerSync
         super()
       end
 
-      def error_message(attribute:, resource:, value:)
-        if resource_class.is_a?(Array)
-          "Attribute #{attribute.name} for #{resource.class.name} should be one of the following: #{resource_class.map(&:name).join(', ')}.  Given #{value.class.name}"
+      def error_message(args = {})
+        attribute      = args.fetch(:attribute)
+        resource_class = args.fetch(:resource_class)
+        value          = args.fetch(:value)
+
+        if @resource_class.is_a?(Array)
+          "Attribute #{attribute.name} for #{resource_class.name} should be one of the following: #{@resource_class.map(&:name).join(', ')}.  Given #{value.class.name}"
         else
-          "Attribute #{attribute.name} for #{resource.class.name} should be a #{resource_class.name}.  Given #{value.class.name}"
+          "Attribute #{attribute.name} for #{resource_class.name} should be a #{@resource_class.name}.  Given #{value.class.name}"
         end
       end
 

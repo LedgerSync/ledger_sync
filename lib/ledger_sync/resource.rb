@@ -12,6 +12,7 @@ module LedgerSync
     include ResourceAttribute::Mixin
     include ResourceAttribute::Reference::One::Mixin
     include ResourceAttribute::Reference::Many::Mixin
+    include Util::Mixins::DupableMixin
 
     PRIMITIVES = [
       ActiveModel::Type,
@@ -27,6 +28,9 @@ module LedgerSync
     ].freeze
 
     serialize except: %i[resource_attributes references]
+
+    attribute :external_id, type: Type::ID
+    attribute :ledger_id, type: Type::ID
 
     def assign_attribute(name, value)
       public_send("#{name}=", value)
@@ -46,10 +50,6 @@ module LedgerSync
       super.merge(Hash[resource_attributes.references_many.map { |ref| [ref.name, ref.changes['value']] if ref.changed? }.compact])
     end
 
-    def dup
-      Marshal.load(Marshal.dump(self))
-    end
-
     def class_from_resource_type(obj)
       LedgerSync.const_get(LedgerSync::Util::StringHelpers.camelcase(obj))
     end
@@ -59,8 +59,9 @@ module LedgerSync
     end
 
     def self.inherited(subclass)
-      subclass.attribute :external_id, type: Type::ID
-      subclass.attribute :ledger_id, type: Type::ID
+      resource_attributes.each do |_name, resource_attribute|
+        subclass._add_resource_attribute(resource_attribute)
+      end
     end
 
     def self.resource_module_str
