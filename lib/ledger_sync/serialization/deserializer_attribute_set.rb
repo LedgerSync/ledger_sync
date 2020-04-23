@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
-require_relative 'attribute_set'
+require_relative 'attribute_set_mixin'
 
 module LedgerSync
   class Serialization
     class DeserializerAttributeSet
-      include AttributeSet::Mixin
+      include AttributeSetMixin
 
-      def assert_valid_to_add(attribute)
+      def add(attribute)
         raise 'resource_attribute is missing' unless attribute.resource_attribute.present?
-        return unless resource_attribute_keyed_hash.key?(attribute.resource_attribute.to_s)
 
-        raise "resource_attribute already defined for #{serializer_class.name}: #{attribute.resource_attribute}"
+        if attributes.key?(attribute.resource_attribute.to_s)
+          raise "resource_attribute already defined for #{serializer_class.name}: #{attribute.resource_attribute}"
+        end
+
+        @attributes[attribute.resource_attribute] = attribute
+        attribute
       end
     end
   end

@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'serializer/mixin'
+require_relative 'serialization/mixin'
+require_relative 'serialization/deserializer_attribute_set'
+require_relative 'serialization/deserializer_attribute'
 
 module LedgerSync
   class Deserializer
-    include Serializer::Mixin
+    include Serialization::Mixin
 
     def attribute_value_from_ledger(hash:, ledger_serializer_attribute:, resource:)
-      ledger_serializer_attribute.value_from_ledger(
+      ledger_serializer_attribute.value_from_hash(
         hash: hash,
         resource: resource
       )
@@ -20,9 +22,7 @@ module LedgerSync
       deserialize_into = resource.dup # Do not overwrite values in the resource
       hash = Util::HashHelpers.deep_stringify_keys(hash)
 
-      self.class.attributes.deserializable_attributes.each do |ledger_serializer_attribute|
-        next unless ledger_serializer_attribute.resource_attribute?
-
+      self.class.attributes.each_value do |ledger_serializer_attribute|
         value = attribute_value_from_ledger(
           hash: hash,
           ledger_serializer_attribute: ledger_serializer_attribute,
@@ -45,6 +45,14 @@ module LedgerSync
           resource_attribute: resource_attribute
         )
       )
+    end
+
+    def self.attribute_class
+      Serialization::DeserializerAttribute
+    end
+
+    def self.attributes
+      @attributes ||= Serialization::DeserializerAttributeSet.new(serializer_class: self)
     end
   end
 end

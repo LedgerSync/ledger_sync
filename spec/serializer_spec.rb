@@ -2,11 +2,7 @@
 
 require 'spec_helper'
 
-support :ledger_serializer_helpers
-
 RSpec.describe LedgerSync::Serializer do
-  include LedgerSerializerHelpers
-
   let(:test_serializer_class) do
     Class.new(LedgerSync::Serializer) do
       attribute :name,
@@ -59,7 +55,7 @@ RSpec.describe LedgerSync::Serializer do
       let(:resource) { custom_resource_class.new(foo: 'foo_1') }
 
       let(:test_serializer) do
-        Class.new(LedgerSync::Serialization::Delegator) do
+        Class.new(LedgerSync::Serialization::SerializerDelegator) do
           private
 
           def serializer_for(args = {})
@@ -107,13 +103,15 @@ RSpec.describe LedgerSync::Serializer do
       expect(test_serializer.serialize(resource: test_resource)).to eq(h)
     end
 
-    it do
-      resource = LedgerSync::Customer.new
-      serializer = test_serializer_class.new
+    context 'only_changes' do
+      it do
+        resource = LedgerSync::Customer.new
+        serializer = test_serializer_class.new
 
-      expect(serializer.serialize(only_changes: true, resource: resource)).to eq({})
-      resource.name = 'Testing'
-      expect(serializer.serialize(only_changes: true, resource: resource)).to eq('name' => 'Testing')
+        expect(serializer.serialize(only_changes: true, resource: resource)).to eq({})
+        resource.name = 'Testing'
+        expect(serializer.serialize(only_changes: true, resource: resource)).to eq('name' => 'Testing')
+      end
     end
 
     it 'allows multiple values in nested hash' do
