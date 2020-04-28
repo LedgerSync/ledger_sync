@@ -34,13 +34,10 @@ RSpec.shared_examples 'a netsuite operation' do
         stub_find_for_record
         stub_create_for_record
       when :delete
-        resource.ledger_id = netsuite_records.send(record).hash['id']
         stub_delete_for_record
       when :find
-        resource.ledger_id = netsuite_records.send(record).hash['id']
         stub_find_for_record
       when :update
-        resource.ledger_id = netsuite_records.send(record).hash['id']
         stub_find_for_record
         stub_update_for_record
       end
