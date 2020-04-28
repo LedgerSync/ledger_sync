@@ -6,7 +6,7 @@ module LedgerSync
       module Account
         class Searcher < Searcher
           def query_string
-            "SELECT id, accttype, acctnumber, currency, description, isinactive, accountsearchdisplayname AS acctname FROM account"
+            "SELECT id, accountsearchdisplayname, acctnumber, accttype, currency, description, isinactive FROM account"
           end
         end
       end
