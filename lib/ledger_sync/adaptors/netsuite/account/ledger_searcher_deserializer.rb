@@ -16,6 +16,13 @@ module LedgerSync
 
           attribute ledger_attribute: :accttype,
                     resource_attribute: :account_type
+
+          attribute ledger_attribute: :description,
+                    resource_attribute: :description
+
+          attribute ledger_attribute: :isinactive,
+                    resource_attribute: :active,
+                    type: LedgerSerializerType::ActiveType
         end
       end
     end
