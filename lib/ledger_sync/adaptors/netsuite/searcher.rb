@@ -24,13 +24,18 @@ module LedgerSync
                 path: "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
               )
 
-            request.body
-              .fetch('items')
-              .map do |c|
-                ledger_searcher_deserializer_class.new(
-                  resource: resource_class.new
-                ).deserialize(hash: c)
-              end
+            case request.status
+            when 200
+              request.body
+                .fetch('items')
+                .map do |c|
+                  ledger_searcher_deserializer_class.new(
+                    resource: resource_class.new
+                  ).deserialize(hash: c)
+                end
+            when 404
+              []
+            end
           end
         end
 
