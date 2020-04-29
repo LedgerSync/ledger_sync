@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/ledger_serializer'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -16,8 +18,10 @@ module LedgerSync
           attribute ledger_attribute: 'FullyQualifiedName',
                     resource_attribute: :fully_qualified_name
 
-          attribute ledger_attribute: 'ParentRef.value',
-                    resource_attribute: 'parent.ledger_id'
+          references_one ledger_attribute: 'ParentRef',
+                         resource_attribute: :parent,
+                         resource_class: LedgerSync::LedgerClass,
+                         serializer: Reference::LedgerSerializer
         end
       end
     end

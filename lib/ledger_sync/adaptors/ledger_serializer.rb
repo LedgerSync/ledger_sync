@@ -82,19 +82,21 @@ module LedgerSync
         @attributes ||= LedgerSerializerAttributeSet.new(serializer_class: self)
       end
 
-      def self.references_many(ledger_attribute:, resource_attribute:, serializer:)
+      def self.references_many(ledger_attribute:, resource_attribute:, serializer:, resource_class: nil)
         _attribute(
           ledger_attribute: ledger_attribute,
           resource_attribute: resource_attribute,
+          resource_class: resource_class,
           serializer: serializer,
           type: LedgerSerializerType::ReferencesManyType
         )
       end
 
-      def self.references_one(ledger_attribute:, resource_attribute:, serializer:)
+      def self.references_one(ledger_attribute:, resource_attribute:, serializer:, resource_class: nil)
         _attribute(
           ledger_attribute: ledger_attribute,
           resource_attribute: resource_attribute,
+          resource_class: resource_class,
           serializer: serializer,
           type: LedgerSerializerType::ReferencesOneType
         )

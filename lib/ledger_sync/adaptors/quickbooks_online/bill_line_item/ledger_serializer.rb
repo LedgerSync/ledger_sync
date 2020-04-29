@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/ledger_serializer'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -11,11 +13,15 @@ module LedgerSync
             'AccountBasedExpenseLineDetail'
           end
 
-          attribute ledger_attribute: 'AccountBasedExpenseLineDetail.AccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one ledger_attribute: 'AccountBasedExpenseLineDetail.AccountRef',
+                         resource_attribute: :account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'AccountBasedExpenseLineDetail.ClassRef.value',
-                    resource_attribute: 'ledger_class.ledger_id'
+           references_one ledger_attribute: 'AccountBasedExpenseLineDetail.ClassRef',
+                          resource_attribute: :ledger_class,
+                          resource_class: LedgerSync::LedgerClass,
+                          serializer: Reference::LedgerSerializer
 
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,

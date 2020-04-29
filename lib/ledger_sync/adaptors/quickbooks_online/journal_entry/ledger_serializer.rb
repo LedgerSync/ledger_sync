@@ -10,7 +10,7 @@ module LedgerSync
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 
-          references_one ledger_attribute: :CurrencyRef,
+          references_one ledger_attribute: 'CurrencyRef',
                          resource_attribute: :currency,
                          serializer: Currency::LedgerSerializer
 

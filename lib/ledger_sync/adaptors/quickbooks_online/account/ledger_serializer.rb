@@ -7,8 +7,8 @@ module LedgerSync
     module QuickBooksOnline
       module Account
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
-          attribute ledger_attribute: 'Id',
-                    resource_attribute: :ledger_id
+          id
+
           attribute ledger_attribute: 'Name',
                     resource_attribute: :name
           attribute ledger_attribute: 'AccountType',
@@ -27,7 +27,7 @@ module LedgerSync
           attribute ledger_attribute: 'Active',
                     resource_attribute: :active
 
-          references_one ledger_attribute: :CurrencyRef,
+          references_one ledger_attribute: 'CurrencyRef',
                          resource_attribute: :currency,
                          serializer: Currency::LedgerSerializer
         end

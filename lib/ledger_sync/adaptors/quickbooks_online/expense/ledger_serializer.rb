@@ -2,16 +2,16 @@
 
 require_relative '../expense_line_item/ledger_serializer'
 require_relative '../currency/ledger_serializer'
+require_relative '../reference/ledger_serializer'
 
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
       module Expense
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
-          id  ledger_attribute: 'Id',
-              resource_attribute: :ledger_id
+          id
 
-          references_one ledger_attribute: :CurrencyRef,
+          references_one ledger_attribute: 'CurrencyRef',
                           resource_attribute: :currency,
                           serializer: Currency::LedgerSerializer
 
@@ -36,11 +36,15 @@ module LedgerSync
           attribute ledger_attribute: 'DocNumber',
                     resource_attribute: :reference_number
 
-          attribute ledger_attribute: 'AccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one ledger_attribute: 'AccountRef',
+                         resource_attribute: :account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one ledger_attribute: 'DepartmentRef',
+                         resource_attribute: :department,
+                         resource_class: LedgerSync::Department,
+                         serializer: Reference::LedgerSerializer
 
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,

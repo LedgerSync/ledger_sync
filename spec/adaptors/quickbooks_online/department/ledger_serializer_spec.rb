@@ -24,7 +24,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department::LedgerSeriali
         serializer = described_class.new(resource: department)
         hash = serializer.to_ledger_hash
 
-        expect(hash['ParentRef']).to eq({"value" => "123"})
+        expect(hash['ParentRef']).to eq({"name" => "Parent", "value" => "123"})
       end
     end
 

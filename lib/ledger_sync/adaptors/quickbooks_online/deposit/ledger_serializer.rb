@@ -2,6 +2,7 @@
 
 require_relative '../deposit_line_item/ledger_serializer'
 require_relative '../currency/ledger_serializer'
+require_relative '../reference/ledger_serializer'
 
 module LedgerSync
   module Adaptors
@@ -10,7 +11,7 @@ module LedgerSync
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 
-          references_one ledger_attribute: :CurrencyRef,
+          references_one ledger_attribute: 'CurrencyRef',
                          resource_attribute: :currency,
                          serializer: Currency::LedgerSerializer
 
@@ -24,11 +25,15 @@ module LedgerSync
           attribute ledger_attribute: 'ExchangeRate',
                     resource_attribute: :exchange_rate
 
-          attribute ledger_attribute: 'DepositToAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one ledger_attribute: 'DepositToAccountRef',
+                         resource_attribute: :account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one ledger_attribute: 'DepartmentRef',
+                         resource_attribute: :department,
+                         resource_class: LedgerSync::Department,
+                         serializer: Reference::LedgerSerializer
 
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,

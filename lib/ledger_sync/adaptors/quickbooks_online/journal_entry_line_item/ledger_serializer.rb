@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../expense_line_item/ledger_serializer'
+require_relative '../reference/ledger_serializer'
 
 module LedgerSync
   module Adaptors
@@ -19,14 +20,20 @@ module LedgerSync
                     resource_attribute: :entry_type,
                     type: LedgerSerializerType::JournalEntryLineItemType
 
-          attribute ledger_attribute: 'JournalEntryLineDetail.AccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one ledger_attribute: 'JournalEntryLineDetail.AccountRef',
+                         resource_attribute: :account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'JournalEntryLineDetail.ClassRef.value',
-                    resource_attribute: 'ledger_class.ledger_id'
+          references_one ledger_attribute: 'JournalEntryLineDetail.ClassRef',
+                         resource_attribute: :ledger_class,
+                         resource_class: LedgerSync::LedgerClass,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'JournalEntryLineDetail.DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one ledger_attribute: 'JournalEntryLineDetail.DepartmentRef',
+                         resource_attribute: :department,
+                         resource_class: LedgerSync::Department,
+                         serializer: Reference::LedgerSerializer
 
           attribute ledger_attribute: 'Description',
                     resource_attribute: :description

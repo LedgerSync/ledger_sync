@@ -2,6 +2,7 @@
 
 require_relative '../currency/ledger_serializer'
 require_relative '../payment_line_item/ledger_serializer'
+require_relative '../reference/ledger_serializer'
 
 module LedgerSync
   module Adaptors
@@ -14,18 +15,24 @@ module LedgerSync
                     resource_attribute: :amount,
                     type: LedgerSerializerType::AmountType
 
-          references_one ledger_attribute: :CurrencyRef,
+          references_one ledger_attribute: 'CurrencyRef',
                          resource_attribute: :currency,
                          serializer: Currency::LedgerSerializer
 
-          attribute ledger_attribute: 'CustomerRef.value',
-                    resource_attribute: 'customer.ledger_id'
+          references_one ledger_attribute: 'CustomerRef',
+                         resource_attribute: :customer,
+                         resource_class: LedgerSync::Customer,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'DepositToAccountRef.value',
-                    resource_attribute: 'deposit_account.ledger_id'
+          references_one ledger_attribute: 'DepositToAccountRef',
+                         resource_attribute: :deposit_account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'ARAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one ledger_attribute: 'ARAccountRef',
+                         resource_attribute: :account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
           attribute ledger_attribute: 'PaymentRefNum',
                     resource_attribute: :reference_number

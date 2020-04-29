@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../currency/ledger_serializer'
+require_relative '../reference/ledger_serializer'
 
 module LedgerSync
   module Adaptors
@@ -16,17 +17,21 @@ module LedgerSync
           attribute ledger_attribute: 'PrivateNote',
                     resource_attribute: :memo
 
-          attribute ledger_attribute: 'FromAccountRef.value',
-                    resource_attribute: 'from_account.ledger_id'
+          references_one ledger_attribute: 'FromAccountRef',
+                         resource_attribute: :from_account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'ToAccountRef.value',
-                    resource_attribute: 'to_account.ledger_id'
+          references_one ledger_attribute: 'ToAccountRef',
+                         resource_attribute: :to_account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
           attribute ledger_attribute: 'TxnDate',
                     resource_attribute: :transaction_date,
                     type: LedgerSerializerType::DateType
 
-          references_one ledger_attribute: :CurrencyRef,
+          references_one ledger_attribute: 'CurrencyRef',
                          resource_attribute: :currency,
                          serializer: Currency::LedgerSerializer
         end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../ledger_serializer_type/department_reference_type'
+require_relative '../reference/ledger_serializer'
 
 module LedgerSync
   module Adaptors
@@ -18,22 +18,10 @@ module LedgerSync
           attribute ledger_attribute: 'FullyQualifiedName',
                     resource_attribute: :fully_qualified_name
 
-          attribute ledger_attribute: :ParentRef,
-                    resource_attribute: :parent,
-                    type: LedgerSerializerType::DepartmentReferenceType
-
-          # Sending "ParentRef": {"value": null} results in QBO API crash
-          # This patches serialized hash to exclude it unless we don't set value
-          def to_ledger_hash(deep_merge_unmapped_values: {}, only_changes: false)
-            ret = super(only_changes: only_changes)
-
-            return ret unless deep_merge_unmapped_values.any?
-
-            deep_merge_if_not_mapped(
-              current_hash: ret,
-              hash_to_search: deep_merge_unmapped_values
-            )
-          end
+          references_one ledger_attribute: 'ParentRef',
+                         resource_attribute: :parent,
+                         resource_class: LedgerSync::Department,
+                         serializer: Reference::LedgerSerializer
         end
       end
     end

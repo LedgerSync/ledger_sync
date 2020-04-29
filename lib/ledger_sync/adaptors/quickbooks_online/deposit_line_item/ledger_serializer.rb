@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/ledger_serializer'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -11,11 +13,15 @@ module LedgerSync
             'DepositLineDetail'
           end
 
-          attribute ledger_attribute: 'DepositLineDetail.AccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one ledger_attribute: 'DepositLineDetail.AccountRef',
+                         resource_attribute: :account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'DepositLineDetail.ClassRef.value',
-                    resource_attribute: 'ledger_class.ledger_id'
+          references_one ledger_attribute: 'DepositLineDetail.ClassRef',
+                         resource_attribute: :ledger_class,
+                         resource_class: LedgerSync::LedgerClass,
+                         serializer: Reference::LedgerSerializer
 
           attribute ledger_attribute: 'DepositLineDetail.Entity',
                     resource_attribute: :entity,

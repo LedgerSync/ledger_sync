@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/ledger_serializer'
+
 module LedgerSync
   module Adaptors
     module QuickBooksOnline
@@ -11,11 +13,15 @@ module LedgerSync
             'SalesItemLineDetail'
           end
 
-          attribute ledger_attribute: 'SalesItemLineDetail.ItemRef.value',
-                    resource_attribute: 'item.ledger_id'
+          references_one ledger_attribute: 'SalesItemLineDetail.ItemRef',
+                         resource_attribute: :item,
+                         resource_class: LedgerSync::Item,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'SalesItemLineDetail.ClassRef.value',
-                    resource_attribute: 'ledger_class.ledger_id'
+          references_one ledger_attribute: 'SalesItemLineDetail.ClassRef',
+                         resource_attribute: :ledger_class,
+                         resource_class: LedgerSync::LedgerClass,
+                         serializer: Reference::LedgerSerializer
 
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,

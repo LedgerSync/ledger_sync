@@ -4,6 +4,7 @@ require_relative '../currency/ledger_serializer'
 require_relative '../vendor/ledger_serializer'
 require_relative '../department/ledger_serializer'
 require_relative '../bill_payment_line_item/ledger_serializer'
+require_relative '../reference/ledger_serializer'
 
 module LedgerSync
   module Adaptors
@@ -16,18 +17,24 @@ module LedgerSync
                     resource_attribute: :amount,
                     type: LedgerSerializerType::AmountType
 
-          references_one ledger_attribute: :CurrencyRef,
+          references_one ledger_attribute: 'CurrencyRef',
                          resource_attribute: :currency,
                          serializer: Currency::LedgerSerializer
 
-          attribute ledger_attribute: 'VendorRef.value',
-                    resource_attribute: 'vendor.ledger_id'
+          references_one ledger_attribute: 'VendorRef',
+                         resource_attribute: :vendor,
+                         resource_class: LedgerSync::Vendor,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one ledger_attribute: 'DepartmentRef',
+                        resource_attribute: :department,
+                        resource_class: LedgerSync::Department,
+                        serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'APAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+         references_one ledger_attribute: 'APAccountRef',
+                        resource_attribute: :account,
+                        resource_class: LedgerSync::Account,
+                        serializer: Reference::LedgerSerializer
 
           attribute ledger_attribute: 'DocNumber',
                     resource_attribute: :reference_number
@@ -46,25 +53,15 @@ module LedgerSync
                     resource_attribute: :payment_type,
                     type: LedgerSerializerType::PaymentType
 
-          attribute ledger_attribute: 'CreditCardPayment' do |res|
-            if res.credit_card_account
-              {
-                'CCAccountRef' => {
-                  'value' => res.credit_card_account.ledger_id
-                }
-              }
-            end
-          end
+          references_one ledger_attribute: 'CheckPayment.BankAccountRef',
+                         resource_attribute: :bank_account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
-          attribute ledger_attribute: 'CheckPayment' do |res|
-            if res.bank_account
-              {
-                'BankAccountRef' => {
-                  'value' => res.bank_account.ledger_id
-                }
-              }
-            end
-          end
+          references_one ledger_attribute: 'CreditCardPayment.CCAccountRef',
+                         resource_attribute: :credit_card_account,
+                         resource_class: LedgerSync::Account,
+                         serializer: Reference::LedgerSerializer
 
           references_many ledger_attribute: 'Line',
                           resource_attribute: :line_items,

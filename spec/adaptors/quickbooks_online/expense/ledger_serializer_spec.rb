@@ -62,7 +62,10 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
         'name' => currency.name,
         'value' => currency.symbol
       },
-      'DepartmentRef' => {'value'=>department.ledger_id},
+      'DepartmentRef' => {
+        'name' => department.name,
+        'value' => department.ledger_id
+      },
       'DocNumber' => 'Ref123',
       'PaymentType' => LedgerSync::Adaptors::QuickBooksOnline::LedgerSerializerType::PaymentType.mapping[payment_type],
       'TxnDate' => transaction_date.to_s, # Format: YYYY-MM-DD
@@ -74,6 +77,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense::LedgerSerializer
         'type' => entity_type
       },
       'AccountRef' => {
+        'name' => account.name,
         'value' => account.ledger_id
       },
       'Line' => line_items.map do |line_item|

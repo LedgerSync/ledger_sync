@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-
 support :ledger_serializer_helpers
 
 RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::ExpenseLineItem::LedgerSerializer do
@@ -26,9 +25,11 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::ExpenseLineItem::LedgerSe
       'DetailType' => 'AccountBasedExpenseLineDetail',
       'AccountBasedExpenseLineDetail' => {
         'AccountRef' => {
+          'name' => account.name,
           'value' => account.ledger_id
         },
         'ClassRef' => {
+          'name' => ledger_class.name,
           'value' => ledger_class.ledger_id
         }
       },
