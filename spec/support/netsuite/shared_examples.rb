@@ -14,6 +14,17 @@ RSpec.shared_examples 'a netsuite operation' do
     end
   end
 
+  before do
+    case described_class.operation_method
+    when :delete
+      resource.ledger_id = netsuite_records.send(record).hash['id']
+    when :find
+      resource.ledger_id = netsuite_records.send(record).hash['id']
+    when :update
+      resource.ledger_id = netsuite_records.send(record).hash['id']
+    end
+  end
+
   it_behaves_like 'a valid operation'
 
   context do

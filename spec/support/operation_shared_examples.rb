@@ -5,7 +5,7 @@ RSpec.shared_examples 'a valid operation' do
     instance = described_class.new(resource: resource, adaptor: adaptor)
     unless instance.valid?
       pd instance.errors
-      byebug
+      byebug if ENV['DEBUG']
     end
     expect(instance).to be_valid
   end
