@@ -12,7 +12,7 @@ module LedgerSync
         REVOKE_TOKEN_URI  = 'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
         ROOT_SANDBOX_URI  = 'https://sandbox-quickbooks.api.intuit.com'
         PRODUCTION_APP_URL_BASE = 'https://qbo.intuit.com/app'
--       SANDBOX_APP_URL_BASE    = 'https://app.sandbox.qbo.intuit.com/app'
+        SANDBOX_APP_URL_BASE    = 'https://app.sandbox.qbo.intuit.com/app'
 
         attr_reader :access_token,
                     :client_id,
@@ -144,7 +144,7 @@ module LedgerSync
         def update_secrets_in_dotenv
           return if ENV['TEST_ENV'] && !ENV['USE_DOTENV_ADAPTOR_SECRETS']
 
-          filename = File.join(LedgerSync.root, '.env')
+          filename = File.join(Dir.pwd, '.env')
           return unless File.exist?(filename)
 
           prefix = 'QUICKBOOKS_ONLINE_'
