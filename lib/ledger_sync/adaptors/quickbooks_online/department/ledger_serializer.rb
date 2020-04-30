@@ -23,7 +23,8 @@ module LedgerSync
           # This patches serialized hash to exclude it unless we don't set value
           def to_ledger_hash(deep_merge_unmapped_values: {}, only_changes: false)
             ret = super(only_changes: only_changes)
-            unless deep_merge_unmapped_values.any?
+
+            if deep_merge_unmapped_values.any?
               deep_merge_if_not_mapped(
                 current_hash: ret,
                 hash_to_search: deep_merge_unmapped_values
