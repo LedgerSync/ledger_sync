@@ -12,8 +12,8 @@ module LedgerSync
         false
       end
 
-      def error_message(attribute:, resource:, value:)
-        "Attribute #{attribute.name} for #{resource.class.name} should be a class supported by #{self.class.name}.  Given: #{value.class}"
+      def error_message(attribute:, resource_class:, value:)
+        "Attribute #{attribute.name} for #{resource_class.name} should be a class supported by #{self.class.name}.  Given: #{value.class}"
       end
 
       def valid_classes

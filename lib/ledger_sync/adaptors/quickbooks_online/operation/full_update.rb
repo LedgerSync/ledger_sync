@@ -28,7 +28,6 @@ module LedgerSync
             merged_serializer = ledger_serializer.class.new(
               resource: merged_resource
             )
-
             response_to_operation_result(
               response: adaptor.post(
                 path: ledger_resource_type_for_path,

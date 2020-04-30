@@ -107,7 +107,7 @@ module LedgerSync
         def deep_merge_if_not_mapped(current_hash:, hash_to_search:)
           hash_to_search.each do |key, value|
             current_hash[key] = if current_hash.key?(key)
-                                  if value.is_a?(Hash)
+                                  if value.is_a?(Hash) && current_hash[key].present?
                                     deep_merge_if_not_mapped(
                                       current_hash: current_hash[key],
                                       hash_to_search: value
