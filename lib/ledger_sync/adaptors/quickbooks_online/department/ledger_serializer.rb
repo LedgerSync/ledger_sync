@@ -23,13 +23,16 @@ module LedgerSync
           # This patches serialized hash to exclude it unless we don't set value
           def to_ledger_hash(deep_merge_unmapped_values: {}, only_changes: false)
             ret = super(only_changes: only_changes)
-            ret = ret.except('ParentRef') unless resource.parent_changed?
-            return ret unless deep_merge_unmapped_values.any?
+            unless deep_merge_unmapped_values.any?
+              deep_merge_if_not_mapped(
+                current_hash: ret,
+                hash_to_search: deep_merge_unmapped_values
+              )
+            end
 
-            deep_merge_if_not_mapped(
-              current_hash: ret,
-              hash_to_search: deep_merge_unmapped_values
-            )
+            ret['ParentRef'] = nil if ret.key?('ParentRef') && ret.dig('ParentRef', 'value').nil?
+
+            ret
           end
         end
       end
