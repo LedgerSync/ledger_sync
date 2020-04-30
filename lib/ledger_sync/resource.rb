@@ -80,7 +80,7 @@ module LedgerSync
     end
 
     def ==(other)
-      other.fingerprint == fingerprint
+      other&.fingerprint == fingerprint
     end
   end
 end
