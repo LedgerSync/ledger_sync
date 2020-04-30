@@ -45,7 +45,7 @@ module LedgerSync
         end
 
         def api_base_url
-          @api_base_url ||= "https://#{api_host}/services/rest"
+          @api_base_url ||= "https://#{api_host}/services/rest/record/v1"
         end
 
         def api_host
@@ -122,8 +122,8 @@ module LedgerSync
           )
         end
 
-        def request(body: nil, headers: {}, method:, path: nil)
-          request_url = url_from_path(path: path)
+        def request(body: nil, headers: {}, method:, path: nil, request_url: nil)
+          request_url ||= url_from_path(path: path)
 
           token = new_token(
             body: body,

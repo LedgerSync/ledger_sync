@@ -21,7 +21,7 @@ module LedgerSync
             @request = adaptor
               .post(
                 body: {"q": "#{query_string}"},
-                path: "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
+                request_url: adaptor.api_base_url.gsub("/record/v1", "") + "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
               )
 
             case request.status

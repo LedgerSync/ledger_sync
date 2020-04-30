@@ -1,0 +1,28 @@
+{
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/query/v1/suiteql"
+    }
+  ],
+  "count": 2,
+  "hasMore": false,
+  "items": [
+    {
+      "links": [],
+      "companyname": "Cool co",
+      "email": "coolco@sf.com",
+      "phone": "1234567890",
+      "id": "309"
+    },
+    {
+      "links": [],
+      "companyname": "Ledger Drinks",
+      "email": "ld@sf.com",
+      "phone": "0987654321",
+      "id": "312"
+    }
+  ],
+  "offset": 0,
+  "totalResults": 2
+}

@@ -5,6 +5,9 @@ module LedgerSync
     module NetSuite
       module Department
         class Searcher < Searcher
+          def query_string
+            "SELECT id, name, isinactive FROM department"
+          end
         end
       end
     end

@@ -170,6 +170,18 @@ module NetSuiteHelpers
   NETSUITE_RECORD_COLLECTION.all.each do |record, opts|
     record = record.gsub('/', '_')
     url_method_name = "#{record}_url"
+
+    if record.include?('_search')
+      define_method("stub_#{record.gsub(/_search/, '')}_search") do
+        stub_request(:post, "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/query/v1/suiteql?limit=10&offset=0")
+        .to_return(
+          status: 200,
+          body: opts.hash.to_json
+        )
+      end
+      next
+    end
+
     define_method(url_method_name) do |**keywords|
       api_record_url(
         **{
@@ -195,13 +207,6 @@ module NetSuiteHelpers
       stub_find_request(
         response_body: opts.hash,
         url: send(url_method_name, id: opts.id)
-      )
-    end
-
-    define_method("stub_#{record}_search") do
-      stub_search_request(
-        starting_id: opts.id,
-        url: send(url_method_name, limit: 10, offset: 0)
       )
     end
 
