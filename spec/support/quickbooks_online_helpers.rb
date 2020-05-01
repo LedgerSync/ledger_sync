@@ -180,22 +180,22 @@ module QuickBooksOnlineHelpers
         'Id' => nil,
         'TotalAmt' => 1.0,
         'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
-        'VendorRef' => {'value' => '123'},
-        'DepartmentRef' => {'value' => '123'},
-        'APAccountRef' => {'value' => '123'},
+        'VendorRef' => { 'value' => '123' },
+        'DepartmentRef' => { 'value' => '123' },
+        'APAccountRef' => { 'value' => '123' },
         'DocNumber' => 'Ref123',
         'PrivateNote' => 'Note',
         'ExchangeRate' => 1.0,
         'TxnDate' => '2019-09-01',
         'PayType' => 'CreditCard',
         'CreditCardPayment' => {
-          'CCAccountRef' => {'value' => '123'}
+          'CCAccountRef' => { 'value' => '123' }
         },
         'CheckPayment' => nil,
         'Line' => [
           {
             'Amount' => 1.0,
-            'LinkedTxn' => [{'TxnId' => "123", 'TxnType' => "Bill"}]
+            'LinkedTxn' => [{ 'TxnId' => '123', 'TxnType' => 'Bill' }]
           }
         ]
       },
@@ -231,7 +231,7 @@ module QuickBooksOnlineHelpers
           }
         ]
       },
-      search_url: ""
+      search_url: ''
     }
   }.freeze
 
@@ -1054,7 +1054,7 @@ module QuickBooksOnlineHelpers
   def stub_create_department
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/department')
       .with(
-        body: '{"Id":null,"Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null}',
+        body: '{"Id":null,"Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null,"ParentRef":null}',
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1109,7 +1109,22 @@ module QuickBooksOnlineHelpers
   def stub_update_department
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/department')
       .with(
-        body: '{"Id":"123","Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null,"ParentRef":{"value":null},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T14:24:59-08:00","LastUpdatedTime":"2019-12-04T14:24:59-08:00"}}',
+        body: {
+          'Id' => '123',
+          'Name' => 'Test Department',
+          'Active' => true,
+          'SubDepartment' => false,
+          'FullyQualifiedName' => nil,
+          'ParentRef' => nil,
+          'domain' => 'QBO',
+          'sparse' => false,
+          'SyncToken' => '0',
+          'MetaData' =>
+           {
+             'CreateTime' => '2019-12-04T14:24:59-08:00',
+             'LastUpdatedTime' => '2019-12-04T14:24:59-08:00'
+           }
+        }.to_json,
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',

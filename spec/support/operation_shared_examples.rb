@@ -3,9 +3,9 @@
 RSpec.shared_examples 'a valid operation' do
   it 'is valid' do
     instance = described_class.new(resource: resource, adaptor: adaptor)
-    unless instance.valid?
+    if ENV.fetch('DEBUG', false) && !instance.valid?
       pd instance.errors
-      byebug
+      byebug if ENV['DEBUG']
     end
     expect(instance).to be_valid
   end

@@ -76,7 +76,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         root_resource_type: root_resource_type
       )
       expect(data[:resource_with_date][:date_resource_1][:data][:date_attr]).to eq('2019-01-01')
-      expect { builder.resource }.to raise_error(LedgerSync::ResourceError::AttributeTypeError)
+      expect { builder.resource }.to raise_error(LedgerSync::ResourceAttributeError::TypeError)
     end
   end
 

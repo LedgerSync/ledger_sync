@@ -1,29 +1,28 @@
+# frozen_string_literal: true
+
 module LedgerSync
+  class ResourceAttributeError < Error
+    class TypeError < self
+      attr_reader :attribute, :resource_class, :value
+
+      def initialize(args = {})
+        @attribute = args.fetch(:attribute)
+        @resource_class = args.fetch(:resource_class)
+        @value = args.fetch(:value)
+
+        message = attribute.type.error_message(args)
+
+        super(message: message)
+      end
+    end
+  end
+
   class ResourceError < Error
     attr_reader :resource
 
     def initialize(message:, resource:)
       @resource = resource
       super(message: message)
-    end
-    class AttributeTypeError < self
-      attr_reader :attribute, :resource, :value
-
-      def initialize(attribute:, resource:, value:)
-        @attribute = attribute
-        @resource = resource
-        @value = value
-
-        resource_class = resource.class
-
-        message = attribute.type.error_message(
-          attribute: attribute,
-          resource: resource,
-          value: value
-        )
-
-        super(message: message, resource: nil)
-      end
     end
 
     class ReferenceAssignmentError < self

@@ -5,4 +5,4 @@ WORKDIR /lib
 COPY . .
 RUN bundle install
 
-CMD ["bundle", "exec", "rspec"]
+CMD ["bundle", "exec", "rspec", "--order rand"]
