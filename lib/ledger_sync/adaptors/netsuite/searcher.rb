@@ -11,7 +11,7 @@ module LedgerSync
         end
 
         def ledger_searcher_deserializer_class
-          @ledger_searcher_deserializer_class ||= self.class.inferred_ledger_searcher_deserializer_class
+          @ledger_searcher_deserializer_class ||= self.class.inferred_searcher_ledger_deserializer_class
         end
 
         def resources
