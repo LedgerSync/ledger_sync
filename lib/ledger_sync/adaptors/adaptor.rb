@@ -41,7 +41,7 @@ module LedgerSync
         )
       end
 
-      def searcher_for?(resource_type:, query: '')
+      def searcher_for(resource_type:, query: '')
         searcher_class_for(resource_type: resource_type).new(adaptor: self, query: query)
       rescue NameError
         false

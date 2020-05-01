@@ -11,9 +11,9 @@ RSpec.describe LedgerSync::Adaptors::Adaptor do
 
   subject { quickbooks_online_adaptor }
 
-  describe '#searcher_for?' do
-    it { expect(subject.searcher_for?(resource_type: :customer)).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Searcher) }
-    it { expect(subject.searcher_for?(resource_type: :asdf)).to be_falsey }
+  describe '#searcher_for' do
+    it { expect(subject.searcher_for(resource_type: :customer)).to be_a(LedgerSync::Adaptors::QuickBooksOnline::Customer::Searcher) }
+    it { expect(subject.searcher_for(resource_type: :asdf)).to be_falsey }
   end
 
   describe '#searcher_class_for' do
