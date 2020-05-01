@@ -6,12 +6,16 @@ module LedgerSync
       class Searcher < Adaptors::Searcher
         include Mixins::OffsetAndLimitPaginationSearcherMixin
 
-        def query_string
-          ''
+        def query_attributes
+          @query_attributes ||= searcher_ledger_deserializer_class.attributes.map(&:ledger_attribute)
         end
 
-        def searcher_ledger_deserializer_class
-          @searcher_ledger_deserializer_class ||= self.class.inferred_searcher_ledger_deserializer_class
+        def query_string
+          "SELECT #{query_attributes.join(', ')} FROM #{query_table}"
+        end
+
+        def query_table
+          @query_table ||= self.class.inferred_resource_class.resource_type
         end
 
         def resources
@@ -37,6 +41,10 @@ module LedgerSync
               []
             end
           end
+        end
+
+        def searcher_ledger_deserializer_class
+          @searcher_ledger_deserializer_class ||= self.class.inferred_searcher_ledger_deserializer_class
         end
 
         private
