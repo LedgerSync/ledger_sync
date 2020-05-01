@@ -19,20 +19,20 @@ module LedgerSync
 
           @resources ||= begin
             @request = adaptor
-              .post(
-                body: {"q": "#{query_string}"},
-                request_url: adaptor.api_base_url.gsub("/record/v1", "") + "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
-              )
+                       .post(
+                         body: { q: query_string.to_s },
+                         request_url: adaptor.api_base_url.gsub('/record/v1', '') + "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
+                       )
 
             case request.status
             when 200
               request.body
-                .fetch('items')
-                .map do |c|
-                  ledger_searcher_deserializer_class.new(
-                    resource: resource_class.new
-                  ).deserialize(hash: c)
-                end
+                     .fetch('items')
+                     .map do |c|
+                ledger_searcher_deserializer_class.new(
+                  resource: resource_class.new
+                ).deserialize(hash: c)
+              end
             when 404
               []
             end
