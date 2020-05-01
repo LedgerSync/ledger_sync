@@ -12,7 +12,8 @@ module LedgerSync
 
         WRITE_HEADERS = {
           'Accept' => '*/*',
-          'Content-Type' => 'application/json'
+          'Content-Type' => 'application/json',
+          'prefer' => 'transient'
         }.freeze
 
         attr_reader :account_id,
@@ -121,8 +122,8 @@ module LedgerSync
           )
         end
 
-        def request(body: nil, headers: {}, method:, path: nil)
-          request_url = url_from_path(path: path)
+        def request(body: nil, headers: {}, method:, path: nil, request_url: nil)
+          request_url ||= url_from_path(path: path)
 
           token = new_token(
             body: body,
