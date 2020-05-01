@@ -4,7 +4,7 @@ module LedgerSync
   module Adaptors
     module NetSuite
       module Department
-        class LedgerSearcherDeserializer < NetSuite::LedgerSerializer
+        class SearcherLedgerDeserializer < NetSuite::LedgerSerializer
           attribute ledger_attribute: :id,
                     resource_attribute: :ledger_id
 

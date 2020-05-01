@@ -34,7 +34,7 @@ module LedgerSync
           end
 
           def inferred_searcher_ledger_deserializer_class_name
-            @inferred_searcher_ledger_deserializer_class_name ||= "#{inferred_resource_class.resource_module_str}::LedgerSearcherDeserializer"
+            @inferred_searcher_ledger_deserializer_class_name ||= "#{inferred_resource_class.resource_module_str}::SearcherLedgerDeserializer"
           end
 
           def inferred_ledger_serializer_class

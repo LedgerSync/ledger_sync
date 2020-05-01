@@ -10,8 +10,8 @@ module LedgerSync
           ''
         end
 
-        def ledger_searcher_deserializer_class
-          @ledger_searcher_deserializer_class ||= self.class.inferred_searcher_ledger_deserializer_class
+        def searcher_ledger_deserializer_class
+          @searcher_ledger_deserializer_class ||= self.class.inferred_searcher_ledger_deserializer_class
         end
 
         def resources
@@ -29,7 +29,7 @@ module LedgerSync
               request.body
                      .fetch('items')
                      .map do |c|
-                ledger_searcher_deserializer_class.new(
+                searcher_ledger_deserializer_class.new(
                   resource: resource_class.new
                 ).deserialize(hash: c)
               end
