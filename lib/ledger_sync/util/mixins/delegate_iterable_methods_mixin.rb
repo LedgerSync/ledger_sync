@@ -15,16 +15,14 @@ module LedgerSync
             map
           ].freeze
 
-          ARRAY_METHODS = SHARED_METHODS.union(%i[]).freeze
+          ARRAY_METHODS = (SHARED_METHODS | %i[]).freeze
 
-          HASH_METHODS = SHARED_METHODS.union(
-            %i[
-              each_value
-              key?
-              keys
-              values
-            ]
-          ).freeze
+          HASH_METHODS = (SHARED_METHODS | %i[
+            each_value
+            key?
+            keys
+            values
+          ]).freeze
 
           def delegate_array_methods_to(delegate_to)
             delegate(*ARRAY_METHODS, to: delegate_to)
