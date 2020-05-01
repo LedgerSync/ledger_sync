@@ -49,3 +49,39 @@ RSpec.shared_examples 'a netsuite operation' do
     it_behaves_like 'a successful operation'
   end
 end
+
+RSpec.shared_examples 'a netsuite searcher' do
+  include NetSuiteHelpers
+
+  let(:adaptor) { netsuite_adaptor } unless method_defined?(:adaptor)
+  let(:resource_class) { described_class.inferred_resource_class } unless method_defined?(:resource_class)
+  unless method_defined?(:record)
+    let(:record) do
+      adaptor.class.ledger_resource_type_for(resource_class: resource_class)
+    end
+  end
+  let(:input) do
+    {
+      adaptor: adaptor,
+      query: ''
+    }
+  end
+
+  before do
+    stub_search_for_record
+  end
+
+  describe '#resources' do
+    subject { described_class.new(**input).search.resources }
+
+    it { expect(subject.count).to eq(2) }
+    it { expect(subject.first).to be_a(resource_class) }
+  end
+
+  describe '#search' do
+    subject { described_class.new(**input).search }
+
+    it { expect(subject).to be_success }
+    it { expect(subject).to be_a(LedgerSync::SearchResult::Success) }
+  end
+end
