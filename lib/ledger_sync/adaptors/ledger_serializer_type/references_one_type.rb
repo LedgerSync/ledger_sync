@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'value_type'
+
 module LedgerSync
   module Adaptors
     module LedgerSerializerType
