@@ -16,6 +16,8 @@ module LedgerSync
             "/app/common/otherlists/departmenttype.nl?id=#{resource.ledger_id}"
           when LedgerSync::Deposit, LedgerSync::Invoice
             "/app/accounting/transactions/transaction.nl?id=#{resource.ledger_id}"
+          when LedgerSync::LedgerClass
+            "/app/common/otherlists/classtype.nl?id=#{resource.ledger_id}"
           end
         end
       end

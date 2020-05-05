@@ -15,7 +15,7 @@ module LedgerSync
         end
 
         def query_table
-          @query_table ||= self.class.inferred_resource_class.resource_type
+          @query_table ||= adaptor.class.ledger_resource_type_for(resource_class: self.class.inferred_resource_class)
         end
 
         def resources

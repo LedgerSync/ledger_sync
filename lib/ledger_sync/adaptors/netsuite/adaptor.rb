@@ -108,6 +108,12 @@ module LedgerSync
           ).url
         end
 
+        def self.ledger_resource_type_overrides
+          {
+            LedgerSync::LedgerClass => 'classification',
+          }
+        end
+
         private
 
         def new_token(body:, method:, url:)
