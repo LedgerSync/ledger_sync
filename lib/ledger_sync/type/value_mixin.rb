@@ -23,6 +23,8 @@ module LedgerSync
       def assert_valid(args = {})
         return if valid_class?(args)
 
+        value = args.fetch(:value)
+
         raise Error::TypeValueError.new(
           expected: valid_classes,
           given: value.class
@@ -31,11 +33,9 @@ module LedgerSync
 
       # Override this method to handle different types of casting.
       def cast_value(args = {})
-        args.fetch(:value)
-      end
+        value = args.fetch(:value)
 
-      def error_message(attribute:, resource_class:, value:)
-        "Attribute #{attribute.name} for #{resource_class.name} should be a class supported by #{self.class.name}.  Given: #{value.class}"
+        super(value)
       end
 
       def valid_class?(args = {})

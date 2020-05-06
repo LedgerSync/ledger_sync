@@ -10,7 +10,29 @@ module LedgerSync
         @resource_class = args.fetch(:resource_class)
         @value = args.fetch(:value)
 
-        message = attribute.type.error_message(args)
+        type_resource_class = if attribute.is_a?(LedgerSync::ResourceAttribute::Reference)
+                                attribute.type.resource_class
+                              else
+                                attribute.resource_class
+                              end
+
+        message = "Attribute #{attribute.name} for #{resource_class.name} should be "
+
+        message += case attribute
+                   when LedgerSync::ResourceAttribute::Reference::Many
+                     invalid_classes = value.reject { |e| e.is_a?(type_resource_class) }.map(&:class)
+                     if type_resource_class.is_a?(Array)
+                       "an array of one or more of the following: #{type_resource_class.name}.  Given array containing: #{invalid_classes.join(', ')}"
+                     else
+                       "an array of #{type_resource_class.name}.  Given array containing: #{invalid_classes.join(', ')}"
+                     end
+                   else
+                     if type_resource_class.is_a?(Array)
+                       "one of the following: #{type_resource_class.map(&:name).join(', ')}.  Given #{value.class.name}"
+                     else
+                       "a #{type_resource_class.name}.  Given #{value.class.name}"
+                     end
+                   end
 
         super(message: message)
       end
