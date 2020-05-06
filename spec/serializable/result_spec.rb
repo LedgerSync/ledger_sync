@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe LedgerSync::Result, type: :serializable do
     describe LedgerSync::Result do
     it do
-      subject = described_class.Success(:val).serialize
+      subject = described_class.Success(:val).simply_serialize
       h = {
         root: 'LedgerSync::Result::Success/4672086a9a6a647b29b781ff64b41242',
         objects: {
@@ -22,7 +22,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
     end
 
     it do
-      subject = described_class.Failure(:err).serialize
+      subject = described_class.Failure(:err).simply_serialize
       h = {
         root: 'LedgerSync::Result::Failure/a6494d65e10ac3a996299313a0be9ac1',
         objects: {
@@ -42,7 +42,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
 
   describe LedgerSync::OperationResult do
     it do
-      subject = described_class.Success(:val, operation: :op, resource: :res, response: :resp).serialize
+      subject = described_class.Success(:val, operation: :op, resource: :res, response: :resp).simply_serialize
 
       h = {
         root: 'LedgerSync::OperationResult::Success/1863f02d2c39343180f0068db0ffdd96',
@@ -64,7 +64,7 @@ RSpec.describe LedgerSync::Result, type: :serializable do
     end
 
     it do
-      subject = described_class.Failure(:err, operation: :op, resource: :res, response: :resp).serialize
+      subject = described_class.Failure(:err, operation: :op, resource: :res, response: :resp).simply_serialize
 
       h = {
         root: 'LedgerSync::OperationResult::Failure/4e173f03055f33005bb3c71a3ffafe6c',
