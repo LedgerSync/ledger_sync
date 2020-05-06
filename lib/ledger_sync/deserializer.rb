@@ -8,6 +8,18 @@ module LedgerSync
   class Deserializer
     include Serialization::Mixin
 
+    class Delegator
+      def deserialize(args = {})
+        deserializer_for(args).new.deserialize(args)
+      end
+
+      private
+
+      def deserializer_for(_args = {})
+        raise NotImplementedError
+      end
+    end
+
     def attribute_value_from_ledger(hash:, ledger_serializer_attribute:, resource:)
       ledger_serializer_attribute.value_from_hash(
         hash: hash,
