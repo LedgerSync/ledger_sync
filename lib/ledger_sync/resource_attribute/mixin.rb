@@ -36,7 +36,7 @@ module LedgerSync
               resource_attribute.value = val
             end
 
-            serialize attributes: [name]
+            simply_serialize attributes: [name]
           end
         end
 

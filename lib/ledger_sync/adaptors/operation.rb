@@ -27,7 +27,7 @@ module LedgerSync
           base.extend ClassMethods
 
           base.class_eval do
-            serialize only: %i[
+            simply_serialize only: %i[
               adaptor
               resource
               result
@@ -142,10 +142,10 @@ module LedgerSync
         end
 
         def validation_data
-          serializer = resource.serializer(
+          simply_serializer_instance = resource.simply_serializer(
             do_not_serialize_if_class_is: Resource::PRIMITIVES
           )
-          serializer.serialize[:objects][serializer.id][:data]
+          simply_serializer_instance.serialize[:objects][simply_serializer_instance.id][:data]
         end
 
         def errors

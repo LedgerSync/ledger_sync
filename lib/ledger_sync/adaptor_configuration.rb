@@ -13,7 +13,7 @@ module LedgerSync
     attr_reader :aliases,
                 :root_key
 
-    serialize only: %i[
+    simply_serialize only: %i[
       aliases
       module_string
       root_key
