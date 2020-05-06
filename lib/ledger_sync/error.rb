@@ -39,5 +39,8 @@ module LedgerSync
         )
       end
     end
+
+    class TypeValueError < UnexpectedClassError
+    end
   end
 end

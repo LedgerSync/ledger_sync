@@ -69,13 +69,14 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
     end
 
     it do
+      data[:resource_with_date][:date_resource_1][:data][:date_attr] = 12345
       builder = described_class.new(
         data: data,
         cast: false,
         root_resource_external_id: root_resource_external_id,
         root_resource_type: root_resource_type
       )
-      expect(data[:resource_with_date][:date_resource_1][:data][:date_attr]).to eq('2019-01-01')
+      expect(data[:resource_with_date][:date_resource_1][:data][:date_attr]).to eq(12345)
       expect { builder.resource }.to raise_error(LedgerSync::ResourceAttributeError::TypeError)
     end
   end
@@ -90,7 +91,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
                 test_child_resource_external_id
                 test_child2_resource_external_id
               ],
-              test_parent_resource_attribute: :test_parent_resource_value
+              test_parent_resource_attribute: 'test_parent_resource_value'
             }
           }
         },
@@ -98,19 +99,19 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
           test_child_resource_external_id: {
             data: {
               grandchild: :test_grandchild_resource_external_id,
-              test_child_resource_attribute: :test_child_resource_value
+              test_child_resource_attribute: 'test_child_resource_value'
             }
           },
           test_child2_resource_external_id: {
             data: {
-              test_child_resource_attribute: :test_child2_resource_value
+              test_child_resource_attribute: 'test_child2_resource_value'
             }
           }
         },
         test_grandchild_resource: {
           test_grandchild_resource_external_id: {
             data: {
-              test_grandchild_resource_attribute: :test_grandchild_resource_value
+              test_grandchild_resource_attribute: 'test_grandchild_resource_value'
             }
           }
         }

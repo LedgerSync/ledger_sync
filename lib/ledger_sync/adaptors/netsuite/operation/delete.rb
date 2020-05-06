@@ -32,7 +32,7 @@ module LedgerSync
 
           def response
             @response ||= adaptor.delete(
-              path: ledger_serializer.class.api_resource_path(resource: resource)
+              path: ledger_resource_path
             )
           end
 
