@@ -6,7 +6,7 @@
 
 ## Join the Conversation
 
-[Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-cn4qfhb8-~6BrVy8v7~upxQk6Pfo7oQ) to join our public Slack group.
+[Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 ## Installation
 
