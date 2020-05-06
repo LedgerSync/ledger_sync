@@ -27,7 +27,7 @@ module LedgerSync
       TrueClass
     ].freeze
 
-    serialize except: %i[resource_attributes references]
+    simply_serialize except: %i[resource_attributes references]
 
     attribute :external_id, type: Type::ID
     attribute :ledger_id, type: Type::ID

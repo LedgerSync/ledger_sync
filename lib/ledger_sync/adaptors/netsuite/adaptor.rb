@@ -60,6 +60,14 @@ module LedgerSync
           request(keywords.merge(method: :get))
         end
 
+        def ledger_resource_path(args = {})
+          resource = args.fetch(:resource, nil)
+
+          ret = resource.class.resource_type.to_s # This can be turned into a case statement if we need to override
+          ret += "/#{resource.ledger_id}" if resource.ledger_id.present?
+          ret
+        end
+
         def metadata_for(record:)
           Record::Metadata.new(
             adaptor: self,

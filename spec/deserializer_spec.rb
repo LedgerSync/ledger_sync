@@ -5,12 +5,9 @@ require 'spec_helper'
 RSpec.describe LedgerSync::Deserializer do
   let(:test_deserializer_class) do
     Class.new(LedgerSync::Deserializer) do
-      attribute :name,
-                hash_attribute: :name
-      attribute :phone_number,
-                hash_attribute: :phone_number
-      attribute :email,
-                hash_attribute: :email
+      attribute :name
+      attribute :phone_number
+      attribute :email
     end
   end
 
@@ -51,54 +48,6 @@ RSpec.describe LedgerSync::Deserializer do
   it { expect(described_class).to respond_to(:references_one) }
 
   describe '#serialize' do
-    context 'type switching' do
-      let(:resource) { custom_resource_class.new(foo: 'foo_1') }
-
-      let(:test_deserializer) do
-        Class.new(LedgerSync::Serialization::DeserializerDelegator) do
-          private
-
-          def deserializer_for(args = {})
-            hash = args.fetch(:hash)
-
-            case hash.fetch('type')
-            when 'type_1'
-              Class.new(LedgerSync::Deserializer) do
-                attribute :type, hash_attribute: :type
-                attribute :foo, hash_attribute: :bar
-              end
-            when 'type_2'
-              Class.new(LedgerSync::Deserializer) do
-                attribute :foo, hash_attribute: :baz
-              end
-            end
-          end
-        end
-      end
-
-      it do
-        h = {
-          'bar' => 'bar_value',
-          'baz' => 'baz_value',
-          'type' => 'type_1'
-        }
-        deserialized_resource = test_deserializer.new.deserialize(hash: h, resource: resource)
-        expect(deserialized_resource.foo).to eq('bar_value')
-        expect(deserialized_resource.type).to eq('type_1')
-      end
-
-      it do
-        h = {
-          'bar' => 'bar_value',
-          'baz' => 'baz_value',
-          'type' => 'type_2'
-        }
-        deserialized_resource = test_deserializer.new.deserialize(hash: h, resource: resource)
-        expect(deserialized_resource.foo).to eq('baz_value')
-        expect(deserialized_resource.type).to be_nil
-      end
-    end
-
     it do
       h = {
         'email' => 'test_email',

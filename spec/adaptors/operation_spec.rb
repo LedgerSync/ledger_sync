@@ -54,79 +54,13 @@ RSpec.describe LedgerSync::Adaptors::Operation do
     end
   end
 
-  describe '#ledger_deserializer_class' do
+  describe '#deserializer' do
     it do
       op = operation_class.new(
         adaptor: netsuite_adaptor,
         resource: FactoryBot.create(:customer)
       )
-      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::NetSuite::Customer::LedgerDeserializer)
-    end
-
-    it do
-      op = operation_class.new(
-        adaptor: netsuite_adaptor,
-        ledger_deserializer_class: nil,
-        resource: FactoryBot.create(:customer)
-      )
-      expect(op.ledger_deserializer_class).to eq(LedgerSync::Adaptors::NetSuite::Customer::LedgerDeserializer)
-    end
-
-    it do
-      op = operation_class.new(
-        adaptor: netsuite_adaptor,
-        ledger_deserializer_class: serializer_class,
-        resource: FactoryBot.create(:customer)
-      )
-      expect(op.ledger_deserializer_class).to eq(serializer_class)
-    end
-
-    it do
-      expect do
-        operation_class.new(
-          adaptor: netsuite_adaptor,
-          ledger_deserializer_class: 'asdf',
-          resource: FactoryBot.create(:customer)
-        )
-      end.to raise_error(LedgerSync::Error::UnexpectedClassError)
-    end
-  end
-
-  describe '#ledger_serializer_class' do
-    it do
-      op = operation_class.new(
-        adaptor: netsuite_adaptor,
-        resource: FactoryBot.create(:customer)
-      )
-      expect(op.ledger_serializer_class).to eq(LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer)
-    end
-
-    it do
-      op = operation_class.new(
-        adaptor: netsuite_adaptor,
-        ledger_serializer_class: nil,
-        resource: FactoryBot.create(:customer)
-      )
-      expect(op.ledger_serializer_class).to eq(LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer)
-    end
-
-    it do
-      op = operation_class.new(
-        adaptor: netsuite_adaptor,
-        ledger_serializer_class: serializer_class,
-        resource: FactoryBot.create(:customer)
-      )
-      expect(op.ledger_serializer_class).to eq(serializer_class)
-    end
-
-    it do
-      expect do
-        operation_class.new(
-          adaptor: netsuite_adaptor,
-          ledger_serializer_class: 'asdf',
-          resource: FactoryBot.create(:customer)
-        )
-      end.to raise_error(LedgerSync::Error::UnexpectedClassError)
+      expect(op.deserializer).to be_a(LedgerSync::Adaptors::NetSuite::Customer::Deserializer)
     end
   end
 
@@ -179,6 +113,16 @@ RSpec.describe LedgerSync::Adaptors::Operation do
           resource: nil
         )
       end.to raise_error(LedgerSync::Error::UnexpectedClassError)
+    end
+  end
+
+  describe '#serializer' do
+    it do
+      op = operation_class.new(
+        adaptor: netsuite_adaptor,
+        resource: FactoryBot.create(:customer)
+      )
+      expect(op.serializer).to be_a(LedgerSync::Adaptors::NetSuite::Customer::Serializer)
     end
   end
 

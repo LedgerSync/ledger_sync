@@ -7,7 +7,7 @@ module LedgerSync
         include Mixins::OffsetAndLimitPaginationSearcherMixin
 
         def query_attributes
-          @query_attributes ||= searcher_ledger_deserializer_class.attributes.map(&:ledger_attribute)
+          @query_attributes ||= searcher_deserializer_class.attributes.values.map(&:hash_attribute)
         end
 
         def query_string
@@ -33,9 +33,7 @@ module LedgerSync
               request.body
                      .fetch('items')
                      .map do |c|
-                searcher_ledger_deserializer_class.new(
-                  resource: resource_class.new
-                ).deserialize(hash: c)
+                searcher_deserializer_class.new.deserialize(hash: c, resource: resource_class.new)
               end
             when 404
               []
@@ -43,8 +41,8 @@ module LedgerSync
           end
         end
 
-        def searcher_ledger_deserializer_class
-          @searcher_ledger_deserializer_class ||= self.class.inferred_searcher_ledger_deserializer_class
+        def searcher_deserializer_class
+          @searcher_deserializer_class ||= self.class.inferred_serialization_class(type: 'SearcherDeserializer')
         end
 
         private

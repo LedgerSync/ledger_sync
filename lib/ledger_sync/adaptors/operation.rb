@@ -23,11 +23,12 @@ module LedgerSync
           base.include Fingerprintable::Mixin
           base.include Error::HelpersMixin
           base.include Adaptors::Mixins::InferLedgerSerializerMixin
+          base.include Adaptors::Mixins::SerializationMixin
           base.include Adaptors::Mixins::InferValidationContractMixin
           base.extend ClassMethods
 
           base.class_eval do
-            serialize only: %i[
+            simply_serialize only: %i[
               adaptor
               resource
               result
@@ -42,20 +43,14 @@ module LedgerSync
                     :result,
                     :response
 
-        def initialize(
-          **keywords
-        )
-          @adaptor = keywords.fetch(:adaptor)
-          @ledger_deserializer_class = keywords.fetch(:ledger_deserializer_class, nil)
-          @ledger_serializer_class = keywords.fetch(:ledger_serializer_class, nil)
-          @resource = keywords.fetch(:resource)
+        def initialize(args = {})
+          @adaptor = args.fetch(:adaptor)
+          @resource = args.fetch(:resource)
           @resource_before_perform = resource.dup
           @result = nil
-          @validation_contract = keywords.fetch(:validation_contract, nil)
+          @validation_contract = args.fetch(:validation_contract, nil)
 
           self.class.raise_if_unexpected_class(expected: self.class.inferred_resource_class, given: @resource.class)
-          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_deserializer_class) unless @ledger_deserializer_class.nil?
-          self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::LedgerSerializer, given: ledger_serializer_class) unless @ledger_serializer_class.nil?
           self.class.raise_if_unexpected_class(expected: LedgerSync::Adaptors::Contract, given: validation_contract) unless @validation_contract.nil?
         end
 
@@ -142,10 +137,10 @@ module LedgerSync
         end
 
         def validation_data
-          serializer = resource.serializer(
+          simply_serializer_instance = resource.simply_serializer(
             do_not_serialize_if_class_is: Resource::PRIMITIVES
           )
-          serializer.serialize[:objects][serializer.id][:data]
+          simply_serializer_instance.serialize[:objects][simply_serializer_instance.id][:data]
         end
 
         def errors

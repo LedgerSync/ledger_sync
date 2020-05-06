@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'value_type'
-
 module LedgerSync
   class Serialization
     module Type
-      class SerializerType < ValueType
+      class SerializerType < LedgerSync::Type::Value
         attr_reader :serializer
 
         def initialize(args = {})

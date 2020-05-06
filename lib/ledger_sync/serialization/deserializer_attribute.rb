@@ -9,13 +9,18 @@ module LedgerSync
         super
 
         raise 'Missing resource_attribute' if resource_attribute.blank?
-        raise 'block and hash_attribute cannot both be present' unless block.nil? || hash_attribute.nil?
+
+        if block.present?
+          raise 'block and hash_attribute cannot both be present' if hash_attribute.present?
+        else
+          @hash_attribute ||= resource_attribute
+        end
       end
 
       def value_from_hash(hash:, resource:)
         value = hash.dig(*hash_attribute.split('.'))
 
-        value = type.convert(value: value)
+        value = type.cast(value: value)
 
         return value if resource_attribute_dot_parts.count <= 1
 

@@ -46,7 +46,7 @@ module LedgerSync
     end
 
     def cast(value)
-      type.cast(value)
+      type.cast(value: value)
     end
 
     # This is for ActiveModel::Dirty, since we define @attributes
@@ -61,17 +61,16 @@ module LedgerSync
     end
 
     def valid_with?(value:)
-      type.valid_without_casting?(value: value)
+      type.valid?(value: value)
     end
 
     def value=(val)
-      assert_valid(value: val)
-      @value = type.cast(val)
+      @value = type.cast(value: val)
     end
 
     def will_change?(val)
       assert_valid(value: val)
-      value != type.cast(val)
+      value != type.cast(value: val)
     end
   end
 end

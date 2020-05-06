@@ -6,10 +6,10 @@ class Resonad
   include SimplySerializable::Mixin
 
   class Success < Resonad
-    serialize only: %i[value]
+    simply_serialize only: %i[value]
   end
 
   class Failure < Resonad
-    serialize only: %i[error]
+    simply_serialize only: %i[error]
   end
 end

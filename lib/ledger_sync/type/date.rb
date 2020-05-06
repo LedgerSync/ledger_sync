@@ -12,7 +12,7 @@ module LedgerSync
       end
 
       def valid_classes
-        [::Date]
+        [::Date, ::String]
       end
     end
   end
