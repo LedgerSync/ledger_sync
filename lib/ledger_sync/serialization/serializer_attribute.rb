@@ -9,7 +9,12 @@ module LedgerSync
         super
 
         raise 'Missing hash_attribute' if hash_attribute.blank?
-        raise 'block and resource_attribute cannot both be present' unless block.nil? || resource_attribute.nil?
+
+        if block.present?
+          raise 'block and hash_attribute cannot both be present' if resource_attribute.present?
+        else
+          @resource_attribute ||= hash_attribute
+        end
       end
 
       # Make nested/dot calls (e.g. `vendor.ledger_id`)

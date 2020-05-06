@@ -5,12 +5,9 @@ require 'spec_helper'
 RSpec.describe LedgerSync::Serializer do
   let(:test_serializer_class) do
     Class.new(LedgerSync::Serializer) do
-      attribute :name,
-                resource_attribute: :name
-      attribute :phone_number,
-                resource_attribute: :phone_number
-      attribute :email,
-                resource_attribute: :email
+      attribute :name
+      attribute :phone_number
+      attribute :email
     end
   end
 

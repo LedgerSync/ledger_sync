@@ -5,12 +5,9 @@ require 'spec_helper'
 RSpec.describe LedgerSync::Deserializer do
   let(:test_deserializer_class) do
     Class.new(LedgerSync::Deserializer) do
-      attribute :name,
-                hash_attribute: :name
-      attribute :phone_number,
-                hash_attribute: :phone_number
-      attribute :email,
-                hash_attribute: :email
+      attribute :name
+      attribute :phone_number
+      attribute :email
     end
   end
 

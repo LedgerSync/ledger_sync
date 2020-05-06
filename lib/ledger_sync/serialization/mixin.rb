@@ -47,7 +47,7 @@ module LedgerSync
 
         def _build_attribute(args)
           block              = args.fetch(:block, nil)
-          hash_attribute     = args.fetch(:hash_attribute)
+          hash_attribute     = args.fetch(:hash_attribute, nil)
           resource_attribute = args.fetch(:resource_attribute, nil)
           resource_class     = args.fetch(:resource_class, nil)
           serializer         = args.fetch(:serializer, nil)
