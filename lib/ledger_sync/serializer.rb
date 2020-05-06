@@ -8,6 +8,18 @@ module LedgerSync
   class Serializer
     include Serialization::Mixin
 
+    class Delegator
+      def serialize(args = {})
+        serializer_for(args).new.serialize(args)
+      end
+
+      private
+
+      def serializer_for(_args = {})
+        raise NotImplementedError
+      end
+    end
+
     def serialize(args = {})
       only_changes = args.fetch(:only_changes, false)
       resource     = args.fetch(:resource)

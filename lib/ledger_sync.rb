@@ -50,7 +50,6 @@ require 'ledger_sync/result'
 require 'ledger_sync/serializer'
 require 'ledger_sync/deserializer'
 require 'ledger_sync/serialization/deserializer_delegator'
-require 'ledger_sync/serialization/serializer_delegator'
 
 # Adaptors
 Gem.find_files('ledger_sync/adaptors/mixins/**/*.rb').each { |path| require path }
