@@ -28,7 +28,7 @@ module LedgerSync
         :reference_one
       end
 
-      def valid_without_casting?(value:)
+      def valid?(value:)
         return true if value.nil?
         return true if resource_classes.select { |e| value.is_a?(e) }.any?
 

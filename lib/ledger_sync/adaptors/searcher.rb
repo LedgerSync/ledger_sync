@@ -6,6 +6,7 @@ module LedgerSync
       include SimplySerializable::Mixin
       include Mixins::InferResourceClassMixin
       include Mixins::InferLedgerSerializerMixin
+      include Mixins::SerializationMixin
 
       attr_reader :adaptor,
                   :query,

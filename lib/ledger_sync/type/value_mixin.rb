@@ -8,24 +8,54 @@ module LedgerSync
         base.include SimplySerializable::Mixin
       end
 
-      def cast?
-        false
+      # Do not override this method.  Override private method cast_value
+      def cast(args = {})
+        assert_valid(args)
+        cast_value(args)
+      end
+
+      def valid?(args = {})
+        valid_class?(args)
+      end
+
+      private
+
+      def assert_valid(args = {})
+        return if valid_class?(args)
+
+        raise Error::TypeValueError.new(
+          expected: valid_classes,
+          given: value.class
+        )
+      end
+
+      # Override this method to handle different types of casting.
+      def cast_value(args = {})
+        args.fetch(:value)
       end
 
       def error_message(attribute:, resource_class:, value:)
         "Attribute #{attribute.name} for #{resource_class.name} should be a class supported by #{self.class.name}.  Given: #{value.class}"
       end
 
-      def valid_classes
-        raise NotImplementedError
-      end
+      def valid_class?(args = {})
+        value = args.fetch(:value)
 
-      def valid_without_casting?(value:)
         return true if value.nil?
         return true if valid_classes.select { |e| value.is_a?(e) }.any?
 
         false
       end
+
+      def valid_classes
+        [
+          Object
+        ]
+      end
+
+      # def cast?
+      #   false
+      # end
     end
   end
 end

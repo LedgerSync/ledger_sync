@@ -16,7 +16,7 @@ module LedgerSync
         @hash_attribute     = args.fetch(:hash_attribute, nil).try(:to_s)
         @resource_attribute = args.fetch(:resource_attribute, nil).try(:to_s)
         @resource_class     = args.fetch(:resource_class, nil)
-        @type               = args.fetch(:type, nil) || Type::ValueType.new
+        @type               = args.fetch(:type, nil) || LedgerSync::Type::Value.new
       end
 
       def block_value_for(args = {})

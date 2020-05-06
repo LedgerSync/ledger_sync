@@ -20,7 +20,7 @@ module LedgerSync
       def value_from_hash(hash:, resource:)
         value = hash.dig(*hash_attribute.split('.'))
 
-        value = type.convert(value: value)
+        value = type.cast(value: value)
 
         return value if resource_attribute_dot_parts.count <= 1
 

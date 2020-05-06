@@ -66,7 +66,7 @@ module LedgerSync
                     )
                   end
                 elsif cast
-                  attribute.type.cast(v)
+                  attribute.type.cast(value: v)
                 else
                   v
                 end

@@ -2,17 +2,10 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Location::LedgerSerializer do
+RSpec.describe LedgerSync::Adaptors::NetSuite::Location::Deserializer do
   let(:resource_type) { :location }
   let(:id) { '123' }
   let(:name) { 'Location Name' }
-  let(:resource) do
-    FactoryBot.create(
-      resource_type,
-      ledger_id: id,
-      name: name
-    )
-  end
 
   let(:h) do
     {
@@ -27,18 +20,10 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Location::LedgerSerializer do
     }
   end
 
-  describe '#to_ledger_hash' do
-    let(:serializer) { described_class.new(resource: resource) }
-
-    it do
-      expect(serializer.to_ledger_hash).to eq(h.slice('id', 'name'))
-    end
-  end
-
   describe '#deserialize' do
     let(:resource) { LedgerSync.resources[resource_type].new }
-    let(:serializer) { described_class.new(resource: resource) }
-    let(:deserialized_resource) { serializer.deserialize(hash: h) }
+    let(:serializer) { described_class.new }
+    let(:deserialized_resource) { serializer.deserialize(hash: h, resource: resource) }
 
     it do
       expect(deserialized_resource.ledger_id).to eq(id)

@@ -49,7 +49,7 @@ module LedgerSync
                   block_value_for(resource: resource)
                 end
 
-        type.convert(value: value)
+        type.cast(value: value)
       end
     end
   end

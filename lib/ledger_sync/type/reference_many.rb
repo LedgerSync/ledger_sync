@@ -23,7 +23,7 @@ module LedgerSync
         :reference_many
       end
 
-      def valid_without_casting?(value:)
+      def valid?(value:)
         return false unless value.is_a?(Array)
         return true if (resource_classes & value.map(&:class)).any?
         return true if value.is_a?(Array) && value.empty?
