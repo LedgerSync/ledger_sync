@@ -7,7 +7,7 @@ module LedgerSync
       include SimplySerializable::Mixin
       include Validatable
 
-      serialize only: %i[
+      simply_serialize only: %i[
         adaptor_configuration
       ]
 

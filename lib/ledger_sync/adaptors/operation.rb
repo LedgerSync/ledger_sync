@@ -27,7 +27,7 @@ module LedgerSync
           base.extend ClassMethods
 
           base.class_eval do
-            serialize only: %i[
+            simply_serialize only: %i[
               adaptor
               resource
               result

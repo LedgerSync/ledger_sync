@@ -12,7 +12,7 @@ module LedgerSync
                   :pagination,
                   :request
 
-      serialize only: %i[
+      simply_serialize only: %i[
         adaptor
         query
         pagination
