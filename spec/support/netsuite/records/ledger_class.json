@@ -1,0 +1,20 @@
+{
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/classification/1"
+    }
+  ],
+  "id": "1",
+  "includechildren": true,
+  "isinactive": false,
+  "name": "Bank Services",
+  "subsidiary": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/classification/1/subsidiary"
+      }
+    ]
+  }
+}
