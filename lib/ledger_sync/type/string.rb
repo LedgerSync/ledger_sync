@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'value_mixin'
+
 module LedgerSync
   module Type
     class String < ActiveModel::Type::String # :nodoc:

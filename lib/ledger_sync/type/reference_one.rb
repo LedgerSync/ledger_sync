@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'value'
+
 module LedgerSync
   module Type
     class ReferenceOne < Value # :nodoc:
