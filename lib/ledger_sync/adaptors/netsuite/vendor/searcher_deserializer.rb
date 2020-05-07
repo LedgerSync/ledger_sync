@@ -5,6 +5,8 @@ module LedgerSync
     module NetSuite
       module Vendor
         class SearcherDeserializer < NetSuite::Deserializer
+          id
+
           attribute :email
 
           attribute :company_name,
