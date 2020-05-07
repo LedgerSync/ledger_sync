@@ -1,29 +1,50 @@
+# frozen_string_literal: true
+
 module LedgerSync
+  class ResourceAttributeError < Error
+    class TypeError < self
+      attr_reader :attribute, :resource_class, :value
+
+      def initialize(args = {})
+        @attribute = args.fetch(:attribute)
+        @resource_class = args.fetch(:resource_class)
+        @value = args.fetch(:value)
+
+        type_resource_class = if attribute.is_a?(LedgerSync::ResourceAttribute::Reference)
+                                attribute.type.resource_class
+                              else
+                                attribute.resource_class
+                              end
+
+        message = "Attribute #{attribute.name} for #{resource_class.name} should be "
+
+        message += case attribute
+                   when LedgerSync::ResourceAttribute::Reference::Many
+                     invalid_classes = value.reject { |e| e.is_a?(type_resource_class) }.map(&:class)
+                     if type_resource_class.is_a?(Array)
+                       "an array of one or more of the following: #{type_resource_class.name}.  Given array containing: #{invalid_classes.join(', ')}"
+                     else
+                       "an array of #{type_resource_class.name}.  Given array containing: #{invalid_classes.join(', ')}"
+                     end
+                   else
+                     if type_resource_class.is_a?(Array)
+                       "one of the following: #{type_resource_class.map(&:name).join(', ')}.  Given #{value.class.name}"
+                     else
+                       "a #{type_resource_class.name}.  Given #{value.class.name}"
+                     end
+                   end
+
+        super(message: message)
+      end
+    end
+  end
+
   class ResourceError < Error
     attr_reader :resource
 
     def initialize(message:, resource:)
       @resource = resource
       super(message: message)
-    end
-    class AttributeTypeError < self
-      attr_reader :attribute, :resource, :value
-
-      def initialize(attribute:, resource:, value:)
-        @attribute = attribute
-        @resource = resource
-        @value = value
-
-        resource_class = resource.class
-
-        message = attribute.type.error_message(
-          attribute: attribute,
-          resource: resource,
-          value: value
-        )
-
-        super(message: message, resource: nil)
-      end
     end
 
     class ReferenceAssignmentError < self

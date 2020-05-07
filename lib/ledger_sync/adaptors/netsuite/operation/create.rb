@@ -41,12 +41,9 @@ module LedgerSync
           end
 
           def response
-            ledger_hash = ledger_serializer.to_ledger_hash
-            ledger_hash.delete('entityId')
-
             @response ||= adaptor.post(
-              body: ledger_hash,
-              path: adaptor.api_resource_path
+              body: serializer.serialize(resource: resource),
+              path: ledger_resource_path
             )
           end
 

@@ -12,19 +12,11 @@ module LedgerSync
         super()
       end
 
-      def error_message(attribute:, resource:, value:)
-        if resource_class.is_a?(Array)
-          "Attribute #{attribute.name} for #{resource.class.name} should be one of the following: #{resource_class.map(&:name).join(', ')}.  Given #{value.class.name}"
-        else
-          "Attribute #{attribute.name} for #{resource.class.name} should be a #{resource_class.name}.  Given #{value.class.name}"
-        end
-      end
-
       def type
         :reference_one
       end
 
-      def valid_without_casting?(value:)
+      def valid?(value:)
         return true if value.nil?
         return true if resource_classes.select { |e| value.is_a?(e) }.any?
 

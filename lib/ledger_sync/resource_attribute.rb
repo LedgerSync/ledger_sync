@@ -14,26 +14,39 @@ module LedgerSync
   class ResourceAttribute
     include Fingerprintable::Mixin
     include SimplySerializable::Mixin
+    include Util::Mixins::DupableMixin
 
-    attr_accessor :value
     attr_reader :name,
                 :reference,
-                :type
+                :resource_class,
+                :type,
+                :value
 
-    def initialize(name:, type:, value: nil)
-      @name = name.to_sym
+    def initialize(args = {})
+      @name           = args.fetch(:name).to_sym
+      @resource_class = args.fetch(:resource_class)
+      @type           = args.fetch(:type)
+      @value          = args.fetch(:value, nil)
 
-      type = type.new if type.respond_to?(:new) && !type.is_a?(Type::Value)
+      @type = type.new if type.respond_to?(:new) && !type.is_a?(Type::Value)
 
       raise "Invalid Type: #{type}" unless type.is_a?(ActiveModel::Type::Value)
+    end
 
-      @type = type
+    def assert_valid(args = {})
+      value = args.fetch(:value)
 
-      @value = value
+      return if valid_with?(value: value)
+
+      raise ResourceAttributeError::TypeError.new(
+        attribute: self,
+        resource_class: resource_class,
+        value: value
+      )
     end
 
     def cast(value)
-      type.cast(value)
+      type.cast(value: value)
     end
 
     # This is for ActiveModel::Dirty, since we define @attributes
@@ -48,7 +61,16 @@ module LedgerSync
     end
 
     def valid_with?(value:)
-      type.valid_without_casting?(value: value)
+      type.valid?(value: value)
+    end
+
+    def value=(val)
+      @value = type.cast(value: val)
+    end
+
+    def will_change?(val)
+      assert_valid(value: val)
+      value != type.cast(value: val)
     end
   end
 end

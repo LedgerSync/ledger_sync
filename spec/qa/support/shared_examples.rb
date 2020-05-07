@@ -141,3 +141,14 @@ RSpec.shared_examples 'an update' do |delete: true|
     end
   end
 end
+
+RSpec.shared_examples 'a searcher' do
+  it do
+    result = adaptor.searcher_for(resource_type: resource.class.resource_module_str).search
+
+    byebug if result.failure?
+
+    expect(result).to be_success
+  end
+end
+

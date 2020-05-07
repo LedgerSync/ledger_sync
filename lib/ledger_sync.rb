@@ -44,11 +44,16 @@ require 'ledger_sync/adaptor_configuration_store'
 require 'ledger_sync/util/performer'
 require 'ledger_sync/util/validator'
 require 'ledger_sync/util/string_helpers'
+require 'ledger_sync/util/mixins/delegate_iterable_methods_mixin'
+require 'ledger_sync/util/mixins/dupable_mixin'
 require 'ledger_sync/result'
+require 'ledger_sync/serializer'
+require 'ledger_sync/deserializer'
 
 # Adaptors
 Gem.find_files('ledger_sync/adaptors/mixins/**/*.rb').each { |path| require path }
 require 'ledger_sync/adaptors/adaptor'
+require 'ledger_sync/adaptors/dashboard_url_helper'
 require 'ledger_sync/adaptors/searcher'
 require 'ledger_sync/adaptors/ledger_serializer'
 require 'ledger_sync/adaptors/operation'

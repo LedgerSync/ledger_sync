@@ -15,18 +15,10 @@ module LedgerSync
         end
 
         def url_for(resource:)
-          base_url = 'https://dashboard.stripe.com'
-          resource_path = case resource
-                          when LedgerSync::Customer
-                            "/customers/#{resource.ledger_id}"
-                          else
-                            raise Error::AdaptorError::UnknownURLFormat.new(
-                              adaptor: self,
-                              resource: resource
-                            )
-                          end
-
-          base_url + resource_path
+          DashboardURLHelper.new(
+            resource: resource,
+            base_url: "https://dashboard.stripe.com"
+          ).url
         end
 
         def wrap_perform

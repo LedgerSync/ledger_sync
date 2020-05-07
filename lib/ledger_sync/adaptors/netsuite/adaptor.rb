@@ -12,7 +12,8 @@ module LedgerSync
 
         WRITE_HEADERS = {
           'Accept' => '*/*',
-          'Content-Type' => 'application/json'
+          'Content-Type' => 'application/json',
+          'prefer' => 'transient'
         }.freeze
 
         attr_reader :account_id,
@@ -73,6 +74,14 @@ module LedgerSync
           request(keywords.merge(method: :get))
         end
 
+        def ledger_resource_path(args = {})
+          resource = args.fetch(:resource, nil)
+
+          ret = resource.class.resource_type.to_s # This can be turned into a case statement if we need to override
+          ret += "/#{resource.ledger_id}" if resource.ledger_id.present?
+          ret
+        end
+
         def metadata_for(record:)
           Record::Metadata.new(
             adaptor: self,
@@ -124,6 +133,13 @@ module LedgerSync
           )
         end
 
+        def url_for(resource:)
+          DashboardURLHelper.new(
+            resource: resource,
+            base_url: "https://#{account_id_for_url}.app.netsuite.com"
+          ).url
+        end
+
         private
 
         def new_token(body:, method:, url:)
@@ -138,8 +154,8 @@ module LedgerSync
           )
         end
 
-        def request(body: nil, headers: {}, method:, path: nil)
-          request_url = url_from_path(path: path)
+        def request(body: nil, headers: {}, method:, path: nil, request_url: nil)
+          request_url ||= url_from_path(path: path)
 
           token = new_token(
             body: body,

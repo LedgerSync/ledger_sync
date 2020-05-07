@@ -11,7 +11,8 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department::LedgerSeriali
         serializer = described_class.new(resource: department)
         hash = serializer.to_ledger_hash
 
-        expect(hash['ParentRef']).to eq(nil)
+        expect(hash).to have_key('ParentRef')
+        expect(hash['ParentRef']).to be_nil
       end
     end
 
@@ -34,7 +35,8 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department::LedgerSeriali
         serializer = described_class.new(resource: department)
         hash = serializer.to_ledger_hash
 
-        expect(hash['ParentRef']).to eq({"value" => nil})
+        expect(hash).to have_key('ParentRef')
+        expect(hash['ParentRef']).to be_nil
       end
     end
   end

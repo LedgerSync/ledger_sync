@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'value_mixin'
+
 module LedgerSync
   module Type
     class Date < ActiveModel::Type::Date # :nodoc:
@@ -10,7 +12,7 @@ module LedgerSync
       end
 
       def valid_classes
-        [::Date]
+        [::Date, ::String]
       end
     end
   end

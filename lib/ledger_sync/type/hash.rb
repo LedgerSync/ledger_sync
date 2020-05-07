@@ -23,7 +23,9 @@ module LedgerSync
 
       private
 
-      def cast_value(value)
+      def cast_value(args = {})
+        value = args.fetch(:value)
+
         case value
         when ::Hash then value.clone
         else { value: valuev}

@@ -21,4 +21,5 @@ RSpec.describe LedgerSync::Adaptors::NetSuite::Customer, qa: true, adaptor: :net
   end
 
   it_behaves_like 'a full netsuite resource'
+  it_behaves_like 'a searcher'
 end

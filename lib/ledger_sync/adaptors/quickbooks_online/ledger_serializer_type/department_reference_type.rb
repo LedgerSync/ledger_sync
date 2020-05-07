@@ -2,19 +2,21 @@
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module QuickBooksOnline
       module LedgerSerializerType
-        class ReferenceType < Adaptors::LedgerSerializerType::ValueType
+        class DepartmentReferenceType < Adaptors::LedgerSerializerType::ValueType
           def convert_from_ledger(value:)
-            raise NotImplementedError
+            return if value.nil?
+            return if value['value'].nil?
+
+            LedgerSync::Department.new(ledger_id: value['value'])
           end
 
           def convert_from_local(value:)
             return if value.nil?
-            raise "Resource expected.  Given: #{value.class.name}" unless value.is_a?(LedgerSync::Resource)
 
             {
-              'id' => value.ledger_id
+              'value' => value.ledger_id
             }
           end
         end

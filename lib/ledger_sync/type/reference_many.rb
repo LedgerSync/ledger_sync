@@ -12,18 +12,11 @@ module LedgerSync
         super()
       end
 
-      def error_message(attribute:, resource:, value:)
-        return super unless value.is_a?(Array)
-
-        invalid_classes = value.reject { |e| e.is_a?(resource_class) }.map(&:class)
-        "Attribute #{attribute.name} for #{resource.class.name} should be an array of #{resource_class.name}.  Given array containing: #{invalid_classes.join(', ')}"
-      end
-
       def type
         :reference_many
       end
 
-      def valid_without_casting?(value:)
+      def valid?(value:)
         return false unless value.is_a?(Array)
         return true if (resource_classes & value.map(&:class)).any?
         return true if value.is_a?(Array) && value.empty?

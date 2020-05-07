@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'value'
+
 module LedgerSync
   module Type
     class ID < Value # :nodoc:
@@ -18,12 +20,16 @@ module LedgerSync
       end
 
       def valid_classes
-        [::String, ::Symbol, ::Integer]
+        [::String, ::Symbol, ::Integer, ::NilClass]
       end
 
       private
 
-      def cast_value(value)
+      def cast_value(args = {})
+        value = args.fetch(:value)
+
+        return if value.nil?
+
         case value
         when ::String then ::String.new(value)
         else value.to_s

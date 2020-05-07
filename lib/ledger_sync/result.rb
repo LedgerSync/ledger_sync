@@ -31,7 +31,7 @@ module LedgerSync
 
       def self.included(base)
         base.class_eval do
-          serialize only: %i[operation resource response]
+          simply_serialize only: %i[operation resource response]
         end
       end
 
@@ -64,7 +64,7 @@ module LedgerSync
       def self.included(base)
         base.class_eval do
           # TODO: removed next and previous searcher, because it causes a string of them.  We should add next_searcher_params which would be easier to serialize.
-          serialize only: %i[resources searcher]
+          simply_serialize only: %i[resources searcher]
         end
       end
 
@@ -100,7 +100,7 @@ module LedgerSync
 
       def self.included(base)
         base.class_eval do
-          serialize only: %i[validator]
+          simply_serialize only: %i[validator]
         end
       end
 

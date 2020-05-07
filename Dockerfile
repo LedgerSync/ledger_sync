@@ -1,8 +1,8 @@
-FROM ruby:2.5.1
+FROM ruby:2.6.6
 
 WORKDIR /lib
 
 COPY . .
 RUN bundle install
 
-CMD ["bundle", "exec", "rspec"]
+CMD ["bundle", "exec", "rspec", "--order rand"]

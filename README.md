@@ -6,7 +6,7 @@
 
 ## Join the Conversation
 
-[Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-cn4qfhb8-~6BrVy8v7~upxQk6Pfo7oQ) to join our public Slack group.
+[Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 ## Installation
 
@@ -300,6 +300,19 @@ LedgerSync supports the NetSuite SOAP adaptor, leveraging [the NetSuite gem](htt
 ### OAuth
 
 QuickBooks Online utilizes OAuth 2.0, which requires frequent refreshing of the access token.  The adaptor will handle this automatically, attempting a single token refresh on any single request authentication failure.  Depending on how you use the library, every adaptor has implements a class method `ledger_attributes_to_save`, which is an array of attributes that may change as the adaptor is used.  You can also call the instance method `ledger_attributes_to_save` which will be a hash of these values.  It is a good practice to always store these attributes if you are saving access tokens in your database.
+
+#### Retrieve Access Token
+
+The library contains a lightweight script that is helpful in retrieving and refreshing access tokens.  To use, do the following:
+
+1. Create a `.env` file in the library root.
+2. Add values for `QUICKBOOKS_ONLINE_CLIENT_ID` and `QUICKBOOKS_ONLINE_CLIENT_SECRET` (you can copy `.env.template`).
+3. Ensure your developer application in [the QuickBooks Online developer portal](https://developer.intuit.com) contains this redirect URI: `http://localhost:5678` (note: no trailing slash and port configurable with `PORT` environment variable)
+4. Run `ruby bin/quickbooks_online_oauth_server.rb` from the library root (note: it must run from the root in order to update `.env`).
+5. Visit the URL output in the terminal.
+6. Upon redirect back to your `localhost`, the new values will be printed to the console and saved back to your `.env`
+
+#### Adaptor Helper Methods
 
 The adaptor also implements some helper methods for getting tokens.  For example, you can set up an adaptor using the following:
 

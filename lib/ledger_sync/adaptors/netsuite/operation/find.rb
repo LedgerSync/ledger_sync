@@ -39,13 +39,13 @@ module LedgerSync
 
           def response
             @response ||= adaptor.get(
-              path: adaptor.api_resource_path(resource: resource)
+              path: ledger_resource_path
             )
           end
 
           def success
             super(
-              resource: ledger_deserializer.deserialize(hash: response.body),
+              resource: deserializer.deserialize(hash: response.body, resource: resource),
               response: response
             )
           end

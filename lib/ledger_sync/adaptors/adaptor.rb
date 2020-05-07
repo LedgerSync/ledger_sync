@@ -7,7 +7,7 @@ module LedgerSync
       include SimplySerializable::Mixin
       include Validatable
 
-      serialize only: %i[
+      simply_serialize only: %i[
         adaptor_configuration
       ]
 
@@ -45,10 +45,8 @@ module LedgerSync
         )
       end
 
-      def searcher_for?(resource_type:)
-        searcher_class_for(resource_type: resource_type)
-      rescue NameError
-        false
+      def searcher_for(resource_type:, query: '')
+        searcher_class_for(resource_type: resource_type).new(adaptor: self, query: query)
       end
 
       def searcher_class_for(resource_type:)

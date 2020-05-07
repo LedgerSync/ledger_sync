@@ -11,6 +11,9 @@ module LedgerSync
           end
 
           module InstanceMethods
+            def ledger_resource_path
+              adaptor.ledger_resource_path(resource: resource)
+            end
           end
         end
       end

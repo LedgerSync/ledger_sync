@@ -13,6 +13,15 @@ module LedgerSync
       end
 
       module ClassMethods
+        def _add_resource_attribute(resource_attribute)
+          _define_attribute_methods(resource_attribute.name)
+
+          resource_attributes.add(resource_attribute)
+          references_many_resource_attributes << resource_attribute if resource_attribute.type.is_a?(Reference::Many)
+
+          resource_attribute
+        end
+
         def _define_attribute_methods(name)
           class_eval do
             define_attribute_methods name
@@ -21,37 +30,18 @@ module LedgerSync
               resource_attributes[name].value
             end
 
-            define_method "_#{name}_valid_with_value?" do |val|
-              unless resource_attributes[name].valid_with?(value: val)
-                raise ResourceError::AttributeTypeError.new(
-                  attribute: resource_attributes[name],
-                  resource: self,
-                  value: val
-                )
-              end
-            end
-
             define_method "#{name}=" do |val|
-              attribute = resource_attributes[name]
-              public_send("_#{name}_valid_with_value?", val)
-              val = attribute.type.cast(val) if attribute.type.cast?
-              public_send("#{name}_will_change!") unless val == resource_attributes[name] # For Dirty
-              attribute.value = val
+              resource_attribute = resource_attributes[name]
+              public_send("#{name}_will_change!") if resource_attribute.will_change?(val) # For Dirty
+              resource_attribute.value = val
             end
 
-            serialize attributes: [name]
+            simply_serialize attributes: [name]
           end
         end
 
         def attribute(name, type:)
-          resource_attribute = ResourceAttribute.new(name: name, type: type)
-
-          _define_attribute_methods(name)
-
-          resource_attributes.add(resource_attribute)
-          references_many_resource_attributes << resource_attribute if resource_attribute.type.is_a?(Reference::Many)
-
-          resource_attribute
+          _add_resource_attribute(ResourceAttribute.new(name: name, resource_class: self, type: type))
         end
 
         def references_many_resource_attributes
