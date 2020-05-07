@@ -8,18 +8,18 @@ module LedgerSync
           id
 
           attribute :name,
-                    ledger_attribute: :accountsearchdisplayname
+                    hash_attribute: :accountsearchdisplayname
 
           attribute :number,
-                    ledger_attribute: :acctnumber
+                    hash_attribute: :acctnumber
 
           attribute :account_type,
-                    ledger_attribute: :accttype
+                    hash_attribute: :accttype
 
           attribute :description
 
           attribute :active,
-                    ledger_attribute: :isinactive,
+                    hash_attribute: :isinactive,
                     type: Type::Deserializer::Active.new
         end
       end

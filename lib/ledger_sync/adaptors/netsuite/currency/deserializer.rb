@@ -10,12 +10,12 @@ module LedgerSync
           attribute :name
 
           attribute :external_id,
-                    ledger_attribute: :externalid
+                    hash_attribute: :externalid
 
           attribute :symbol
 
           attribute :exchange_rate,
-                    ledger_attribute: :exchangerate
+                    hash_attribute: :exchangerate
         end
       end
     end

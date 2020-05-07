@@ -6,13 +6,13 @@ module LedgerSync
       attr_reader :resource,
                   :base_url
 
-      def initialize(resource:, base_url:)
-        @resource = resource
-        @base_url = base_url
+      def initialize(args = {})
+        @resource = args.fetch(:resource)
+        @base_url = args.fetch(:base_url)
       end
 
       def url
-        @base_url + resource_path
+        File.join(base_url, resource_path)
       end
 
       def resource_path

@@ -8,10 +8,10 @@ module LedgerSync
           attribute :email
 
           attribute :company_name,
-                    ledger_attribute: :companyname
+                    hash_attribute: :companyname
 
           attribute :phone_number,
-                    ledger_attribute: :phone
+                    hash_attribute: :phone
         end
       end
     end
