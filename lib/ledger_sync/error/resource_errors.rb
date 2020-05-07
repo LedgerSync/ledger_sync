@@ -13,7 +13,7 @@ module LedgerSync
         type_resource_class = if attribute.is_a?(LedgerSync::ResourceAttribute::Reference)
                                 attribute.type.resource_class
                               else
-                                attribute.resource_class
+                                attribute.type.valid_classes
                               end
 
         message = "Attribute #{attribute.name} for #{resource_class.name} should be "
