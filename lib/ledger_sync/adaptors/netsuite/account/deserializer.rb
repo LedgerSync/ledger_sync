@@ -8,13 +8,13 @@ module LedgerSync
           id
 
           attribute :name,
-                    ledger_attribute: :acctname
+                    hash_attribute: :acctname
 
           attribute :account_type,
-                    ledger_attribute: :accttype
+                    hash_attribute: :accttype
 
           attribute :number,
-                    ledger_attribute: :acctnumber
+                    hash_attribute: :acctnumber
         end
       end
     end

@@ -8,18 +8,18 @@ module LedgerSync
           id
 
           attribute :company_name,
-                    ledger_attribute: :companyName
+                    hash_attribute: :companyName
 
           attribute :email
 
           attribute :phone_number,
-                    ledger_attribute: :phone
+                    hash_attribute: :phone
 
           attribute :first_name,
-                    ledger_attribute: :firstName
+                    hash_attribute: :firstName
 
           attribute :last_name,
-                    ledger_attribute: :lastName
+                    hash_attribute: :lastName
 
           attribute :subsidiary,
                     type: Type::Deserializer::Subsidiary.new

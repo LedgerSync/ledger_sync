@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'value'
+
 module LedgerSync
   module Type
     class ReferenceMany < Value # :nodoc:
@@ -23,6 +25,7 @@ module LedgerSync
 
         false
       end
+
       private
 
       def resource_classes
