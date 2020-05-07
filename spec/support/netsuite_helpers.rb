@@ -171,13 +171,31 @@ module NetSuiteHelpers
     record = record.gsub('/', '_')
     url_method_name = "#{record}_url"
 
-    if record.include?('_search')
-      define_method("stub_#{record.gsub(/_search/, '')}_search") do
-        stub_request(:post, "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/query/v1/suiteql?limit=10&offset=0")
-        .to_return(
-          status: 200,
-          body: opts.hash.to_json
-        )
+    if record.end_with?('_search')
+      define_method("stub_#{record}") do
+        stub_request(:post, 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/query/v1/suiteql?limit=10&offset=0')
+          .to_return(
+            status: 200,
+            body: opts.hash.to_json
+          )
+      end
+      next
+    elsif record.end_with?('_metadata_properties')
+      define_method("stub_#{record}") do
+        stub_request(:get, 'https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/metadata-catalog/record/customer')
+          .to_return(
+            status: 200,
+            body: opts.hash.to_json
+          )
+      end
+      next
+    elsif record.end_with?('_metadata')
+      define_method("stub_#{record}") do
+        stub_request(:get, 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/metadata-catalog?select=customer')
+          .to_return(
+            status: 200,
+            body: opts.hash.to_json
+          )
       end
       next
     end

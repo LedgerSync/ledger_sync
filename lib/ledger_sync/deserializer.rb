@@ -51,6 +51,8 @@ module LedgerSync
     end
 
     def self.attribute(resource_attribute, args = {}, &block)
+      raise 'You cannot provide resource_attribute in args.  Pass the value as the first argument.' if args.key?(:resource_attribute)
+
       _attribute(
         args.merge(
           block: (block if block_given?),

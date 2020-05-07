@@ -25,6 +25,7 @@ module LedgerSync
 
         false
       end
+
       private
 
       def resource_classes

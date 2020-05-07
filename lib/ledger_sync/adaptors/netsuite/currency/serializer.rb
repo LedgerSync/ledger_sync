@@ -7,13 +7,13 @@ module LedgerSync
         class Serializer < NetSuite::Serializer
           attribute :name
 
-          attribute :external_id,
-                    ledger_attribute: :externalid
+          attribute :externalid,
+                    resource_attribute: :external_id
 
           attribute :symbol
 
-          attribute :exchange_rate,
-                    ledger_attribute: :exchangerate
+          attribute :exchangerate,
+                    resource_attribute: :exchange_rate
         end
       end
     end
