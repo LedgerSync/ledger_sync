@@ -10,7 +10,7 @@ module LedgerSync
           attribute :name
 
           attribute :active,
-                    ledger_attribute: :isinactive,
+                    hash_attribute: :isinactive,
                     type: Type::Deserializer::Active.new
         end
       end
