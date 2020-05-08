@@ -10,12 +10,13 @@ module LedgerSync
                   :response,
                   :url
 
-      def initialize(body: nil, headers: {}, params: {}, method: nil, url: nil)
-        @body = body
-        @headers = headers
-        @method = method
-        @params = params
-        @url = url
+
+      def initialize(args = {})
+        @body = args.fetch(:body, nil)
+        @headers = args.fetch(:headers, {})
+        @method = args.fetch(:method, nil)
+        @params = args.fetch(:params, {})
+        @url = args.fetch(:url)
       end
 
       def perform
