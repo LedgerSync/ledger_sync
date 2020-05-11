@@ -6,7 +6,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Record
+      class Record
         class Property < Util::ReadOnlyObject
           attribute :enum, default: nil
           attribute :format, default: nil

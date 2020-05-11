@@ -60,6 +60,7 @@ require 'ledger_sync/ledgers/operation'
 require 'ledger_sync/ledgers/contract'
 require 'ledger_sync/ledgers/response'
 require 'ledger_sync/ledgers/request'
+require 'ledger_sync/ledgers/record'
 
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class
@@ -153,4 +154,5 @@ LedgerSync.register_resource(resource: LedgerSync::Transfer)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
 LedgerSync.register_resource(resource: LedgerSync::Location)
 
-LedgerSync.register_resource(resource: LedgerSync::Ledgers::QuickBooksOnline::Preferences)
+# Bundles
+Gem.find_files('ledger_sync/bundles/**/*.rb').each { |path| require path }

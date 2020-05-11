@@ -6,7 +6,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Record
+      class Record
         class HTTPMethod < Util::ReadOnlyObject
           attribute :key
           attribute :method

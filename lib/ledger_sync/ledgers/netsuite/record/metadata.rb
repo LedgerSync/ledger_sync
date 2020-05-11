@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Record
+      class Record
         #
         # Helper class for retrieving record metadata:
         # - available http_methods
