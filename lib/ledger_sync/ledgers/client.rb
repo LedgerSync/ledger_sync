@@ -31,7 +31,10 @@ module LedgerSync
         end]
       end
 
-      def operation_for(method:, resource:)
+      def operation_for(args = {})
+        method = args.fetch(:method)
+        resource = args.fetch(:resource)
+
         self.class.operation_class_for(
           method: method,
           resource_class: resource.class

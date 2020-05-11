@@ -2,9 +2,9 @@
 
 module LedgerSync
   module Adaptors
-    module NetSuite
+    module QuickBooksOnline
       module Records
-        class Customer < NetSuite::Record
+        class Customer < QuickBooksOnline::Record
           attribute :email, type: LedgerSync::Type::String
           attribute :companyName, type: LedgerSync::Type::String
           attribute :firstName, type: LedgerSync::Type::String
