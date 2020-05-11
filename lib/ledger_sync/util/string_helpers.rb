@@ -6,7 +6,7 @@ module LedgerSync
       module_function
 
       def camelcase(str)
-        str.to_s.split('/').map { |e| inflect(e.split('_').collect(&:capitalize).join) }.join('::')
+        str.to_s.split('/').map { |e| inflect(e.split('_').collect(&:camelcase).join) }.join('::')
       end
 
       def underscore!(str)

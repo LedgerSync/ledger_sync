@@ -10,7 +10,7 @@ RSpec.shared_examples 'a netsuite operation' do
   let(:adaptor) { netsuite_adaptor } unless method_defined?(:adaptor)
   unless method_defined?(:record)
     let(:record) do
-      adaptor.class.ledger_resource_type_for(resource_class: described_class.inferred_resource_class)
+      described_class.inferred_resource_class.resource_type.to_s
     end
   end
 
@@ -57,7 +57,7 @@ RSpec.shared_examples 'a netsuite searcher' do
   let(:resource_class) { described_class.inferred_resource_class } unless method_defined?(:resource_class)
   unless method_defined?(:record)
     let(:record) do
-      adaptor.class.ledger_resource_type_for(resource_class: resource_class)
+      resource_class.resource_type.to_s
     end
   end
   let(:input) do
