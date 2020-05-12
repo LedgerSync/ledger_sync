@@ -149,7 +149,7 @@ You can now use these custom resources in operations that require custom attribu
 
 Ledgers are ledger-specific ruby objects that contain all the logic to authenticate to a ledger, perform ledger-specific operations, and validate resources based on the requirements of the ledger.  Ledgers contain a number of useful objects:
 
-- connectn
+- client
 - serializers
 - operations
 - searchers
