@@ -1,44 +1,44 @@
 # frozen_string_literal: true
 
-qa_support :adaptor_helpers,
+qa_support :ledger_helpers,
         :quickbooks_online_shared_examples
 
 module QA
   module QuickBooksOnlineHelpers
-    include AdaptorHelpers
+    include LedgerHelpers
 
-    def adaptor_class
-      LedgerSync::Adaptors::QuickBooksOnline::Adaptor
+    def client_class
+      LedgerSync::Ledgers::QuickBooksOnline::Client
     end
 
-    def find_or_create_in_ledger(factory, qa: true, adaptor:)
+    def find_or_create_in_ledger(factory, qa: true, client:)
       resource_class = FactoryBot.factories[factory].build_class
-      searcher = adaptor.searcher_class_for(resource_type: resource_class.resource_type)
+      searcher = client.searcher_class_for(resource_type: resource_class.resource_type)
       resource = searcher.new(
-        adaptor: adaptor,
+        client: client,
         query: ''
       ).search.raise_if_error.resources.first
 
       return resource if resource.present?
 
       create_resource_for(
-        adaptor: adaptor,
+        client: client,
         resource: resource
       )
     end
 
-    def quickbooks_online_adaptor
-      @quickbooks_online_adaptor ||= LedgerSync.adaptors.quickbooks_online.new_from_env(test: true)
+    def quickbooks_online_client
+      @quickbooks_online_client ||= LedgerSync.ledgers.quickbooks_online.new_from_env(test: true)
     end
   end
 end
 
 RSpec.configure do |config|
-  config.include QA::QuickBooksOnlineHelpers, qa: true, adaptor: :quickbooks_online
-  # config.before { quickbooks_online_adaptor.refresh! }
-  config.around(:each, qa: true, adaptor: :quickbooks_online) do |example|
+  config.include QA::QuickBooksOnlineHelpers, qa: true, client: :quickbooks_online
+  # config.before { quickbooks_online_client.refresh! }
+  config.around(:each, qa: true, client: :quickbooks_online) do |example|
     example.run
   ensure
-    quickbooks_online_adaptor.update_secrets_in_dotenv
+    quickbooks_online_client.update_secrets_in_dotenv
   end
 end

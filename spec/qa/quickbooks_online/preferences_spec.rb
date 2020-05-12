@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe(
-  LedgerSync::Adaptors::QuickBooksOnline::Preferences,
+  LedgerSync::Ledgers::QuickBooksOnline::Preferences,
   qa: true,
-  adaptor: :quickbooks_online
+  client: :quickbooks_online
 ) do
-  let(:adaptor) { quickbooks_online_adaptor }
-  let(:resource) { LedgerSync::Adaptors::QuickBooksOnline::Preferences.new }
+  let(:client) { quickbooks_online_client }
+  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Preferences.new }
 
   it_behaves_like 'a find only quickbooks_online resource'
 end

@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::NetSuite::Account, qa: true, adaptor: :netsuite do
-  let(:adaptor) { netsuite_adaptor }
+RSpec.describe LedgerSync::Ledgers::NetSuite::Account, qa: true, client: :netsuite do
+  let(:client) { netsuite_client }
   let(:attribute_updates) do
     {
       name: "QA UPDATE #{test_run_id}"

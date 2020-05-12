@@ -39,8 +39,8 @@ require 'ledger_sync/util/signer'
 require 'ledger_sync/util/hash_helpers'
 require 'ledger_sync/util/read_only_object'
 require 'ledger_sync/util/resources_builder'
-require 'ledger_sync/adaptor_configuration'
-require 'ledger_sync/adaptor_configuration_store'
+require 'ledger_sync/ledger_configuration'
+require 'ledger_sync/ledger_configuration_store'
 require 'ledger_sync/util/performer'
 require 'ledger_sync/util/validator'
 require 'ledger_sync/util/string_helpers'
@@ -50,22 +50,22 @@ require 'ledger_sync/result'
 require 'ledger_sync/serializer'
 require 'ledger_sync/deserializer'
 
-# Adaptors
-Gem.find_files('ledger_sync/adaptors/mixins/**/*.rb').each { |path| require path }
-require 'ledger_sync/adaptors/adaptor'
-require 'ledger_sync/adaptors/dashboard_url_helper'
-require 'ledger_sync/adaptors/searcher'
-require 'ledger_sync/adaptors/ledger_serializer'
-require 'ledger_sync/adaptors/operation'
-require 'ledger_sync/adaptors/contract'
-require 'ledger_sync/adaptors/response'
-require 'ledger_sync/adaptors/request'
+# Ledgers
+Gem.find_files('ledger_sync/ledgers/mixins/**/*.rb').each { |path| require path }
+require 'ledger_sync/ledgers/client'
+require 'ledger_sync/ledgers/dashboard_url_helper'
+require 'ledger_sync/ledgers/searcher'
+require 'ledger_sync/ledgers/ledger_serializer'
+require 'ledger_sync/ledgers/operation'
+require 'ledger_sync/ledgers/contract'
+require 'ledger_sync/ledgers/response'
+require 'ledger_sync/ledgers/request'
 
 # Resources (resources are registerd below)
 require 'ledger_sync/resource' # Template class
 Gem.find_files('ledger_sync/resources/**/*.rb').each { |path| require path }
 
-Gem.find_files('ledger_sync/adaptors/quickbooks_online/resources/**/*.rb').each { |path| require path }
+Gem.find_files('ledger_sync/ledgers/quickbooks_online/resources/**/*.rb').each { |path| require path }
 
 module LedgerSync
   @log_level = nil
@@ -77,7 +77,7 @@ module LedgerSync
   LEVEL_INFO = Logger::INFO
 
   class << self
-    attr_accessor :adaptors, :resources
+    attr_accessor :ledgers, :resources
   end
 
   def self.log_level
@@ -98,17 +98,17 @@ module LedgerSync
     @logger = val
   end
 
-  def self.register_adaptor(adaptor_key, module_string: nil)
-    adaptor_root_path = "ledger_sync/adaptors/#{adaptor_key}"
-    require "#{adaptor_root_path}/adaptor"
-    self.adaptors ||= LedgerSync::AdaptorConfigurationStore.new
-    adaptor_config = LedgerSync::AdaptorConfiguration.new(adaptor_key, module_string: module_string)
-    yield(adaptor_config)
-    self.adaptors.register_adaptor(adaptor_config: adaptor_config)
+  def self.register_client(client_key, module_string: nil)
+    client_root_path = "ledger_sync/ledgers/#{client_key}"
+    require "#{client_root_path}/client"
+    self.ledgers ||= LedgerSync::LedgerConfigurationStore.new
+    ledger_config = LedgerSync::LedgerConfiguration.new(client_key, module_string: module_string)
+    yield(ledger_config)
+    self.ledgers.register_client(ledger_config: ledger_config)
 
-    adaptor_files = Gem.find_files("#{adaptor_root_path}/**/*.rb")
+    client_files = Gem.find_files("#{client_root_path}/**/*.rb")
     # Sort the files to include BFS-style as most dependencies are in parent folders
-    adaptor_files.sort { |a, b| a.count('/') <=> b.count('/') }.each do |path|
+    client_files.sort { |a, b| a.count('/') <=> b.count('/') }.each do |path|
       next if path.include?('config.rb')
 
       require path
@@ -127,8 +127,8 @@ module LedgerSync
   end
 end
 
-# Load Adaptors
-Gem.find_files('ledger_sync/adaptors/**/config.rb').each { |path| require path }
+# Load Ledgers
+Gem.find_files('ledger_sync/ledgers/**/config.rb').each { |path| require path }
 
 # Register Resources
 LedgerSync.register_resource(resource: LedgerSync::Account)
@@ -153,4 +153,4 @@ LedgerSync.register_resource(resource: LedgerSync::Transfer)
 LedgerSync.register_resource(resource: LedgerSync::Vendor)
 LedgerSync.register_resource(resource: LedgerSync::Location)
 
-LedgerSync.register_resource(resource: LedgerSync::Adaptors::QuickBooksOnline::Preferences)
+LedgerSync.register_resource(resource: LedgerSync::Ledgers::QuickBooksOnline::Preferences)

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-qa_support :adaptor_helpers,
+qa_support :ledger_helpers,
            :netsuite_soap_shared_examples
 
 module QA
   module NetSuiteSOAPHelpers
-    include AdaptorHelpers
+    include LedgerHelpers
 
-    def adaptor_class
-      LedgerSync::Adaptors::NetSuiteSOAP::Adaptor
+    def client_class
+      LedgerSync::Ledgers::NetSuiteSOAP::Client
     end
 
     def existing_subsidiary_resource
@@ -18,8 +18,8 @@ module QA
       )
     end
 
-    def netsuite_soap_adaptor
-      @netsuite_soap_adaptor ||= LedgerSync.adaptors.netsuite_soap.new(
+    def netsuite_soap_client
+      @netsuite_soap_client ||= LedgerSync.ledgers.netsuite_soap.new(
         account_id: ENV.fetch('NETSUITE_SOAP_ACCOUNT_ID'),
         consumer_key: ENV.fetch('NETSUITE_SOAP_CONSUMER_KEY'),
         consumer_secret: ENV.fetch('NETSUITE_SOAP_CONSUMER_SECRET'),
@@ -31,5 +31,5 @@ module QA
 end
 
 RSpec.configure do |config|
-  config.include QA::NetSuiteSOAPHelpers, qa: true, adaptor: :netsuite_soap
+  config.include QA::NetSuiteSOAPHelpers, qa: true, client: :netsuite_soap
 end

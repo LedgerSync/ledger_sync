@@ -12,9 +12,9 @@ Additional Use Grant:   You may make use of the Licensed Work, provided that you
                         allows third parties (other than your employees and
                         contractors) to access the functionality of the Licensed
                         Work by connecting to and exchanging information with
-                        general ledgers, accounting software, or other adaptors
-                        defined in the library that are controlled by such
-                        third parties.
+                        general ledgers, accounting software, or other
+                        clients defined in the library that are controlled
+                        by such third parties.
 
 Notice
 

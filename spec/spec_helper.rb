@@ -17,7 +17,7 @@ SimpleCov.start do
 end
 
 # Set an environment variable to determine when we are testing.  This
-# prevents things like the QuickBooks Online adaptor overwriting
+# prevents things like the QuickBooks Online client overwriting
 # environment variables with dummy values.
 ENV['TEST_ENV'] = 'true'
 
@@ -41,7 +41,7 @@ def qa_support(*paths)
     require File.join(LedgerSync.root, 'spec/qa/support/', path.to_s)
   end
 end
-qa_support :adaptor_support_qa_setup
+qa_support :ledger_support_qa_setup
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

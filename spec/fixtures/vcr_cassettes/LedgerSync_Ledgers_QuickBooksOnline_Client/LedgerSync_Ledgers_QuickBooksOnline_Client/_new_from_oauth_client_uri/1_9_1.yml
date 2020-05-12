@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer
+    body:
+      encoding: UTF-8
+      string: client_id=client_id&client_secret=client_secret&code=THIS_IS_THE_OAUTH_CODE&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A3000
+    headers:
+      User-Agent:
+      - Faraday v1.0.1
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Tue, 12 May 2020 17:13:56 GMT
+      Content-Type:
+      - application/json;charset=utf-8
+      Content-Length:
+      - '26'
+      Client:
+      - keep-alive
+      Server:
+      - nginx
+      Strict-Transport-Security:
+      - max-age=15552000
+      Intuit-Tid:
+      - 1-5ebad954-74dcbb7022eb8cad719a4946
+      X-Spanid:
+      - 0e13c21f-84fe-4444-9778-b81e32940b1d
+      - 45213a36-2247-428b-aa10-eea91362f7c6:1
+      X-Amzn-Trace-Id:
+      - Root=1-5ebad954-74dcbb7022eb8cad719a4946
+      - Self=1-5ebad954-866289c3643bfb42197c403a;Root=1-5ebad954-74dcbb7022eb8cad719a4946
+      Www-Authenticate:
+      - Basic realm="Intuit"
+      Cache-Control:
+      - no-cache, no-store
+      Pragma:
+      - no-cache
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_client"}'
+    http_version: null
+  recorded_at: Tue, 12 May 2020 17:13:56 GMT
+recorded_with: VCR 5.1.0

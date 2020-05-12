@@ -1734,7 +1734,7 @@ http_interactions:
       - User-Agent
       Date:
       - Tue, 26 Nov 2019 14:47:02 GMT
-      Connection:
+      Client:
       - keep-alive
       Set-Cookie:
       - NS_ROUTING_VERSION=LAGGING; path=/

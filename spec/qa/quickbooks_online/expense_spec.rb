@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense, qa: true, adaptor: :quickbooks_online do
-  let(:adaptor) { quickbooks_online_adaptor }
+RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense, qa: true, client: :quickbooks_online do
+  let(:client) { quickbooks_online_client }
   let(:attribute_updates) do
     {
       memo: "QA UPDATE #{rand_id}"
@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Expense, qa: true, adapto
 
   let(:account) do
     create_resource_for(
-      adaptor: adaptor,
+      client: client,
       resource: FactoryBot.create(:account)
     )
   end

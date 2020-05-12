@@ -6,7 +6,7 @@ support :input_helpers
 support :netsuite_soap_helpers
 support :operation_helpers
 
-RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Subsidiary::Operations::Create, type: :feature do
+RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Subsidiary::Operations::Create, type: :feature do
   include InputHelpers
   include NetSuiteSOAPHelpers
   include OperationHelpers
@@ -17,7 +17,7 @@ RSpec.describe LedgerSync::Adaptors::NetSuiteSOAP::Subsidiary::Operations::Creat
 
   let(:input) do
     {
-      adaptor: netsuite_soap_adaptor,
+      client: netsuite_soap_client,
       resource: resource
     }
   end

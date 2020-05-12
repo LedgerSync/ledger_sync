@@ -17,13 +17,13 @@ RSpec.describe 'stripe/customers/create', type: :feature do
 
   let(:input) do
     {
-      adaptor: stripe_adaptor,
+      client: stripe_client,
       resource: resource
     }
   end
 
   context '#perform' do
-    subject { LedgerSync::Adaptors::Stripe::Customer::Operations::Create.new(**input).perform }
+    subject { LedgerSync::Ledgers::Stripe::Customer::Operations::Create.new(**input).perform }
 
     it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
     it { expect(subject.resource.ledger_id).to eq('cus_123') }

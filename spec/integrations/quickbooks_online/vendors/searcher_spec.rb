@@ -13,13 +13,13 @@ RSpec.describe 'quickbooks_online/vendors/search', type: :feature do
 
   let(:input) do
     {
-      adaptor: quickbooks_online_adaptor,
+      client: quickbooks_online_client,
       query: 'Sample Vendor'
     }
   end
 
   context '#resources' do
-    subject { LedgerSync::Adaptors::QuickBooksOnline::Vendor::Searcher.new(**input).search }
+    subject { LedgerSync::Ledgers::QuickBooksOnline::Vendor::Searcher.new(**input).search }
     it { expect(subject).to be_success }
     it { expect(subject).to be_a(LedgerSync::SearchResult::Success) }
   end
