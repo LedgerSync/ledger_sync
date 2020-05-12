@@ -22,9 +22,9 @@ module LedgerSync
       end
 
       def inflect(str)
-        return str unless LedgerSync.respond_to?(:adaptors)
+        return str unless LedgerSync.respond_to?(:ledgers)
 
-        LedgerSync.adaptors.inflections.each do |inflection|
+        LedgerSync.ledgers.inflections.each do |inflection|
           next unless inflection.downcase == str.downcase
 
           return inflection

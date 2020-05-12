@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::Stripe::Customer, qa: true, adaptor: :stripe do
-  let(:adaptor) { stripe_adaptor }
+RSpec.describe LedgerSync::Ledgers::Stripe::Customer, qa: true, connection: :stripe do
+  let(:connection) { stripe_connection }
   let(:attribute_updates) do
     {
       name: "QA UPDATE #{rand_id}"

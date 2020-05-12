@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module StripeHelpers
-  def stripe_adaptor
-    LedgerSync.adaptors.stripe.new(
+  def stripe_connection
+    LedgerSync.ledgers.stripe.new(
       api_key: 'api_key'
     )
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment, qa: true, adaptor: :quickbooks_online do
-  let(:adaptor) { quickbooks_online_adaptor }
+RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment, qa: true, connection: :quickbooks_online do
+  let(:connection) { quickbooks_online_connection }
   let(:attribute_updates) do
     {
       memo: "QA UPDATE #{rand_id}"
@@ -10,14 +10,14 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment, qa: true, ad
 
   let(:account) do
     create_resource_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: FactoryBot.create(:account)
     )
   end
 
   let(:account_expense) do
     create_resource_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: FactoryBot.create(
         :account,
         account_type: 'expense',
@@ -29,7 +29,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment, qa: true, ad
 
   let(:account_payable) do
     create_resource_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: FactoryBot.create(
         :account,
         account_type: 'accounts_payable',
@@ -41,7 +41,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment, qa: true, ad
 
   let(:account_credit_card) do
     create_resource_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: FactoryBot.create(
         :account,
         account_type: 'credit_card',
@@ -53,7 +53,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment, qa: true, ad
 
   let(:vendor) do
     create_resource_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: FactoryBot.create(:vendor)
     )
   end
@@ -62,14 +62,14 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::BillPayment, qa: true, ad
 
   let(:department) do
     create_resource_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: FactoryBot.create(:department)
     )
   end
 
   let(:bill) do
     create_resource_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: FactoryBot.create(
         :bill,
         currency: currency,

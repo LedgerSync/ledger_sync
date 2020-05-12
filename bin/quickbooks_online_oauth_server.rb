@@ -35,10 +35,10 @@ client_id = ENV.fetch('QUICKBOOKS_ONLINE_CLIENT_ID')
 
 raise 'QUICKBOOKS_ONLINE_CLIENT_ID not set in ../.env' if client_id.blank?
 
-adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new_from_env(test: true)
+connection = LedgerSync::Ledgers::QuickBooksOnline::Ledger.new_from_env(test: true)
 
 puts 'Go to the following URL:'
-puts adaptor.authorization_url(redirect_uri: base_url)
+puts connection.authorization_url(redirect_uri: base_url)
 
 while session = server.accept
   request = session.gets
@@ -53,7 +53,7 @@ while session = server.accept
 
   params = Hash[query.split('&').map { |e| e.split('=') }] if query.present?
 
-  adaptor.set_credentials_from_oauth_code(
+  connection.set_credentials_from_oauth_code(
     code: params.fetch('code'),
     realm_id: params.fetch('realmId'),
     redirect_uri: base_url
@@ -62,19 +62,19 @@ while session = server.accept
   puts "\n"
 
   puts 'access_token:'
-  puts adaptor.access_token
+  puts connection.access_token
   puts "\n"
   puts 'client_id:'
-  puts adaptor.client_id
+  puts connection.client_id
   puts "\n"
   puts 'client_secret:'
-  puts adaptor.client_secret
+  puts connection.client_secret
   puts "\n"
   puts 'realm_id:'
-  puts adaptor.realm_id
+  puts connection.realm_id
   puts "\n"
   puts 'refresh_token:'
-  puts adaptor.refresh_token
+  puts connection.refresh_token
   puts "\n"
 
   puts 'Done!'

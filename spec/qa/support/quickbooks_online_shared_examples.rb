@@ -3,7 +3,7 @@
 # RSpec.shared_examples 'a quickbooks_online create' do
 #   it do
 #     result = create_result_for(
-#       adaptor: adaptor,
+#       connection: connection,
 #       resource: resource
 #     )
 
@@ -14,14 +14,14 @@
 # RSpec.shared_examples 'a quickbooks_online find' do
 #   it do
 #     result = create_result_for(
-#       adaptor: adaptor,
+#       connection: connection,
 #       resource: resource
 #     ).raise_if_error
 #     expect(result).to be_success
 #     resource = result.resource
 
 #     result = find_result_for(
-#       adaptor: adaptor,
+#       connection: connection,
 #       resource: resource
 #     )
 
@@ -32,7 +32,7 @@
 # RSpec.shared_examples 'a quickbooks_online update' do
 #   it do
 #     result = create_result_for(
-#       adaptor: adaptor,
+#       connection: connection,
 #       resource: resource
 #     ).raise_if_error
 
@@ -46,7 +46,7 @@
 
 #     resource.assign_attributes(attribute_updates)
 #     result = update_result_for(
-#       adaptor: adaptor,
+#       connection: connection,
 #       resource: resource
 #     )
 
@@ -59,7 +59,7 @@
 #     end
 
 #     result = find_result_for(
-#       adaptor: adaptor,
+#       connection: connection,
 #       resource: resource.class.new(
 #         ledger_id: resource.ledger_id
 #       )

@@ -3,7 +3,7 @@
 RSpec.shared_examples 'a create' do |delete: true|
   it do
     result = create_result_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: resource
     )
 
@@ -13,7 +13,7 @@ RSpec.shared_examples 'a create' do |delete: true|
 
     if delete
       delete_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: result.resource
       ).raise_if_error
     end
@@ -23,21 +23,21 @@ end
 RSpec.shared_examples 'a delete' do
   it do
     result = create_result_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: resource
     ).raise_if_error
 
     resource = result.resource
 
     result = delete_result_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: resource
     )
 
     expect(result).to be_success
 
     result = delete_result_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: resource
     )
 
@@ -48,7 +48,7 @@ end
 RSpec.shared_examples 'a find' do |delete: true|
   it do
     result = create_result_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: resource
     )
 
@@ -59,7 +59,7 @@ RSpec.shared_examples 'a find' do |delete: true|
 
     begin
       result = find_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: resource
       )
 
@@ -68,7 +68,7 @@ RSpec.shared_examples 'a find' do |delete: true|
       if delete
         # Be sure to delete resource or raise an exception if this fails
         delete_result_for(
-          adaptor: adaptor,
+          connection: connection,
           resource: resource
         ).raise_if_error
       end
@@ -79,7 +79,7 @@ end
 RSpec.shared_examples 'a find only' do
   it do
     result = find_result_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: resource
     )
 
@@ -90,7 +90,7 @@ end
 RSpec.shared_examples 'an update' do |delete: true|
   it do
     result = create_result_for(
-      adaptor: adaptor,
+      connection: connection,
       resource: resource
     ).raise_if_error
 
@@ -105,7 +105,7 @@ RSpec.shared_examples 'an update' do |delete: true|
 
       resource.assign_attributes(attribute_updates)
       result = update_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: resource
       )
 
@@ -118,7 +118,7 @@ RSpec.shared_examples 'an update' do |delete: true|
       end
 
       result = find_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: resource.class.new(
           ledger_id: resource.ledger_id
         )
@@ -134,7 +134,7 @@ RSpec.shared_examples 'an update' do |delete: true|
     ensure
       if delete
         delete_result_for(
-          adaptor: adaptor,
+          connection: connection,
           resource: resource
         ).raise_if_error
       end
@@ -144,7 +144,7 @@ end
 
 RSpec.shared_examples 'a searcher' do
   it do
-    result = adaptor.searcher_for(resource_type: resource.class.resource_module_str).search
+    result = connection.searcher_for(resource_type: resource.class.resource_module_str).search
 
     byebug if result.failure?
 

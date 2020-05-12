@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, adaptor: :quickbooks_online do
-  let(:adaptor) { quickbooks_online_adaptor }
+RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, connection: :quickbooks_online do
+  let(:connection) { quickbooks_online_connection }
   let(:attribute_updates) do
     {
       name: "QA UPDATE #{test_run_id}"
@@ -22,7 +22,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
       expect(local_parent.parent).to be_nil
 
       result = create_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: local_parent
       ).raise_if_error
 
@@ -31,7 +31,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
       expect(parent.parent).to be_nil
 
       result = create_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: FactoryBot.create(:department, parent: parent)
       ).raise_if_error
 
@@ -43,7 +43,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
 
       child.assign_attributes(parent: nil)
       result = update_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: child
       )
 
@@ -54,7 +54,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
       expect(new_child.parent).not_to be_present
 
       result = find_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: new_child.class.new(
           ledger_id: new_child.ledger_id
         )
@@ -72,7 +72,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
       expect(local_parent.parent).to be_nil
 
       result = create_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: local_parent
       ).raise_if_error
 
@@ -81,7 +81,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
       expect(parent.parent).to be_nil
 
       result = create_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: FactoryBot.create(:department, parent: parent)
       ).raise_if_error
 
@@ -93,7 +93,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
 
       child.assign_attributes(attribute_updates)
       result = update_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: child
       )
 
@@ -105,7 +105,7 @@ RSpec.describe LedgerSync::Adaptors::QuickBooksOnline::Department, qa: true, ada
       expect(new_child.parent.ledger_id).to eq(parent.ledger_id)
 
       result = find_result_for(
-        adaptor: adaptor,
+        connection: connection,
         resource: new_child.class.new(
           ledger_id: new_child.ledger_id
         )

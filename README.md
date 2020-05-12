@@ -32,16 +32,16 @@ $ gem install ledger_sync
 
 To use LedgerSync, you must create an `Operation`.  The operation will be ledger-specific and will require the following:
 
-1. Adaptor
+1. Ledger
 2. Resource(s)
 
 The code may look like the following:
 
 ```ruby
-# First we create an adaptor, which is our connection to a ledger.
+# First we create an connection, which is our connection to a ledger.
 # Each ledger may require different keys, so check the
 # documentation below for specifics.
-adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new(
+connection = LedgerSync::Ledgers::QuickBooksOnline::Ledger.new(
   access_token: access_token, # assuming this is defined
   client_id: ENV['QUICKBOOKS_ONLINE_CLIENT_ID'],
   client_secret: ENV['QUICKBOOKS_ONLINE_CLIENT_SECRET'],
@@ -59,8 +59,8 @@ resource = LedgerSync::Customer.new(
 )
 
 # Create the operation we want to perform.
-operation = LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Create.new(
-  adaptor: adaptor,
+operation = LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(
+  connection: connection,
   resource: resource
 )
 
@@ -76,7 +76,7 @@ end
 # Because QuickBooks Online uses Oauth 2, you must always be sure to
 # save the access_token, refresh_token, and expirations as they can
 # change with any API call.
-result.operation.adaptor.ledger_attributes_to_save.each do |key, value|
+result.operation.connection.ledger_attributes_to_save.each do |key, value|
   # save values
 end
 ```
@@ -86,11 +86,11 @@ end
 This library consists of two important layers:
 
 1. Resources
-2. Adaptors
+2. Ledgers
 
 ### Resources
 
-Resources are named ruby objects (e.g. `Customer`, `Payment`, etc.) with strict attributes (e.g. `name`, `amount`, etc.).  They are a layer between your application and an adaptor.  They can be validated using an adaptor.  You can create and use the resources, and an adaptor will update resources as needed based on the intention and outcome of that operation.
+Resources are named ruby objects (e.g. `Customer`, `Payment`, etc.) with strict attributes (e.g. `name`, `amount`, etc.).  They are a layer between your application and an connection.  They can be validated using an connection.  You can create and use the resources, and an connection will update resources as needed based on the intention and outcome of that operation.
 
 You can find supported resources by calling `LedgerSync.resources`.
 
@@ -145,30 +145,30 @@ customer_class_2.resource_attributes[:bar].type # => #<LedgerSync::Type::Boolean
 
 You can now use these custom resources in operations that require custom attributes.
 
-### Adaptors
+### Ledgers
 
-Adaptors are ledger-specific ruby objects that contain all the logic to authenticate to a ledger, perform ledger-specific operations, and validate resources based on the requirements of the ledger.  Adaptors contain a number of useful objects:
+Ledgers are ledger-specific ruby objects that contain all the logic to authenticate to a ledger, perform ledger-specific operations, and validate resources based on the requirements of the ledger.  Ledgers contain a number of useful objects:
 
-- adaptor
+- connectn
 - serializers
 - operations
 - searchers
 
-#### Adaptor
+#### Ledger
 
-The adaptor handles authentication and requests to the ledger.  Each adaptors initializer will vary based on the needs of that ledger.
+The connection handles authentication and requests to the ledger.  Each connections initializer will vary based on the needs of that ledger.
 
 #### Serializers
 
-Operations depend on `LedgerSync::Adaptor::LedgerSerializer`s to serialize and deserialize objects.  Most resources have a default serializer per adaptor which may acts as both a serializer and deserializer.  You can provide custom serializers, which is necessary when working with custom attributes.  For example, given the following:
+Operations depend on `LedgerSync::Ledger::LedgerSerializer`s to serialize and deserialize objects.  Most resources have a default serializer per connection which may acts as both a serializer and deserializer.  You can provide custom serializers, which is necessary when working with custom attributes.  For example, given the following:
 - `custom_resource` that is a `LedgerSync::Customer` (see above)
 - the attribute `foo` is used in both the request and response bodies
-- using the `NetSuite` adaptor
+- using the `NetSuite` connection
 
 you could implement custom serializers using the following code:
 
 ```ruby
-class CustomSerializer < LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer
+class CustomSerializer < LedgerSync::Ledgers::NetSuite::Customer::LedgerSerializer
   attribute ledger_attribute: :foo,
             resource_attribute: :foo,
             deserialize: true, # optional, default: true
@@ -185,33 +185,33 @@ deserialized_resource = serializer.deserialize(hash: { foo: 'qwerty' })
 deserialized_resource.foo # => 'qwerty'
 custom_resource.foo # => 'asdf'
 
-op = LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
-  adaptor: adaptor,
+op = LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
+  connection: connection,
   ledger_deserializer_class: CustomSerializer, # You must specify, though you could use a separate class
   ledger_serializer_class: CustomSerializer,
   resource: custom_resource
 )
 ```
 
-Note that in the above example, we extend an existing customer serializer in the NetSuite adaptor.  In most cases, serializers have the following inheritance pattern: `LedgerSync::Adaptors::[ADAPTOR]::[RESOURCE]::LedgerSerializer <  LedgerSync::Adaptors::[ADAPTOR]::LedgerSerializer <  LedgerSync::Adaptors::LedgerSerializer`
+Note that in the above example, we extend an existing customer serializer in the NetSuite connection.  In most cases, serializers have the following inheritance pattern: `LedgerSync::Ledgers::[ADAPTOR]::[RESOURCE]::LedgerSerializer <  LedgerSync::Ledgers::[ADAPTOR]::LedgerSerializer <  LedgerSync::Ledgers::LedgerSerializer`
 
-So in this example, it would be `LedgerSync::Adaptors::NetSuite::Customer::LedgerSerializer <  LedgerSync::Adaptors::NetSuite::LedgerSerializer <  LedgerSync::Adaptors::LedgerSerializer`.  The more specific the serializer, the more helper methods are available that are adaptor and/or resource specific.
+So in this example, it would be `LedgerSync::Ledgers::NetSuite::Customer::LedgerSerializer <  LedgerSync::Ledgers::NetSuite::LedgerSerializer <  LedgerSync::Ledgers::LedgerSerializer`.  The more specific the serializer, the more helper methods are available that are connection and/or resource specific.
 
 #### Operation
 
-Each adaptor defines operations that can be performed on specific resources (e.g. `Customer::Operations::Update`, `Payment::Operations::Create`).  The operation defines two key things:
+Each connection defines operations that can be performed on specific resources (e.g. `Customer::Operations::Update`, `Payment::Operations::Create`).  The operation defines two key things:
 
 - a `Contract` class which is used to validate the resource using the `dry-validation` gem
 - a `perform` instance method, which handles the actual API requests and response/error handling.
 
-Note: Adaptors may support different operations for each resource type.
+Note: Ledgers may support different operations for each resource type.
 
 ##### Contracts
 
 Contracts are dry-validation schemas, which determine if an operation can be performed.  You can create custom schemas and pass them to operations.  Assuming you have an `operation_class` variable and `foo` is an attribute of a `custom_resource` (see above) that is required to be a string, you can implement it with the following:
 
 ```ruby
-class CustomContract < LedgerSync::Adaptors::Contract
+class CustomContract < LedgerSync::Ledgers::Contract
   params do
     required(:foo).filled(:string)
   end
@@ -220,7 +220,7 @@ end
 # A valid case
 custom_resource = CustomResource.new(foo: 'asdf')
 op = operation_class.new(
-  adaptor: adaptor,
+  connection: connection,
   resource: resource,
   validation_contract: CustomContract
 )
@@ -229,7 +229,7 @@ op.valid? # => true
 # An invalid case
 custom_resource = CustomResource.new(foo: nil)
 operation_class.new(
-  adaptor: adaptor,
+  connection: connection,
   resource: resource,
   validation_contract: CustomContract
 )
@@ -239,11 +239,11 @@ op.valid? # => false
 
 #### Searcher
 
-Searchers are used to search objects in the ledger.  A searcher takes an `adaptor`, `query` string and optional `pagination` hash.  For example, to search customer's by name:
+Searchers are used to search objects in the ledger.  A searcher takes an `connection`, `query` string and optional `pagination` hash.  For example, to search customer's by name:
 
 ```ruby
-searcher = LedgerSync::Adaptors::QuickBooksOnline::Customer::Searcher.new(
-  adaptor: adaptor # assuming this is defined,
+searcher = LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher.new(
+  connection: connection # assuming this is defined,
   query: 'test'
 )
 
@@ -264,7 +264,7 @@ previous_searcher = searcher.previous_searcher
 
 ## NetSuite
 
-The NetSuite adaptor leverages NetSuite's REST API.
+The NetSuite connection leverages NetSuite's REST API.
 
 ### Resource Metadata and Schemas
 
@@ -273,13 +273,13 @@ Due to NetSuites granular user permissions and custom attributes, resources and 
 To retrieve the metadata for a record:
 
 ```ruby
-metadata = LedgerSync::Adaptors::NetSuite::Record::Metadata.new(
-  adaptor: netsuite_adaptor, # Assuming this is previous defined
+metadata = LedgerSync::Ledgers::NetSuite::Record::Metadata.new(
+  connection: netsuite_connection, # Assuming this is previous defined
   record: :customer
 )
 
-puts metadata.http_methods # Returns a list of LedgerSync::Adaptors::NetSuite::Record::HTTPMethod objects
-puts metadata.properties # Returns a list of LedgerSync::Adaptors::NetSuite::Record::Property objects
+puts metadata.http_methods # Returns a list of LedgerSync::Ledgers::NetSuite::Record::HTTPMethod objects
+puts metadata.properties # Returns a list of LedgerSync::Ledgers::NetSuite::Record::Property objects
 ```
 
 ### Reference
@@ -288,7 +288,7 @@ puts metadata.properties # Returns a list of LedgerSync::Adaptors::NetSuite::Rec
 
 ## NetSuite SOAP
 
-LedgerSync supports the NetSuite SOAP adaptor, leveraging [the NetSuite gem](https://github.com/NetSweet/netsuite).  The adaptor and sample operations are provided, though the main NetSuite adaptor uses the REST API.
+LedgerSync supports the NetSuite SOAP connection, leveraging [the NetSuite gem](https://github.com/NetSweet/netsuite).  The connection and sample operations are provided, though the main NetSuite connection uses the REST API.
 
 ### Reference
 
@@ -299,7 +299,7 @@ LedgerSync supports the NetSuite SOAP adaptor, leveraging [the NetSuite gem](htt
 
 ### OAuth
 
-QuickBooks Online utilizes OAuth 2.0, which requires frequent refreshing of the access token.  The adaptor will handle this automatically, attempting a single token refresh on any single request authentication failure.  Depending on how you use the library, every adaptor has implements a class method `ledger_attributes_to_save`, which is an array of attributes that may change as the adaptor is used.  You can also call the instance method `ledger_attributes_to_save` which will be a hash of these values.  It is a good practice to always store these attributes if you are saving access tokens in your database.
+QuickBooks Online utilizes OAuth 2.0, which requires frequent refreshing of the access token.  The connection will handle this automatically, attempting a single token refresh on any single request authentication failure.  Depending on how you use the library, every connection has implements a class method `ledger_attributes_to_save`, which is an array of attributes that may change as the connection is used.  You can also call the instance method `ledger_attributes_to_save` which will be a hash of these values.  It is a good practice to always store these attributes if you are saving access tokens in your database.
 
 #### Retrieve Access Token
 
@@ -312,9 +312,9 @@ The library contains a lightweight script that is helpful in retrieving and refr
 5. Visit the URL output in the terminal.
 6. Upon redirect back to your `localhost`, the new values will be printed to the console and saved back to your `.env`
 
-#### Adaptor Helper Methods
+#### Ledger Helper Methods
 
-The adaptor also implements some helper methods for getting tokens.  For example, you can set up an adaptor using the following:
+The connection also implements some helper methods for getting tokens.  For example, you can set up an connection using the following:
 
 ```ruby
 # Retrieve the following values from Intuit app settings
@@ -322,7 +322,7 @@ client_id     = 'ID'
 client_secret = 'SECRET'
 redirect_uri  = 'http://localhost:3000'
 
-oauth_client = LedgerSync::Adaptors::QuickBooksOnline::OAuthClientHelper.new(
+oauth_client = LedgerSync::Ledgers::QuickBooksOnline::OAuthClientHelper.new(
   client_id: client_id,
   client_secret: client_secret
 )
@@ -335,17 +335,17 @@ puts oauth_client.authorization_url(redirect_uri: redirect_uri)
 
 uri = 'https://localhost:3000/?code=FOO&state=BAR&realm_id=BAZ'
 
-adaptor = LedgerSync::Adaptors::QuickBooksOnline::Adaptor.new_from_oauth_client_uri(
+connection = LedgerSync::Ledgers::QuickBooksOnline::Ledger.new_from_oauth_client_uri(
   oauth_client: oauth_client,
   uri: uri
 )
 
 # You can test that the auth works:
 
-adaptor.refresh!
+connection.refresh!
 ```
 
-**Note: If you have a `.env` file storing your secrets, the adaptor will automatically update the variables and record previous values whenever values change**
+**Note: If you have a `.env` file storing your secrets, the connection will automatically update the variables and record previous values whenever values change**
 
 ### Webhooks
 
@@ -355,7 +355,7 @@ LedgerSync offers an easy way to validate and parse webhook payloads.  It also a
 
 ```ruby
 # Assuming `request` is the webhook request received from Quickbooks Online
-webhook = LedgerSync::Adaptors::QuickBooksOnline::Webhook.new(
+webhook = LedgerSync::Ledgers::QuickBooksOnline::Webhook.new(
   payload: request.body.read # It accepts a JSON string or hash
 )
 
@@ -372,9 +372,9 @@ webhook.notifications.each do |notification|
     puts event.resource # Returns a LedgerSync resource with the `ledger_id` set
 
     # Other helpful methods
-    notification.find_operation_class(adaptor: your_quickbooks_adaptor_instance) # The respective Find class
-    notification.find_operation(adaptor: your_quickbooks_adaptor_instance) # The initialized respective Find operation
-    notification.find(adaptor: your_quickbooks_adaptor_instance) # Performs a Find operation for the resource retrieving the latest version from QuickBooks Online
+    notification.find_operation_class(connection: your_quickbooks_connection_instance) # The respective Find class
+    notification.find_operation(connection: your_quickbooks_connection_instance) # The initialized respective Find operation
+    notification.find(connection: your_quickbooks_connection_instance) # Performs a Find operation for the resource retrieving the latest version from QuickBooks Online
   end
 
   # Other helpful methods

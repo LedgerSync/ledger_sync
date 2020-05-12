@@ -1,0 +1,25 @@
+# frozen_string_literal: true
+
+require_relative '../operation'
+
+module LedgerSync
+  module Ledgers
+    module QuickBooksOnline
+      module Operation
+        class Find
+          include QuickBooksOnline::Operation::Mixin
+
+          private
+
+          def operate
+            response_to_operation_result(
+              response: connection.find(
+                path: ledger_resource_path
+              )
+            )
+          end
+        end
+      end
+    end
+  end
+end

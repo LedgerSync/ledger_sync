@@ -3,10 +3,10 @@
 qa_support :shared_examples
 
 RSpec.shared_examples 'a record with metadata' do
-  describe LedgerSync::Adaptors::NetSuite::Record::Metadata do
+  describe LedgerSync::Ledgers::NetSuite::Record::Metadata do
     subject do
       described_class.new(
-        adaptor: adaptor,
+        connection: connection,
         record: record
       )
     end

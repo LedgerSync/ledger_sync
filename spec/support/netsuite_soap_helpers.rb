@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module NetSuiteSOAPHelpers
-  def netsuite_soap_adaptor(*args)
-    LedgerSync.adaptors.netsuite_soap.new(**netsuite_adaptor_args(*args))
+  def netsuite_soap_connection(*args)
+    LedgerSync.ledgers.netsuite_soap.new(**netsuite_connection_args(*args))
   end
 
-  def netsuite_adaptor_args(env: false, **override)
+  def netsuite_connection_args(env: false, **override)
     env ||= ENV.key?('USE_DOTENV_ADAPTOR_SECRETS')
     {
       account_id: (env ? ENV.fetch('NETSUITE_SOAP_ACCOUNT_ID', 'netsuite_account_id') : 'netsuite_account_id'),

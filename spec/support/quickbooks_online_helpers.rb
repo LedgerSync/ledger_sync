@@ -379,9 +379,9 @@ module QuickBooksOnlineHelpers
     end
   end
 
-  # Adaptor
-  def quickbooks_online_adaptor
-    LedgerSync.adaptors.quickbooks_online.new(
+  # Ledger
+  def quickbooks_online_connection
+    LedgerSync.ledgers.quickbooks_online.new(
       access_token: 'access_token',
       client_id: 'client_id',
       client_secret: 'client_secret',
@@ -395,7 +395,7 @@ module QuickBooksOnlineHelpers
     'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret)
   end
 
-  def stub_adaptor_refresh
+  def stub_connection_refresh
     stub_request(:post, 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer')
       .with(
         body: {
@@ -1219,7 +1219,7 @@ module QuickBooksOnlineHelpers
   # Webhooks
 
   def webhook
-    @webhook ||= LedgerSync::Adaptors::QuickBooksOnline::Webhook.new(
+    @webhook ||= LedgerSync::Ledgers::QuickBooksOnline::Webhook.new(
       payload: webhook_hash
     )
   end

@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Util::Performer do
 
   let(:resource) { LedgerSync::Customer.new(external_id: 123) }
   let(:valid_contract) do
-    Class.new(LedgerSync::Adaptors::Contract) do
+    Class.new(LedgerSync::Ledgers::Contract) do
       params do
         required(:external_id).filled(:string)
       end
@@ -17,7 +17,7 @@ RSpec.describe LedgerSync::Util::Performer do
   end
 
   let(:invalid_contract) do
-    Class.new(LedgerSync::Adaptors::Contract) do
+    Class.new(LedgerSync::Ledgers::Contract) do
       params do
         required(:external_id).filled(:nil)
       end
@@ -25,16 +25,16 @@ RSpec.describe LedgerSync::Util::Performer do
   end
 
   let(:valid_operation) do
-    LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
-      adaptor: netsuite_adaptor,
+    LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
+      connection: netsuite_connection,
       resource: resource,
       validation_contract: valid_contract
     )
   end
 
   let(:invalid_operation) do
-    LedgerSync::Adaptors::NetSuite::Customer::Operations::Create.new(
-      adaptor: netsuite_adaptor,
+    LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
+      connection: netsuite_connection,
       resource: resource,
       validation_contract: invalid_contract
     )
