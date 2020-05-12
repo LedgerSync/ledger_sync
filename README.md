@@ -41,7 +41,7 @@ The code may look like the following:
 # First we create an connection, which is our connection to a ledger.
 # Each ledger may require different keys, so check the
 # documentation below for specifics.
-connection = LedgerSync::Ledgers::QuickBooksOnline::Ledger.new(
+connection = LedgerSync::Ledgers::QuickBooksOnline::Connection.new(
   access_token: access_token, # assuming this is defined
   client_id: ENV['QUICKBOOKS_ONLINE_CLIENT_ID'],
   client_secret: ENV['QUICKBOOKS_ONLINE_CLIENT_SECRET'],
@@ -335,7 +335,7 @@ puts oauth_client.authorization_url(redirect_uri: redirect_uri)
 
 uri = 'https://localhost:3000/?code=FOO&state=BAR&realm_id=BAZ'
 
-connection = LedgerSync::Ledgers::QuickBooksOnline::Ledger.new_from_oauth_client_uri(
+connection = LedgerSync::Ledgers::QuickBooksOnline::Connection.new_from_oauth_client_uri(
   oauth_client: oauth_client,
   uri: uri
 )

@@ -35,7 +35,7 @@ client_id = ENV.fetch('QUICKBOOKS_ONLINE_CLIENT_ID')
 
 raise 'QUICKBOOKS_ONLINE_CLIENT_ID not set in ../.env' if client_id.blank?
 
-connection = LedgerSync::Ledgers::QuickBooksOnline::Ledger.new_from_env(test: true)
+connection = LedgerSync::Ledgers::QuickBooksOnline::Connection.new_from_env(test: true)
 
 puts 'Go to the following URL:'
 puts connection.authorization_url(redirect_uri: base_url)
