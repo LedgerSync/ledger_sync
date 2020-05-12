@@ -2,20 +2,20 @@ require 'spec_helper'
 
 support :stripe_helpers
 
-RSpec.describe LedgerSync::Ledgers::Stripe::Connection do
+RSpec.describe LedgerSync::Ledgers::Stripe::Client do
   include StripeHelpers
 
-  let(:connection) { stripe_connection }
+  let(:client) { stripe_client }
 
   describe '#url_for' do
     it do
       resource = LedgerSync::Customer.new(ledger_id: 123)
       url = 'https://dashboard.stripe.com/customers/123'
-      expect(connection.url_for(resource: resource)).to eq(url)
+      expect(client.url_for(resource: resource)).to eq(url)
     end
 
     it do
-      expect { connection.url_for(resource: nil) }.to raise_error(
+      expect { client.url_for(resource: nil) }.to raise_error(
         LedgerSync::Error::LedgerError::UnknownURLFormat
       )
     end

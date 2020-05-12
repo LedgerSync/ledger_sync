@@ -17,7 +17,7 @@ RSpec.describe 'stripe/customers/create', type: :feature do
 
   let(:input) do
     {
-      connection: stripe_connection,
+      client: stripe_client,
       resource: resource
     }
   end

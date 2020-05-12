@@ -8,20 +8,20 @@ module LedgerSync
       include Mixins::InferLedgerSerializerMixin
       include Mixins::SerializationMixin
 
-      attr_reader :connection,
+      attr_reader :client,
                   :query,
                   :pagination,
                   :request
 
       simply_serialize only: %i[
-        connection
+        client
         query
         pagination
         resources
       ]
 
-      def initialize(connection:, query:, pagination: {})
-        @connection = connection
+      def initialize(client:, query:, pagination: {})
+        @client = client
         @query = query
         @pagination = pagination
       end
@@ -50,7 +50,7 @@ module LedgerSync
 
       def paginate(**keywords)
         self.class.new(
-          connection: connection,
+          client: client,
           query: query,
           pagination: keywords
         )

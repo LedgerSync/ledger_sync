@@ -26,7 +26,7 @@ RSpec.describe LedgerSync::Util::Performer do
 
   let(:valid_operation) do
     LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
-      connection: netsuite_connection,
+      client: netsuite_client,
       resource: resource,
       validation_contract: valid_contract
     )
@@ -34,7 +34,7 @@ RSpec.describe LedgerSync::Util::Performer do
 
   let(:invalid_operation) do
     LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
-      connection: netsuite_connection,
+      client: netsuite_client,
       resource: resource,
       validation_contract: invalid_contract
     )

@@ -380,7 +380,7 @@ module QuickBooksOnlineHelpers
   end
 
   # Ledger
-  def quickbooks_online_connection
+  def quickbooks_online_client
     LedgerSync.ledgers.quickbooks_online.new(
       access_token: 'access_token',
       client_id: 'client_id',
@@ -395,7 +395,7 @@ module QuickBooksOnlineHelpers
     'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret)
   end
 
-  def stub_connection_refresh
+  def stub_client_refresh
     stub_request(:post, 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer')
       .with(
         body: {

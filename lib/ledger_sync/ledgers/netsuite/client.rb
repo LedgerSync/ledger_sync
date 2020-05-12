@@ -5,7 +5,7 @@ require 'oauth2'
 module LedgerSync
   module Ledgers
     module NetSuite
-      class Connection < LedgerSync::Ledgers::Connection
+      class Client < LedgerSync::Ledgers::Client
         HEADERS = {
           # 'Accept' => 'application/schema+json'
         }.freeze
@@ -70,7 +70,7 @@ module LedgerSync
 
         def metadata_for(record:)
           Record::Metadata.new(
-            connection: self,
+            client: self,
             record: record
           )
         end

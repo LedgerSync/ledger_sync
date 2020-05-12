@@ -81,7 +81,7 @@ module LedgerSync
 
         def self.quickbooks_online_resource_type
           @quickbooks_online_resource_type ||= begin
-            qbo_type = Connection.ledger_resource_type_for(
+            qbo_type = Client.ledger_resource_type_for(
               resource_class: inferred_resource_class
             )
             type_hash = QuickBooksOnline::LedgerSerializer

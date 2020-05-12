@@ -31,7 +31,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::F
     )
   end
 
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation', stubs: :stub_bill_payment_find

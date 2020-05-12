@@ -39,7 +39,7 @@ module NetSuiteHelpers
     ret
   end
 
-  def netsuite_connection(env: false)
+  def netsuite_client(env: false)
     env ||= ENV.key?('USE_DOTENV_ADAPTOR_SECRETS')
     LedgerSync.ledgers.netsuite.new(
       account_id: env ? ENV.fetch('NETSUITE_ACCOUNT_ID', 'netsuite_account_id') : 'netsuite_account_id',

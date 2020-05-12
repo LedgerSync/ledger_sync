@@ -10,8 +10,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Upda
   include InputHelpers
   include QuickBooksOnlineHelpers
 
-  let(:connection) do
-    quickbooks_online_connection
+  let(:client) do
+    quickbooks_online_client
   end
   let(:resource) do
     LedgerSync::Customer.new(customer_resource(ledger_id: '123'))

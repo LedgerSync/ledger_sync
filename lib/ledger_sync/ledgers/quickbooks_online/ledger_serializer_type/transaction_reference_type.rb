@@ -12,7 +12,7 @@ module LedgerSync
             return if value.empty?
 
             value.map do |item|
-              resource_class = Connection.resource_from_ledger_type(type: item['TxnType'])
+              resource_class = Client.resource_from_ledger_type(type: item['TxnType'])
 
               raise "Unknown QuickBooks Online resource type: #{item['TxnType']}" if resource_class.blank?
 
@@ -30,7 +30,7 @@ module LedgerSync
             value.map do |resource|
               {
                 'TxnId' => resource.ledger_id,
-                'TxnType' => Connection.ledger_resource_type_for(
+                'TxnType' => Client.ledger_resource_type_for(
                   resource_class: resource.class
                 ).classify
               }

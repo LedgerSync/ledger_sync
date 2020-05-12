@@ -6,7 +6,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::C
   include QuickBooksOnlineHelpers
 
   let(:resource) { LedgerSync::LedgerClass.new(name: 'Test Class', active: true, sub_class: false) }
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation', stubs: :stub_create_ledger_class

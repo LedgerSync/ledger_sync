@@ -12,7 +12,7 @@ module LedgerSync
 
           module InstanceMethods
             def ledger_resource_path
-              connection.ledger_resource_path(resource: resource)
+              client.ledger_resource_path(resource: resource)
             end
           end
         end

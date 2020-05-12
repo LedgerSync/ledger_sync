@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Location::Operations::Update do
 
   let(:record) { :location }
   let(:resource) { FactoryBot.create(record, ledger_id: 1137) }
-  let(:connection) { netsuite_connection }
+  let(:client) { netsuite_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',

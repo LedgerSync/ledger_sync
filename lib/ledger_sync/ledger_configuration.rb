@@ -27,8 +27,8 @@ module LedgerSync
       @module_string = module_string || LedgerSync::Util::StringHelpers.camelcase(root_key)
     end
 
-    def connection_class
-      @connection_class ||= base_module::Connection
+    def client_class
+      @client_class ||= base_module::Client
     end
 
     def add_alias(new_alias)
@@ -42,16 +42,16 @@ module LedgerSync
       end
     end
 
-    # Delegate #new to the connection class enabling faster connection initialization
+    # Delegate #new to the client class enabling faster client initialization
     # e.g. LedgerSync.ledgers.test.new(...)
     def new(*args)
-      connection_class.new(*args)
+      client_class.new(*args)
     end
 
-    # Delegate #new_from_env to the connection class enabling faster connection initialization
+    # Delegate #new_from_env to the client class enabling faster client initialization
     # e.g. LedgerSync.ledgers.test.new_from_env(...)
     def new_from_env(*args)
-      connection_class.new_from_env(*args)
+      client_class.new_from_env(*args)
     end
 
     def test?

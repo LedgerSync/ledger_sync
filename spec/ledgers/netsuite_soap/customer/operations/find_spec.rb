@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Customer::Operations::Find, vc
   include InputHelpers
   include NetSuiteSOAPHelpers
 
-  let(:connection) { netsuite_soap_connection }
+  let(:client) { netsuite_soap_client }
   let(:resource) { LedgerSync::Customer.new(customer_resource(ledger_id: 1837)) }
 
   it_behaves_like 'an operation'

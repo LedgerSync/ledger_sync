@@ -6,7 +6,7 @@ require_relative 'dashboard_url_helper'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      class Connection < Ledgers::Connection
+      class Client < Ledgers::Client
         OAUTH_HEADERS     = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }.freeze
         ROOT_URI          = 'https://quickbooks.api.intuit.com'
         REVOKE_TOKEN_URI  = 'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
@@ -109,7 +109,7 @@ module LedgerSync
         def refresh!
           set_credentials_from_oauth_token(
             token: Request.new(
-              connection: self
+              client: self
             ).refresh!
           )
           self
@@ -152,11 +152,11 @@ module LedgerSync
           Tempfile.open(".#{File.basename(filename)}", File.dirname(filename)) do |tempfile|
             File.open(filename).each do |line|
               env_key = line.split('=').first
-              connection_method = env_key.split(prefix).last.downcase
+              client_method = env_key.split(prefix).last.downcase
 
-              if line =~ /\A#{prefix}/ && respond_to?(connection_method)
+              if line =~ /\A#{prefix}/ && respond_to?(client_method)
                 env_value = ENV[env_key]
-                new_value = send(connection_method)
+                new_value = send(client_method)
                 tempfile.puts "#{env_key}=#{new_value}"
                 next if env_value == new_value
 
@@ -230,7 +230,7 @@ module LedgerSync
 
         def request(body: nil, headers: {}, method:, url:)
           Request.new(
-            connection: self,
+            client: self,
             body: body,
             headers: headers,
             method: method,

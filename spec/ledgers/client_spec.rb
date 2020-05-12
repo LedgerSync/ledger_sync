@@ -4,12 +4,12 @@ require 'spec_helper'
 
 support :quickbooks_online_helpers
 
-RSpec.describe LedgerSync::Ledgers::Connection do
+RSpec.describe LedgerSync::Ledgers::Client do
   include QuickBooksOnlineHelpers
 
   it { expect { described_class.new }.to raise_error(NotImplementedError) }
 
-  subject { quickbooks_online_connection }
+  subject { quickbooks_online_client }
 
   describe '#searcher_for' do
     it { expect(subject.searcher_for(resource_type: :customer)).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher) }

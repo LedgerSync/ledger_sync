@@ -17,7 +17,7 @@ SimpleCov.start do
 end
 
 # Set an environment variable to determine when we are testing.  This
-# prevents things like the QuickBooks Online connection overwriting
+# prevents things like the QuickBooks Online client overwriting
 # environment variables with dummy values.
 ENV['TEST_ENV'] = 'true'
 

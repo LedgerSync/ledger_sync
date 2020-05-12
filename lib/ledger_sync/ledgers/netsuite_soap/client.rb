@@ -3,7 +3,7 @@ require 'oauth2'
 module LedgerSync
   module Ledgers
     module NetSuiteSOAP
-      class Connection < Ledgers::Connection
+      class Client < Ledgers::Client
         DEFAULT_API_VERSION = '2016_2'.freeze
 
         attr_reader :account_id,

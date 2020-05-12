@@ -29,7 +29,7 @@ module LedgerSync
             resource.ledger_id = ledger_id
 
             self.class.operations_module::Find.new(
-              connection: connection,
+              client: client,
               resource: resource
             ).perform
           end
@@ -44,7 +44,7 @@ module LedgerSync
           end
 
           def response
-            @response ||= connection.patch(
+            @response ||= client.patch(
               body: serializer.serialize(resource: resource),
               path: ledger_resource_path
             )

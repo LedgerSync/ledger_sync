@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Operations::Find 
   let(:vendor) { LedgerSync::Vendor.new(ledger_id: '123', first_name: 'Test', last_name: 'Testing') }
   let(:department) { LedgerSync::Department.new(ledger_id: '123') }
   let(:resource) { LedgerSync::Expense.new(ledger_id: '123', account: account, department: department, entity: vendor, currency: FactoryBot.create(:currency), memo: 'Memo 1', payment_type: 'cash', transaction_date: Date.new(2019, 9, 1), line_items: []) }
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation', stubs: :stub_find_expense

@@ -13,7 +13,7 @@ RSpec.describe 'quickbooks_online/departments/search', type: :feature do
 
   let(:input) do
     {
-      connection: quickbooks_online_connection,
+      client: quickbooks_online_client,
       query: 'Test Department'
     }
   end

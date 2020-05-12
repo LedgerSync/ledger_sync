@@ -52,7 +52,7 @@ require 'ledger_sync/deserializer'
 
 # Ledgers
 Gem.find_files('ledger_sync/ledgers/mixins/**/*.rb').each { |path| require path }
-require 'ledger_sync/ledgers/connection'
+require 'ledger_sync/ledgers/client'
 require 'ledger_sync/ledgers/dashboard_url_helper'
 require 'ledger_sync/ledgers/searcher'
 require 'ledger_sync/ledgers/ledger_serializer'
@@ -98,17 +98,17 @@ module LedgerSync
     @logger = val
   end
 
-  def self.register_connection(connection_key, module_string: nil)
-    connection_root_path = "ledger_sync/ledgers/#{connection_key}"
-    require "#{connection_root_path}/connection"
+  def self.register_client(client_key, module_string: nil)
+    client_root_path = "ledger_sync/ledgers/#{client_key}"
+    require "#{client_root_path}/client"
     self.ledgers ||= LedgerSync::LedgerConfigurationStore.new
-    ledger_config = LedgerSync::LedgerConfiguration.new(connection_key, module_string: module_string)
+    ledger_config = LedgerSync::LedgerConfiguration.new(client_key, module_string: module_string)
     yield(ledger_config)
-    self.ledgers.register_connection(ledger_config: ledger_config)
+    self.ledgers.register_client(ledger_config: ledger_config)
 
-    connection_files = Gem.find_files("#{connection_root_path}/**/*.rb")
+    client_files = Gem.find_files("#{client_root_path}/**/*.rb")
     # Sort the files to include BFS-style as most dependencies are in parent folders
-    connection_files.sort { |a, b| a.count('/') <=> b.count('/') }.each do |path|
+    client_files.sort { |a, b| a.count('/') <=> b.count('/') }.each do |path|
       next if path.include?('config.rb')
 
       require path

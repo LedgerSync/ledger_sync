@@ -9,10 +9,10 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Util::LedgerErrorParser do
 
   let(:message) { 'This is the error message.' }
   let(:error) { StandardError.new(message) }
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
   let(:parser) do
     described_class.new(
-      connection: connection,
+      client: client,
       error: error
     )
   end

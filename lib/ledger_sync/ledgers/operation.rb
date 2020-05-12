@@ -5,8 +5,8 @@ module LedgerSync
     module Operation
       module Mixin
         module ClassMethods
-          def connection_class
-            @connection_class ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Ledger")
+          def client_class
+            @client_class ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Ledger")
           end
 
           def operation_method
@@ -29,7 +29,7 @@ module LedgerSync
 
           base.class_eval do
             simply_serialize only: %i[
-              connection
+              client
               resource
               result
               response
@@ -37,14 +37,14 @@ module LedgerSync
           end
         end
 
-        attr_reader :connection,
+        attr_reader :client,
                     :resource,
                     :resource_before_perform,
                     :result,
                     :response
 
         def initialize(args = {})
-          @connection = args.fetch(:connection)
+          @client = args.fetch(:client)
           @resource = args.fetch(:resource)
           @resource_before_perform = resource.dup
           @result = nil
@@ -62,7 +62,7 @@ module LedgerSync
                     rescue LedgerSync::Error => e
                       failure(e)
                     rescue StandardError => e
-                      parsed_error = connection.parse_operation_error(error: e, operation: self)
+                      parsed_error = client.parse_operation_error(error: e, operation: self)
                       raise e unless parsed_error
 
                       failure(parsed_error)
@@ -163,8 +163,8 @@ module LedgerSync
         end
       end
 
-      def self.class_from(connection:, method:, object:)
-        connection.base_module.const_get(
+      def self.class_from(client:, method:, object:)
+        client.base_module.const_get(
           LedgerSync::Util::StringHelpers.camelcase(object)
         )::Operations.const_get(
           LedgerSync::Util::StringHelpers.camelcase(method)

@@ -12,11 +12,11 @@ module LedgerSync
         class Metadata
           BASE_PATH = 'metadata-catalog'
 
-          attr_reader :connection,
+          attr_reader :client,
                       :record
 
-          def initialize(connection:, record:)
-            @connection = connection
+          def initialize(client:, record:)
+            @client = client
             @record = record
           end
 
@@ -57,7 +57,7 @@ module LedgerSync
 
           def metadata_response
             @metadata_response = begin
-              connection.get(
+              client.get(
                 headers: {
                   'Accept' => 'application/swagger+json'
                 },

@@ -7,10 +7,10 @@ support :netsuite_helpers
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Searcher do
   include NetSuiteHelpers
 
-  let(:connection) { netsuite_connection }
+  let(:client) { netsuite_client }
   let(:query) { 'qqq' }
 
-  subject { described_class.new(connection: connection, query: query) }
+  subject { described_class.new(client: client, query: query) }
 
   describe '#next_searcher' do
     it { expect(subject.next_searcher.pagination).to eq(limit: 10, offset: 11) }

@@ -13,7 +13,7 @@ RSpec.describe(
   let(:resource) do
     LedgerSync::Ledgers::QuickBooksOnline::Preferences.new(ledger_id: nil)
   end
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation', stubs: :stub_preferences_find

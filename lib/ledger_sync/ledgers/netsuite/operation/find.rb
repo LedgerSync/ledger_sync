@@ -38,7 +38,7 @@ module LedgerSync
           end
 
           def response
-            @response ||= connection.get(
+            @response ||= client.get(
               path: ledger_resource_path
             )
           end

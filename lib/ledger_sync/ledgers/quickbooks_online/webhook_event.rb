@@ -39,19 +39,19 @@ module LedgerSync
           @webhook = webhook_notification.try(:webhook)
         end
 
-        def find(connection:)
-          find_operation(connection: connection).perform
+        def find(client:)
+          find_operation(client: client).perform
         end
 
-        def find_operation(connection:)
-          find_operation_class(connection: connection).new(
-            connection: connection,
+        def find_operation(client:)
+          find_operation_class(client: client).new(
+            client: client,
             resource: resource_class.new(ledger_id: ledger_id)
           )
         end
 
-        def find_operation_class(connection:)
-          connection.class.base_operation_module_for(resource_class: resource_class)::Find
+        def find_operation_class(client:)
+          client.class.base_operation_module_for(resource_class: resource_class)::Find
         end
 
         def local_resource_type
@@ -71,7 +71,7 @@ module LedgerSync
         end
 
         def resource_class
-          @resource_class ||= Connection.resource_from_ledger_type(type: quickbooks_online_resource_type.downcase)
+          @resource_class ||= Client.resource_from_ledger_type(type: quickbooks_online_resource_type.downcase)
         end
       end
     end

@@ -4,7 +4,7 @@ require 'spec_helper'
 
 support :netsuite_soap_helpers
 
-RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Connection do
+RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Client do
   include NetSuiteSOAPHelpers
 
   let(:account) { 'account' }
@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Connection do
   let(:consumer_secret) { 'consumer_secret' }
   let(:token_id) { 'token_id' }
   let(:token_secret) { 'token_secret' }
-  let(:connection) { netsuite_soap_connection }
+  let(:client) { netsuite_soap_client }
 
   subject do
     described_class.new(

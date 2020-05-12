@@ -1690,7 +1690,7 @@ http_interactions:
         use=\"literal\"/>\n\t\t\t</fault>\n\t\t</operation>\n\t</binding>\n\t<service
         name=\"NetSuiteService\">\n\t\t<port name=\"NetSuitePort\" binding=\"tns:NetSuiteBinding\">\n\t\t\t<soap:address
         location=\"https://webservices.na0.netsuite.com/services/NetSuitePort_2016_2\"/>\n\t\t</port>\n\t</service>\n</definitions>\n"
-    http_version: 
+    http_version:
   recorded_at: Thu, 16 Jan 2020 10:57:08 GMT
 - request:
     method: post
@@ -1735,7 +1735,7 @@ http_interactions:
       - Thu, 16 Jan 2020 10:57:12 GMT
       Content-Length:
       - '4258'
-      Connection:
+      Client:
       - keep-alive
       Set-Cookie:
       - NS_ROUTING_VERSION=LAGGING; path=/
@@ -1763,6 +1763,6 @@ http_interactions:
         internalId="30" scriptId="custentity_esc_last_modified_date" xsi:type="platformCore:DateCustomFieldRef"><platformCore:value>2019-12-12T00:00:00.000-08:00</platformCore:value></platformCore:customField><platformCore:customField
         internalId="114" scriptId="custentity_atlas_help_entity_lp_ref" xsi:type="platformCore:SelectCustomFieldRef"><platformCore:value
         internalId="4" typeId="27"><platformCore:name>Order to Cash</platformCore:name></platformCore:value></platformCore:customField></listRel:customFieldList></record></readResponse></getResponse></soapenv:Body></soapenv:Envelope>
-    http_version: 
+    http_version:
   recorded_at: Thu, 16 Jan 2020 10:57:12 GMT
 recorded_with: VCR 5.0.0

@@ -15,17 +15,17 @@ module LedgerSync
         end
 
         def query_table
-          @query_table ||= connection.class.ledger_resource_type_for(resource_class: self.class.inferred_resource_class)
+          @query_table ||= client.class.ledger_resource_type_for(resource_class: self.class.inferred_resource_class)
         end
 
         def resources
           resource_class = self.class.inferred_resource_class
 
           @resources ||= begin
-            @request = connection
+            @request = client
                        .post(
                          body: { q: query_string.to_s },
-                         request_url: connection.api_base_url.gsub('/record/v1', '') + "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
+                         request_url: client.api_base_url.gsub('/record/v1', '') + "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
                        )
 
             case request.status

@@ -4,7 +4,7 @@ require 'spec_helper'
 
 support :quickbooks_online_helpers
 
-RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Connection do
+RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Client do
   include QuickBooksOnlineHelpers
 
   let(:access_token) { 'access_token' }
@@ -15,7 +15,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Connection do
   let(:refresh_token) { 'refresh_token' }
   let(:refresh_token_expires_at) { nil }
   let(:test) { true }
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   subject do
     described_class.new(
@@ -56,7 +56,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Connection do
   describe '#refresh!' do
     it { expect(subject).to respond_to(:refresh!) }
     it do
-      stub_connection_refresh
+      stub_client_refresh
       expect(subject.expires_at).to be_nil
       expect(subject.refresh_token_expires_at).to be_nil
       subject.refresh!
@@ -76,55 +76,55 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Connection do
   describe '#url_for' do
     it do
       resource = LedgerSync::Account.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/register?accountId=123')
     end
 
     it do
       resource = LedgerSync::Bill.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/bill?txnId=123')
     end
 
     it do
       resource = LedgerSync::Customer.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/customerdetail?nameId=123')
     end
 
     it do
       resource = LedgerSync::Deposit.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/deposit?txnId=123')
     end
 
     it do
       resource = LedgerSync::Expense.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/expense?txnId=123')
     end
 
     it do
       resource = LedgerSync::JournalEntry.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/journal?txnId=123')
     end
 
     it do
       resource = LedgerSync::Payment.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/recvpayment?txnId=123')
     end
 
     it do
       resource = LedgerSync::Transfer.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/transfer?txnId=123')
     end
 
     it do
       resource = LedgerSync::Vendor.new(ledger_id: 123)
-      url = connection.url_for(resource: resource)
+      url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/vendordetail?nameId=123')
     end
   end
@@ -141,15 +141,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Connection do
         client_id: 'client_id',
         client_secret: 'client_secret'
       )
-      connection = described_class.new_from_oauth_client_uri(
+      client = described_class.new_from_oauth_client_uri(
         oauth_client: oauth_client,
         uri: 'http://localhost:3000/?code=THIS_IS_THE_OAUTH_CODE&state=1f14489339926f9ac94cb860&realmId=1234567890'
       )
 
-      expect(connection.access_token).to be_present
-      expect(connection.client_id).to eq(oauth_client.client_id)
-      expect(connection.realm_id).to be_present
-      expect(connection.refresh_token).to be_present
+      expect(client.access_token).to be_present
+      expect(client.client_id).to eq(oauth_client.client_id)
+      expect(client.realm_id).to be_present
+      expect(client.refresh_token).to be_present
     end
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Customer::Operations::Create do
   include NetSuiteHelpers
 
   let(:resource) { LedgerSync::Customer.new(customer_resource) }
-  let(:connection) { netsuite_connection }
+  let(:client) { netsuite_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',

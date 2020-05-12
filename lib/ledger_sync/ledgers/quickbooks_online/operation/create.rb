@@ -13,7 +13,7 @@ module LedgerSync
 
           def operate
             response_to_operation_result(
-              response: connection.post(
+              response: client.post(
                 path: ledger_resource_type_for_path,
                 payload: ledger_serializer.to_ledger_hash
               )

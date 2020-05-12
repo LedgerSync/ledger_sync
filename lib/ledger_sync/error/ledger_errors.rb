@@ -3,11 +3,11 @@
 module LedgerSync
   class Error
     class LedgerError < Error
-      attr_reader :connection
+      attr_reader :client
       attr_reader :response
 
-      def initialize(connection:, message:, response: nil)
-        @connection = connection
+      def initialize(client:, message:, response: nil)
+        @client = client
         @response = response
         super(message: message)
       end
@@ -20,7 +20,7 @@ module LedgerSync
         def initialize(message:)
           super(
             message: message,
-            connection: nil,
+            client: nil,
           )
         end
       end
@@ -28,12 +28,12 @@ module LedgerSync
       class LedgerValidationError < self
         attr_reader :attribute, :validation
 
-        def initialize(message:, connection:, attribute:, validation:)
+        def initialize(message:, client:, attribute:, validation:)
           @attribute = attribute
           @validation = validation
           super(
             message: message,
-            connection: connection,
+            client: client,
           )
         end
       end
@@ -41,14 +41,14 @@ module LedgerSync
       class ThrottleError < self
         attr_reader :rate_limiting_wait_in_seconds
 
-        def initialize(connection:, message: nil, response: nil)
+        def initialize(client:, message: nil, response: nil)
           message ||= 'Your request has been throttled.'
           @rate_limiting_wait_in_seconds = LedgerSync.ledgers.config_from_class(
-            connection_class: connection.class
+            client_class: client.class
           ).rate_limiting_wait_in_seconds
 
           super(
-            connection: connection,
+            client: client,
             message: message,
             response: response
           )

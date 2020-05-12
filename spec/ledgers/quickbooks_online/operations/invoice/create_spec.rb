@@ -30,7 +30,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Invoice::Operations::Creat
     LedgerSync::Invoice.new(invoice_resource(customer: customer, account: account, line_items: [line_item]))
   end
 
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation', stubs: :stub_create_invoice

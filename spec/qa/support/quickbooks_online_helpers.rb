@@ -7,38 +7,38 @@ module QA
   module QuickBooksOnlineHelpers
     include LedgerHelpers
 
-    def connection_class
-      LedgerSync::Ledgers::QuickBooksOnline::Connection
+    def client_class
+      LedgerSync::Ledgers::QuickBooksOnline::Client
     end
 
-    def find_or_create_in_ledger(factory, qa: true, connection:)
+    def find_or_create_in_ledger(factory, qa: true, client:)
       resource_class = FactoryBot.factories[factory].build_class
-      searcher = connection.searcher_class_for(resource_type: resource_class.resource_type)
+      searcher = client.searcher_class_for(resource_type: resource_class.resource_type)
       resource = searcher.new(
-        connection: connection,
+        client: client,
         query: ''
       ).search.raise_if_error.resources.first
 
       return resource if resource.present?
 
       create_resource_for(
-        connection: connection,
+        client: client,
         resource: resource
       )
     end
 
-    def quickbooks_online_connection
-      @quickbooks_online_connection ||= LedgerSync.ledgers.quickbooks_online.new_from_env(test: true)
+    def quickbooks_online_client
+      @quickbooks_online_client ||= LedgerSync.ledgers.quickbooks_online.new_from_env(test: true)
     end
   end
 end
 
 RSpec.configure do |config|
-  config.include QA::QuickBooksOnlineHelpers, qa: true, connection: :quickbooks_online
-  # config.before { quickbooks_online_connection.refresh! }
-  config.around(:each, qa: true, connection: :quickbooks_online) do |example|
+  config.include QA::QuickBooksOnlineHelpers, qa: true, client: :quickbooks_online
+  # config.before { quickbooks_online_client.refresh! }
+  config.around(:each, qa: true, client: :quickbooks_online) do |example|
     example.run
   ensure
-    quickbooks_online_connection.update_secrets_in_dotenv
+    quickbooks_online_client.update_secrets_in_dotenv
   end
 end

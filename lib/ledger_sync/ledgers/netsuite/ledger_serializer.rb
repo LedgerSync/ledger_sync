@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'ledger_sync/ledgers/ledger_serializer'
-Gem.find_files('ledger_sync/ledgers/netsuite/ledger_serializer_type/**/*.rb').each { |path| require path } # require connection-specific types
+Gem.find_files('ledger_sync/ledgers/netsuite/ledger_serializer_type/**/*.rb').each { |path| require path } # require client-specific types
 
 module LedgerSync
   module Ledgers

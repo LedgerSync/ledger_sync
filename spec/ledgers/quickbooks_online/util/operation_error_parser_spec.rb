@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Util::OperationErrorParser
   let(:error) { StandardError.new(message) }
   let(:operation) do
     LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(
-      connection: quickbooks_online_connection,
+      client: quickbooks_online_client,
       resource: LedgerSync::Customer.new
     )
   end

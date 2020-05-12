@@ -2,7 +2,7 @@
 
 module LedgerSync
   module Ledgers
-    class Connection
+    class Client
       include Fingerprintable::Mixin
       include SimplySerializable::Mixin
       include Validatable
@@ -36,13 +36,13 @@ module LedgerSync
           method: method,
           resource_class: resource.class
         ).new(
-          connection: self,
+          client: self,
           resource: resource
         )
       end
 
       def searcher_for(resource_type:, query: '')
-        searcher_class_for(resource_type: resource_type).new(connection: self, query: query)
+        searcher_class_for(resource_type: resource_type).new(client: self, query: query)
       end
 
       def searcher_class_for(resource_type:)
@@ -66,10 +66,10 @@ module LedgerSync
       end
 
       def self.config
-        @config ||= LedgerSync.ledgers.config_from_class(connection_class: self)
+        @config ||= LedgerSync.ledgers.config_from_class(client_class: self)
       end
 
-      # These are attributes that must always be saved after the connection is called.
+      # These are attributes that must always be saved after the client is called.
       # For example, the library will handle refreshing tokens that will need
       # to be saved back to the application layer for future use.
       def self.ledger_attributes_to_save

@@ -4,10 +4,10 @@ module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Request < Ledgers::Request
-        attr_reader :connection
+        attr_reader :client
 
-        def initialize(*args, connection:, **keywords)
-          @connection = connection
+        def initialize(*args, client:, **keywords)
+          @client = client
           super(*args, **keywords)
         end
 
@@ -25,7 +25,7 @@ module LedgerSync
 
           if error.is_a?(Error::LedgerError::AuthenticationError)
             begin
-              connection.refresh!
+              client.refresh!
               @response = generate_response(
                 body: body,
                 headers: headers,
@@ -65,15 +65,15 @@ module LedgerSync
         end
 
         def parse_error(error:)
-          parsed_connection_error(error: error) ||
+          parsed_client_error(error: error) ||
             parsed_operation_error(error: error) ||
             error
         end
 
-        def parsed_connection_error(error:)
+        def parsed_client_error(error:)
           Util::LedgerErrorParser.new(
             error: error,
-            connection: self
+            client: self
           ).parse
         end
 
@@ -86,11 +86,11 @@ module LedgerSync
         end
 
         def oauth
-          connection.oauth
+          client.oauth
         end
 
         def oauth_client
-          connection.oauth_client
+          client.oauth_client
         end
       end
     end

@@ -6,9 +6,9 @@ module QA
       create_result_for(*args).raise_if_error.resource
     end
 
-    def create_result_for(connection:, resource:)
+    def create_result_for(client:, resource:)
       result_for(
-        connection: connection,
+        client: client,
         method: :create,
         resource: resource
       )
@@ -18,9 +18,9 @@ module QA
       delete_result_for(*args).raise_if_error.resource
     end
 
-    def delete_result_for(connection:, resource:)
+    def delete_result_for(client:, resource:)
       result_for(
-        connection: connection,
+        client: client,
         method: :delete,
         resource: resource
       )
@@ -30,16 +30,16 @@ module QA
       find_result_for(*args).raise_if_error.resource
     end
 
-    def find_result_for(connection:, resource:)
+    def find_result_for(client:, resource:)
       result_for(
-        connection: connection,
+        client: client,
         method: :find,
         resource: resource
       )
     end
 
-    def result_for(connection:, method:, resource:)
-      connection.operation_for(
+    def result_for(client:, method:, resource:)
+      client.operation_for(
         method: method,
         resource: resource
       ).perform
@@ -49,9 +49,9 @@ module QA
       update_result_for(*args).raise_if_error.resource
     end
 
-    def update_result_for(connection:, resource:)
+    def update_result_for(client:, resource:)
       result_for(
-        connection: connection,
+        client: client,
         method: :update,
         resource: resource
       )

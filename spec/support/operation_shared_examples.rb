@@ -2,7 +2,7 @@
 
 RSpec.shared_examples 'a valid operation' do
   it 'is valid' do
-    instance = described_class.new(resource: resource, connection: connection)
+    instance = described_class.new(resource: resource, client: client)
     if ENV.fetch('DEBUG', false) && !instance.valid?
       pd instance.errors
       byebug if ENV['DEBUG']
@@ -24,7 +24,7 @@ RSpec.shared_examples 'a successful operation' do |stubs: []|
   end
 
   it 'is successful' do
-    result = described_class.new(resource: resource, connection: connection).perform
+    result = described_class.new(resource: resource, client: client).perform
     expect(result).to be_a(LedgerSync::OperationResult::Success)
   end
 end

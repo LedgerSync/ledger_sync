@@ -13,7 +13,7 @@ module LedgerSync
 
           def operate
             response_to_operation_result(
-              response: connection.find(
+              response: client.find(
                 path: ledger_resource_path
               )
             )

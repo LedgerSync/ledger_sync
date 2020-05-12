@@ -7,11 +7,11 @@ module LedgerSync
         module ClassMethods
           def inferred_ledger_deserializer_class
             @inferred_ledger_deserializer_class ||= begin
-              inferred_connection_class.base_module.const_get(
+              inferred_client_class.base_module.const_get(
                 inferred_ledger_deserializer_class_name
               )
             rescue NameError
-              inferred_connection_class.base_module.const_get(
+              inferred_client_class.base_module.const_get(
                 inferred_ledger_serializer_class_name
               )
             end
@@ -23,11 +23,11 @@ module LedgerSync
 
           def inferred_searcher_ledger_deserializer_class
             @inferred_searcher_ledger_deserializer_class ||= begin
-              inferred_connection_class.base_module.const_get(
+              inferred_client_class.base_module.const_get(
                 inferred_searcher_ledger_deserializer_class_name
               )
             rescue NameError
-              inferred_connection_class.base_module.const_get(
+              inferred_client_class.base_module.const_get(
                 inferred_ledger_serializer_class_name
               )
             end
@@ -39,7 +39,7 @@ module LedgerSync
 
           def inferred_ledger_serializer_class
             @inferred_ledger_serializer_class ||= begin
-              inferred_connection_class.base_module.const_get(
+              inferred_client_class.base_module.const_get(
                 inferred_ledger_serializer_class_name
               )
             end

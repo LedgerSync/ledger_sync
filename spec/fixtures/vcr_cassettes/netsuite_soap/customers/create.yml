@@ -1735,7 +1735,7 @@ http_interactions:
       - Tue, 26 Nov 2019 15:05:11 GMT
       Content-Length:
       - '2432'
-      Connection:
+      Client:
       - keep-alive
       Set-Cookie:
       - NS_ROUTING_VERSION=LAGGING; path=/
@@ -1801,7 +1801,7 @@ http_interactions:
       - User-Agent
       Date:
       - Tue, 26 Nov 2019 15:05:13 GMT
-      Connection:
+      Client:
       - keep-alive
       Set-Cookie:
       - NS_ROUTING_VERSION=LAGGING; path=/

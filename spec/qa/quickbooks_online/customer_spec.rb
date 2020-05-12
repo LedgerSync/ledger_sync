@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer, qa: true, connection: :quickbooks_online do
-  let(:connection) { quickbooks_online_connection }
+RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer, qa: true, client: :quickbooks_online do
+  let(:client) { quickbooks_online_client }
   let(:attribute_updates) do
     {
       name: "QA UPDATE #{rand_id}"

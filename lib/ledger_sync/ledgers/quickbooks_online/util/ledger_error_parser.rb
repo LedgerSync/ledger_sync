@@ -76,10 +76,10 @@ module LedgerSync
             ThrottleMatcher
           ].freeze
 
-          attr_reader :connection
+          attr_reader :client
 
-          def initialize(connection:, error:)
-            @connection = connection
+          def initialize(client:, error:)
+            @client = client
             super(error: error)
           end
 
@@ -89,7 +89,7 @@ module LedgerSync
               next unless matcher.match?
 
               return matcher.error_class.new(
-                connection: connection,
+                client: client,
                 message: matcher.output_message,
                 response: error
               )

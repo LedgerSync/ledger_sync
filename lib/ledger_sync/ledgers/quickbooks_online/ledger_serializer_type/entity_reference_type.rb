@@ -12,7 +12,7 @@ module LedgerSync
             return if value.empty?
 
             value = LedgerSync::Util::HashHelpers.deep_stringify_keys(value)
-            resource_class = Connection.resource_from_ledger_type(type: value['type'])
+            resource_class = Client.resource_from_ledger_type(type: value['type'])
             raise "Unknown QuickBooks Online resource type: #{value['type']}" if resource_class.blank?
 
             ret = resource_class.new(
@@ -31,7 +31,7 @@ module LedgerSync
               'value' => value.ledger_id
             }
             ret['name'] = value.display_name if value.respond_to?(:display_name)
-            ret['type'] = Connection.ledger_resource_type_for(
+            ret['type'] = Client.ledger_resource_type_for(
               resource_class: value.class
             ).classify
             ret

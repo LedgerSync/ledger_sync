@@ -12,7 +12,7 @@ module LedgerSync
           private
 
           def find_resource
-            connection.find(
+            client.find(
               path: ledger_resource_path
             )
           end
@@ -29,7 +29,7 @@ module LedgerSync
               resource: merged_resource
             )
             response_to_operation_result(
-              response: connection.post(
+              response: client.post(
                 path: ledger_resource_type_for_path,
                 payload: merged_serializer.to_ledger_hash(
                   deep_merge_unmapped_values: find_result_hash

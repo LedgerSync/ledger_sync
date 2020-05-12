@@ -12,7 +12,7 @@ module LedgerSync
           private
 
           def operate
-            response = connection.post(
+            response = client.post(
               resource: quickbooks_online_resource_type,
               payload: merged_serializer.to_ledger_hash
             )

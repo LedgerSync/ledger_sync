@@ -31,7 +31,7 @@ module LedgerSync
           end
 
           def response
-            @response ||= connection.delete(
+            @response ||= client.delete(
               path: ledger_resource_path
             )
           end

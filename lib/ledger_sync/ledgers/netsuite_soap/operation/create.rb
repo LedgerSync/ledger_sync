@@ -12,7 +12,7 @@ module LedgerSync
           private
 
           def operate
-            response = connection.post(
+            response = client.post(
               resource: netsuite_online_resource_type,
               payload: ledger_serializer.to_ledger_hash
             )

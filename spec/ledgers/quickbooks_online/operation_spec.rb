@@ -18,12 +18,12 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Operation do
       )
 
       operation1 = LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(
-        connection: quickbooks_online_connection,
+        client: quickbooks_online_client,
         resource: customer1
       )
 
       operation2 = LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(
-        connection: quickbooks_online_connection,
+        client: quickbooks_online_client,
         resource: customer2
       )
 

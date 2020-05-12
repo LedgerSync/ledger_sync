@@ -13,7 +13,7 @@ module LedgerSync
         def resources
           resource_class = self.class.inferred_resource_class
 
-          response = connection.query(
+          response = client.query(
             limit: limit,
             offset: offset,
             query: query_string,
@@ -23,7 +23,7 @@ module LedgerSync
 
           (response.body.dig(
             'QueryResponse',
-            connection.class.ledger_resource_type_for(
+            client.class.ledger_resource_type_for(
               resource_class: resource_class
             ).classify
           ) || []).map do |c|

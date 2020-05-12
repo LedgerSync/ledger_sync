@@ -22,7 +22,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Transfer::Operations::Crea
       )
     )
   end
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation', stubs: :stub_create_transfer

@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::LedgerConfiguration do
 
       context '#new' do
         it do
-          allow(config.connection_class).to receive(:new).with(any_args).once
+          allow(config.client_class).to receive(:new).with(any_args).once
           config.new
         end
       end

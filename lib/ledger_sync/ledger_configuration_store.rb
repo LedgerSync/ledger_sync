@@ -11,46 +11,46 @@ module LedgerSync
       @class_configs = {}
     end
 
-    def add_alias(connection_key, existing_config)
-      if respond_to?(connection_key)
-        raise LedgerSync::ConfigurationError, "Alias already taken: #{connection_key}" if send(connection_key) != existing_config
+    def add_alias(client_key, existing_config)
+      if respond_to?(client_key)
+        raise LedgerSync::ConfigurationError, "Alias already taken: #{client_key}" if send(client_key) != existing_config
 
         return
       end
 
-      _instance_methods_for(connection_key: connection_key, ledger_config: existing_config)
+      _instance_methods_for(client_key: client_key, ledger_config: existing_config)
     end
 
-    def config_from_class(connection_class:)
-      @class_configs.fetch(connection_class)
+    def config_from_class(client_class:)
+      @class_configs.fetch(client_class)
     end
 
     def each
       configs.each { |k, v| yield(k, v) }
     end
 
-    def register_connection(ledger_config:)
+    def register_client(ledger_config:)
       _instance_methods_for(
-        connection_key: ledger_config.root_key,
+        client_key: ledger_config.root_key,
         ledger_config: ledger_config
       )
     end
 
     private
 
-    def _instance_methods_for(connection_key:, ledger_config:)
-      @keys << connection_key.to_sym
+    def _instance_methods_for(client_key:, ledger_config:)
+      @keys << client_key.to_sym
 
-      @configs[connection_key] = ledger_config
-      @class_configs[ledger_config.connection_class] = ledger_config
+      @configs[client_key] = ledger_config
+      @class_configs[ledger_config.client_class] = ledger_config
 
       instance_variable_set(
-        "@#{connection_key}",
+        "@#{client_key}",
         ledger_config
       )
 
       @inflections |= [ledger_config.module_string]
-      self.class.class_eval { attr_reader connection_key }
+      self.class.class_eval { attr_reader client_key }
     end
   end
 end

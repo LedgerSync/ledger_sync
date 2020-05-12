@@ -44,7 +44,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Find do
       line_items: []
     )
   end
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',

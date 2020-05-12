@@ -3,9 +3,9 @@
 RSpec.describe(
   LedgerSync::Ledgers::QuickBooksOnline::Preferences,
   qa: true,
-  connection: :quickbooks_online
+  client: :quickbooks_online
 ) do
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
   let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Preferences.new }
 
   it_behaves_like 'a find only quickbooks_online resource'

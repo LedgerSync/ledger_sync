@@ -28,7 +28,7 @@ module LedgerSync
             end
 
             def perform
-              connection.wrap_perform do
+              client.wrap_perform do
                 super
               end
             end

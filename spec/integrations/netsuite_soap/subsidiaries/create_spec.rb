@@ -17,7 +17,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Subsidiary::Operations::Create
 
   let(:input) do
     {
-      connection: netsuite_soap_connection,
+      client: netsuite_soap_client,
       resource: resource
     }
   end

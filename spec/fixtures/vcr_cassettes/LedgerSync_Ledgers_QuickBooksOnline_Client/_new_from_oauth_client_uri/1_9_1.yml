@@ -26,7 +26,7 @@ http_interactions:
       - application/json;charset=utf-8
       Content-Length:
       - '964'
-      Connection:
+      Client:
       - keep-alive
       Server:
       - nginx

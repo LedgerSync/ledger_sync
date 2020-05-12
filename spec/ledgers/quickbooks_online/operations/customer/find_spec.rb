@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find
   include InputHelpers
   include QuickBooksOnlineHelpers
 
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
   let(:resource) { LedgerSync::Customer.new(customer_resource(ledger_id: 123)) }
 
   it_behaves_like 'an operation'

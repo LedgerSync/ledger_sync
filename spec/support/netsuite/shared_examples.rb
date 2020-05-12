@@ -7,7 +7,7 @@ RSpec.shared_examples 'a netsuite operation' do
   include NetSuiteHelpers
 
   let(:resource) { FactoryBot.create(record) } unless method_defined?(:resource)
-  let(:connection) { netsuite_connection } unless method_defined?(:connection)
+  let(:client) { netsuite_client } unless method_defined?(:client)
   unless method_defined?(:record)
     let(:record) do
       described_class.inferred_resource_class.resource_type.to_s
@@ -53,7 +53,7 @@ end
 RSpec.shared_examples 'a netsuite searcher' do
   include NetSuiteHelpers
 
-  let(:connection) { netsuite_connection } unless method_defined?(:connection)
+  let(:client) { netsuite_client } unless method_defined?(:client)
   let(:resource_class) { described_class.inferred_resource_class } unless method_defined?(:resource_class)
   unless method_defined?(:record)
     let(:record) do
@@ -62,7 +62,7 @@ RSpec.shared_examples 'a netsuite searcher' do
   end
   let(:input) do
     {
-      connection: connection,
+      client: client,
       query: ''
     }
   end

@@ -5,7 +5,7 @@ require 'oauth2'
 module LedgerSync
   module Ledgers
     module Stripe
-      class Connection < Ledgers::Connection
+      class Client < Ledgers::Client
         attr_reader :api_key
 
         def initialize(

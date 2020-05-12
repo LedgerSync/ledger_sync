@@ -10,7 +10,7 @@ module LedgerSync
             "/customers/#{resource.ledger_id}"
           else
             raise Error::LedgerError::UnknownURLFormat.new(
-              connection: self,
+              client: self,
               resource: resource
             )
           end

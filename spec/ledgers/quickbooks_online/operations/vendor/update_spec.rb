@@ -13,7 +13,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Vendor::Operations::Update
   let(:resource) do
     LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
   end
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',

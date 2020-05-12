@@ -7,12 +7,12 @@ module QA
   module StripeHelpers
     include LedgerHelpers
 
-    def connection_class
-      LedgerSync::Ledgers::Stripe::Connection
+    def client_class
+      LedgerSync::Ledgers::Stripe::Client
     end
 
-    def stripe_connection
-      @stripe_connection ||= LedgerSync.ledgers.stripe.new(
+    def stripe_client
+      @stripe_client ||= LedgerSync.ledgers.stripe.new(
         api_key: ENV.fetch('STRIPE_API_KEY')
       )
     end
@@ -20,5 +20,5 @@ module QA
 end
 
 RSpec.configure do |config|
-  config.include QA::StripeHelpers, qa: true, connection: :stripe
+  config.include QA::StripeHelpers, qa: true, client: :stripe
 end

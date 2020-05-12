@@ -7,10 +7,10 @@ support :netsuite_helpers
 RSpec.describe LedgerSync::Ledgers::NetSuite::Record::Metadata do
   include NetSuiteHelpers
 
-  let(:connection) { netsuite_connection }
+  let(:client) { netsuite_client }
   let(:metadata) do
     described_class.new(
-      connection: connection,
+      client: client,
       record: record
     )
   end

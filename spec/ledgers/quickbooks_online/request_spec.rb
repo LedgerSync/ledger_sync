@@ -7,13 +7,13 @@ support :quickbooks_online_helpers
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Request do
   include QuickBooksOnlineHelpers
 
-  let(:connection) { quickbooks_online_connection }
+  let(:client) { quickbooks_online_client }
   let(:url) { 'https://www.example.com' }
   let(:method) { 'post' }
   let(:headers) { {} }
   let(:new_oauth_token) do
     OAuth2::AccessToken.new(
-      connection.oauth_client,
+      client.oauth_client,
       'asdf'
     )
   end
@@ -24,14 +24,14 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Request do
   end
   let(:auth_error) do
     LedgerSync::Error::LedgerError::AuthenticationError.new(
-      connection: connection,
+      client: client,
       message: 'foo'
     )
   end
 
   let(:request) do
     described_class.new(
-      connection: connection,
+      client: client,
       headers: headers,
       method: method,
       url: url
