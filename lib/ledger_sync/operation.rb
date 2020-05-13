@@ -15,9 +15,9 @@ module LedgerSync
     end
 
     def self.operation_for(args = {})
-      adaptor = args.fetch(:adaptor)
+      client = args.fetch(:client)
 
-      adaptor.operation_for(args.except(:adaptor))
+      client.operation_for(args.except(:client))
     end
   end
 end

@@ -7,7 +7,7 @@ support :quickbooks_online_helpers
 RSpec.describe LedgerSync::Ledgers::Client do
   include QuickBooksOnlineHelpers
 
-  let(:adaptor) { quickbooks_online_adaptor }
+  let(:client) { quickbooks_online_client }
   let(:resource) { FactoryBot.create(:customer) }
 
   subject { quickbooks_online_client }
@@ -15,29 +15,29 @@ RSpec.describe LedgerSync::Ledgers::Client do
   it { expect { described_class.new }.to raise_error(NotImplementedError) }
 
   describe '#operation_for' do
-    let(:operation_class) { LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations::Create }
+    let(:operation_class) { LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create }
     it do
       method = :create
 
-      expect(adaptor.class).to(
+      expect(client.class).to(
         receive(:operation_class_for).once.with(method: method, resource_class: resource.class)
       ).and_return(operation_class)
 
-      quickbooks_online_adaptor.operation_for(
+      quickbooks_online_client.operation_for(
         method: method,
         resource: resource
       )
     end
 
     it do
-      operation = adaptor.operation_for(
+      operation = client.operation_for(
         method: :create,
         resource: resource
       )
 
       expect(operation).to be_a(operation_class)
       expect(operation.resource).to eq(resource)
-      expect(operation.adaptor).to eq(adaptor)
+      expect(operation.client).to eq(client)
     end
   end
 
@@ -56,8 +56,8 @@ RSpec.describe LedgerSync::Ledgers::Client do
         receive(:resource_module_str).once
       ).and_return('Vendor')
 
-      ret = adaptor.class.base_operation_module_for(resource_class: resource.class)
-      expect(ret).to eq(LedgerSync::Adaptors::QuickBooksOnline::Vendor::Operations)
+      ret = client.class.base_operation_module_for(resource_class: resource.class)
+      expect(ret).to eq(LedgerSync::Ledgers::QuickBooksOnline::Vendor::Operations)
     end
 
     it do
@@ -65,8 +65,8 @@ RSpec.describe LedgerSync::Ledgers::Client do
         receive(:resource_module_str).once
       ).and_return('Customer')
 
-      ret = adaptor.class.base_operation_module_for(resource_class: resource.class)
-      expect(ret).to eq(LedgerSync::Adaptors::QuickBooksOnline::Customer::Operations)
+      ret = client.class.base_operation_module_for(resource_class: resource.class)
+      expect(ret).to eq(LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations)
     end
   end
 
@@ -77,13 +77,13 @@ RSpec.describe LedgerSync::Ledgers::Client do
 
   describe '.operation_class_for' do
     it do
-      mod = LedgerSync::Adaptors::QuickBooksOnline::Account::Operations
+      mod = LedgerSync::Ledgers::QuickBooksOnline::Account::Operations
 
-      expect(adaptor.class).to(
+      expect(client.class).to(
         receive(:base_operation_module_for).once.with(resource_class: resource.class)
       ).and_return(mod)
 
-      ret = adaptor.class.operation_class_for(method: :update, resource_class: resource.class)
+      ret = client.class.operation_class_for(method: :update, resource_class: resource.class)
       expect(ret).to eq(mod::Update)
     end
   end
