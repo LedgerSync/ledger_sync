@@ -93,14 +93,13 @@ module LedgerSync
           .const_get(LedgerSync::Util::StringHelpers.camelcase(method.to_s))
       end
 
-      def register_resource(args = {})
-        super
-        LedgerSync.register_resource(args)
-      end
-
       def self.resource_from_ledger_type(type:, converter: nil)
         converter ||= proc { |n| n.underscore }
         ledger_resource_type_overrides.invert[converter.call(type).to_sym] || LedgerSync.resources[converter.call(type).to_sym]
+      end
+
+      def self.resources
+        @resources ||= {}
       end
 
       def self.url_for(resource: nil); end

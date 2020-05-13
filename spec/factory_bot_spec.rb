@@ -3,34 +3,34 @@
 require 'spec_helper'
 
 RSpec.describe FactoryBot do
-  let(:account_name_regex) { /Test Account #{test_run_id}[a-zA-Z0-9]{8}-1/ }
+  let(:account_name_regex) { /name\-#{test_run_id}[a-zA-Z0-9]{8}-1/ }
   it 'rewinds' do
-    expect(FactoryBot.build(:account).name).to match(account_name_regex)
+    expect(FactoryBot.build(:bundle_account).name).to match(account_name_regex)
     FactoryBot.custom_rewind_sequences
-    expect(FactoryBot.build(:account).name).to match(account_name_regex)
+    expect(FactoryBot.build(:bundle_account).name).to match(account_name_regex)
   end
 
   it 'supports build' do
-    expect(FactoryBot.build(:account).name).to match(account_name_regex)
+    expect(FactoryBot.build(:bundle_account).name).to match(account_name_regex)
   end
 
   it 'supports create' do
-    bill = FactoryBot.create(:bill)
+    bill = FactoryBot.create(:bundle_bill)
 
-    expect(bill.memo).to eq 'Memo 1'
+    expect(bill.memo).to start_with('memo-')
     expect(bill.account.name).to match(account_name_regex)
   end
 
   it 'supports references_one' do
-    expense = FactoryBot.build(:expense)
+    expense = FactoryBot.build(:bundle_expense)
 
-    expect(expense.currency.symbol).to eq 'ZZZ'
-    expect(expense.entity).to be_a(LedgerSync::Bundles::ModernTreasury::Vendor)
-    expect(expense.entity.display_name).to match(/Test #{test_run_id}[a-zA-Z0-9]{8}-1 Display Name/)
+    expect(expense.currency.symbol).to match(/symbol\-#{test_run_id}[a-zA-Z0-9]{8}-2/)
+    expect(expense.entity).to be_a(LedgerSync::Bundles::ModernTreasury::Customer)
+    expect(expense.entity.first_name).to match(/first_name\-#{test_run_id}[a-zA-Z0-9]{8}-1/)
   end
 
   it 'supports references_many' do
-    expense = FactoryBot.build(:expense)
+    expense = FactoryBot.build(:bundle_expense, line_items: create_list(:bundle_expense_line_item, 2))
     expect(expense.line_items.count).to eq(2)
   end
 end

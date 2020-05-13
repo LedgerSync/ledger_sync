@@ -6,13 +6,17 @@ module LedgerSync
       module ResourceRegisterableMixin
         module ClassMethods
           def register_resource(resource:)
-            raise "Resource key #{resource.resource_type} already exists." if resources.key?(resource.resource_type)
+            if resources.is_a?(Hash)
+              raise "Resource key #{resource.resource_type} already exists." if resources.key?(resource.resource_type)
 
-            resources[resource.resource_type] = resource
+              resources[resource.resource_type] = resource
+            else
+              resources << resource
+            end
           end
 
           def resources
-            @resources ||= {}
+            @resources ||= []
           end
         end
 

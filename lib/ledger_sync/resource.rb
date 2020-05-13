@@ -64,6 +64,8 @@ module LedgerSync
         subclass._add_resource_attribute(resource_attribute)
       end
 
+      LedgerSync.register_resource(resource: subclass)
+
       return if subclass.inferred_client_class.nil?
 
       subclass.inferred_client_class.register_resource(resource: subclass)
