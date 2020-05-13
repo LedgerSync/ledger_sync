@@ -14,7 +14,8 @@ module LedgerSync
                     hash_attribute: :acctnumber
 
           attribute :account_type,
-                    hash_attribute: :accttype
+                    hash_attribute: :accttype,
+                    type: LedgerSync::Serialization::Type::CamelToSnakeStringType.new
 
           attribute :description
 
