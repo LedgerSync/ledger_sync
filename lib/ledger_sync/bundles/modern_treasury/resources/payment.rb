@@ -6,7 +6,9 @@ require_relative 'customer'
 require_relative 'payment_line_item'
 
 module LedgerSync
-  class Payment < LedgerSync::Resource
+  module Bundles
+    module ModernTreasury
+      class Payment < ModernTreasury::Resource
     attribute :amount, type: Type::Integer
     attribute :memo, type: Type::String
     attribute :transaction_date, type: Type::Date
@@ -22,6 +24,8 @@ module LedgerSync
 
     def name
       "Payment: #{amount} #{currency}"
+    end
+      end
     end
   end
 end

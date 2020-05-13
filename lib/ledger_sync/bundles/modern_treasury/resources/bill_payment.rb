@@ -7,7 +7,9 @@ require_relative 'vendor'
 require_relative 'bill_payment_line_item'
 
 module LedgerSync
-  class BillPayment < LedgerSync::Resource
+  module Bundles
+    module ModernTreasury
+      class BillPayment < ModernTreasury::Resource
     attribute :amount, type: Type::Integer
     attribute :memo, type: Type::String
     attribute :transaction_date, type: Type::Date
@@ -27,6 +29,8 @@ module LedgerSync
 
     def name
       "Bill Payment: #{reference_number}"
+    end
+      end
     end
   end
 end

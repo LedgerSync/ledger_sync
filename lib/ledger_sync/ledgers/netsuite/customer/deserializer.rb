@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Customer
+      class Customer
         class Deserializer < NetSuite::Deserializer
           id
 

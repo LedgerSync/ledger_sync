@@ -3,7 +3,9 @@
 require_relative 'subsidiary'
 
 module LedgerSync
-  class Vendor < LedgerSync::Resource
+  module Bundles
+    module ModernTreasury
+      class Vendor < ModernTreasury::Resource
     attribute :company_name, type: Type::String
     attribute :email, type: Type::String
     attribute :display_name, type: Type::String
@@ -14,6 +16,8 @@ module LedgerSync
 
     def name
       display_name.to_s
+    end
+      end
     end
   end
 end

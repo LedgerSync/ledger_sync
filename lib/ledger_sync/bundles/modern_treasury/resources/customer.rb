@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../resource'
+require_relative 'subsidiary'
 
 module LedgerSync
   module Bundles

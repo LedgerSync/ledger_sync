@@ -3,7 +3,9 @@
 require_relative 'currency'
 
 module LedgerSync
-  class Account < LedgerSync::Resource
+  module Bundles
+    module ModernTreasury
+      class Account < ModernTreasury::Resource
     attribute :name, type: Type::String
     attribute :classification, type: Type::String
     attribute :account_type, type: Type::String
@@ -13,5 +15,7 @@ module LedgerSync
     attribute :active, type: Type::Boolean
 
     references_one :currency, to: Currency
+      end
+    end
   end
 end

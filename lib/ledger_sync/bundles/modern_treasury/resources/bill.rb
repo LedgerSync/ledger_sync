@@ -1,24 +1,31 @@
 # frozen_string_literal: true
 
 require_relative 'account'
+require_relative 'bill_line_item'
 require_relative 'currency'
 require_relative 'department'
-require_relative 'deposit_line_item'
+require_relative 'vendor'
 
 module LedgerSync
-  class Deposit < LedgerSync::Resource
+  module Bundles
+    module ModernTreasury
+      class Bill < ModernTreasury::Resource
     attribute :memo, type: Type::String
     attribute :transaction_date, type: Type::Date
-    attribute :exchange_rate, type: Type::Float
+    attribute :due_date, type: Type::Date
+    attribute :reference_number, type: Type::String
 
+    references_one :vendor, to: Vendor
     references_one :account, to: Account
     references_one :department, to: Department
     references_one :currency, to: Currency
 
-    references_many :line_items, to: DepositLineItem
+    references_many :line_items, to: BillLineItem
 
     def name
-      "Deposit: #{currency}"
+      "Bill: #{transaction_date}"
+    end
+      end
     end
   end
 end

@@ -8,7 +8,9 @@ require_relative 'expense_line_item'
 require_relative 'vendor'
 
 module LedgerSync
-  class Expense < LedgerSync::Resource
+  module Bundles
+    module ModernTreasury
+      class Expense < ModernTreasury::Resource
     attribute :memo, type: Type::String
     attribute :payment_type, type: Type::String
     attribute :transaction_date, type: Type::Date
@@ -28,6 +30,8 @@ module LedgerSync
 
     def name
       "Purchase: #{amount} #{currency.try(:symbol)}"
+    end
+      end
     end
   end
 end

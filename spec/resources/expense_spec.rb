@@ -14,9 +14,11 @@ RSpec.describe LedgerSync::Expense do
 
     it do
       expect { described_class.new(entity: LedgerSync::Bill.new) }.to raise_error(
-        LedgerSync::ResourceAttributeError::TypeError,
+        ModernTreasury::ResourceAttributeError::TypeError,
         'Attribute entity for LedgerSync::Expense should be one of the following: LedgerSync::Customer, LedgerSync::Vendor.  Given LedgerSync::Bill'
       )
+    end
+      end
     end
   end
 end

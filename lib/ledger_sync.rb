@@ -68,8 +68,6 @@ require 'ledger_sync/ledgers/record'
 require 'ledger_sync/resource' # Template class
 Gem.find_files('ledger_sync/resources/**/*.rb').each { |path| require path }
 
-Gem.find_files('ledger_sync/ledgers/quickbooks_online/resources/**/*.rb').each { |path| require path }
-
 module LedgerSync
   @log_level = nil
   @logger = nil
@@ -136,28 +134,6 @@ end
 # Load Ledgers
 Gem.find_files('ledger_sync/ledgers/**/config.rb').each { |path| require path }
 
-# Register Resources
-LedgerSync.register_resource(resource: LedgerSync::Account)
-LedgerSync.register_resource(resource: LedgerSync::Bill)
-LedgerSync.register_resource(resource: LedgerSync::BillLineItem)
-LedgerSync.register_resource(resource: LedgerSync::Currency)
-LedgerSync.register_resource(resource: LedgerSync::Customer)
-LedgerSync.register_resource(resource: LedgerSync::Department)
-LedgerSync.register_resource(resource: LedgerSync::Deposit)
-LedgerSync.register_resource(resource: LedgerSync::DepositLineItem)
-LedgerSync.register_resource(resource: LedgerSync::Expense)
-LedgerSync.register_resource(resource: LedgerSync::ExpenseLineItem)
-LedgerSync.register_resource(resource: LedgerSync::Invoice)
-LedgerSync.register_resource(resource: LedgerSync::InvoiceSalesLineItem)
-LedgerSync.register_resource(resource: LedgerSync::Item)
-LedgerSync.register_resource(resource: LedgerSync::JournalEntry)
-LedgerSync.register_resource(resource: LedgerSync::JournalEntryLineItem)
-LedgerSync.register_resource(resource: LedgerSync::LedgerClass)
-LedgerSync.register_resource(resource: LedgerSync::Payment)
-LedgerSync.register_resource(resource: LedgerSync::PaymentLineItem)
-LedgerSync.register_resource(resource: LedgerSync::Transfer)
-LedgerSync.register_resource(resource: LedgerSync::Vendor)
-LedgerSync.register_resource(resource: LedgerSync::Location)
-
 # Bundles
+Gem.find_files('ledger_sync/bundles/**/resource.rb').each { |path| require path }
 Gem.find_files('ledger_sync/bundles/**/*.rb').each { |path| require path }

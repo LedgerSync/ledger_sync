@@ -4,7 +4,9 @@ require_relative 'account'
 require_relative 'currency'
 
 module LedgerSync
-  class Transfer < LedgerSync::Resource
+  module Bundles
+    module ModernTreasury
+      class Transfer < ModernTreasury::Resource
     attribute :amount, type: Type::Integer
     attribute :memo, type: Type::String
     attribute :transaction_date, type: Type::Date
@@ -15,6 +17,8 @@ module LedgerSync
 
     def name
       "Transaction: #{amount} #{currency}"
+    end
+      end
     end
   end
 end
