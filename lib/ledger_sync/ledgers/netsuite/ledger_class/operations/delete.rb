@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module LedgerClass
+      class LedgerClass
         module Operations
           class Delete < NetSuite::Operation::Delete
             class Contract < LedgerSync::Ledgers::Contract

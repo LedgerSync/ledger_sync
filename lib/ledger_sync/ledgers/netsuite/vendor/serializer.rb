@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Vendor
+      class Vendor
         class Serializer < NetSuite::Serializer
           attribute :companyName,
                     resource_attribute: :company_name

@@ -10,7 +10,16 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Customer::Operations::Create do
   include InputHelpers
   include NetSuiteHelpers
 
-  let(:resource) { LedgerSync::Customer.new(customer_resource) }
+  let(:resource) do
+    LedgerSync::Ledgers::NetSuite::Customer.new(
+      customer_resource.except(:name).merge(
+        companyName: 'Company Name',
+        firstName: 'Test',
+        lastName: 'This',
+        subsidiary: LedgerSync::Ledgers::NetSuite::Subsidiary.new
+      )
+    )
+  end
   let(:client) { netsuite_client }
 
   it_behaves_like 'an operation'

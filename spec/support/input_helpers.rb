@@ -8,7 +8,7 @@ module InputHelpers
       # attributes
       email: 'test@example.com',
       name: 'Sample Customer',
-      subsidiary: LedgerSync::Subsidiary.new(subsidiary_resource)
+      subsidiary: LedgerSync::Bundles::ModernTreasury::Subsidiary.new(subsidiary_resource)
     }.merge(merge)
   end
 

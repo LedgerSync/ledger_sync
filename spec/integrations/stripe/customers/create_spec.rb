@@ -12,7 +12,7 @@ RSpec.describe 'stripe/customers/create', type: :feature do
   before { stub_customer_create }
 
   let(:resource) do
-    LedgerSync::Customer.new(customer_resource(ledger_id: nil))
+    LedgerSync::Ledgers::Stripe::Customer.new(customer_resource(ledger_id: nil).except(:subsidiary))
   end
 
   let(:input) do

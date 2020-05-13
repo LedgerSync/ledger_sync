@@ -118,7 +118,7 @@ module LedgerSync
 
         def self.ledger_resource_type_overrides
           {
-            LedgerSync::LedgerClass => 'classification',
+            LedgerClass => 'classification',
           }
         end
 

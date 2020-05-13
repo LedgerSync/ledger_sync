@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'ledger_class'
-
 module LedgerSync
   module Bundles
     module ModernTreasury

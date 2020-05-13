@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe ModernTreasury::Resource do
+RSpec.describe LedgerSync::Resource do
   let(:resource) { LedgerSync::Customer.new }
 
   it do
@@ -89,7 +89,5 @@ RSpec.describe ModernTreasury::Resource do
     expect(resource).not_to be_changed
     expect(resource.phone_number).to eq('asdf')
     expect(resource.changes).to eq({})
-      end
-    end
   end
 end

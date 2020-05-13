@@ -6,6 +6,7 @@ module LedgerSync
       include Fingerprintable::Mixin
       include SimplySerializable::Mixin
       include Validatable
+      include Util::Mixins::ResourceRegisterableMixin
 
       simply_serialize only: %i[
         ledger_configuration
@@ -90,6 +91,11 @@ module LedgerSync
       def self.operation_class_for(method:, resource_class:)
         base_operation_module_for(resource_class: resource_class)
           .const_get(LedgerSync::Util::StringHelpers.camelcase(method.to_s))
+      end
+
+      def register_resource(args = {})
+        super
+        LedgerSync.register_resource(args)
       end
 
       def self.resource_from_ledger_type(type:, converter: nil)

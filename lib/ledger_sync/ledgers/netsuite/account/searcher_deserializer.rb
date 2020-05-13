@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Account
+      class Account
         class SearcherDeserializer < NetSuite::Deserializer
           id
 

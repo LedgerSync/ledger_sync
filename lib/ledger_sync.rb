@@ -45,6 +45,7 @@ require 'ledger_sync/util/performer'
 require 'ledger_sync/util/validator'
 require 'ledger_sync/util/string_helpers'
 require 'ledger_sync/util/mixins/delegate_iterable_methods_mixin'
+require 'ledger_sync/util/mixins/resource_registerable_mixin'
 require 'ledger_sync/util/mixins/dupable_mixin'
 require 'ledger_sync/result'
 require 'ledger_sync/serializer'
@@ -62,13 +63,13 @@ require 'ledger_sync/ledgers/operation'
 require 'ledger_sync/ledgers/contract'
 require 'ledger_sync/ledgers/response'
 require 'ledger_sync/ledgers/request'
-require 'ledger_sync/ledgers/record'
 
-# Resources (resources are registerd below)
+# Resources (resources are registered below)
 require 'ledger_sync/resource' # Template class
-Gem.find_files('ledger_sync/resources/**/*.rb').each { |path| require path }
 
 module LedgerSync
+  include Util::Mixins::ResourceRegisterableMixin
+
   @log_level = nil
   @logger = nil
 
@@ -78,7 +79,7 @@ module LedgerSync
   LEVEL_INFO = Logger::INFO
 
   class << self
-    attr_accessor :ledgers, :resources
+    attr_accessor :ledgers
   end
 
   def self.log_level
@@ -99,31 +100,24 @@ module LedgerSync
     @logger = val
   end
 
-  def self.register_client(client_key, module_string: nil)
-    client_root_path = "ledger_sync/ledgers/#{client_key}"
-    require "#{client_root_path}/client"
+  def self.register_ledger(ledger_key, module_string: nil)
+    ledger_root_path = "ledger_sync/ledgers/#{ledger_key}"
+    require "#{ledger_root_path}/client"
     self.ledgers ||= LedgerSync::LedgerConfigurationStore.new
-    ledger_config = LedgerSync::LedgerConfiguration.new(client_key, module_string: module_string)
+    ledger_config = LedgerSync::LedgerConfiguration.new(ledger_key, module_string: module_string)
     yield(ledger_config)
-    self.ledgers.register_client(ledger_config: ledger_config)
+    self.ledgers.register_ledger(ledger_config: ledger_config)
 
-    client_files = Gem.find_files("#{client_root_path}/record.rb")
-    client_files |= Gem.find_files("#{client_root_path}/records/**/*.rb")
+    client_files = Gem.find_files("#{ledger_root_path}/resource.rb")
+    client_files |= Gem.find_files("#{ledger_root_path}/resources/**/*.rb")
     # Sort the files to include BFS-style as most dependencies are in parent folders
-    client_files |= Gem.find_files("#{client_root_path}/**/*.rb").sort { |a, b| a.count('/') <=> b.count('/') }
+    client_files |= Gem.find_files("#{ledger_root_path}/**/*.rb").sort { |a, b| a.count('/') <=> b.count('/') }
 
     client_files.each do |path|
       next if path.include?('config.rb')
 
       require path
     end
-  end
-
-  def self.register_resource(resource:)
-    self.resources ||= {}
-    raise "Resource key #{resource.resource_type} already exists." if resources.key?(resource.resource_type)
-
-    self.resources[resource.resource_type] = resource
   end
 
   def self.root

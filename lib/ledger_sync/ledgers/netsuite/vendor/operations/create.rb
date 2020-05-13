@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Vendor
+    class Vendor
         module Operations
           class Create < NetSuite::Operation::Create
             class Contract < LedgerSync::Ledgers::Contract

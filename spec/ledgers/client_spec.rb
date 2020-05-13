@@ -8,7 +8,7 @@ RSpec.describe LedgerSync::Ledgers::Client do
   include QuickBooksOnlineHelpers
 
   let(:client) { quickbooks_online_client }
-  let(:resource) { FactoryBot.create(:customer) }
+  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new }
 
   subject { quickbooks_online_client }
 

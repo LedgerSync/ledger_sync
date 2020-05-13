@@ -2,9 +2,6 @@
 
 require_relative 'oauth_client'
 require_relative 'dashboard_url_helper'
-require_relative 'record'
-
-Gem.find_files('ledger_sync/ledgers/quickbooks_online/records/**/*.rb').each { |path| require path }
 
 module LedgerSync
   module Ledgers
@@ -189,9 +186,9 @@ module LedgerSync
 
         def self.ledger_resource_type_overrides
           {
-            LedgerSync::Expense => 'purchase',
-            LedgerSync::LedgerClass => 'class',
-            LedgerSync::Ledgers::QuickBooksOnline::Preferences => 'preferences'
+            Expense => 'purchase',
+            LedgerClass => 'class',
+            Preferences => 'preferences'
           }
         end
 

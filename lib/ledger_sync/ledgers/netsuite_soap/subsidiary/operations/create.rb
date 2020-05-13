@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuiteSOAP
-      module Subsidiary
+      class Subsidiary
         module Operations
           class Create < NetSuiteSOAP::Operation::Create
             class Contract < LedgerSync::Ledgers::Contract

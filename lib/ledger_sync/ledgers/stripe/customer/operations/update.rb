@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module Stripe
-      module Customer
+      class Customer
         module Operations
           class Update < Stripe::Operation::Update
             class Contract < LedgerSync::Ledgers::Contract

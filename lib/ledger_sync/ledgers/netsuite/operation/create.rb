@@ -5,7 +5,7 @@ require_relative '../operation'
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Operation
+      class Operation
         class Create
           include NetSuite::Operation::Mixin
 

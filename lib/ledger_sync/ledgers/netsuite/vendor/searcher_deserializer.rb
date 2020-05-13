@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Vendor
+      class Vendor
         class SearcherDeserializer < NetSuite::Deserializer
           id
 

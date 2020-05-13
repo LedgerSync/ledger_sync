@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Subsidiary::Operations::Create
   include NetSuiteSOAPHelpers
   include OperationHelpers
 
-  let(:resource) { LedgerSync::Subsidiary.new(subsidiary_resource) }
+  let(:resource) { LedgerSync::Ledgers::NetSuiteSOAP::Subsidiary.new(subsidiary_resource) }
 
   let(:initialized_operation) { described_class.new(**input) }
 

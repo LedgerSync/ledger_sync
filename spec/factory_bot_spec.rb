@@ -25,7 +25,7 @@ RSpec.describe FactoryBot do
     expense = FactoryBot.build(:expense)
 
     expect(expense.currency.symbol).to eq 'ZZZ'
-    expect(expense.entity).to be_a(LedgerSync::Vendor)
+    expect(expense.entity).to be_a(LedgerSync::Bundles::ModernTreasury::Vendor)
     expect(expense.entity.display_name).to match(/Test #{test_run_id}[a-zA-Z0-9]{8}-1 Display Name/)
   end
 
