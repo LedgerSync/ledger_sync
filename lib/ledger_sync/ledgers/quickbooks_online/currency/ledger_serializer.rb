@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Currency
+class Currency
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           attribute ledger_attribute: :value,
                     resource_attribute: :symbol

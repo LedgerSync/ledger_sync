@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Util
+      class Util
         class ErrorMatcher
           attr_reader :error,
                       :message

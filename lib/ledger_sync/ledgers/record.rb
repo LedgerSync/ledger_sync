@@ -3,7 +3,7 @@
 require_relative '../resource'
 
 module LedgerSync
-  module Adaptors
+  module Ledgers
     class Record < LedgerSync::Resource
     end
   end

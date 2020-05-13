@@ -1,7 +1,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module JournalEntry
+      class JournalEntry
         module Operations
           class Create < Operation::Create
             class Contract < LedgerSync::Ledgers::Contract

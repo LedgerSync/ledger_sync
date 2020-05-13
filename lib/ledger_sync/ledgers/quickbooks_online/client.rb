@@ -2,6 +2,7 @@
 
 require_relative 'oauth_client'
 require_relative 'dashboard_url_helper'
+require_relative 'record'
 
 LedgerSync.register_resource(resource: LedgerSync::Ledgers::QuickBooksOnline::Preferences)
 

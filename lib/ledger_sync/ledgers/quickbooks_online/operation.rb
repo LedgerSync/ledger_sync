@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Operation
+      class Operation
         module Mixin
           def self.included(base)
             base.include Ledgers::Operation::Mixin

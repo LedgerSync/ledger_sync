@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module Adaptors
+  module Ledgers
     module QuickBooksOnline
-      module Records
+      class Records
         class Customer < QuickBooksOnline::Record
           attribute :email, type: LedgerSync::Type::String
           attribute :companyName, type: LedgerSync::Type::String

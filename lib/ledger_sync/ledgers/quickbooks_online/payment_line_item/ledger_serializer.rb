@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module PaymentLineItem
+      class PaymentLineItem
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           attribute ledger_attribute: 'Amount',
                     resource_attribute: :amount,

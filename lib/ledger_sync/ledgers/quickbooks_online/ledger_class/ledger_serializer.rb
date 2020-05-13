@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module LedgerClass
+      class LedgerClass
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 

@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Customer
+      class Customer
         module Operations
           class Update < QuickBooksOnline::Operation::FullUpdate
             class Contract < LedgerSync::Ledgers::Contract

@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Vendor
+      class Vendor
         class Searcher < Searcher
           def query_string
             "DisplayName LIKE '%#{query}%'"

@@ -5,7 +5,7 @@ require_relative '../currency/ledger_serializer'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Transfer
+      class Transfer
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module Adaptors
+  module Ledgers
     module NetSuite
-      class Record < Adaptors::Record
+      class Record < Ledgers::Record
       end
     end
   end

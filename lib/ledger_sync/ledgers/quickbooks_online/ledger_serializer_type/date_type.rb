@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module LedgerSerializerType
+      class LedgerSerializerType
         class DateType < Ledgers::LedgerSerializerType::MappingType
           def convert_from_ledger(value:)
             return value if value.nil?

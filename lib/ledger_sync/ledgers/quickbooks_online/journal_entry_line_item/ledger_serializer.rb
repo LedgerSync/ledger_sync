@@ -5,7 +5,7 @@ require_relative '../expense_line_item/ledger_serializer'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module JournalEntryLineItem
+      class JournalEntryLineItem
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           attribute ledger_attribute: 'DetailType' do
             'JournalEntryLineDetail'

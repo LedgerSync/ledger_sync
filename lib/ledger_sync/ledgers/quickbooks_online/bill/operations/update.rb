@@ -1,7 +1,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Bill
+      class Bill
         module Operations
           class Update < QuickBooksOnline::Operation::FullUpdate
             class Contract < LedgerSync::Ledgers::Contract

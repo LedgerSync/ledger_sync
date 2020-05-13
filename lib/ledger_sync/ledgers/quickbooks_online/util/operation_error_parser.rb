@@ -5,7 +5,7 @@ require_relative 'error_parser'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Util
+      class Util
         class OperationErrorParser < ErrorParser
           class DuplicateNameMatcher < ErrorMatcher
             def error_class

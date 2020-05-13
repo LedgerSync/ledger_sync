@@ -5,7 +5,7 @@ require_relative 'error_matcher'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Util
+      class Util
         class ErrorParser
           attr_reader :error
 

@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Currency
+      class Currency
         class Serializer < NetSuite::Serializer
           attribute :name
 

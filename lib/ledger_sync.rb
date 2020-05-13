@@ -109,9 +109,12 @@ module LedgerSync
     yield(ledger_config)
     self.ledgers.register_client(ledger_config: ledger_config)
 
-    client_files = Gem.find_files("#{client_root_path}/**/*.rb")
+    client_files = Gem.find_files("#{client_root_path}/record.rb")
+    client_files |= Gem.find_files("#{client_root_path}/records/**/*.rb")
     # Sort the files to include BFS-style as most dependencies are in parent folders
-    client_files.sort { |a, b| a.count('/') <=> b.count('/') }.each do |path|
+    client_files |= Gem.find_files("#{client_root_path}/**/*.rb").sort { |a, b| a.count('/') <=> b.count('/') }
+
+    client_files.each do |path|
       next if path.include?('config.rb')
 
       require path

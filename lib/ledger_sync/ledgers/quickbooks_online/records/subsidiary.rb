@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module Adaptors
+  module Ledgers
     module QuickBooksOnline
-      module Records
+      class Records
         class Subsidiary < QuickBooksOnline::Record
           attribute :name, type: LedgerSync::Type::String
           attribute :state, type: LedgerSync::Type::String

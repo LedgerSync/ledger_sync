@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module Adaptors
+  module Ledgers
     module NetSuite
       module Records
         class Subsidiary < NetSuite::Record

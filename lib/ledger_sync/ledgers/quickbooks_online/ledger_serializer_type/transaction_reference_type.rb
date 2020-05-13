@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module LedgerSerializerType
+      class LedgerSerializerType
         class TransactionReferenceType < Ledgers::LedgerSerializerType::ValueType
           def convert_from_ledger(value:)
             return if value.nil?

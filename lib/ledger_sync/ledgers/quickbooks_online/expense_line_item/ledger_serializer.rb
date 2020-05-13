@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module ExpenseLineItem
+      class ExpenseLineItem
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           attribute ledger_attribute: 'Id', resource_attribute: :ledger_id
 

@@ -5,7 +5,7 @@ require_relative '../invoice_sales_line_item/ledger_serializer'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Invoice
+      class Invoice
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 
