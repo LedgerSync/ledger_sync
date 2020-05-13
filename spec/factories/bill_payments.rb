@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :bill_payment, class: LedgerSync::BillPayment do
+  factory :bill_payment, class: LedgerSync::Bundles::ModernTreasury::BillPayment do
     references_one :account
     references_one :currency
     references_one :department

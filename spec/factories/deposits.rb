@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :deposit, class: LedgerSync::Deposit do
+  factory :deposit, class: LedgerSync::Bundles::ModernTreasury::Deposit do
     sequence(:memo) { |n| "Test Deposit #{rand_id}-#{n}" }
     transaction_date { Date.today }
     exchange_rate { 1.5 }

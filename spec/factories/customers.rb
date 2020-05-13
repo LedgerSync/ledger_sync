@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :customer, class: LedgerSync::Customer do
+  factory :customer, class: LedgerSync::Bundles::ModernTreasury::Customer do
     sequence(:external_id) { |n| "customer_#{rand_id(n)}" }
     sequence(:email) { |n| "test_customer_#{rand_id(n)}@example.com" }
     sequence(:name) { |n| "Test Customer #{rand_id(n)}" }

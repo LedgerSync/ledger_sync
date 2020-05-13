@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :expense_line_item, class: LedgerSync::ExpenseLineItem do
+  factory :expense_line_item, class: LedgerSync::Bundles::ModernTreasury::ExpenseLineItem do
     references_one :account
 
     amount { 12_345 }

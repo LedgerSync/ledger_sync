@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :vendor, class: LedgerSync::Vendor do
+  factory :vendor, class: LedgerSync::Bundles::ModernTreasury::Vendor do
     references_one :subsidiary
 
     sequence(:company_name) { |n| "Test Company #{rand_id(n)}" }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :expense, class: LedgerSync::Expense do
+  factory :expense, class: LedgerSync::Bundles::ModernTreasury::Expense do
     references_one :entity, factory: :vendor
     references_one :account
     references_one :currency

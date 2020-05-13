@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :deposit_line_item, class: LedgerSync::DepositLineItem do
+  factory :deposit_line_item, class: LedgerSync::Bundles::ModernTreasury::DepositLineItem do
     account { FactoryBot.create(:account) }
     ledger_class { FactoryBot.create(:ledger_class) }
     entity { FactoryBot.create(:customer) }
