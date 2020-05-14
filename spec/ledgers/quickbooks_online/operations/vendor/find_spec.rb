@@ -7,7 +7,7 @@ support :operation_shared_examples,
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Vendor::Operations::Find do
   include QuickBooksOnlineHelpers
-  let(:resource) { LedgerSync::Vendor.new(ledger_id: '123', display_name: 'Test Tester')}
+  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(ledger_id: '123', display_name: 'Test Tester')}
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'

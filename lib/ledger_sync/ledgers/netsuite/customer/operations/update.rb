@@ -11,8 +11,10 @@ module LedgerSync
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:email).maybe(:string)
-                required(:name).filled(:string)
-                required(:phone_number).maybe(:string)
+                required(:companyName).filled(:string)
+                required(:firstName).maybe(:string)
+                required(:lastName).maybe(:string)
+                required(:phone).maybe(:string)
                 required(:subsidiary).filled(:hash, Types::Reference)
               end
             end

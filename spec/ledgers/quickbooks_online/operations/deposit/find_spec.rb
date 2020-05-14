@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Find 
   include QuickBooksOnlineHelpers
 
   let(:account) do
-    LedgerSync::Account.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(
       ledger_id: '123',
       name: 'Test',
       account_type: 'bank',
@@ -18,16 +18,16 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Find 
   end
 
   let(:department) do
-    LedgerSync::Department.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
   end
 
   let(:resource) do
-    LedgerSync::Deposit.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Deposit.new(
       ledger_id: '123',
       account: account,
       department: department,
       currency: FactoryBot.create(
-        :currency
+        :quickbooks_online_currency
       ),
       memo: 'Memo 1',
       transaction_date: Date.new(2019, 9, 1),

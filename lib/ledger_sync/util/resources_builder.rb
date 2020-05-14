@@ -6,16 +6,18 @@ module LedgerSync
       attr_reader :cast,
                   :data,
                   :ignore_unrecognized_attributes,
+                  :ledger,
                   :root_resource_external_id,
                   :root_resource_type
 
-      def initialize(cast: true, data:, ignore_unrecognized_attributes: false, root_resource_external_id:, root_resource_type:)
-        @all_resources = {}
-        @cast = cast
-        @data = Util::HashHelpers.deep_symbolize_keys(data)
-        @ignore_unrecognized_attributes = ignore_unrecognized_attributes
-        @root_resource_external_id = root_resource_external_id
-        @root_resource_type = root_resource_type
+      def initialize(args = {})
+        @all_resources                  = {}
+        @ledger                         = args.fetch(:ledger)
+        @cast                           = args.fetch(:cast, true)
+        @data                           = Util::HashHelpers.deep_symbolize_keys(args.fetch(:data))
+        @ignore_unrecognized_attributes = args.fetch(:ignore_unrecognized_attributes, false)
+        @root_resource_external_id      = args.fetch(:root_resource_external_id)
+        @root_resource_type             = args.fetch(:root_resource_type)
       end
 
       def resource
@@ -42,7 +44,11 @@ module LedgerSync
         current_data = @data.dig(type, external_id, :data)
         raise "No data provided for #{type} (ID: #{external_id})" if current_data.nil?
 
-        resource_class = LedgerSync.resources[type]
+        resource_class = if ledger == :root
+                           LedgerSync.resources.find { |e| e.resource_type == type }
+                         else
+                           LedgerSync.ledgers.send(ledger).client_class.resources[type]
+                         end
         raise "#{type} is an invalid resource type" if resource_class.nil?
 
         current_data = Hash[
@@ -50,7 +56,9 @@ module LedgerSync
             k = k.to_sym
 
             attribute = resource_class.resource_attributes[k]
-            raise "Unrecognized attribute for #{resource_class.name}: #{k}" if attribute.nil? && !ignore_unrecognized_attributes
+            if attribute.nil? && !ignore_unrecognized_attributes
+              raise "Unrecognized attribute for #{resource_class.name}: #{k}"
+            end
 
             v = if attribute.is_a?(ResourceAttribute::Reference::One)
                   resource_type = resource_type_by(external_id: current_data[k])
@@ -75,6 +83,8 @@ module LedgerSync
           end
         ]
 
+        # byebug if resource_class == LedgerSync::TestResource::TestChildResource
+
         @all_resources[resource_key(external_id: external_id, type: type)] ||= resource_class.new(
           external_id: external_id,
           ledger_id: ledger_id,
@@ -87,7 +97,7 @@ module LedgerSync
         @external_id_to_type_hash ||= begin
           ret = {}
           data.each do |type, type_resources|
-            type_resources.keys.each do |external_id|
+            type_resources.each_key do |external_id|
               ret[external_id] = type
             end
           end

@@ -12,36 +12,36 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Update d
 
   # Account 1 needs to be Liability account
   let(:account1) do
-    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
   end
 
   # Account 2 needs to be different
   let(:account2) do
-    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
   end
 
   let(:vendor) do
-    LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(vendor_resource(ledger_id: '123'))
   end
 
   let(:department) do
-    LedgerSync::Department.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
   end
 
   let(:ledger_class) do
-    LedgerSync::LedgerClass.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: '123')
   end
 
   let(:line_item_1) do
-    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
   end
 
   let(:line_item_2) do
-    LedgerSync::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
   end
 
   let(:resource) do
-    LedgerSync::Bill.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Bill.new(
       bill_resource(
         ledger_id: '123',
         account: account1,

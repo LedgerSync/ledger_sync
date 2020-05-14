@@ -8,8 +8,15 @@ def register_factory(prefix:, resource_class:)
     factory key, class: resource_class do
       resource_class.resource_attributes.each do |attribute, resource_attribute|
         case resource_attribute.type
+        when LedgerSync::Type::StringFromSet
+          add_attribute(attribute) { resource_attribute.type.values.first }
         when  LedgerSync::Type::String, LedgerSync::Type::ID
-          sequence(attribute) { |n| "#{attribute}-#{rand_id(n)}" }
+          case attribute.to_sym
+          when :ledger_id
+            sequence(attribute) { nil }
+          else # when :external_id or something else
+            sequence(attribute) { |n| "#{attribute}-#{rand_id(n)}" }
+          end
         when LedgerSync::Type::Float
           add_attribute(attribute) { 1.23 }
         when LedgerSync::Type::Boolean
@@ -38,28 +45,31 @@ def register_factory(prefix:, resource_class:)
   end
 end
 
+def generate_resource_factories
+  LedgerSync.ledgers.each do |ledger_key, ledger|
+    ledger.client_class.resources.each do |resource_key, resource_class|
+      factory_key = "#{ledger_key}_#{resource_key}".to_sym
+      next if FactoryBot.factories.registered?(factory_key)
+
+      register_factory(prefix: ledger_key, resource_class: resource_class)
+    end
+  end
+
+  # LedgerSync.resources.each do |resource_class|
+  #   next unless resource_class.name.include?('::Bundles::ModernTreasury')
+
+  #   factory_key = "bundle_#{resource_class.resource_type}".to_sym
+  #   next if FactoryBot.factories.registered?(factory_key)
+
+  #   register_factory(prefix: :bundle, resource_class: resource_class)
+  # end
+end
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.before(:suite) do
     FactoryBot.find_definitions
-
-    LedgerSync.ledgers.each do |ledger_key, ledger|
-      ledger.client_class.resources.each do |resource_key, resource_class|
-        factory_key = "#{ledger_key}_#{resource_key}".to_sym
-        next if FactoryBot.factories.registered?(factory_key)
-
-        register_factory(prefix: ledger_key, resource_class: resource_class)
-      end
-    end
-
-    # LedgerSync.resources.each do |resource_class|
-    #   next unless resource_class.name.include?('::Bundles::ModernTreasury')
-
-    #   factory_key = "bundle_#{resource_class.resource_type}".to_sym
-    #   next if FactoryBot.factories.registered?(factory_key)
-
-    #   register_factory(prefix: :bundle, resource_class: resource_class)
-    # end
+    generate_resource_factories
   end
   config.after { FactoryBot.custom_rewind_sequences }
   # config.after { FactoryBot.configuration.sequence_store.map(&:rewind) }

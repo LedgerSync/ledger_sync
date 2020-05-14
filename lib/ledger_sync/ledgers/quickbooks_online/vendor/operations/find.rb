@@ -13,7 +13,7 @@ module LedgerSync
                 required(:display_name).maybe(:string)
                 required(:first_name).maybe(:string)
                 required(:last_name).maybe(:string)
-                optional(:email).maybe(:string)
+                required(:email).maybe(:string)
                 optional(:company_name).maybe(:string)
                 optional(:phone_number).maybe(:string)
                 optional(:subsidiary).maybe(:hash, Types::Reference)

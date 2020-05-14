@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Ledgers::NetSuite::Location::Serializer do
-  let(:resource_type) { :location }
+  let(:resource_type) { :netsuite_location }
   let(:id) { '123' }
   let(:name) { 'Location Name' }
   let(:resource) do

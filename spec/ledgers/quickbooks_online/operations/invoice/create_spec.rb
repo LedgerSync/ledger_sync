@@ -11,23 +11,62 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Invoice::Operations::Creat
   include QuickBooksOnlineHelpers
 
   let(:customer) do
-    LedgerSync::Customer.new(customer_resource(ledger_id: '123'))
+    create(
+      :quickbooks_online_customer,
+      external_id: :ext_id,
+      ledger_id: 123,
+      PrimaryEmailAddr: create(
+        :quickbooks_online_primary_email_addr,
+        Address: 'test@example.com'
+      ),
+      PrimaryPhone: nil,
+      DisplayName: 'Sample Customer'
+    )
   end
 
   let(:account) do
-    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+    create(
+      :quickbooks_online_account,
+      ledger_id: 123
+    )
   end
 
   let(:item) do
-    LedgerSync::Item.new(ledger_id: '123')
+    create(
+      :quickbooks_online_item,
+      ledger_id: 123
+    )
   end
 
   let(:line_item) do
-    LedgerSync::InvoiceSalesLineItem.new(invoice_line_item_resource({item: item, amount: 100, description: 'Sample Description'}))
+    create(
+      :quickbooks_online_invoice_sales_line_item,
+      ledger_id: nil,
+      ledger_class: create(
+        :quickbooks_online_ledger_class,
+        ledger_id: nil
+      ),
+      item: item,
+      amount: 100,
+      description: 'Sample Description'
+    )
   end
 
   let(:resource) do
-    LedgerSync::Invoice.new(invoice_resource(customer: customer, account: account, line_items: [line_item]))
+    create(
+      :quickbooks_online_invoice,
+      ledger_id: nil,
+      customer: customer,
+      currency: create(
+        :quickbooks_online_currency,
+        name: 'United States Dollar',
+        symbol: 'USD'
+      ),
+      account: account,
+      memo: 'Memo 1',
+      transaction_date: Date.new(2019, 9, 1),
+      line_items: [line_item]
+    )
   end
 
   let(:client) { quickbooks_online_client }

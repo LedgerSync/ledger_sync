@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 require_relative 'subsidiary'
+require_relative 'primary_phone'
+require_relative 'primary_email_addr'
 
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Customer < QuickBooksOnline::Resource
-        attribute :email, type: LedgerSync::Type::String
-        attribute :companyName, type: LedgerSync::Type::String
-        attribute :firstName, type: LedgerSync::Type::String
-        attribute :lastName, type: LedgerSync::Type::String
-        attribute :phone, type: LedgerSync::Type::String
+        attribute :DisplayName, type: LedgerSync::Type::String
 
+        references_one :PrimaryPhone, to: PrimaryPhone
+        references_one :PrimaryEmailAddr, to: PrimaryEmailAddr
         references_one :subsidiary, to: Subsidiary
       end
     end

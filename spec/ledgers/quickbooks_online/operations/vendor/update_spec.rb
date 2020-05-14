@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Vendor::Operations::Update
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(vendor_resource(ledger_id: '123'))
   end
   let(:client) { quickbooks_online_client }
 

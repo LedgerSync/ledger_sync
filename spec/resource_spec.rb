@@ -3,21 +3,21 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Resource do
-  LedgerSync.resources.each do |key, resource_class|
-    context "when #{key} resource" do
-      context '#name' do
-        it { expect { resource_class.new.name }.not_to raise_error }
+  LedgerSync.resources.each do |resource_class|
+    context "when #{resource_class}" do
+      context '#ledger_id' do
+        it { expect { resource_class.new.ledger_id }.not_to raise_error }
       end
     end
   end
 
   it 'does not permit unknown attributes' do
-    expect { LedgerSync::Customer.new(foo: :bar) }.to raise_error(NoMethodError)
+    expect { LedgerSync::Ledgers::Stripe::Customer.new(foo: :bar) }.to raise_error(NoMethodError)
   end
 
   it 'keeps resources separate' do
-    customer1 = LedgerSync::Customer.new(email: 'test@example.com')
-    customer2 = LedgerSync::Customer.new
+    customer1 = LedgerSync::Ledgers::Stripe::Customer.new(email: 'test@example.com')
+    customer2 = LedgerSync::Ledgers::Stripe::Customer.new
     expect(customer1.email).to eq('test@example.com')
     expect(customer2.email).to be_nil
 
@@ -33,7 +33,7 @@ RSpec.describe LedgerSync::Resource do
     rescue NameError
       Object.const_set(
         class_name,
-        Class.new(LedgerSync::Customer) do
+        Class.new(LedgerSync::Ledgers::Stripe::Customer) do
           attribute :foo, type: LedgerSync::Type::String
           attribute :type, type: LedgerSync::Type::String
         end
@@ -60,7 +60,7 @@ RSpec.describe LedgerSync::Resource do
 
   describe '#assign_attributes' do
     it do
-      resource = LedgerSync::Customer.new
+      resource = LedgerSync::Ledgers::Stripe::Customer.new
       expect(resource.ledger_id).to be_nil
       expect(resource.name).to be_nil
       resource.assign_attributes(ledger_id: 'foo', name: 'bar')
@@ -71,14 +71,13 @@ RSpec.describe LedgerSync::Resource do
 
   describe '#to_h' do
     it do
-      resource = LedgerSync::Customer.new
+      resource = LedgerSync::Ledgers::Stripe::Customer.new
       h = {
         ledger_id: nil,
         external_id: nil,
         name: nil,
         email: nil,
-        phone_number: nil,
-        subsidiary: nil
+        phone_number: nil
       }
       expect(resource.to_h).to eq(h)
     end

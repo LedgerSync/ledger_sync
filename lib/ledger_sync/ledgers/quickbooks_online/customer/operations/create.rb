@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
@@ -8,9 +10,11 @@ module LedgerSync
               params do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).value(:nil)
-                required(:email).maybe(:string)
-                required(:name).filled(:string)
-                required(:phone_number).maybe(:string)
+                required(:PrimaryEmailAddr).maybe(:hash, Types::Reference)
+                optional(:DisplayName).filled(:string)
+                optional(:firstName).maybe(:string)
+                optional(:lastName).maybe(:string)
+                required(:PrimaryPhone).maybe(:hash, Types::Reference)
                 required(:subsidiary).maybe(:hash, Types::Reference)
               end
             end

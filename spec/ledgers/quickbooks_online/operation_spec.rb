@@ -9,12 +9,12 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Operation do
 
   describe '#perform' do
     it do
-      customer1 = LedgerSync::Customer.new(
-        name: 'Customer 1'
+      customer1 = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(
+        DisplayName: 'Customer 1'
       )
 
-      customer2 = LedgerSync::Customer.new(
-        name: 'Customer 2'
+      customer2 = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(
+        DisplayName: 'Customer 2'
       )
 
       operation1 = LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(

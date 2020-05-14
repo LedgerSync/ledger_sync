@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Crea
   include QuickBooksOnlineHelpers
 
   let(:client) { quickbooks_online_client }
-  let(:resource) { LedgerSync::Customer.new(name: 'asdf') }
+  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new(DisplayName: 'asdf') }
   let(:operation) { new_resource }
 
   def new_resource
@@ -22,7 +22,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Crea
   it 'does not serialize dates' do
     operation = LedgerSync::Ledgers::QuickBooksOnline::Expense::Operations::Find.new(
       client: client,
-      resource: LedgerSync::Expense.new(transaction_date: Date.today)
+      resource: LedgerSync::Ledgers::QuickBooksOnline::Expense.new(transaction_date: Date.today)
     )
     expect(operation.send(:validation_data)[:transaction_date]).to be_a(Date)
   end

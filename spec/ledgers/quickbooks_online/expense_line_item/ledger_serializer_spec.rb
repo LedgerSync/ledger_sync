@@ -7,10 +7,10 @@ support :ledger_serializer_helpers
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem::LedgerSerializer do
   include LedgerSerializerHelpers
 
-  let(:account) { LedgerSync::Account.new(ledger_id: 'account_ledger_id') }
-  let(:ledger_class) { LedgerSync::LedgerClass.new(ledger_id: 'class_ledger_id') }
+  let(:account) { LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: 'account_ledger_id') }
+  let(:ledger_class) { LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: 'class_ledger_id') }
   let(:resource) do
-    LedgerSync::ExpenseLineItem.new(
+    LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new(
       account: account,
       ledger_class: ledger_class,
       amount: amount,

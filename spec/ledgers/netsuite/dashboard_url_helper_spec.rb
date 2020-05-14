@@ -10,44 +10,44 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::DashboardURLHelper do
   let(:url) { helper.url }
 
   describe '#url' do
-    context 'LedgerSync::Account' do
-      let(:resource_type) { :account }
+    context 'Account' do
+      let(:resource_type) { :netsuite_account }
 
       it { expect(url).to eq('https://www.example.com/app/accounting/account/account.nl?id=123asdf') }
     end
 
-    context 'LedgerSync::Currency' do
-      let(:resource_type) { :currency }
+    context 'Currency' do
+      let(:resource_type) { :netsuite_currency }
 
       it { expect(url).to eq('https://www.example.com/app/common/multicurrency/currency.nl?id=123asdf') }
     end
 
-    context 'LedgerSync::Customer' do
-      let(:resource_type) { :customer }
+    context 'Customer' do
+      let(:resource_type) { :netsuite_customer }
 
       it { expect(url).to eq('https://www.example.com/app/common/entity/entity.nl?id=123asdf') }
     end
 
-    context 'LedgerSync::Vendor' do
-      let(:resource_type) { :vendor }
+    context 'Vendor' do
+      let(:resource_type) { :netsuite_vendor }
 
       it { expect(url).to eq('https://www.example.com/app/common/entity/entity.nl?id=123asdf') }
     end
 
-    context 'LedgerSync::Department' do
-      let(:resource_type) { :department }
+    context 'Department' do
+      let(:resource_type) { :netsuite_department }
 
       it { expect(url).to eq('https://www.example.com/app/common/otherlists/departmenttype.nl?id=123asdf') }
     end
 
-    context 'LedgerSync::Deposit' do
-      let(:resource_type) { :deposit }
+    context 'Deposit' do
+      let(:resource_type) { :netsuite_deposit }
 
       it { expect(url).to eq('https://www.example.com/app/accounting/transactions/transaction.nl?id=123asdf') }
     end
 
-    context 'LedgerSync::Invoice' do
-      let(:resource_type) { :invoice }
+    context 'Invoice' do
+      let(:resource_type) { :netsuite_invoice }
 
       it { expect(url).to eq('https://www.example.com/app/accounting/transactions/transaction.nl?id=123asdf') }
     end

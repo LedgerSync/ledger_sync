@@ -11,8 +11,8 @@ module LedgerSync
           end
 
           module InstanceMethods
-            def ledger_resource_path
-              client.ledger_resource_path(resource: resource)
+            def ledger_resource_path(args = {})
+              client.ledger_resource_path({ resource: resource }.merge(args))
             end
           end
         end

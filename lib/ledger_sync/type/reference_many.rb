@@ -14,6 +14,20 @@ module LedgerSync
         super()
       end
 
+      def cast(args = {})
+        value = args.fetch(:value)
+        return if value.nil?
+
+        many_array_class = LedgerSync::ResourceAttribute::Reference::Many::ManyArray
+
+        return value if value.is_a?(many_array_class)
+        unless value.is_a?(Array)
+          raise "Cannot convert #{value.class} to LedgerSync::ResourceAttribute::Reference::Many::ManyArray"
+        end
+
+        many_array_class.new(value)
+      end
+
       def type
         :reference_many
       end

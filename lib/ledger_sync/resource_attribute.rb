@@ -36,8 +36,8 @@ module LedgerSync
     def assert_valid(args = {})
       value = args.fetch(:value)
 
-      return if valid_with?(value: value)
-
+      type.assert_valid(value: value)
+    rescue Error::TypeError::ValueClassError
       raise ResourceAttributeError::TypeError.new(
         attribute: self,
         resource_class: resource_class,

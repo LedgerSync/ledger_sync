@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Ledgers::Stripe::Client do
 
   describe '#url_for' do
     it do
-      resource = LedgerSync::Customer.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::Stripe::Customer.new(ledger_id: 123)
       url = 'https://dashboard.stripe.com/customers/123'
       expect(client.url_for(resource: resource)).to eq(url)
     end

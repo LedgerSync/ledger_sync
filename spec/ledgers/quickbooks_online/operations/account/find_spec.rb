@@ -8,7 +8,7 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Operations::Find do
   include QuickBooksOnlineHelpers
 
-  let(:resource) { LedgerSync::Account.new(ledger_id: '123', name: 'Test', account_type: 'bank', account_sub_type: 'cash_on_hand') }
+  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: '123', name: 'Test', account_type: 'bank', account_sub_type: 'cash_on_hand') }
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'

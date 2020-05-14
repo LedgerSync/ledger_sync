@@ -3,7 +3,21 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::LedgerSerializer do
-  let(:customer) { LedgerSync::Customer.new(ledger_id: id, name: name, email: email, phone_number: phone_number) }
+  let(:customer) do
+    build(
+      :quickbooks_online_customer,
+      ledger_id: id,
+      DisplayName: name,
+      PrimaryPhone: create(
+        :quickbooks_online_primary_phone,
+        FreeFormNumber: phone_number
+      ),
+      PrimaryEmailAddr: create(
+        :quickbooks_online_primary_email_addr,
+        Address: email
+      )
+    )
+  end
   let(:id) { '123' }
   let(:name) { 'test_name' }
   let(:email) { 'test_email' }
@@ -30,17 +44,17 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::LedgerSerializer
   end
 
   describe '#deserialize' do
-    let(:customer) { LedgerSync::Customer.new }
+    let(:customer) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new }
 
     it do
       serializer = described_class.new(resource: customer)
       deserialized_customer = serializer.deserialize(hash: h)
-      expect(customer.email).to be_nil
-      expect(customer.name).to be_nil
-      expect(customer.phone_number).to be_nil
-      expect(deserialized_customer.email).to eq(email)
-      expect(deserialized_customer.name).to eq(name)
-      expect(deserialized_customer.phone_number).to eq(phone_number)
+      expect(customer.PrimaryEmailAddr).to be_nil
+      expect(customer.DisplayName).to be_nil
+      expect(customer.PrimaryPhone).to be_nil
+      expect(deserialized_customer.PrimaryEmailAddr.Address).to eq(email)
+      expect(deserialized_customer.DisplayName).to eq(name)
+      expect(deserialized_customer.PrimaryPhone.FreeFormNumber).to eq(phone_number)
     end
   end
 end

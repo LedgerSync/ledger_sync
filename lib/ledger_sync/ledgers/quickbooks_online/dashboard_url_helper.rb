@@ -6,25 +6,25 @@ module LedgerSync
       class DashboardURLHelper < LedgerSync::Ledgers::DashboardURLHelper
         def resource_path
           @resource_path = case resource
-          when LedgerSync::Account
+          when QuickBooksOnline::Account
             "/register?accountId=#{resource.ledger_id}"
-          when LedgerSync::Bill
+          when QuickBooksOnline::Bill
             "/bill?txnId=#{resource.ledger_id}"
-          when LedgerSync::Customer
+          when QuickBooksOnline::Customer
             "/customerdetail?nameId=#{resource.ledger_id}"
-          when LedgerSync::Deposit
+          when QuickBooksOnline::Deposit
             "/deposit?txnId=#{resource.ledger_id}"
-          when LedgerSync::Expense
+          when QuickBooksOnline::Expense
             "/expense?txnId=#{resource.ledger_id}"
-          when LedgerSync::JournalEntry
+          when QuickBooksOnline::JournalEntry
             "/journal?txnId=#{resource.ledger_id}"
-          when LedgerSync::LedgerClass
+          when QuickBooksOnline::LedgerClass
             "/class"
-          when LedgerSync::Payment
+          when QuickBooksOnline::Payment
             "/recvpayment?txnId=#{resource.ledger_id}"
-          when LedgerSync::Transfer
+          when QuickBooksOnline::Transfer
             "/transfer?txnId=#{resource.ledger_id}"
-          when LedgerSync::Vendor
+          when QuickBooksOnline::Vendor
             "/vendordetail?nameId=#{resource.ledger_id}"
           end
         end

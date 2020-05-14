@@ -12,7 +12,14 @@ RSpec.describe 'stripe/customers/find', type: :feature do
   before { stub_customer_find }
 
   let(:resource) do
-    LedgerSync::Ledgers::Stripe::Customer.new(customer_resource(ledger_id: 'cus_123').except(:subsidiary))
+    create(
+      :stripe_customer,
+      external_id: :ext_id,
+      ledger_id: 'cus_123',
+      email: 'test@example.com',
+      name: 'Sample Customer',
+      phone_number: nil
+    )
   end
 
   let(:input) do

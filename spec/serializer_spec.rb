@@ -23,7 +23,7 @@ RSpec.describe LedgerSync::Serializer do
   end
 
   let(:test_resource) do
-    LedgerSync::Customer.new(
+    custom_resource_class.new(
       name: 'test_name',
       phone_number: 'test_phone',
       email: 'test_email'
@@ -31,15 +31,14 @@ RSpec.describe LedgerSync::Serializer do
   end
 
   let(:custom_resource_class) do
-    class_name = "#{test_run_id}TestCustomResource1"
-    Object.const_get(class_name)
-  rescue NameError
-    Object.const_set(
-      class_name,
-      Class.new(LedgerSync::Customer) do
-        attribute :foo, type: LedgerSync::Type::String
-        attribute :type, type: LedgerSync::Type::String
-      end
+    new_resource_class(
+      attributes: %i[
+        foo
+        type
+        name
+        phone_number
+        email
+      ]
     )
   end
 
@@ -59,7 +58,7 @@ RSpec.describe LedgerSync::Serializer do
 
     context 'only_changes' do
       it do
-        resource = LedgerSync::Customer.new
+        resource = custom_resource_class.new
         serializer = test_serializer_class.new
 
         expect(serializer.serialize(only_changes: true, resource: resource)).to eq({})
@@ -69,15 +68,26 @@ RSpec.describe LedgerSync::Serializer do
     end
 
     it 'allows multiple values in nested hash' do
-      resource = LedgerSync::JournalEntryLineItem.new(
+      resource_class = new_resource_class(
+        attributes: %i[
+          entry_type
+        ],
+        references_one: %i[
+          account
+          ledger_class
+          department
+        ]
+      )
+
+      resource = resource_class.new(
         entry_type: 'debit',
-        account: LedgerSync::Account.new(
+        account: LedgerSync::Resource.new(
           ledger_id: 'adsf'
         ),
-        ledger_class: LedgerSync::LedgerClass.new(
+        ledger_class: LedgerSync::Resource.new(
           ledger_id: 'asdf'
         ),
-        department: LedgerSync::Department.new(
+        department: LedgerSync::Resource.new(
           ledger_id: 'asdf'
         )
       )

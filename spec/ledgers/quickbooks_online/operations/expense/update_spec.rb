@@ -11,31 +11,31 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Operations::Updat
   include QuickBooksOnlineHelpers
 
   let(:account) do
-    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
   end
 
   let(:vendor) do
-    LedgerSync::Vendor.new(vendor_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(vendor_resource(ledger_id: '123'))
   end
 
   let(:department) do
-    LedgerSync::Department.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
   end
 
   let(:ledger_class) do
-    LedgerSync::LedgerClass.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: '123')
   end
 
   let(:line_item_1) do
-    LedgerSync::ExpenseLineItem.new(expense_line_item_resource(account: account, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new(expense_line_item_resource(account: account, ledger_class: ledger_class))
   end
 
   let(:line_item_2) do
-    LedgerSync::ExpenseLineItem.new(expense_line_item_resource(account: account, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new(expense_line_item_resource(account: account, ledger_class: ledger_class))
   end
 
   let(:resource) do
-    LedgerSync::Expense.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Expense.new(
       expense_resource(
         ledger_id: '123',
         account: account,

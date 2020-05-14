@@ -8,13 +8,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::LedgerSerializer 
   include LedgerSerializerHelpers
 
   let(:resource) do
-    LedgerSync::Account.new(
+    create(
+      :quickbooks_online_account,
       account_sub_type: account_sub_type,
       account_type: account_type,
       active: active,
       classification: classification,
       currency: currency,
       description: description,
+      ledger_id: nil,
       name: name,
       number: number
     )
@@ -24,7 +26,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::LedgerSerializer 
   let(:account_sub_type) { 'cash_on_hand' }
   let(:number) { '123' }
   let(:classification) { 'asset' }
-  let(:currency) { FactoryBot.create(:currency) }
+  let(:currency) { FactoryBot.create(:quickbooks_online_currency) }
   let(:description) { 'A descirption' }
   let(:active) { true }
 
@@ -53,7 +55,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::LedgerSerializer 
   end
 
   describe '#deserialize' do
-    let(:customer) { LedgerSync::Customer.new }
+    let(:customer) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new }
 
     it do
       expect_deserialized_attributes(
@@ -65,7 +67,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::LedgerSerializer 
           name
           number
         ],
-        resource: LedgerSync::Account.new,
+        resource: LedgerSync::Ledgers::QuickBooksOnline::Account.new,
         response_hash: h,
         serializer_class: described_class,
         values: {

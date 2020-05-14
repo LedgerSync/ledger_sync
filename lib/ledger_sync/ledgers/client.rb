@@ -95,7 +95,7 @@ module LedgerSync
 
       def self.resource_from_ledger_type(type:, converter: nil)
         converter ||= proc { |n| n.underscore }
-        ledger_resource_type_overrides.invert[converter.call(type).to_sym] || LedgerSync.resources[converter.call(type).to_sym]
+        ledger_resource_type_overrides.invert[converter.call(type).to_sym] || resources[converter.call(type).to_sym]
       end
 
       def self.resources

@@ -8,22 +8,24 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::Update do
   include QuickBooksOnlineHelpers
 
-  let(:vendor) { build(:vendor, ledger_id: '123') }
-  let(:account) { build(:account, ledger_id: '123') }
-  let(:bill) { build(:bill, ledger_id: '123') }
-  let(:department) { build(:department, ledger_id: '123') }
-  let(:currency) { build(:currency, name: 'United States Dollar', symbol: 'USD') }
+  let(:vendor) { build(:quickbooks_online_vendor, ledger_id: '123') }
+  let(:account) { build(:quickbooks_online_account, ledger_id: '123') }
+  let(:bill) { build(:quickbooks_online_bill, ledger_id: '123') }
+  let(:department) { build(:quickbooks_online_department, ledger_id: '123') }
+  let(:currency) { build(:quickbooks_online_currency, name: 'United States Dollar', symbol: 'USD') }
 
-  let(:line_item) { build(:bill_payment_line_item, amount: 100, ledger_transactions: [bill]) }
+  let(:line_item) { build(:quickbooks_online_bill_payment_line_item, amount: 100, ledger_id: nil, ledger_transactions: [bill]) }
 
   let(:resource) do
     build(
-      :bill_payment,
+      :quickbooks_online_bill_payment,
       ledger_id: '123',
       memo: 'Note',
       transaction_date: Date.parse('2019-09-01'),
       exchange_rate: 1.0,
       reference_number: 'Ref123',
+      payment_type: :credit_card,
+      amount: line_item.amount,
 
       account: account,
       currency: currency,

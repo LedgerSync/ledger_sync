@@ -54,8 +54,12 @@ module NetSuiteHelpers
     @netsuite_records ||= Test::NetSuite::RecordCollection.new
   end
 
+  def netsuite_resource_type
+    record.to_s.gsub(/^netsuite_/, '')
+  end
+
   def stub_create_for_record
-    send("stub_#{record}_create")
+    send("stub_#{netsuite_resource_type}_create")
   end
 
   def stub_create_request(id:, url:)
@@ -73,7 +77,7 @@ module NetSuiteHelpers
   end
 
   def stub_delete_for_record
-    send("stub_#{record}_delete")
+    send("stub_#{netsuite_resource_type}_delete")
   end
 
   def stub_delete_request(url:)
@@ -89,7 +93,7 @@ module NetSuiteHelpers
   end
 
   def stub_find_for_record
-    send("stub_#{record}_find")
+    send("stub_#{netsuite_resource_type}_find")
   end
 
   def stub_find_request(response_body:, url:)
@@ -101,7 +105,7 @@ module NetSuiteHelpers
   end
 
   def stub_search_for_record
-    send("stub_#{record}_search")
+    send("stub_#{netsuite_resource_type}_search")
   end
 
   def stub_search_request(count: 2, starting_id:, url:)
@@ -149,7 +153,7 @@ module NetSuiteHelpers
   end
 
   def stub_update_for_record
-    send("stub_#{record}_update")
+    send("stub_#{netsuite_resource_type}_update")
   end
 
   def stub_update_request(url:)

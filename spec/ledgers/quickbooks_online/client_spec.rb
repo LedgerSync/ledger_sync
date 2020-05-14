@@ -75,55 +75,55 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Client do
 
   describe '#url_for' do
     it do
-      resource = LedgerSync::Account.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/register?accountId=123')
     end
 
     it do
-      resource = LedgerSync::Bill.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Bill.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/bill?txnId=123')
     end
 
     it do
-      resource = LedgerSync::Customer.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/customerdetail?nameId=123')
     end
 
     it do
-      resource = LedgerSync::Deposit.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Deposit.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/deposit?txnId=123')
     end
 
     it do
-      resource = LedgerSync::Expense.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Expense.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/expense?txnId=123')
     end
 
     it do
-      resource = LedgerSync::JournalEntry.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::JournalEntry.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/journal?txnId=123')
     end
 
     it do
-      resource = LedgerSync::Payment.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Payment.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/recvpayment?txnId=123')
     end
 
     it do
-      resource = LedgerSync::Transfer.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Transfer.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/transfer?txnId=123')
     end
 
     it do
-      resource = LedgerSync::Vendor.new(ledger_id: 123)
+      resource = LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(ledger_id: 123)
       url = client.url_for(resource: resource)
       expect(url).to eq('https://app.sandbox.qbo.intuit.com/app/vendordetail?nameId=123')
     end

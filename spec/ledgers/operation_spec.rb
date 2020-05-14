@@ -8,7 +8,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
   include NetSuiteHelpers
 
   let(:client) { netsuite_client }
-  let(:resource) { FactoryBot.create(:customer) }
+  let(:resource) { FactoryBot.create(:netsuite_customer, ledger_id: 1137) }
   let(:operation_class) { client.base_module::Customer::Operations::Create }
   let(:serializer_class) do
     Class.new(LedgerSync::Ledgers::LedgerSerializer) do
@@ -29,7 +29,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
   rescue NameError
     Object.const_set(
       class_name,
-      Class.new(LedgerSync::Customer) do
+      Class.new(LedgerSync::Ledgers::NetSuite::Customer) do
         attribute :foo, type: LedgerSync::Type::String
       end
     )
@@ -58,7 +58,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
     it do
       op = operation_class.new(
         client: netsuite_client,
-        resource: FactoryBot.create(:customer)
+        resource: FactoryBot.create(:netsuite_customer)
       )
       expect(op.deserializer).to be_a(LedgerSync::Ledgers::NetSuite::Customer::Deserializer)
     end
@@ -84,9 +84,9 @@ RSpec.describe LedgerSync::Ledgers::Operation do
     it do
       op = operation_class.new(
         client: netsuite_client,
-        resource: FactoryBot.create(:customer)
+        resource: FactoryBot.create(:netsuite_customer)
       )
-      expect(op.resource).to be_a(LedgerSync::Customer)
+      expect(op.resource).to be_a(LedgerSync::Ledgers::NetSuite::Customer)
     end
 
     it do
@@ -120,7 +120,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
     it do
       op = operation_class.new(
         client: netsuite_client,
-        resource: FactoryBot.create(:customer)
+        resource: FactoryBot.create(:netsuite_customer)
       )
       expect(op.serializer).to be_a(LedgerSync::Ledgers::NetSuite::Customer::Serializer)
     end
@@ -148,7 +148,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
     it do
       op = operation_class.new(
         client: netsuite_client,
-        resource: FactoryBot.create(:customer)
+        resource: FactoryBot.create(:netsuite_customer)
       )
       expect(op.validation_contract).to eq(operation_class::Contract)
     end
@@ -157,7 +157,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
       op = operation_class.new(
         client: netsuite_client,
         validation_contract: nil,
-        resource: FactoryBot.create(:customer)
+        resource: FactoryBot.create(:netsuite_customer)
       )
       expect(op.validation_contract).to eq(operation_class::Contract)
     end
@@ -166,7 +166,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
       op = operation_class.new(
         client: netsuite_client,
         validation_contract: validation_contract,
-        resource: FactoryBot.create(:customer)
+        resource: FactoryBot.create(:netsuite_customer)
       )
       expect(op.validation_contract).to eq(validation_contract)
     end
@@ -176,7 +176,7 @@ RSpec.describe LedgerSync::Ledgers::Operation do
         operation_class.new(
           client: netsuite_client,
           validation_contract: 'asdf',
-          resource: FactoryBot.create(:customer)
+          resource: FactoryBot.create(:netsuite_customer)
         )
       end.to raise_error(LedgerSync::Error::UnexpectedClassError)
     end

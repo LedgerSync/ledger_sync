@@ -3,18 +3,23 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Resource do
-  let(:resource) { LedgerSync::Customer.new }
+  let(:currency) do
+    create(
+      :quickbooks_online_currency
+    )
+  end
+  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new }
 
   it do
-    expect(LedgerSync::Expense.new(currency: FactoryBot.create(:currency))).to be_changed
-    expense = LedgerSync::Expense.new
+    expect(LedgerSync::Ledgers::QuickBooksOnline::Expense.new(currency: currency)).to be_changed
+    expense = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
     expect(expense).not_to be_changed
   end
 
   context 'when references_many' do
     it '<<' do
-      e = LedgerSync::Expense.new
-      eli = LedgerSync::ExpenseLineItem.new
+      e = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
+      eli = LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new
       expect(e.changes).to be_empty
       expect(e.line_items).not_to be_changed
       expect(e.line_items.changes).to eq({})
@@ -31,8 +36,8 @@ RSpec.describe LedgerSync::Resource do
 
   context 'when references_one' do
     it '<<' do
-      e = LedgerSync::Expense.new
-      account = LedgerSync::Account.new
+      e = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
+      account = LedgerSync::Ledgers::QuickBooksOnline::Account.new
       expect(e.changes).to be_empty
       e.account = account
       expect(e.changes).to have_key('account')
@@ -67,27 +72,14 @@ RSpec.describe LedgerSync::Resource do
 
   it do
     expect(resource).not_to be_changed
-    expect(resource.name).to be_nil
-    resource.name = 'asdf'
-    expect(resource.name).to eq('asdf')
+    expect(resource.DisplayName).to be_nil
+    resource.DisplayName = 'asdf'
+    expect(resource.DisplayName).to eq('asdf')
     expect(resource).to be_changed
-    expect(resource.changes).to eq('name' => [nil, 'asdf'])
+    expect(resource.changes).to eq('DisplayName' => [nil, 'asdf'])
     resource.save
     expect(resource).not_to be_changed
-    expect(resource.name).to eq('asdf')
-    expect(resource.changes).to eq({})
-  end
-
-  it do
-    expect(resource).not_to be_changed
-    expect(resource.phone_number).to be_nil
-    resource.phone_number = 'asdf'
-    expect(resource.phone_number).to eq('asdf')
-    expect(resource).to be_changed
-    expect(resource.changes).to eq('phone_number' => [nil, 'asdf'])
-    resource.save
-    expect(resource).not_to be_changed
-    expect(resource.phone_number).to eq('asdf')
+    expect(resource.DisplayName).to eq('asdf')
     expect(resource.changes).to eq({})
   end
 end

@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Vendor::Operations::Create
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::Vendor.new(vendor_resource)
+    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(vendor_resource)
   end
   let(:client) { quickbooks_online_client }
 

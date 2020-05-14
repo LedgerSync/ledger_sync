@@ -7,7 +7,10 @@ RSpec.describe FactoryBot do
     /#{prefix}\-#{test_run_id}[a-zA-Z0-9]{8}-#{count}/
   end
 
-  after { FactoryBot.reload }
+  after do
+    FactoryBot.reload
+    generate_resource_factories
+  end
 
   it 'rewinds' do
     resource_class = new_resource_class(attributes: :name)

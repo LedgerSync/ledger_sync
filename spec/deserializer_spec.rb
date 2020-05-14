@@ -31,18 +31,14 @@ RSpec.describe LedgerSync::Deserializer do
   end
 
   let(:custom_resource_class) do
-    class_name = "#{test_run_id}TestCustomResource1"
-    Object.const_get(class_name)
-  rescue NameError
-    Object.const_set(
-      class_name,
-      Class.new(LedgerSync::Resource) do
-        attribute :name, type: LedgerSync::Type::String
-        attribute :email, type: LedgerSync::Type::String
-        attribute :phone_number, type: LedgerSync::Type::String
-        attribute :foo, type: LedgerSync::Type::String
-        attribute :type, type: LedgerSync::Type::String
-      end
+    new_resource_class(
+      attributes: %i[
+        foo
+        email
+        name
+        phone_number
+        type
+      ]
     )
   end
 

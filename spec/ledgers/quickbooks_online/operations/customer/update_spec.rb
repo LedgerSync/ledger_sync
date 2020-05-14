@@ -2,19 +2,25 @@
 
 require 'spec_helper'
 
-support :input_helpers,
-        :operation_shared_examples,
+support :operation_shared_examples,
         :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Update do
-  include InputHelpers
   include QuickBooksOnlineHelpers
 
-  let(:client) do
-    quickbooks_online_client
-  end
+  let(:client) { quickbooks_online_client }
   let(:resource) do
-    LedgerSync::Customer.new(customer_resource(ledger_id: '123'))
+    create(
+      :quickbooks_online_customer,
+      external_id: :ext_id,
+      ledger_id: 123,
+      PrimaryEmailAddr: create(
+        :quickbooks_online_primary_email_addr,
+        Address: 'test@example.com'
+      ),
+      PrimaryPhone: nil,
+      DisplayName: 'Sample Customer'
+    )
   end
 
   it_behaves_like 'an operation'

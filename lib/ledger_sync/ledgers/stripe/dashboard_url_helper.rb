@@ -6,13 +6,13 @@ module LedgerSync
       class DashboardURLHelper < LedgerSync::Ledgers::DashboardURLHelper
         def resource_path
           @resource_path = case resource
-          when LedgerSync::Customer
-            "/customers/#{resource.ledger_id}"
-          else
-            raise Error::LedgerError::UnknownURLFormat.new(
-              client: self,
-              resource: resource
-            )
+                           when Stripe::Customer
+                             "/customers/#{resource.ledger_id}"
+                           else
+                             raise Error::LedgerError::UnknownURLFormat.new(
+                               client: self,
+                               resource: resource
+                             )
           end
         end
       end

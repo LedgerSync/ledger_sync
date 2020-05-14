@@ -58,7 +58,7 @@ module LedgerSync
           failure(LedgerSync::Error::OperationError::PerformedOperationError.new(operation: self)) if @performed
 
           @result = begin
-            operate
+                      operate
                     rescue LedgerSync::Error => e
                       failure(e)
                     rescue StandardError => e

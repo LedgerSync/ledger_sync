@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Operations::Creat
   include InputHelpers
 
   let(:resource) do
-    LedgerSync::Account.new(account_resource)
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource)
   end
   let(:client) { quickbooks_online_client }
 

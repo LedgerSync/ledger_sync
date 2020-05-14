@@ -9,13 +9,13 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Operations::Updat
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::Account.new(
+    described_class.inferred_resource_class.new(
       account_sub_type: 'cash_on_hand',
       account_type: 'bank',
       active: true,
       classification: 'asset',
-      currency: FactoryBot.create(
-        :currency,
+      currency: create(
+        :quickbooks_online_currency,
         name: 'United States Dollar',
         symbol: 'USD'
       ),
