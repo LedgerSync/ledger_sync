@@ -52,14 +52,14 @@ RSpec.configure do |config|
       end
     end
 
-    LedgerSync.resources.each do |resource_class|
-      next unless resource_class.name.include?('::Bundles::ModernTreasury')
+    # LedgerSync.resources.each do |resource_class|
+    #   next unless resource_class.name.include?('::Bundles::ModernTreasury')
 
-      factory_key = "bundle_#{resource_class.resource_type}".to_sym
-      next if FactoryBot.factories.registered?(factory_key)
+    #   factory_key = "bundle_#{resource_class.resource_type}".to_sym
+    #   next if FactoryBot.factories.registered?(factory_key)
 
-      register_factory(prefix: :bundle, resource_class: resource_class)
-    end
+    #   register_factory(prefix: :bundle, resource_class: resource_class)
+    # end
   end
   config.after { FactoryBot.custom_rewind_sequences }
   # config.after { FactoryBot.configuration.sequence_store.map(&:rewind) }
