@@ -83,8 +83,6 @@ module LedgerSync
           end
         ]
 
-        # byebug if resource_class == LedgerSync::TestResource::TestChildResource
-
         @all_resources[resource_key(external_id: external_id, type: type)] ||= resource_class.new(
           external_id: external_id,
           ledger_id: ledger_id,
