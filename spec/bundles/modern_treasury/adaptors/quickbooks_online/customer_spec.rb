@@ -8,14 +8,15 @@ RSpec.describe LedgerSync::Bundles::ModernTreasury::Adaptors::QuickBooksOnline::
 
   describe '#email' do
     it do
-      expect(subject.email).to be_nil
+      expect(resource.email).to be_nil
+      expect(subject.PrimaryEmailAddr.Address).to be_nil
 
       resource.email = 'asdf'
       expect(resource.email).to eq('asdf')
-      expect(subject.email).to be_nil
+      expect(subject.PrimaryEmailAddr.Address).to be_nil
 
-      subject.email = 'llll'
-      expect(subject.email).to eq('llll')
+      subject.PrimaryEmailAddr.Address = 'llll'
+      expect(subject.PrimaryEmailAddr.Address).to eq('llll')
       expect(subject.resource.email).to eq('llll')
       expect(resource.email).to eq('asdf')
     end

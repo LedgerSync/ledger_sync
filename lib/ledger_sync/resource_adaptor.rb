@@ -12,23 +12,65 @@ module LedgerSync
             resource_attribute: resource_attribute
           }
 
-          define_method(resource_attribute) do
-            resource.send(record_attribute)
+          define_method(record_attribute) do
+            resource.send(resource_attribute)
           end
 
-          define_method("#{resource_attribute}=") do |*setter_args|
-            resource.send("#{record_attribute}=", *setter_args)
+          define_method("#{record_attribute}=") do |*setter_args|
+            resource.send("#{resource_attribute}=", *setter_args)
           end
         end
 
         def attributes
           @attributes ||= {}
         end
+
+        def references_one(record_attribute, args = {})
+          resource_attribute = args.fetch(:resource_attribute, record_attribute)
+          adaptor_class      = args.fetch(:adaptor_class)
+
+          attributes[record_attribute.to_sym] = {
+            adaptor_class: adaptor_class,
+            record_attribute: record_attribute,
+            resource_attribute: resource_attribute
+          }
+
+          define_method(record_attribute) do
+            adaptor_class.new(
+              resource: resource,
+              dup: false
+            )
+          end
+        end
+
+        def inferred_client_base_module
+          @inferred_client_base_module ||= inferred_client_class.base_module
+        end
+
+        def inferred_client_class
+          @inferred_client_class ||= begin
+            return if name.nil?
+
+            parts = name.split('::')
+            return unless parts.include?('Adaptors')
+
+            LedgerSync::Ledgers.const_get(
+              parts[parts.index('Adaptors') + 1]
+            )::Client
+          end
+        end
       end
 
       module InstanceMethods
         def initialize(args = {})
-          @resource = args.fetch(:resource).dup
+          dup = args.fetch(:dup, true)
+
+          @resource = args.fetch(:resource)
+          @resource = @resource.dup if dup
+        end
+
+        def resource_class(type)
+          self.class.inferred_client_class.resources[type]
         end
       end
 

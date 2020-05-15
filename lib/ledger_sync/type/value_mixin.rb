@@ -35,6 +35,8 @@ module LedgerSync
       def cast_value(args = {})
         value = args.fetch(:value)
 
+        return if value.nil?
+
         super(value)
       end
 

@@ -10,7 +10,7 @@ module StripeHelpers
   def stub_customer_create
     stub_request(:post, 'https://api.stripe.com/v1/customers')
       .with(
-        body: { 'email' => 'test@example.com', "metadata"=>{"external_id"=>"ext_id"}, 'name' => 'Sample Customer', 'phone' => '' },
+        body: { 'email' => 'test@example.com', "metadata"=>{"external_id"=>"ext_id"}, 'name' => 'Sample Customer' },
         headers: stripe_request_headers
       ).to_return(status: 200, body: {
                     "id": 'cus_123',

@@ -1,22 +1,25 @@
 # frozen_string_literal: true
 
+require_relative 'primary_email_addr'
+require_relative 'primary_phone'
+
 module LedgerSync
   module Bundles
     module ModernTreasury
       module Adaptors
         module QuickBooksOnline
           class Customer < ResourceAdaptor
-            attribute :email
-            attribute :phone, resource_attribute: :phone_number
+            references_one :PrimaryEmailAddr, adaptor_class: PrimaryEmailAddr
+            references_one :PrimaryPhone, adaptor_class: PrimaryPhone
 
-            def name
+            def DisplayName
               [
                 resource.first_name,
                 resource.last_name
               ].compact.join(' ')
             end
 
-            def name=(val)
+            def DisplayName=(val)
               if val.nil?
                 resource.first_name = nil
                 resource.last_name = nil

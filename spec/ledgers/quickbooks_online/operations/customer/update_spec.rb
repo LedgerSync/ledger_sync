@@ -29,4 +29,31 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Upda
                     stub_customer_find
                     stub_customer_update
                   ]
+
+  context 'with a ResourceAdaptor' do
+    let(:resource) do
+      LedgerSync::Bundles::ModernTreasury::Adaptors::QuickBooksOnline::Customer.new(
+        resource: new_resource_class(
+          attributes: %i[
+            email
+            name
+            phone
+          ]
+        ).new(
+          external_id: :ext_id,
+          ledger_id: 123,
+          email: 'test@example.com',
+          phone: nil,
+          name: 'Sample Customer'
+        )
+      )
+    end
+
+    it_behaves_like 'an operation'
+    it_behaves_like 'a successful operation',
+                    stubs: %i[
+                      stub_customer_find
+                      stub_customer_update
+                    ]
+  end
 end
