@@ -54,15 +54,6 @@ def generate_resource_factories
       register_factory(prefix: ledger_key, resource_class: resource_class)
     end
   end
-
-  # LedgerSync.resources.each do |resource_class|
-  #   next unless resource_class.name.include?('::Bundles::ModernTreasury')
-
-  #   factory_key = "bundle_#{resource_class.resource_type}".to_sym
-  #   next if FactoryBot.factories.registered?(factory_key)
-
-  #   register_factory(prefix: :bundle, resource_class: resource_class)
-  # end
 end
 
 RSpec.configure do |config|

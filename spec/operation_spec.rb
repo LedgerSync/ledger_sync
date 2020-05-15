@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Operation do
-  let(:resource) { LedgerSync::Bundles::ModernTreasury::Customer.new }
+  let(:resource) { LedgerSync::Ledgers::NetSuite::Customer.new }
   let(:client) do
     LedgerSync::Ledgers::NetSuite::Client.new(
       account_id: :account_id,

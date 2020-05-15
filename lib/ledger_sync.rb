@@ -127,7 +127,3 @@ end
 
 # Load Ledgers
 Gem.find_files('ledger_sync/ledgers/**/config.rb').each { |path| require path }
-
-# Bundles
-Gem.find_files('ledger_sync/bundles/**/resource.rb').each { |path| require path }
-Gem.find_files('ledger_sync/bundles/**/*.rb').each { |path| require path }
