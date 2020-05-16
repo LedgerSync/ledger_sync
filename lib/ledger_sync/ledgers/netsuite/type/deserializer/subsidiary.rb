@@ -3,9 +3,13 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Type
+      class Type
         module Deserializer
           class Subsidiary < LedgerSync::Type::Value
+            def initialize(args = {})
+              @subsidiary_class = args.fetch(:subsidiary_class)
+            end
+
             private
 
             def cast_value(args = {})
@@ -13,7 +17,7 @@ module LedgerSync
 
               return if value.nil?
 
-              LedgerSync::Subsidiary.new(
+              @subsidiary_class.new(
                 ledger_id: value.fetch('id', nil)
               )
             end

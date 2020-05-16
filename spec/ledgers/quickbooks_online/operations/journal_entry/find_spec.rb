@@ -9,10 +9,12 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::JournalEntry::Operations::
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::JournalEntry.new(
+    LedgerSync::Ledgers::QuickBooksOnline::JournalEntry.new(
       ledger_id: '123',
       reference_number: 'Ref123',
-      currency: FactoryBot.create(:currency),
+      currency: FactoryBot.create(
+        :quickbooks_online_currency
+      ),
       memo: 'Memo 1',
       transaction_date: Date.new(2019, 9, 1),
       line_items: []

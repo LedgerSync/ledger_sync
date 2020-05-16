@@ -22,7 +22,7 @@ RSpec.describe LedgerSync::Ledgers::LedgerSerializerAttribute do
     it do
       resource = attribute.send(
         :build_resource_value_from_nested_attributes,
-        LedgerSync::Payment.new,
+        LedgerSync::Ledgers::QuickBooksOnline::Payment.new,
         'asdf',
         'customer.ledger_id'.split('.')
       )

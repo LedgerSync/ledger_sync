@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Account
+      class Account
         module Operations
           class Create < NetSuite::Operation::Create
             class Contract < LedgerSync::Ledgers::Contract
@@ -14,7 +14,7 @@ module LedgerSync
                 required(:classification).maybe(:string)
                 required(:account_type).maybe(:string)
                 required(:account_sub_type).maybe(:string)
-                required(:number).filled(:integer)
+                required(:number).filled(:string)
                 required(:currency).filled(:hash, Types::Reference)
                 required(:description).maybe(:string)
                 required(:active).maybe(:bool)

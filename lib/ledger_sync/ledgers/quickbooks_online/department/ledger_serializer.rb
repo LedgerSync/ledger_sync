@@ -5,7 +5,7 @@ require_relative '../ledger_serializer_type/department_reference_type'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Department
+      class Department
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 

@@ -90,18 +90,18 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::WebhookEvent do
 
   describe '#resource' do
     it do
-      expect(instance.resource).to be_a(LedgerSync::Customer)
+      expect(instance.resource).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Customer)
     end
 
     it do
       payload['name'] = 'Vendor'
-      expect(instance.resource).to be_a(LedgerSync::Vendor)
+      expect(instance.resource).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
     end
   end
 
   describe '#resource!' do
     it do
-      expect(instance.resource!).to be_a(LedgerSync::Customer)
+      expect(instance.resource!).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Customer)
     end
 
     it do
@@ -111,10 +111,10 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::WebhookEvent do
   end
 
   describe '#resource_class' do
-    it { expect(instance.resource_class).to eq(LedgerSync::Customer) }
+    it { expect(instance.resource_class).to eq(LedgerSync::Ledgers::QuickBooksOnline::Customer) }
     it do
       payload.merge!('name' => 'Vendor')
-      expect(instance.resource_class).to eq(LedgerSync::Vendor)
+      expect(instance.resource_class).to eq(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
     end
   end
 end

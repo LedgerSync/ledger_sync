@@ -5,7 +5,7 @@ require_relative '../searcher'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Expense
+      class Expense
         class Searcher < QuickBooksOnline::Searcher
         end
       end

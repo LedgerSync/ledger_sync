@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Serializer::Delegator do
   rescue NameError
     Object.const_set(
       class_name,
-      Class.new(LedgerSync::Customer) do
+      Class.new(LedgerSync::Resource) do
         attribute :foo, type: LedgerSync::Type::String
         attribute :type, type: LedgerSync::Type::String
       end

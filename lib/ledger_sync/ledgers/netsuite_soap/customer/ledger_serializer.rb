@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuiteSOAP
-      module Customer
+      class Customer
         class LedgerSerializer < NetSuiteSOAP::LedgerSerializer
           netsuite_lib_class ::NetSuite::Records::Customer
         end

@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department::LedgerSerializer do
   describe '#to_ledger_hash' do
     describe 'without parent' do
-      let(:department) { LedgerSync::Department.new(name: 'Department') }
+      let(:department) { create(:quickbooks_online_department, name: 'Department') }
 
       it 'does not include ParentRef' do
         serializer = described_class.new(resource: department)
@@ -17,8 +17,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department::LedgerSerializ
     end
 
     describe 'with parent' do
-      let(:parent) { LedgerSync::Department.new(ledger_id: '123', name: 'Parent') }
-      let(:department) { LedgerSync::Department.new(name: 'Department', parent: parent) }
+      let(:parent) { create(:quickbooks_online_department, ledger_id: '123', name: 'Parent') }
+      let(:department) { create(:quickbooks_online_department, name: 'Department', parent: parent) }
 
       it 'does include ParentRef with value' do
         serializer = described_class.new(resource: department)
@@ -29,7 +29,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department::LedgerSerializ
     end
 
     describe 'with explicitly no parent' do
-      let(:department) { LedgerSync::Department.new(name: 'Department', parent: nil) }
+      let(:department) { create(:quickbooks_online_department, name: 'Department', parent: nil) }
 
       it 'does include ParentRef without value' do
         serializer = described_class.new(resource: department)

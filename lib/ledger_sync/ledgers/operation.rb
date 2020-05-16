@@ -50,7 +50,7 @@ module LedgerSync
           @result = nil
           @validation_contract = args.fetch(:validation_contract, nil)
 
-          self.class.raise_if_unexpected_class(expected: self.class.inferred_resource_class, given: @resource.class)
+          # self.class.raise_if_unexpected_class(expected: self.class.inferred_resource_class, given: @resource.class)
           self.class.raise_if_unexpected_class(expected: LedgerSync::Ledgers::Contract, given: validation_contract) unless @validation_contract.nil?
         end
 
@@ -58,7 +58,7 @@ module LedgerSync
           failure(LedgerSync::Error::OperationError::PerformedOperationError.new(operation: self)) if @performed
 
           @result = begin
-            operate
+                      operate
                     rescue LedgerSync::Error => e
                       failure(e)
                     rescue StandardError => e

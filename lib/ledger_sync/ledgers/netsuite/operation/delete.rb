@@ -5,7 +5,7 @@ require_relative '../operation'
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Operation
+      class Operation
         class Delete
           include NetSuite::Operation::Mixin
 

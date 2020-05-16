@@ -57,6 +57,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
     let(:builder) do
       described_class.new(
         data: data,
+        ledger: :root,
         root_resource_external_id: root_resource_external_id,
         root_resource_type: root_resource_type
       )
@@ -72,6 +73,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
       data[:resource_with_date][:date_resource_1][:data][:date_attr] = 12345
       builder = described_class.new(
         data: data,
+        ledger: :root,
         cast: false,
         root_resource_external_id: root_resource_external_id,
         root_resource_type: root_resource_type
@@ -124,6 +126,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
     let(:builder) do
       described_class.new(
         data: data,
+        ledger: :root,
         root_resource_external_id: root_resource_external_id,
         root_resource_type: root_resource_type
       )
@@ -206,14 +209,15 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
 
     builder = described_class.new(
       data: h,
+      ledger: :quickbooks_online,
       root_resource_external_id: '3aab091a-1a8a-4c96-b86c-f145198da13d',
       root_resource_type: 'expense'
     )
 
     resource = builder.resource
 
-    expect(resource).to be_a(LedgerSync::Expense)
-    expect(resource.entity).to be_a(LedgerSync::Vendor)
-    expect(resource.currency).to be_a(LedgerSync::Currency)
+    expect(resource).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Expense)
+    expect(resource.entity).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
+    expect(resource.currency).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Currency)
   end
 end

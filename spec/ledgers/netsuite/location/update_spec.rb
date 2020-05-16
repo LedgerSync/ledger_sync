@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Location::Operations::Update do
   include InputHelpers
   include NetSuiteHelpers
 
-  let(:record) { :location }
+  let(:record) { :netsuite_location }
   let(:resource) { FactoryBot.create(record, ledger_id: 1137) }
   let(:client) { netsuite_client }
 

@@ -7,7 +7,7 @@ support :netsuite_helpers
 RSpec.describe LedgerSync::Util::Performer do
   include NetSuiteHelpers
 
-  let(:resource) { LedgerSync::Customer.new(external_id: 123) }
+  let(:resource) { LedgerSync::Ledgers::NetSuite::Customer.new(external_id: 123) }
   let(:valid_contract) do
     Class.new(LedgerSync::Ledgers::Contract) do
       params do

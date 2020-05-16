@@ -8,6 +8,17 @@ module LedgerSync
         base.include SimplySerializable::Mixin
       end
 
+      def assert_valid(args = {})
+        return if valid_class?(args)
+
+        value = args.fetch(:value)
+
+        raise Error::TypeError::ValueClassError.new(
+          expected: valid_classes,
+          given: value.class
+        )
+      end
+
       # Do not override this method.  Override private method cast_value
       def cast(args = {})
         assert_valid(args)
@@ -19,17 +30,6 @@ module LedgerSync
       end
 
       private
-
-      def assert_valid(args = {})
-        return if valid_class?(args)
-
-        value = args.fetch(:value)
-
-        raise Error::TypeValueError.new(
-          expected: valid_classes,
-          given: value.class
-        )
-      end
 
       # Override this method to handle different types of casting.
       def cast_value(args = {})

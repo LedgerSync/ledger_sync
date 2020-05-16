@@ -30,7 +30,7 @@ module LedgerSync
 
         case value
         when ::Hash then value.clone
-        else { value: valuev}
+        else { value: value }
         end
       end
     end

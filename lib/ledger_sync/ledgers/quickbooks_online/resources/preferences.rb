@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      class Preferences < LedgerSync::Resource
+      class Preferences < QuickBooksOnline::Resource
         attribute :accounting_info, type: Type::Hash
         attribute :product_and_services, type: Type::Hash
         attribute :sales_forms, type: Type::Hash

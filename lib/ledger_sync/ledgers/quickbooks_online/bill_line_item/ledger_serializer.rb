@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module BillLineItem
+      class BillLineItem
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 

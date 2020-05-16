@@ -5,7 +5,7 @@ require_relative '../operation'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Operation
+      class Operation
         class FullUpdate
           include QuickBooksOnline::Operation::Mixin
 

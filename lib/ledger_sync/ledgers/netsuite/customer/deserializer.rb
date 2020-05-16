@@ -3,20 +3,18 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Customer
+      class Customer
         class Deserializer < NetSuite::Deserializer
           id
 
-          attribute :name,
-                    hash_attribute: :companyName
-
+          attribute :companyName
+          attribute :firstName
+          attribute :lastName
           attribute :email
-
-          attribute :phone_number,
-                    hash_attribute: :phone
+          attribute :phone
 
           attribute :subsidiary,
-                    type: Type::Deserializer::Subsidiary.new
+                    type: Type::Deserializer::Subsidiary.new(subsidiary_class: Subsidiary)
         end
       end
     end

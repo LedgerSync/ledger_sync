@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Customer
+      class Customer
         module Operations
           class Find < NetSuite::Operation::Find
             class Contract < LedgerSync::Ledgers::Contract
@@ -11,8 +11,10 @@ module LedgerSync
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:email).maybe(:string)
-                required(:name).maybe(:string)
-                required(:phone_number).maybe(:string)
+                required(:companyName).maybe(:string)
+                required(:firstName).maybe(:string)
+                required(:lastName).maybe(:string)
+                required(:phone).maybe(:string)
                 required(:subsidiary).maybe(:hash, Types::Reference)
               end
             end

@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module LedgerClass
+      class LedgerClass
         class Searcher < LedgerSync::Ledgers::QuickBooksOnline::Searcher
           def query_string
             "Name LIKE '%#{query}%'"

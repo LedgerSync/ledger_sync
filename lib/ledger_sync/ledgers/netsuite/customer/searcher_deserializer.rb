@@ -3,17 +3,14 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Customer
+      class Customer
         class SearcherDeserializer < NetSuite::Deserializer
           id
 
           attribute :email
-
-          attribute :name,
+          attribute :companyName,
                     hash_attribute: :companyname
-
-          attribute :phone_number,
-                    hash_attribute: :phone
+          attribute :phone
         end
       end
     end

@@ -6,7 +6,7 @@ require_relative '../payment_line_item/ledger_serializer'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Payment
+      class Payment
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 

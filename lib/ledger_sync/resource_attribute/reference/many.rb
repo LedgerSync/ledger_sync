@@ -7,35 +7,23 @@ module LedgerSync
   class ResourceAttribute
     class Reference
       class Many < Reference
-        class ManyArray
+        class ManyArray < Array
           include ActiveModel::Dirty
 
           ARRAY_METHODS_TO_OVERRIDE_WITH_DIRTY = %w[<< | []= + -].freeze
 
-          delegate  :count,
-                    :each,
-                    :include?,
-                    :map,
-                    to: :value
-
-          attr_accessor :value
-
           define_attribute_methods :value
-
-          def initialize
-            @value = []
-          end
 
           ARRAY_METHODS_TO_OVERRIDE_WITH_DIRTY.each do |array_method|
             define_method(array_method) do |val|
               value_will_change!
-              @value = @value.send(array_method, val)
+              super(val)
             end
           end
 
           def ==(other)
-            return false unless other.is_a?(ManyArray)
-            return false unless other.sorted_fingerprints == sorted_fingerprints
+            return false unless other.is_a?(ManyArray) || other.is_a?(Array)
+            return false unless sorted_fingerprints(other) == sorted_fingerprints
 
             true
           end
@@ -44,8 +32,12 @@ module LedgerSync
             changes_applied
           end
 
-          def sorted_fingerprints
-            value.map(&:fingerprint).sort
+          def sorted_fingerprints(other = nil)
+            (other || self).map(&:fingerprint).sort
+          end
+
+          def value
+            self
           end
         end
 

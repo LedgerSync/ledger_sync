@@ -1,7 +1,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Account
+      class Account
         module Operations
           class Create < QuickBooksOnline::Operation::Create
             class Contract < LedgerSync::Ledgers::Contract
@@ -15,7 +15,7 @@ module LedgerSync
                 required(:description).maybe(:string)
                 required(:ledger_id).value(:nil)
                 required(:name).filled(:string)
-                required(:number).maybe(:integer)
+                required(:number).maybe(:string)
               end
             end
           end

@@ -12,7 +12,14 @@ RSpec.describe 'stripe/customers/find', type: :feature do
   before { stub_customer_find }
 
   let(:resource) do
-    LedgerSync::Customer.new(customer_resource(ledger_id: 'cus_123'))
+    create(
+      :stripe_customer,
+      external_id: :ext_id,
+      ledger_id: 'cus_123',
+      email: 'test@example.com',
+      name: 'Sample Customer',
+      phone_number: nil
+    )
   end
 
   let(:input) do
@@ -26,6 +33,6 @@ RSpec.describe 'stripe/customers/find', type: :feature do
     subject { LedgerSync::Ledgers::Stripe::Customer::Operations::Find.new(**input).perform }
     it { expect(subject).to be_success }
     it { expect(subject).to be_a(LedgerSync::OperationResult::Success) }
-    it { expect(subject.resource).to be_a(LedgerSync::Customer) }
+    it { expect(subject.resource).to be_a(LedgerSync::Ledgers::Stripe::Customer) }
   end
 end

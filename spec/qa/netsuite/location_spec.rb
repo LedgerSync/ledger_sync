@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Department, qa: true, client: :net
       name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :location }
+  let(:record) { :netsuite_location }
   let(:resource) do
     FactoryBot.create(record)
   end

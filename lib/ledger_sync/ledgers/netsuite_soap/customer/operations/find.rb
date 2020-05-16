@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuiteSOAP
-      module Customer
+      class Customer
         module Operations
           class Find < NetSuiteSOAP::Operation::Find
             class Contract < LedgerSync::Ledgers::Contract

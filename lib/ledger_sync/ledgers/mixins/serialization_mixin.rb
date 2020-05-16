@@ -23,7 +23,7 @@ module LedgerSync
         end
 
         def self.included(base)
-          base.include InferLedgerClassMixin
+          base.include InferClientMixin
           base.include InferResourceClassMixin
           base.extend ClassMethods
         end

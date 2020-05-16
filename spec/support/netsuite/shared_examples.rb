@@ -6,7 +6,7 @@ support :netsuite_helpers
 RSpec.shared_examples 'a netsuite operation' do
   include NetSuiteHelpers
 
-  let(:resource) { FactoryBot.create(record) } unless method_defined?(:resource)
+  let(:resource) { FactoryBot.create("#{client.class.config.root_key}_#{record}") } unless method_defined?(:resource)
   let(:client) { netsuite_client } unless method_defined?(:client)
   unless method_defined?(:record)
     let(:record) do
@@ -16,6 +16,8 @@ RSpec.shared_examples 'a netsuite operation' do
 
   before do
     case described_class.operation_method
+    when :create
+      resource.ledger_id = nil
     when :delete
       resource.ledger_id = netsuite_records.send(record).hash['id']
     when :find

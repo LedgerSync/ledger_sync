@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Vendor
+      class Vendor
         class Deserializer < NetSuite::Deserializer
           id
 
@@ -22,7 +22,7 @@ module LedgerSync
                     hash_attribute: :lastName
 
           attribute :subsidiary,
-                    type: Type::Deserializer::Subsidiary.new
+                    type: Type::Deserializer::Subsidiary.new(subsidiary_class: Subsidiary)
         end
       end
     end

@@ -40,7 +40,19 @@ module LedgerSync
       end
     end
 
-    class TypeValueError < UnexpectedClassError
+    module TypeError
+      class ValueClassError < UnexpectedClassError
+      end
+
+      class StringFromSetError < Error
+        def initialize(expected:, given:)
+          to_show = expected.first(10).join(', ')
+          to_show += ", ... (#{expected.count - 10} more possible values)" if expected.count > 10
+          super(
+            message: "Unexpected value. Given #{given}. Expected: #{to_show}"
+          )
+        end
+      end
     end
   end
 end

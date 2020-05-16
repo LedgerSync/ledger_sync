@@ -5,7 +5,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Account
+      class Account
         module Operations
           class Update < Operation::FullUpdate
             class Contract < LedgerSync::Ledgers::Contract
@@ -16,7 +16,7 @@ module LedgerSync
                 required(:classification).filled(:string)
                 required(:account_type).filled(:string)
                 required(:account_sub_type).filled(:string)
-                required(:number).maybe(:integer)
+                required(:number).maybe(:string)
                 required(:currency).maybe(:hash, Types::Reference)
                 required(:description).maybe(:string)
                 required(:active).maybe(:bool)

@@ -186,9 +186,9 @@ module LedgerSync
 
         def self.ledger_resource_type_overrides
           {
-            LedgerSync::Expense => 'purchase',
-            LedgerSync::LedgerClass => 'class',
-            LedgerSync::Ledgers::QuickBooksOnline::Preferences => 'preferences'
+            Expense => 'purchase',
+            LedgerClass => 'class',
+            Preferences => 'preferences'
           }
         end
 

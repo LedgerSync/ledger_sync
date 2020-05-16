@@ -3,10 +3,9 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Customer
+      class Customer
         class Serializer < NetSuite::Serializer
-          attribute :companyName,
-                    resource_attribute: :name
+          attribute :companyName
 
           attribute :entityId,
                     resource_attribute: :external_id
@@ -16,14 +15,11 @@ module LedgerSync
 
           attribute :email
 
-          attribute :phone,
-                    resource_attribute: :phone_number
+          attribute :phone
 
-          # attribute :firstName,
-          #           resource_attribute: :first_name
+          attribute :firstName
 
-          # attribute :lastName,
-          #           resource_attribute: :last_name
+          attribute :lastName
 
           attribute :subsidiary,
                     type: Type::Serializer::Reference.new

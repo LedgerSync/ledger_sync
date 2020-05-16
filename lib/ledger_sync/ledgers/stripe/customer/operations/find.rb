@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module Stripe
-      module Customer
+      class Customer
         module Operations
           class Find < Stripe::Operation::Find
             class Contract < LedgerSync::Ledgers::Contract

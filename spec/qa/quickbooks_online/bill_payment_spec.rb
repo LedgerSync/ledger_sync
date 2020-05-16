@@ -58,7 +58,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment, qa: true, cli
     )
   end
 
-  let(:currency) { build(:currency, name: 'United States Dollar', symbol: 'USD') }
+  let(:currency) { build(:quickbooks_online_currency, name: 'United States Dollar', symbol: 'USD') }
 
   let(:department) do
     create_resource_for(

@@ -6,19 +6,19 @@ module LedgerSync
       class DashboardURLHelper < LedgerSync::Ledgers::DashboardURLHelper
         def resource_path
           @resource_path = case resource
-          when LedgerSync::Account
-            "/app/accounting/account/account.nl?id=#{resource.ledger_id}"
-          when LedgerSync::Currency
-            "/app/common/multicurrency/currency.nl?id=#{resource.ledger_id}"
-          when LedgerSync::Customer, LedgerSync::Vendor
-            "/app/common/entity/entity.nl?id=#{resource.ledger_id}"
-          when LedgerSync::Department
-            "/app/common/otherlists/departmenttype.nl?id=#{resource.ledger_id}"
-          when LedgerSync::Deposit, LedgerSync::Invoice
-            "/app/accounting/transactions/transaction.nl?id=#{resource.ledger_id}"
-          when LedgerSync::LedgerClass
-            "/app/common/otherlists/classtype.nl?id=#{resource.ledger_id}"
-          end
+                           when NetSuite::Account
+                             "/app/accounting/account/account.nl?id=#{resource.ledger_id}"
+                           when NetSuite::Currency
+                             "/app/common/multicurrency/currency.nl?id=#{resource.ledger_id}"
+                           when NetSuite::Customer, NetSuite::Vendor
+                             "/app/common/entity/entity.nl?id=#{resource.ledger_id}"
+                           when NetSuite::Department
+                             "/app/common/otherlists/departmenttype.nl?id=#{resource.ledger_id}"
+                           when NetSuite::Deposit, NetSuite::Invoice
+                             "/app/accounting/transactions/transaction.nl?id=#{resource.ledger_id}"
+                           when NetSuite::LedgerClass
+                             "/app/common/otherlists/classtype.nl?id=#{resource.ledger_id}"
+                           end
         end
       end
     end

@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Customer::Operations::Find do
   include InputHelpers
   include NetSuiteHelpers
 
-  let(:resource) { LedgerSync::Customer.new(customer_resource(ledger_id: 1137)) }
+  let(:resource) { create(:netsuite_customer, ledger_id: 1137) }
   let(:client) { netsuite_client }
 
   it_behaves_like 'an operation'

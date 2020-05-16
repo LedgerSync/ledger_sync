@@ -3,19 +3,19 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Customer
+      class Customer
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id  ledger_attribute: 'Id',
               resource_attribute: :ledger_id
 
           attribute ledger_attribute: 'DisplayName',
-                    resource_attribute: :name
+                    resource_attribute: 'DisplayName'
 
           attribute ledger_attribute: 'PrimaryPhone.FreeFormNumber',
-                    resource_attribute: :phone_number
+                    resource_attribute: 'PrimaryPhone.FreeFormNumber'
 
           attribute ledger_attribute: 'PrimaryEmailAddr.Address',
-                    resource_attribute: :email
+                    resource_attribute: 'PrimaryEmailAddr.Address'
         end
       end
     end

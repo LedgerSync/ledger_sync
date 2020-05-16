@@ -6,6 +6,7 @@ module LedgerSync
       include Fingerprintable::Mixin
       include SimplySerializable::Mixin
       include Validatable
+      include Util::Mixins::ResourceRegisterableMixin
 
       simply_serialize only: %i[
         ledger_configuration
@@ -31,7 +32,10 @@ module LedgerSync
         end]
       end
 
-      def operation_for(method:, resource:)
+      def operation_for(args = {})
+        method = args.fetch(:method)
+        resource = args.fetch(:resource)
+
         self.class.operation_class_for(
           method: method,
           resource_class: resource.class
@@ -91,7 +95,11 @@ module LedgerSync
 
       def self.resource_from_ledger_type(type:, converter: nil)
         converter ||= proc { |n| n.underscore }
-        ledger_resource_type_overrides.invert[converter.call(type).to_sym] || LedgerSync.resources[converter.call(type).to_sym]
+        ledger_resource_type_overrides.invert[converter.call(type).to_sym] || resources[converter.call(type).to_sym]
+      end
+
+      def self.resources
+        @resources ||= {}
       end
 
       def self.url_for(resource: nil); end

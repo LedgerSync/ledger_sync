@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module LedgerSerializerType
+      class LedgerSerializerType
         class ClassificationType < Ledgers::LedgerSerializerType::MappingType
           MAPPING = {
             'asset' => 'Asset',

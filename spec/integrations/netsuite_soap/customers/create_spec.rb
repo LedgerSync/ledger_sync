@@ -12,9 +12,10 @@ RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Customer::Operations::Create, 
   include OperationHelpers
 
   let(:resource) do
-    LedgerSync::Customer.new(
+    resource_class = LedgerSync::Ledgers::NetSuiteSOAP::Customer
+    resource_class.new(
       customer_resource.merge(
-        subsidiary: LedgerSync::Subsidiary.new(
+        subsidiary: resource_class.resource_attributes[:subsidiary].type.resource_class.new(
           ledger_id: 1003
         )
       )

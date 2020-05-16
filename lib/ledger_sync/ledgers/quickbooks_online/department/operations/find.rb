@@ -1,7 +1,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Department
+      class Department
         module Operations
           class Find < QuickBooksOnline::Operation::Find
             class Contract < LedgerSync::Ledgers::Contract

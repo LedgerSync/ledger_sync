@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module LedgerClass
+      class LedgerClass
         module Operations
           class Find < NetSuite::Operation::Find
             class Contract < LedgerSync::Ledgers::Contract

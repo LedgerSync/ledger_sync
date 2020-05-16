@@ -11,31 +11,31 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::JournalEntry::Operations::
   include QuickBooksOnlineHelpers
 
   let(:account1) do
-    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
   end
 
   let(:account2) do
-    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
   end
 
   let(:department) do
-    LedgerSync::Department.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
   end
 
   let(:ledger_class) do
-    LedgerSync::LedgerClass.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: '123')
   end
 
   let(:line_item_1) do
-    LedgerSync::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account1, ledger_class: ledger_class, department: department, entry_type: 'credit'))
+    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account1, ledger_class: ledger_class, department: department, entry_type: 'credit'))
   end
 
   let(:line_item_2) do
-    LedgerSync::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account2, ledger_class: ledger_class, department: department, entry_type: 'debit'))
+    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account2, ledger_class: ledger_class, department: department, entry_type: 'debit'))
   end
 
   let(:resource) do
-    LedgerSync::JournalEntry.new(
+    LedgerSync::Ledgers::QuickBooksOnline::JournalEntry.new(
       journal_entry_resource(
         ledger_id: '123',
         line_items: [

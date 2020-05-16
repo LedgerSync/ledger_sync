@@ -6,7 +6,7 @@ require_relative '../currency/ledger_serializer'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Expense
+      class Expense
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id  ledger_attribute: 'Id',
               resource_attribute: :ledger_id

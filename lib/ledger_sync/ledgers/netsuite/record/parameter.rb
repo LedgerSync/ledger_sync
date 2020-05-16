@@ -6,7 +6,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Record
+      class Record
         class Parameter < Util::ReadOnlyObject
           attribute :description
           attribute :location, source: :in

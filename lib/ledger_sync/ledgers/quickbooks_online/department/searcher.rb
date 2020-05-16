@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Department
+      class Department
         class Searcher < LedgerSync::Ledgers::QuickBooksOnline::Searcher
           private
 

@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Find do
   include QuickBooksOnlineHelpers
 
   let(:account) do
-    LedgerSync::Account.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(
       ledger_id: '123',
       name: 'Test',
       account_type: 'bank',
@@ -17,7 +17,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Find do
     )
   end
   let(:vendor) do
-    LedgerSync::Vendor.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(
       ledger_id: '123',
       first_name: 'Test',
       last_name: 'Testing'
@@ -25,19 +25,16 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Find do
   end
 
   let(:department) do
-    LedgerSync::Department.new(ledger_id: '123')
+    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
   end
 
   let(:resource) do
-    LedgerSync::Bill.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Bill.new(
       ledger_id: '123',
       account: account,
       department: department,
       vendor: vendor,
       reference_number: 'Ref123',
-      currency: FactoryBot.create(
-        :currency
-      ),
       memo: 'Memo 1',
       transaction_date: Date.new(2019, 9, 1),
       due_date: Date.new(2019, 9, 1),

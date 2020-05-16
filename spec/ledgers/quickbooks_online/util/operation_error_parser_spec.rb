@@ -12,7 +12,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Util::OperationErrorParser
   let(:operation) do
     LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(
       client: quickbooks_online_client,
-      resource: LedgerSync::Customer.new
+      resource: LedgerSync::Ledgers::QuickBooksOnline::Customer.new
     )
   end
   let(:parser) do

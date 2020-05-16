@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module LedgerSerializerType
+      class LedgerSerializerType
         class PaymentType < Ledgers::LedgerSerializerType::MappingType
           MAPPING = {
             'cash' => 'Cash',

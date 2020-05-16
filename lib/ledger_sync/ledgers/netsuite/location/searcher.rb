@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Location
+      class Location
         class Searcher < Searcher
         end
       end

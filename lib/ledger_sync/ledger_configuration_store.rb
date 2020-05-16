@@ -29,7 +29,7 @@ module LedgerSync
       configs.each { |k, v| yield(k, v) }
     end
 
-    def register_client(ledger_config:)
+    def register_ledger(ledger_config:)
       _instance_methods_for(
         client_key: ledger_config.root_key,
         ledger_config: ledger_config

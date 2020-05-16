@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Util
     class Validator
@@ -14,7 +16,7 @@ module LedgerSync
       end
 
       def full_messages
-        @full_messages ||= errors.messages.map { |e| "#{e.path.map(&:to_s).join(' ')} #{e.text}"}
+        @full_messages ||= errors.messages.map { |e| "#{e.path.map(&:to_s).join(' ')} #{e.text}" }
       end
 
       def message

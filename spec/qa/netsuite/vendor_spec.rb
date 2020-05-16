@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Vendor, qa: true, client: :netsuit
       company_name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :vendor }
+  let(:record) { :netsuite_vendor }
   let(:resource) do
     LedgerSync::Vendor.new(
       company_name: "#{test_run_id} Company",

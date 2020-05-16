@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Type
+      class Type
         module Deserializer
           class Active < LedgerSync::Type::Value
             def cast_value(args = {})

@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Operation
+      class Operation
         module Mixin
           def self.included(base)
             base.include Ledgers::Operation::Mixin
@@ -11,8 +11,8 @@ module LedgerSync
           end
 
           module InstanceMethods
-            def ledger_resource_path
-              client.ledger_resource_path(resource: resource)
+            def ledger_resource_path(args = {})
+              client.ledger_resource_path({ resource: resource }.merge(args))
             end
           end
         end

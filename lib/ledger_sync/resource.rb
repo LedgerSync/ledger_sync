@@ -13,6 +13,7 @@ module LedgerSync
     include ResourceAttribute::Reference::One::Mixin
     include ResourceAttribute::Reference::Many::Mixin
     include Util::Mixins::DupableMixin
+    include Ledgers::Mixins::InferClientMixin
 
     PRIMITIVES = [
       ActiveModel::Type,
@@ -62,6 +63,12 @@ module LedgerSync
       resource_attributes.each do |_name, resource_attribute|
         subclass._add_resource_attribute(resource_attribute)
       end
+
+      LedgerSync.register_resource(resource: subclass)
+
+      return if subclass.inferred_client_class.nil?
+
+      subclass.inferred_client_class.register_resource(resource: subclass)
     end
 
     def self.resource_module_str

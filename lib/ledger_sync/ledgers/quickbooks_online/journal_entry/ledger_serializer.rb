@@ -6,7 +6,7 @@ require_relative '../journal_entry_line_item/ledger_serializer'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module JournalEntry
+      class JournalEntry
         class LedgerSerializer < QuickBooksOnline::LedgerSerializer
           id
 

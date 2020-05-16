@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Vendor
+      class Vendor
         module Operations
           class Create < Operation::Create
             class Contract < LedgerSync::Ledgers::Contract

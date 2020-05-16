@@ -61,6 +61,10 @@ module LedgerSync
         @mutations_from_database = ActiveModel::ForcedMutationTracker.new(self) # Manually set to expected value
         resource_attributes.references_many.map(&:save)
       end
+
+      def save!
+        save
+      end
     end
   end
 end

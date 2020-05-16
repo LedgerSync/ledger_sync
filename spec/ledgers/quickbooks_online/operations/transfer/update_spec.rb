@@ -11,11 +11,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Transfer::Operations::Upda
   include QuickBooksOnlineHelpers
 
   let(:account) do
-    LedgerSync::Account.new(account_resource(ledger_id: '123'))
+    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
   end
 
   let(:resource) do
-    LedgerSync::Transfer.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Transfer.new(
       transfer_resource(
         ledger_id: '123',
         from_account: account,

@@ -5,7 +5,7 @@ require_relative '../operation'
 module LedgerSync
   module Ledgers
     module Stripe
-      module Operation
+      class Operation
         class Find
           include Stripe::Operation::Mixin
         end

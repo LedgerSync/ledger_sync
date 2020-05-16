@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module LedgerSerializerType
+      class LedgerSerializerType
         class JournalEntryLineItemType < Ledgers::LedgerSerializerType::MappingType
           MAPPING = {
             'debit' => 'Debit',

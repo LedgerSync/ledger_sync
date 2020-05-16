@@ -88,12 +88,12 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerSerializer do
   end
 
   let(:local_bill) do
-    LedgerSync::Bill.new(
+    LedgerSync::Ledgers::QuickBooksOnline::Bill.new(
       line_items: [
-        LedgerSync::BillLineItem.new(
+        LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
           ledger_id: 1
         ),
-        LedgerSync::BillLineItem.new(
+        LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
           description: 'Testing 3'
         )
       ]
@@ -194,7 +194,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerSerializer do
   describe '#to_ledger_hash' do
     it 'deep merges values' do
       serializer_class = LedgerSync::Ledgers::QuickBooksOnline::Customer::LedgerSerializer
-      customer = LedgerSync::Customer.new(name: 'test', email: 'test@example.com')
+      customer = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(DisplayName: 'test', PrimaryEmailAddr: create(:quickbooks_online_primary_email_addr, Address: 'test@example.com'))
       serializer = serializer_class.new(resource: customer)
 
       h = {

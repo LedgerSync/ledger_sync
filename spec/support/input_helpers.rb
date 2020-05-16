@@ -8,7 +8,7 @@ module InputHelpers
       # attributes
       email: 'test@example.com',
       name: 'Sample Customer',
-      subsidiary: LedgerSync::Subsidiary.new(subsidiary_resource)
+      subsidiary: local_resource_class(:subsidiary).new(subsidiary_resource)
     }.merge(merge)
   end
 
@@ -33,13 +33,17 @@ module InputHelpers
       classification: 'asset',
       account_type: 'bank',
       account_sub_type: 'cash_on_hand',
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),
       description: 'This is Sample Account',
       active: true
     }.merge(merge)
+  end
+
+  def local_resource_class(type)
+    described_class.inferred_client_class.resources[type]
   end
 
   def payment_resource(**merge)
@@ -53,7 +57,7 @@ module InputHelpers
       line_items: [],
       # attributes
       amount: 12_345,
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),
@@ -86,7 +90,7 @@ module InputHelpers
       account: nil,
       line_items: [],
       # attributes
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),
@@ -116,7 +120,7 @@ module InputHelpers
       line_items: [],
       # attributes
       reference_number: 'Ref123',
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),
@@ -148,7 +152,7 @@ module InputHelpers
       to_account: nil,
       # attributes
       amount: 12_345,
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),
@@ -166,7 +170,7 @@ module InputHelpers
       department: nil,
       line_items: [],
       # attributes
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),
@@ -198,7 +202,7 @@ module InputHelpers
       line_items: [],
       # attributes
       reference_number: 'Ref123',
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),
@@ -228,7 +232,7 @@ module InputHelpers
       line_items: [],
       # attributes
       reference_number: 'Ref123',
-      currency: LedgerSync::Currency.new(
+      currency: local_resource_class(:currency).new(
         name: 'United States Dollar',
         symbol: 'USD'
       ),

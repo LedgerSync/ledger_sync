@@ -1,16 +1,20 @@
+# frozen_string_literal: true
+
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      module Customer
+      class Customer
         module Operations
           class Find < QuickBooksOnline::Operation::Find
             class Contract < LedgerSync::Ledgers::Contract
               params do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
-                optional(:email).maybe(:string)
-                optional(:name).maybe(:string)
-                optional(:phone_number).maybe(:string)
+                required(:PrimaryEmailAddr).maybe(:hash, Types::Reference)
+                optional(:DisplayName).maybe(:string)
+                optional(:firstName).maybe(:string)
+                optional(:lastName).maybe(:string)
+                required(:PrimaryPhone).maybe(:hash, Types::Reference)
                 required(:subsidiary).maybe(:hash, Types::Reference)
               end
             end

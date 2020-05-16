@@ -12,7 +12,9 @@ module LedgerSync
           deserialized_resource = super(hash: hash)
 
           # Ref: https://github.com/LedgerSync/ledger_sync/issues/86
-          deserialized_resource.classification ||= LedgerSerializerType::AccountType::TYPE_TO_CLASSIFICATION_MAPPING.fetch(deserialized_resource.account_type, nil) if deserialized_resource.is_a?(LedgerSync::Account) && deserialized_resource.account_type
+          if deserialized_resource.is_a?(LedgerSync::Ledgers::QuickBooksOnline::Account) && deserialized_resource.account_type
+            deserialized_resource.classification ||= LedgerSerializerType::AccountType::TYPE_TO_CLASSIFICATION_MAPPING.fetch(deserialized_resource.account_type, nil)
+          end
 
           return deserialized_resource unless merge_for_full_update
 

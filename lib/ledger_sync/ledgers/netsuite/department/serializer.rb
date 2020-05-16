@@ -3,7 +3,7 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      module Department
+      class Department
         class Serializer < NetSuite::Serializer
           attribute :name
         end

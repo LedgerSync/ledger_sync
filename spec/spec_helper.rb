@@ -35,6 +35,7 @@ end
 support :factory_bot
 support :webmock_helpers
 support :vcr
+support :resource_helpers
 
 def qa_support(*paths)
   paths.each do |path|
