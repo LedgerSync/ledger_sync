@@ -48,17 +48,19 @@ require 'ledger_sync/util/mixins/delegate_iterable_methods_mixin'
 require 'ledger_sync/util/mixins/resource_registerable_mixin'
 require 'ledger_sync/util/mixins/dupable_mixin'
 require 'ledger_sync/result'
-require 'ledger_sync/serializer'
-require 'ledger_sync/deserializer'
 require 'ledger_sync/operation'
 require 'ledger_sync/resource_adaptor'
+
+Gem.find_files('ledger_sync/type/**/*.rb').each { |path| require path }
+Gem.find_files('ledger_sync/serialization/type/**/*.rb').each { |path| require path }
+require 'ledger_sync/serializer'
+require 'ledger_sync/deserializer'
 
 # Ledgers
 Gem.find_files('ledger_sync/ledgers/mixins/**/*.rb').each { |path| require path }
 require 'ledger_sync/ledgers/client'
 require 'ledger_sync/ledgers/dashboard_url_helper'
 require 'ledger_sync/ledgers/searcher'
-require 'ledger_sync/ledgers/ledger_serializer'
 require 'ledger_sync/ledgers/operation'
 require 'ledger_sync/ledgers/contract'
 require 'ledger_sync/ledgers/response'
@@ -110,6 +112,7 @@ module LedgerSync
 
     client_files = Gem.find_files("#{ledger_root_path}/resource.rb")
     client_files |= Gem.find_files("#{ledger_root_path}/resources/**/*.rb")
+    client_files |= Gem.find_files("#{ledger_root_path}/serialization/**/*.rb")
     # Sort the files to include BFS-style as most dependencies are in parent folders
     client_files |= Gem.find_files("#{ledger_root_path}/**/*.rb").sort { |a, b| a.count('/') <=> b.count('/') }
 

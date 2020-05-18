@@ -22,7 +22,7 @@ module LedgerSync
           base.include SimplySerializable::Mixin
           base.include Fingerprintable::Mixin
           base.include Error::HelpersMixin
-          base.include Ledgers::Mixins::InferLedgerSerializerMixin
+          base.include Ledgers::Mixins::InferSerializerMixin
           base.include Ledgers::Mixins::SerializationMixin
           base.include Ledgers::Mixins::InferValidationContractMixin
           base.extend ClassMethods
@@ -75,20 +75,20 @@ module LedgerSync
           @performed == true
         end
 
-        def ledger_deserializer
-          ledger_deserializer_class.new(resource: resource)
+        def deserializer
+          deserializer_class.new(resource: resource)
         end
 
-        def ledger_deserializer_class
-          @ledger_deserializer_class ||= self.class.inferred_ledger_deserializer_class
+        def deserializer_class
+          @deserializer_class ||= self.class.inferred_deserializer_class
         end
 
-        def ledger_serializer
-          ledger_serializer_class.new(resource: resource)
+        def serializer
+          serializer_class.new(resource: resource)
         end
 
-        def ledger_serializer_class
-          @ledger_serializer_class ||= self.class.inferred_ledger_serializer_class
+        def serializer_class
+          @serializer_class ||= self.class.inferred_serializer_class
         end
 
         # Results

@@ -22,14 +22,6 @@ module LedgerSync
                 required(:other).maybe(:hash)
               end
             end
-
-            def self.inferred_resource_class
-              Preferences
-            end
-
-            def self.inferred_ledger_serializer_class
-              Preferences::LedgerSerializer
-            end
           end
         end
       end

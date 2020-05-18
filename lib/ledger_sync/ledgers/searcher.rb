@@ -5,7 +5,7 @@ module LedgerSync
     class Searcher
       include SimplySerializable::Mixin
       include Mixins::InferResourceClassMixin
-      include Mixins::InferLedgerSerializerMixin
+      include Mixins::InferSerializerMixin
       include Mixins::SerializationMixin
 
       attr_reader :client,
@@ -26,8 +26,8 @@ module LedgerSync
         @pagination = pagination
       end
 
-      def ledger_deserializer_class
-        @ledger_deserializer_class ||= self.class.inferred_ledger_deserializer_class
+      def deserializer_class
+        @deserializer_class ||= self.class.inferred_deserializer_class
       end
 
       def next_searcher

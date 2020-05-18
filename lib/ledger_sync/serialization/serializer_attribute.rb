@@ -3,7 +3,7 @@
 require_relative 'attribute'
 
 module LedgerSync
-  class Serialization
+  module Serialization
     class SerializerAttribute < Attribute
       def initialize(args = {})
         super
@@ -40,6 +40,14 @@ module LedgerSync
       # }
       def hash_attribute_hash_with(value:)
         hash_attribute_dot_parts.reverse.inject(value) { |a, n| { n => a } }
+      end
+
+      def references_many?
+        type.is_a?(Type::SerializerReferencesManyType)
+      end
+
+      def references_one?
+        type.is_a?(Type::SerializerReferencesOneType)
       end
 
       def value(resource:)

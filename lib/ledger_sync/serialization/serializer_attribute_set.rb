@@ -3,7 +3,7 @@
 require_relative 'attribute_set_mixin'
 
 module LedgerSync
-  class Serialization
+  module Serialization
     class SerializerAttributeSet
       include AttributeSetMixin
 

@@ -12,10 +12,11 @@ module LedgerSync
 
           module InstanceMethods
             def deserialized_resource(response:)
-              ledger_serializer.deserialize(
+              deserializer.deserialize(
                 hash: response.body.dig(
                   quickbooks_online_resource_type.to_s.camelize
-                )
+                ),
+                resource: resource
               )
             end
 
@@ -50,7 +51,7 @@ module LedgerSync
             end
 
             def quickbooks_online_resource_type
-              @quickbooks_online_resource_type ||= ledger_serializer.class.quickbooks_online_resource_type
+              @quickbooks_online_resource_type ||= client.class.ledger_resource_type_for(resource_class: resource.class)
             end
           end
         end

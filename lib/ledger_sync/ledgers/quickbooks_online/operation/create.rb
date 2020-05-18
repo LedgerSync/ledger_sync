@@ -15,7 +15,7 @@ module LedgerSync
             response_to_operation_result(
               response: client.post(
                 path: ledger_resource_type_for_path,
-                payload: ledger_serializer.to_ledger_hash
+                payload: serializer.serialize(resource: resource)
               )
             )
           end

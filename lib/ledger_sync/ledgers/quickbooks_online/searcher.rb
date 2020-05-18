@@ -27,10 +27,9 @@ module LedgerSync
               resource_class: resource_class
             ).classify
           ) || []).map do |c|
-            self.class.inferred_ledger_serializer_class.new(
+            self.class.inferred_deserializer_class.new.deserialize(
+              hash: c,
               resource: resource_class.new
-            ).deserialize(
-              hash: c
             )
           end
         end

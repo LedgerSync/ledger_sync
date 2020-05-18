@@ -6,13 +6,16 @@ require_relative 'customer'
 require_relative 'department'
 require_relative 'expense_line_item'
 require_relative 'vendor'
+require_relative 'bill_payment'
 
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Expense < QuickBooksOnline::Resource
+        PAYMENT_TYPES = BillPayment::PAYMENT_TYPES
+
         attribute :memo, type: Type::String
-        attribute :payment_type, type: Type::String
+        attribute :payment_type, type: Type::StringFromSet.new(values: PAYMENT_TYPES.keys)
         attribute :transaction_date, type: Type::Date
         attribute :exchange_rate, type: Type::Float
         attribute :reference_number, type: Type::String

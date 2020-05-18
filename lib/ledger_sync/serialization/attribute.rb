@@ -3,7 +3,7 @@
 Gem.find_files('ledger_sync/serialization/type/**/*.rb').each { |path| require path }
 
 module LedgerSync
-  class Serialization
+  module Serialization
     class Attribute
       attr_reader :block,
                   :hash_attribute,
@@ -29,14 +29,6 @@ module LedgerSync
 
       def reference?
         references_many? || references_one?
-      end
-
-      def references_many?
-        type.is_a?(Type::ReferencesManyType)
-      end
-
-      def references_one?
-        type.is_a?(Type::ReferencesOneType)
       end
 
       def resource_attribute_dot_parts

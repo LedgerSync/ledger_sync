@@ -11,8 +11,8 @@ RSpec.describe LedgerSync::Ledgers::Operation do
   let(:resource) { FactoryBot.create(:netsuite_customer, ledger_id: 1137) }
   let(:operation_class) { client.base_module::Customer::Operations::Create }
   let(:serializer_class) do
-    Class.new(LedgerSync::Ledgers::LedgerSerializer) do
-      attribute ledger_attribute: :foo,
+    Class.new(LedgerSync::Ledgers::Serializer) do
+      attribute :foo,
                 resource_attribute: :foo
     end
   end

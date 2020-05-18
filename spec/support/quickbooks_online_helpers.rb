@@ -446,7 +446,7 @@ module QuickBooksOnlineHelpers
   def stub_create_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')
       .with(
-        body: '{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}]}',
+        body: JSON.parse('{"Id":null,"TotalAmt":123.45,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}]}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -483,7 +483,7 @@ module QuickBooksOnlineHelpers
   def stub_update_payment
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/payment')
       .with(
-        body: '{"Id":"123","TotalAmt":123.45,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}],"PaymentMethodRef":{"value":"29"},"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"}}',
+        body: JSON.parse('{"Id":"123","TotalAmt":123.45,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"ARAccountRef":{"value":"123"},"PaymentRefNum":"Ref123","PrivateNote":"Memo","ExchangeRate":1.0,"TxnDate":"2019-09-01","Line":[{"Amount":1.0,"LinkedTxn":[{"TxnId":"123","TxnType":"Invoice"}]}],"PaymentMethodRef":{"value":"29"},"UnappliedAmt":0,"ProcessPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-03T10:14:03-08:00","LastUpdatedTime":"2019-12-03T10:14:03-08:00"}}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -503,7 +503,7 @@ module QuickBooksOnlineHelpers
   def stub_create_invoice
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}]}',
+        body: JSON.parse('{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}]}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -540,7 +540,7 @@ module QuickBooksOnlineHelpers
   def stub_update_invoice
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice')
       .with(
-        body: '{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}],"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","LinkedTxn":[],"DueDate":"2019-09-01","TotalAmt":1.5,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.5}',
+        body: JSON.parse('{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo 1","CustomerRef":{"value":"123","name":"Lola"},"DepositToAccountRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"SalesItemLineDetail","SalesItemLineDetail":{"ItemRef":{"value":"123"},"ClassRef":{"value":null}},"Amount":1.0,"Description":"Sample Description"}],"Deposit":0,"AllowIPNPayment":false,"AllowOnlinePayment":false,"AllowOnlineCreditCardPayment":false,"AllowOnlineACHPayment":false,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2020-01-15T06:25:44-08:00","LastUpdatedTime":"2020-01-15T06:25:44-08:00"},"CustomField":[{"DefinitionId":"1","Type":"StringType"}],"DocNumber":"1040","LinkedTxn":[],"DueDate":"2019-09-01","TotalAmt":1.5,"ApplyTaxAfterDiscount":false,"PrintStatus":"NeedToPrint","EmailStatus":"NotSet","Balance":1.5}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -561,7 +561,7 @@ module QuickBooksOnlineHelpers
   def stub_create_vendor
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor')
       .with(
-        body: '{"Id":null,"DisplayName":"Sample Vendor","GivenName":"Sample","FamilyName":"Vendor","PrimaryEmailAddr":{"Address":"test@example.com"}}',
+        body: JSON.parse('{"Id":null,"DisplayName":"Sample Vendor","GivenName":"Sample","FamilyName":"Vendor","PrimaryEmailAddr":{"Address":"test@example.com"}}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -616,7 +616,7 @@ module QuickBooksOnlineHelpers
   def stub_update_vendor
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor')
       .with(
-        body: '{"Id":"123","DisplayName":"Sample Vendor","GivenName":"Sample","FamilyName":"Vendor","PrimaryEmailAddr":{"Address":"test@example.com"},"Balance":0,"Vendor1099":false,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T09:05:52-07:00","LastUpdatedTime":"2019-09-12T09:05:52-07:00"},"PrintOnCheckName":"Sample Vendor","Active":true}',
+        body: JSON.parse('{"Id":"123","DisplayName":"Sample Vendor","GivenName":"Sample","FamilyName":"Vendor","PrimaryEmailAddr":{"Address":"test@example.com"},"Balance":0,"Vendor1099":false,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T09:05:52-07:00","LastUpdatedTime":"2019-09-12T09:05:52-07:00"},"PrintOnCheckName":"Sample Vendor","Active":true}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -671,7 +671,7 @@ module QuickBooksOnlineHelpers
   def stub_create_account_with_missing_classification
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: '{"Id":null,"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"Classification":null,"Description":"This is Sample Account","Active":true}',
+        body: JSON.parse('{"Id":null,"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"Classification":null,"Description":"This is Sample Account","Active":true}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -747,7 +747,7 @@ module QuickBooksOnlineHelpers
   def stub_create_expense
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: JSON.parse('{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -766,7 +766,7 @@ module QuickBooksOnlineHelpers
   def stub_create_expense_with_cutomer_entity
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","type":"Customer"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: JSON.parse('{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","type":"Customer"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -803,7 +803,8 @@ module QuickBooksOnlineHelpers
   def stub_update_expense
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: '{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123","name":"Sample Account"},"DepartmentRef":{"value":"123","name":"Sample Department"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}],"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[]}', headers: {
+        body: JSON.parse('{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123","name":"Sample Account"},"DepartmentRef":{"value":"123","name":"Sample Department"},"Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}],"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[]}'),
+        headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
@@ -823,7 +824,7 @@ module QuickBooksOnlineHelpers
   def stub_create_deposit
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":{"value":"245","name":"Sample Vendor","type":"Vendor"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: JSON.parse('{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":{"value":"245","name":"Sample Vendor","type":"Vendor"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"}]}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -860,7 +861,7 @@ module QuickBooksOnlineHelpers
   def stub_update_deposit
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit')
       .with(
-        body: '{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123","name":"Cash on hand"},"DepartmentRef":{"value":"123","name":"Sample Department"},"Line":[{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"}],"TotalAmt":246.9,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-11T11:54:50-07:00","LastUpdatedTime":"2019-10-11T11:54:50-07:00"}}',
+        body: JSON.parse('{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123","name":"Cash on hand"},"DepartmentRef":{"value":"123","name":"Sample Department"},"Line":[{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":null},"Amount":123.45,"Description":"Sample Transaction"}],"TotalAmt":246.9,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-11T11:54:50-07:00","LastUpdatedTime":"2019-10-11T11:54:50-07:00"}}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -881,7 +882,7 @@ module QuickBooksOnlineHelpers
   def stub_create_transfer
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer')
       .with(
-        body: '{"Id":null,"Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123"},"ToAccountRef":{"value":"123"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"}}',
+        body: JSON.parse('{"Id":null,"Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123"},"ToAccountRef":{"value":"123"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"}}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -918,7 +919,7 @@ module QuickBooksOnlineHelpers
   def stub_update_transfer
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer')
       .with(
-        body: '{"Id":"123","Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123","name":"Sample Account"},"ToAccountRef":{"value":"123","name":"Sample Account"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-03T21:46:28-07:00","LastUpdatedTime":"2019-10-03T21:46:28-07:00"}}',
+        body: JSON.parse('{"Id":"123","Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123","name":"Sample Account"},"ToAccountRef":{"value":"123","name":"Sample Account"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-03T21:46:28-07:00","LastUpdatedTime":"2019-10-03T21:46:28-07:00"}}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -939,7 +940,7 @@ module QuickBooksOnlineHelpers
   def stub_create_bill
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"DueDate":"2019-09-01","PrivateNote":"Memo","TxnDate":"2019-09-01","VendorRef":{"value":"123"},"APAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"DocNumber":"Ref123","Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}',
+        body: JSON.parse('{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"DueDate":"2019-09-01","PrivateNote":"Memo","TxnDate":"2019-09-01","VendorRef":{"value":"123"},"APAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"DocNumber":"Ref123","Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -976,7 +977,8 @@ module QuickBooksOnlineHelpers
   def stub_update_bill
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill')
       .with(
-        body: '{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"DueDate":"2019-09-01","PrivateNote":"Memo","TxnDate":"2019-09-01","VendorRef":{"value":"123","name":"Sample Vendor"},"APAccountRef":{"value":"123","name":"Accounts Payable (A/P)"},"DepartmentRef":{"value":"123","name":"Sample Department"},"DocNumber":"Ref123","Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}],"Balance":246.9,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-13T10:43:04-07:00","LastUpdatedTime":"2019-10-13T10:43:04-07:00"},"TotalAmt":246.9}', headers: {
+        body: JSON.parse('{"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"DueDate":"2019-09-01","PrivateNote":"Memo","TxnDate":"2019-09-01","VendorRef":{"value":"123","name":"Sample Vendor"},"APAccountRef":{"value":"123","name":"Accounts Payable (A/P)"},"DepartmentRef":{"value":"123","name":"Sample Department"},"DocNumber":"Ref123","Line":[{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":null,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}],"Balance":246.9,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-13T10:43:04-07:00","LastUpdatedTime":"2019-10-13T10:43:04-07:00"},"TotalAmt":246.9}'),
+        headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => 'Bearer access_token',
@@ -996,7 +998,7 @@ module QuickBooksOnlineHelpers
   def stub_create_journal_entry
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry')
       .with(
-        body: '{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","DocNumber":"Ref123","Line":[{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Credit","AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"DepartmentRef":{"value":"123"}},"Description":"Sample Transaction"},{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Debit","AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"DepartmentRef":{"value":"123"}},"Description":"Sample Transaction"}]}',
+        body: JSON.parse('{"Id":null,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","DocNumber":"Ref123","Line":[{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Credit","AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"DepartmentRef":{"value":"123"}},"Description":"Sample Transaction"},{"DetailType":"JournalEntryLineDetail","Amount":123.45,"JournalEntryLineDetail":{"PostingType":"Debit","AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"DepartmentRef":{"value":"123"}},"Description":"Sample Transaction"}]}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1054,7 +1056,7 @@ module QuickBooksOnlineHelpers
   def stub_create_department
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/department')
       .with(
-        body: '{"Id":null,"Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null,"ParentRef":null}',
+        body: JSON.parse('{"Id":null,"Name":"Test Department","Active":true,"SubDepartment":false,"FullyQualifiedName":null,"ParentRef":null}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1145,7 +1147,7 @@ module QuickBooksOnlineHelpers
   def stub_create_ledger_class
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
       .with(
-        body: '{"Id":null,"Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null}}',
+        body: JSON.parse('{"Id":null,"Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null}}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1200,7 +1202,7 @@ module QuickBooksOnlineHelpers
   def stub_update_ledger_class
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/class')
       .with(
-        body: '{"Id":"123","Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}',
+        body: JSON.parse('{"Id":"123","Name":"Test Class","Active":true,"SubClass":false,"FullyQualifiedName":null,"ParentRef":{"value":null},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-12-04T08:34:10-08:00","LastUpdatedTime":"2019-12-04T08:34:10-08:00"}}'),
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
