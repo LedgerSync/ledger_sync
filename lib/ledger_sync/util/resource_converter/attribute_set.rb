@@ -11,21 +11,25 @@ module LedgerSync
         attr_reader :attributes,
                     :resource_converter_class
 
-        delegate_hash_methods_to :attributes
+        delegate_array_methods_to :attributes
 
         def initialize(args = {})
-          @attributes               = {}
+          @attributes               = []
+          @attribute_keys           = {}
           @resource_converter_class = args.fetch(:resource_converter_class)
         end
 
         def add(attribute)
-          raise 'destination_attribute is missing' unless attribute.destination_attribute.present?
+          unless attribute.destination_attribute.nil?
+            if @attribute_keys.key?(attribute.destination_attribute.to_s)
+              raise "destination_attribute already defined for #{resource_converter_class.name}: #{attribute.destination_attribute}"
+            end
 
-          if attributes.key?(attribute.destination_attribute.to_s)
-            raise "destination_attribute already defined for #{serializer_class.name}: #{attribute.destination_attribute}"
+            @attribute_keys[attribute.destination_attribute] = attribute
           end
 
-          @attributes[attribute.destination_attribute] = attribute
+          attributes << attribute
+
           attribute
         end
 

@@ -13,13 +13,27 @@ module LedgerSync
 
         def initialize(args = {})
           @block                 = args.fetch(:block, nil)
-          @destination_attribute = args.fetch(:destination_attribute).to_s
+          @destination_attribute = args.fetch(:destination_attribute, nil).to_s
           @source_attribute      = args.fetch(:source_attribute, destination_attribute).to_s
           @type                  = args.fetch(:type, nil) || LedgerSync::Type::Value.new
+
+          return if block.blank?
+
+          raise 'block and destination_attribute cannot both be present' if destination_attribute.present?
+          raise 'block and source_attribute cannot both be present' if source_attribute.present?
         end
 
         def block_value_for(args = {})
-          block.call(args.merge(attribute: self))
+          destination = args.fetch(:destination)
+          source      = args.fetch(:source)
+
+          block.call(
+            {
+              attribute: self,
+              destination: destination,
+              source: source
+            }
+          )
         end
 
         def build_destination_value_from_nested_attributes(args = {})

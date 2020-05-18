@@ -9,6 +9,21 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     klass = Class.new(described_class)
     klass.attribute :foo_to, source_attribute: :foo_from
     klass.attribute :bar_to, source_attribute: :bar_from
+    klass.attribute do |args = {}|
+      destination = args.fetch(:destination)
+      source      = args.fetch(:source)
+
+      value = source.is_a?(Hash) ? source['baz_from'] : source.baz_from
+
+      if destination.is_a?(Hash)
+        destination['baz_to'] = value
+      else
+        destination.baz_to = value
+      end
+
+      destination
+    end
+
     klass
   end
 
@@ -19,6 +34,7 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     {
       foo_to: 'foo_to_val',
       bar_to: 'bar_to_val',
+      baz_to: 'baz_to_val',
       no_change: 'asdf'
     }
   end
@@ -32,7 +48,8 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
   let(:source_hash) do
     {
       foo_from: 'foo_from_val',
-      bar_from: 'bar_from_val'
+      bar_from: 'bar_from_val',
+      baz_from: 'baz_from_val'
     }
   end
 
@@ -49,6 +66,7 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     it do
       expect(converted.fetch('foo_to')).to eq('foo_from_val')
       expect(converted.fetch('bar_to')).to eq('bar_from_val')
+      expect(converted.fetch('baz_to')).to eq('baz_from_val')
       expect(converted.fetch('no_change')).to eq('asdf')
     end
   end
@@ -60,6 +78,7 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     it do
       expect(converted.foo_to).to eq('foo_from_val')
       expect(converted.bar_to).to eq('bar_from_val')
+      expect(converted.baz_to).to eq('baz_from_val')
       expect(converted.no_change).to eq('asdf')
     end
   end
@@ -71,6 +90,7 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     it do
       expect(converted.foo_to).to eq('foo_from_val')
       expect(converted.bar_to).to eq('bar_from_val')
+      expect(converted.baz_to).to eq('baz_from_val')
       expect(converted.no_change).to eq('asdf')
     end
   end
@@ -82,6 +102,7 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     it do
       expect(converted.fetch('foo_to')).to eq('foo_from_val')
       expect(converted.fetch('bar_to')).to eq('bar_from_val')
+      expect(converted.fetch('baz_to')).to eq('baz_from_val')
       expect(converted.fetch('no_change')).to eq('asdf')
     end
   end

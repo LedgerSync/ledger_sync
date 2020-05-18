@@ -18,17 +18,27 @@ module LedgerSync
         destination = Util::HashHelpers.deep_stringify_keys(destination) if destination.is_a?(Hash)
         source      = Util::HashHelpers.deep_stringify_keys(source) if source.is_a?(Hash)
 
-        self.class.attributes.each_value do |converter_attribute|
+        self.class.attributes.each do |converter_attribute|
           next if only_changes && !source.attribute_changed?(converter_attribute.source_attribute)
 
-          value = converter_attribute.value(source: source)
+          if converter_attribute.block.present?
+            new_destination = converter_attribute.block_value_for(
+              destination: destination,
+              source: source
+            )
+            if destination.class != new_destination.class
+              raise "Block value must be the same class as the destination: #{destination.class}"
+            end
 
-          if destination.is_a?(Hash)
+            destination = new_destination
+          elsif destination.is_a?(Hash)
+            value = converter_attribute.value(source: source)
             destination = Util::HashHelpers.deep_merge(
               hash_to_merge_into: destination,
               other_hash: converter_attribute.destination_attribute_dot_parts.reverse.inject(value) { |a, n| { n => a } }
             )
           else
+            value = converter_attribute.value(source: source)
             destination.assign_attribute(
               converter_attribute.destination_attribute_dot_parts.first,
               value
@@ -39,7 +49,7 @@ module LedgerSync
         destination
       end
 
-      def self.attribute(destination_attribute, args = {}, &block)
+      def self.attribute(destination_attribute = nil, args = {}, &block)
         if args.key?(:destination_attribute)
           raise 'You cannot provide destination_attribute in args.  Pass the value as the first argument.'
         end
