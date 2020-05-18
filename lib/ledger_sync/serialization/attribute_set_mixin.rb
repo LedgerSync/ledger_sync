@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  class Serialization
+  module Serialization
     module AttributeSetMixin
       include Util::Mixins::DelegateIterableMethodsMixin
 

@@ -12,7 +12,7 @@ module LedgerSync
 
           module InstanceMethods
             def stripe_resource_type
-              @stripe_resource_type ||= ledger_serializer.class.stripe_resource_type
+              @stripe_resource_type ||= serializer.class.stripe_resource_type
             end
 
             def perform

@@ -14,11 +14,11 @@ module LedgerSync
           def operate
             response = client.post(
               resource: quickbooks_online_resource_type,
-              payload: merged_serializer.to_ledger_hash
+              payload: merged_serializer.serialize
             )
 
             response_to_operation_result(
-              resource: ledger_serializer.deserialize(hash: response),
+              resource: serializer.deserialize(hash: response),
               response: response
             )
           end

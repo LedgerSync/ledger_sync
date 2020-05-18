@@ -56,5 +56,29 @@ module LedgerSync
     def self.attributes
       @attributes ||= Serialization::SerializerAttributeSet.new(serializer_class: self)
     end
+
+    def self.references_one(hash_attribute, args = {}, &block)
+      attribute(
+        hash_attribute,
+        {
+          type: Serialization::Type::SerializerReferencesOneType.new(
+            serializer: args.fetch(:serializer)
+          )
+        }.merge(args),
+        &block
+      )
+    end
+
+    def self.references_many(hash_attribute, args = {}, &block)
+      attribute(
+        hash_attribute,
+        {
+          type: Serialization::Type::SerializerReferencesManyType.new(
+            serializer: args.fetch(:serializer)
+          )
+        }.merge(args),
+        &block
+      )
+    end
   end
 end

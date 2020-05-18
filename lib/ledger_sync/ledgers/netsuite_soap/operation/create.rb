@@ -14,11 +14,11 @@ module LedgerSync
           def operate
             response = client.post(
               resource: netsuite_online_resource_type,
-              payload: ledger_serializer.to_ledger_hash
+              payload: serializer.serialize
             )
 
             success(
-              resource: ledger_serializer.deserialize(hash: response),
+              resource: serializer.deserialize(hash: response),
               response: response
             )
           end

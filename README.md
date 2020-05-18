@@ -178,7 +178,7 @@ end
 # Serializing
 custom_resource = CustomCustomer.new(foo: 'asdf') # See above under Resources -> Custom Attributes
 serializer = CustomSerializer.new(resource: custom_resource)
-serializer.to_ledger_hash # => {"foo"=>"asdf"}
+serializer.serialize # => {"foo"=>"asdf"}
 
 # Deserializing
 deserialized_resource = serializer.deserialize(hash: { foo: 'qwerty' })
@@ -187,8 +187,8 @@ custom_resource.foo # => 'asdf'
 
 op = LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
   client: client,
-  ledger_deserializer_class: CustomSerializer, # You must specify, though you could use a separate class
-  ledger_serializer_class: CustomSerializer,
+  deserializer_class: CustomSerializer, # You must specify, though you could use a separate class
+  serializer_class: CustomSerializer,
   resource: custom_resource
 )
 ```

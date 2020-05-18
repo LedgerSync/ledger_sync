@@ -3,8 +3,8 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      class Type
-        module Serializer
+      module Serialization
+        class Type
           class Reference < LedgerSync::Type::Value
             private
 

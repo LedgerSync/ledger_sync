@@ -21,18 +21,18 @@ module LedgerSync
             find_result_hash = find_resource.body.dig(
               quickbooks_online_resource_type.to_s.classify
             )
-            merged_resource = ledger_serializer.deserialize(
+            merged_resource = deserializer.deserialize(
               hash: find_result_hash,
-              merge_for_full_update: true
+              merge_for_full_update: true,
+              resource: resource
             )
-            merged_serializer = ledger_serializer.class.new(
-              resource: merged_resource
-            )
+            merged_serializer = serializer.class.new
             response_to_operation_result(
               response: client.post(
                 path: ledger_resource_type_for_path,
-                payload: merged_serializer.to_ledger_hash(
-                  deep_merge_unmapped_values: find_result_hash
+                payload: merged_serializer.serialize(
+                  deep_merge_unmapped_values: find_result_hash,
+                  resource: merged_resource
                 )
               )
             )

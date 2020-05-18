@@ -3,9 +3,10 @@
 Gem.find_files('ledger_sync/type/**/*.rb').each { |path| require path }
 require_relative 'attribute'
 require_relative 'attribute_set_mixin'
+require_relative '../ledgers/mixins/infer_serializer_mixin'
 
 module LedgerSync
-  class Serialization
+  module Serialization
     module Mixin
       module ClassMethods
         #
@@ -25,19 +26,12 @@ module LedgerSync
           raise NotImplementedError
         end
 
-        def references_many(args = {})
-          _attribute(
+        def mapping(destination_attribute, args = {})
+          attribute(
+            destination_attribute,
             {
-              type: Type::ReferencesManyType.new(serializer: self)
-            }.merge(args)
-          )
-        end
-
-        def references_one(args = {})
-          _attribute(
-            {
-              type: Type::ReferencesOneType.new(serializer: self)
-            }.merge(args)
+              type: Type::MappingType.new(hash: args.fetch(:hash))
+            }.merge(args.except(:hash))
           )
         end
 
@@ -66,6 +60,7 @@ module LedgerSync
 
       def self.included(base)
         base.extend(ClassMethods)
+        base.include(LedgerSync::Ledgers::Mixins::InferSerializerMixin)
       end
     end
   end

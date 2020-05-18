@@ -12,7 +12,7 @@ module LedgerSync
 
           module InstanceMethods
             def netsuite_resource_class
-              @netsuite_resource_class ||= ledger_serializer.class::NETSUITE_RESOURCE_CLASS
+              @netsuite_resource_class ||= serializer.class::NETSUITE_RESOURCE_CLASS
             end
 
             def netsuite_error(netsuite_resource:)

@@ -20,8 +20,8 @@ module LedgerSync
       end
     end
 
-    def attribute_value_from_ledger(hash:, ledger_serializer_attribute:, resource:)
-      ledger_serializer_attribute.value_from_hash(
+    def attribute_value_from_ledger(hash:, deserializer_attribute:, resource:)
+      deserializer_attribute.value_from_hash(
         hash: hash,
         resource: resource
       )
@@ -34,15 +34,15 @@ module LedgerSync
       deserialize_into = resource.dup # Do not overwrite values in the resource
       hash = Util::HashHelpers.deep_stringify_keys(hash)
 
-      self.class.attributes.each_value do |ledger_serializer_attribute|
+      self.class.attributes.each_value do |deserializer_attribute|
         value = attribute_value_from_ledger(
           hash: hash,
-          ledger_serializer_attribute: ledger_serializer_attribute,
+          deserializer_attribute: deserializer_attribute,
           resource: deserialize_into
         )
 
         deserialize_into.assign_attribute(
-          ledger_serializer_attribute.resource_attribute_dot_parts.first,
+          deserializer_attribute.resource_attribute_dot_parts.first,
           value
         )
       end
@@ -67,6 +67,30 @@ module LedgerSync
 
     def self.attributes
       @attributes ||= Serialization::DeserializerAttributeSet.new(serializer_class: self)
+    end
+
+    def self.references_one(resource_attribute, args = {}, &block)
+      attribute(
+        resource_attribute,
+        {
+          type: Serialization::Type::DeserializerReferencesOneType.new(
+            deserializer: args.fetch(:deserializer)
+          )
+        }.merge(args),
+        &block
+      )
+    end
+
+    def self.references_many(resource_attribute, args = {}, &block)
+      attribute(
+        resource_attribute,
+        {
+          type: Serialization::Type::DeserializerReferencesManyType.new(
+            deserializer: args.fetch(:deserializer)
+          )
+        }.merge(args),
+        &block
+      )
     end
   end
 end
