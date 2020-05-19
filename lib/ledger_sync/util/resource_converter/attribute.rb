@@ -19,46 +19,114 @@ module LedgerSync
 
           return if block.blank?
 
+          raise 'block cannot be provided on references' if reference?
           raise 'block and destination_attribute cannot both be present' if destination_attribute.present?
           raise 'block and source_attribute cannot both be present' if source_attribute.present?
         end
 
-        def block_value_for(args = {})
-          destination = args.fetch(:destination)
-          source      = args.fetch(:source)
+        def block?
+          block.present?
+        end
 
-          block.call(
+        def block_value_for(args = {})
+          destination = args.fetch(:destination).dup
+          source      = args.fetch(:source).dup
+
+          new_destination = block.call(
             {
               attribute: self,
               destination: destination,
               source: source
             }
           )
+
+          return new_destination if destination.class == new_destination.class
+
+          raise "Block value must be the same class as the destination: #{destination.class}"
         end
 
-        def build_destination_value_from_nested_attributes(args = {})
-          destination = args.fetch(:destination).dup
-          value       = args.fetch(:value)
+        def build_destination!(args = {})
+          destination = args.fetch(:destination)
+          destination = Util::HashHelpers.deep_stringify_keys(destination) if destination.is_a?(Hash)
+          source      = args.fetch(:source).dup
+          source      = Util::HashHelpers.deep_stringify_keys(source) if source.is_a?(Hash)
 
-          first_attribute, *remaining_attributes = args.fetch(:attribute_parts)
+          if block?
+            return block_value_for(
+              destination: destination,
+              source: source
+            )
+          end
 
-          if remaining_attributes.count.zero?
-            destination.public_send("#{first_attribute}=", value)
+          value = value(destination: destination, source: source)
+
+          if destination.is_a?(Hash)
+            destination = Util::HashHelpers.deep_merge(
+              hash_to_merge_into: destination,
+              other_hash: destination_attribute_dot_parts.reverse.inject(value) { |a, n| { n => a } }
+            )
           else
-            next_destination = destination.public_send(first_attribute)
-            next_destination ||= destination.class.destination_attributes[first_attribute.to_sym].type.resource_class.new
-            destination.public_send(
-              "#{first_attribute}=",
-              build_destination_value_from_nested_attributes(
-                destination: next_destination,
-                value: value,
-                attribute_parts: remaining_attributes
-              )
+            destination.assign_attribute(
+              destination_attribute_dot_parts.first,
+              value
             )
           end
 
           destination
         end
+
+        # def converted_reference!(args = {})
+        #   return converted_reference_one!(args) if reference_one?
+        #   return converted_reference_many(args) if reference_many?
+
+        #   raise 'Unknown reference type'
+        # end
+
+        # def converted_reference_one!(args = {})
+        #   destination                          = args.fetch(:destination)
+        #   source                               = args.fetch(:source)
+        #   destination_attribute_first_dot_part = destination_attribute_dot_parts.first
+        #   value                                = value(destination: destination, source: source)
+
+        #   if destination.is_a?(Hash)
+        #     destination[destination_attribute_first_dot_part] = rvalue
+        #   else
+        #     destination.assign_attribute(
+        #       destination_attribute_first_dot_part,
+        #       reference_resource_converter.new.convert(
+        #         destination: destination.send(destination_attribute_first_dot_part),
+        #         source: value
+        #       )
+        #     )
+        #   end
+        #   destination
+        # end
+
+        # def converted_reference_many!(args = {})
+        #   destination                          = args.fetch(:destination)
+        #   source                               = args.fetch(:source)
+        #   destination_attribute_first_dot_part = destination_attribute_dot_parts.first
+        #   values                               = value(destination: destination, source: source)
+
+        #   if destination.is_a?(Hash)
+        #     destination[destination_attribute_first_dot_part] = values.map do |value|
+        #       reference_resource_converter.new.convert(
+        #         destination: destination[destination_attribute_first_dot_part],
+        #         source: value
+        #       )
+        #     end
+        #   else
+        #     destination.assign_attribute(
+        #       destination_attribute_first_dot_part,
+        #       reference_resource_converter.new.convert(
+        #         destination: destination.send(destination_attribute_first_dot_part),
+        #         source: value
+        #       )
+        #     )
+        #   end
+
+        #   destination
+        # end
 
         def destination_attribute_class(destination:)
           @destination_attribute_type ||= {}
@@ -69,39 +137,44 @@ module LedgerSync
           @destination_attribute_dot_parts ||= destination_attribute.split('.')
         end
 
-        def place_value_in_destination(destination:, value:)
-          if destination.is_a?(Hash)
-            destination_attribute_dot_parts.reverse.inject(value) { |a, n| { n => a } }
-          else
-            return value if destination_attribute_dot_parts.count <= 1
-
-            nested_destination = destination.send(destination_attribute_dot_parts.first)
-            nested_destination ||= destination_attribute_class(destination: destination).new
-
-            build_destination_value_from_nested_attributes(
-              destination: nested_destination,
-              value: value,
-              attribute_parts: destination_attribute_dot_parts[1..-1]
-            )
-          end
-        end
-
         def reference?
           references_many? || references_one?
+        end
+
+        def references_one?
+          type.is_a?(Type::ReferencesOneType)
+        end
+
+        def references_many?
+          type.is_a?(Type::ReferencesManyType)
+        end
+
+        def reference_resource_converter
+          @reference_resource_converter ||= type.resource_converter
         end
 
         def source_attribute_dot_parts
           @source_attribute_dot_parts ||= source_attribute.split('.')
         end
 
-        def value(source:)
+        def value(destination:, source:)
           value = if source.is_a?(Hash)
                     source.dig(*source_attribute_dot_parts)
                   else
                     source_attribute_dot_parts.inject(source) { |r, dot_method| r&.send(dot_method) }
                   end
 
-          type.cast(value: value)
+          return type.cast(value: value) unless reference?
+
+          destination_attribute_first_dot_part = destination_attribute_dot_parts.first
+          new_destination = if destination.is_a?(Hash)
+                              {}
+                            else
+                              destination.class.resource_attributes.fetch(
+                                destination_attribute_first_dot_part.to_sym
+                              ).type.resource_class.new
+                            end
+          type.cast(destination: new_destination, value: value)
         end
       end
     end

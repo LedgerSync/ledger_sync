@@ -19,6 +19,7 @@ module LedgerSync
 
           HASH_METHODS = (SHARED_METHODS | %i[
             each_value
+            fetch
             key?
             keys
             values
