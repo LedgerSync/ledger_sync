@@ -30,33 +30,66 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
   let(:converter) { converter_class.new }
   let(:converted) { converter.convert(destination: destination, source: source) }
 
+  def build_resource(args)
+    converted_args = Hash[args.map do |k, v|
+      v = case v
+          when Array
+            v.map { |e| LedgerSync::Resource.new(e) }
+          when Hash
+            LedgerSync::Resource.new(v)
+          else
+            v
+          end
+
+      [k, v]
+    end]
+
+    new_resource_class(
+      attributes: args.select { |_, v| !v.is_a?(Array) && !v.is_a?(Hash) }.keys,
+      references_one: args.select { |_, v| v.is_a?(Hash) }.keys,
+      references_many: args.select { |_, v| v.is_a?(Array) }.keys
+    ).new(converted_args)
+  end
+
   let(:destination_hash) do
     {
       foo_to: 'foo_to_val',
       bar_to: 'bar_to_val',
       baz_to: 'baz_to_val',
+      ref_one_to: {},
+      ref_many_to: [],
       no_change: 'asdf'
     }
   end
 
   let(:destination_resource) do
-    new_resource_class(
-      attributes: destination_hash.keys
-    ).new(destination_hash)
+    build_resource(destination_hash)
   end
 
   let(:source_hash) do
     {
       foo_from: 'foo_from_val',
       bar_from: 'bar_from_val',
-      baz_from: 'baz_from_val'
+      baz_from: 'baz_from_val',
+      ref_one_from: {
+        ledger_id: 'ref_one_ledger_id',
+        external_id: 'ref_one_external_id'
+      },
+      ref_many_from: [
+        {
+          ledger_id: 'ref_many_ledger_id_1',
+          external_id: 'ref_many_external_id_1'
+        },
+        {
+          ledger_id: 'ref_many_ledger_id_2',
+          external_id: 'ref_many_external_id_2'
+        }
+      ]
     }
   end
 
   let(:source_resource) do
-    new_resource_class(
-      attributes: source_hash.keys
-    ).new(source_hash)
+    build_resource(source_hash)
   end
 
   context 'when destination=hash, source=hash' do
@@ -106,5 +139,4 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
       expect(converted.fetch('no_change')).to eq('asdf')
     end
   end
-
 end
