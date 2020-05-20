@@ -71,6 +71,10 @@ module LedgerSync
       subclass.inferred_client_class.register_resource(resource: subclass)
     end
 
+    def self.operations
+      @operations ||= {}
+    end
+
     def self.resource_module_str
       @resource_module_str ||= name.split('::').last
     end
