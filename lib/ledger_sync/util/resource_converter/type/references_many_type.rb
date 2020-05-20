@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'resource_converter_type'
+
 module LedgerSync
   module Util
     class ResourceConverter
