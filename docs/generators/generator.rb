@@ -45,11 +45,16 @@ module Docs
     def self.docs_path(*path, format: nil)
       path = path.map(&:to_s)
 
+
       File.join(
-        ENV.fetch('DOCS_ROOT_PATH'),
+        docs_root_path,
         *path[0..-2],
         [path.last, format].flatten.compact.join('.')
       )
+    end
+
+    def self.docs_root_path
+      @docs_root_path ||= ENV.fetch('DOCS_ROOT_PATH', File.join(__dir__, '../site'))
     end
 
     def self.ledgers
@@ -65,7 +70,7 @@ module Docs
       path = path.map(&:to_s)
 
       File.join(
-        ENV.fetch('DOCS_ROOT_PATH'),
+        docs_root_path,
         '_templates',
         *path[0..-2],
         "#{path.last}.#{format}.erb"
