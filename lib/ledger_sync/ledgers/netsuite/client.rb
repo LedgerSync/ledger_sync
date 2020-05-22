@@ -63,7 +63,7 @@ module LedgerSync
         def ledger_resource_path(args = {})
           resource = args.fetch(:resource, nil)
 
-          ret = resource.class.resource_type.to_s.camelcase # This can be turned into a case statement if we need to override
+          ret = self.class.ledger_resource_type_for(resource_class: resource.class) # This can be turned into a case statement if we need to override
           ret += "/#{resource.ledger_id}" if resource.ledger_id.present? && args.fetch(:id, true)
           ret
         end
@@ -118,7 +118,8 @@ module LedgerSync
 
         def self.ledger_resource_type_overrides
           {
-            LedgerClass => 'classification',
+            CustomerDeposit => 'customerdeposit',
+            LedgerClass => 'classification'
           }
         end
 

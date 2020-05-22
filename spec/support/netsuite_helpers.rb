@@ -23,7 +23,8 @@ module NetSuiteHelpers
   end
 
   def api_record_url(record:, id: nil, **params)
-    ret = "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/#{record}"
+    resource_endpoint = netsuite_client.class.ledger_resource_type_for(resource_class: resource.class)
+    ret = "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/#{resource_endpoint}"
 
     if id.present?
       ret += '/' unless ret.end_with?('/')
