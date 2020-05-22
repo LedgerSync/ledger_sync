@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe LedgerSync::Ledgers::NetSuite::Account::SearcherDeserializer do
   let(:accountsearchdisplayname) { 'test-accountsearchdisplayname' }
   let(:acctnumber) { '654654' }
-  let(:accttype) { 'test-accttype' }
+  let(:accttype) { 'COGS' }
   let(:isinactive) { 'F' }
   let(:id) { 'acct_1234' }
 
@@ -27,7 +27,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Account::SearcherDeserializer do
       expect(deserialized_resource.ledger_id).to eq(id)
       expect(deserialized_resource.name).to eq(accountsearchdisplayname)
       expect(deserialized_resource.number).to eq(acctnumber)
-      expect(deserialized_resource.account_type).to eq(accttype)
+      expect(deserialized_resource.account_type).to eq('cost_of_goods_sold')
       expect(deserialized_resource.active).to be_truthy
     end
   end
