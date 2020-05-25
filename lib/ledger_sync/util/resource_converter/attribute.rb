@@ -75,59 +75,6 @@ module LedgerSync
           destination
         end
 
-        # def converted_reference!(args = {})
-        #   return converted_reference_one!(args) if reference_one?
-        #   return converted_reference_many(args) if reference_many?
-
-        #   raise 'Unknown reference type'
-        # end
-
-        # def converted_reference_one!(args = {})
-        #   destination                          = args.fetch(:destination)
-        #   source                               = args.fetch(:source)
-        #   destination_attribute_first_dot_part = destination_attribute_dot_parts.first
-        #   value                                = value(destination: destination, source: source)
-
-        #   if destination.is_a?(Hash)
-        #     destination[destination_attribute_first_dot_part] = rvalue
-        #   else
-        #     destination.assign_attribute(
-        #       destination_attribute_first_dot_part,
-        #       reference_resource_converter.new.convert(
-        #         destination: destination.send(destination_attribute_first_dot_part),
-        #         source: value
-        #       )
-        #     )
-        #   end
-        #   destination
-        # end
-
-        # def converted_reference_many!(args = {})
-        #   destination                          = args.fetch(:destination)
-        #   source                               = args.fetch(:source)
-        #   destination_attribute_first_dot_part = destination_attribute_dot_parts.first
-        #   values                               = value(destination: destination, source: source)
-
-        #   if destination.is_a?(Hash)
-        #     destination[destination_attribute_first_dot_part] = values.map do |value|
-        #       reference_resource_converter.new.convert(
-        #         destination: destination[destination_attribute_first_dot_part],
-        #         source: value
-        #       )
-        #     end
-        #   else
-        #     destination.assign_attribute(
-        #       destination_attribute_first_dot_part,
-        #       reference_resource_converter.new.convert(
-        #         destination: destination.send(destination_attribute_first_dot_part),
-        #         source: value
-        #       )
-        #     )
-        #   end
-
-        #   destination
-        # end
-
         def destination_attribute_class(destination:)
           @destination_attribute_type ||= {}
           @destination_attribute_type[destination] ||= destination.class.destination_attributes[destination_attribute_dot_parts.first.to_sym].type.resource_class
