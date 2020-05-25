@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+module LedgerSync
+  module Ledgers
+    module NetSuite
+      class CheckLineItem < NetSuite::Resource
+        references_one :account, to: Account
+        references_one :class, to: LedgerClass
+        references_one :department, to: Department
+        attribute :amount, type: Type::Float
+        attribute :memo, type: Type::String
+      end
+    end
+  end
+end
