@@ -23,10 +23,10 @@ require 'fileutils'
 
 require_relative 'helper_methods'
 require_relative 'generators/generator'
-require_relative 'generators/guides_ledgers_generator'
-require_relative 'generators/reference_resources_generator'
+require_relative 'generators/guides/generator'
+require_relative 'generators/reference/generator'
 
-Docs::GuidesLedgersGenerator.new.generate
-Docs::ReferenceResourcesGenerator.new.generate
+Docs::Guides::Generator.new.generate
+Docs::Reference::Generator.new.generate
 
 green 'All done!'
