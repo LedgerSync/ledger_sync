@@ -43,7 +43,7 @@ module Docs
       end
 
       def docs_root_path
-        @docs_root_path ||= ENV.fetch('DOCS_ROOT_PATH', File.join(__dir__, '../../docs'))
+        @docs_root_path ||= ENV.fetch('DOCS_ROOT_PATH', File.join(__dir__, '../site'))
       end
 
       def ledgers

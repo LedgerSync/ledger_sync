@@ -1,0 +1,9 @@
+root_folder: /guides/
+sections:
+  - getting-started
+  - architecture
+  - ledgers
+  - customization
+  - contribute
+  - community
+  - modern-treasury

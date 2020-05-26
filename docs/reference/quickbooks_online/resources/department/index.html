@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>LedgerSync - department - LedgerSync</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An open-source library for easily syncing with accounting software, general ledgers, ERPs, and other ledgers." />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%26display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+</head>
+
+<body>
+
+    <div id="page" class="site">
+  <header id="masthead" class="site-header outer">
+  <div class="inner">
+    <div class="site-header-inside">
+      <div class="site-branding">
+        
+        
+        <p class="site-logo"><a href="/"><img src="/images/logo.svg" alt="LedgerSync" /></a></p>
+        
+      </div><!-- .site-branding -->
+      
+      
+      <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+        <div class="site-nav-inside">
+          <button id="menu-close" class="menu-toggle"><span class="screen-reader-text">Open Menu</span><span class="icon-close" aria-hidden="true"></span></button>
+          <ul class="menu">
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/">
+  
+  Home
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/guides/">
+  
+  Guides
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item has-children">
+              
+              
+<a class="" href="/reference">
+  
+  Reference
+  
+</a>
+
+              
+                
+                <ul class="submenu">
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/netsuite">
+  
+  NetSuite REST
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/netsuite_soap">
+  
+  NetSuite SOAP
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/quickbooks_online">
+  
+  QuickBooks Online
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/stripe">
+  
+  Stripe
+  
+</a>
+
+  </li>
+  
+</ul>
+
+              
+            </li>
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/guides/contribute">
+  
+  Contribute
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item menu-button">
+              
+              
+<a class="button" href="https://github.com/LedgerSync/ledger_sync">
+  
+  GitHub
+  
+</a>
+
+              
+            </li>
+            
+          </ul>
+        </div><!-- .site-nav-inside -->
+      </nav><!-- .site-navigation -->
+      <button id="menu-open" class="menu-toggle"><span class="screen-reader-text">Close Menu</span><span class="icon-menu" aria-hidden="true"></span></button>
+      
+    </div><!-- .site-header-inside -->
+  </div><!-- .inner -->
+</header><!-- .site-header -->
+
+  <main id="content" class="site-content">
+    <div class="inner outer">
+    <div class="guides-content">
+
+         <nav id="guides-nav" class="guides-nav">
+    <div id="guides-nav-inside" class="guides-nav-inside sticky">
+        <button id="guides-nav-toggle" class="guides-nav-toggle">Navigate<span class="icon-angle-right" aria-hidden="true"></span></button>
+        <div class="guides-toc-wrap">
+            <ul id="guides-toc" class="guides-toc">
+                   
+                <li class="toc-item">
+                    <a href="/reference/quickbooks_online/">QuickBooks Online</a>
+                </li>
+
+                        
+                <li class="toc-item">
+                    <a href=""></a>  
+                </li>
+                        
+                <li class="toc-item">
+                    <a href=""></a>  
+                </li>
+                        
+                <li class="toc-item has-children active">
+                    <a href="/reference/quickbooks_online/resources/">Resources</a>  
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/account/">account</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill/">bill</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill_line_item/">bill_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill_payment/">bill_payment</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill_payment_line_item/">bill_payment_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/currency/">currency</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/customer/">customer</a>
+  </li>
+
+  <li class="toc-item current">
+    <a href="/reference/quickbooks_online/resources/department/">department</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/deposit/">deposit</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/deposit_line_item/">deposit_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/expense/">expense</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/expense_line_item/">expense_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/invoice/">invoice</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/invoice_sales_line_item/">invoice_sales_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/item/">item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/journal_entry/">journal_entry</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/journal_entry_line_item/">journal_entry_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/ledger_class/">ledger_class</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/payment/">payment</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/payment_line_item/">payment_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/preferences/">preferences</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/primary_email_addr/">primary_email_addr</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/primary_phone/">primary_phone</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/resource/">resource</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/subsidiary/">subsidiary</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/transfer/">transfer</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/vendor/">vendor</a>
+  </li>
+
+</ul>
+ 
+                </li>
+                
+
+            </ul>
+            <!-- .guides-toc -->
+        </div>
+        <!-- .guides-toc-wrap -->
+    </div>
+    <!-- .guides-nav-inside -->
+</nav>
+<!-- .guides-nav -->
+        <article class="post type-guides">
+            <div class="post-inside">
+                <header class="post-header">
+                    <h1 class="post-title line-left">department</h1>
+                </header>
+                <!-- .post-header -->
+                <div class="post-content">
+                    <h2 id="ledgersyncledgersquickbooksonlinedepartment">LedgerSync::Ledgers::QuickBooksOnline::Department</h2>
+
+<h2 id="attributes">Attributes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>external_id</td>
+      <td>LedgerSync::Type::ID</td>
+    </tr>
+    <tr>
+      <td>ledger_id</td>
+      <td>LedgerSync::Type::ID</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>LedgerSync::Type::String</td>
+    </tr>
+    <tr>
+      <td>fully_qualified_name</td>
+      <td>LedgerSync::Type::String</td>
+    </tr>
+    <tr>
+      <td>active</td>
+      <td>LedgerSync::Type::Boolean</td>
+    </tr>
+    <tr>
+      <td>sub_department</td>
+      <td>LedgerSync::Type::Boolean</td>
+    </tr>
+    <tr>
+      <td>parent</td>
+      <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
+<h3 id="ledgersyncledgersquickbooksonlinedepartmentoperationsfind">LedgerSync::Ledgers::QuickBooksOnline::Department::Operations::Find</h3>
+
+<h4 id="resource-validations">Resource Validations</h4>
+
+<p>| Name | Type |
+| —- | —- |</p>
+<h3 id="ledgersyncledgersquickbooksonlinedepartmentoperationscreate">LedgerSync::Ledgers::QuickBooksOnline::Department::Operations::Create</h3>
+
+<h4 id="resource-validations-1">Resource Validations</h4>
+
+<p>| Name | Type |
+| —- | —- |</p>
+<h3 id="ledgersyncledgersquickbooksonlinedepartmentoperationsupdate">LedgerSync::Ledgers::QuickBooksOnline::Department::Operations::Update</h3>
+
+<h4 id="resource-validations-2">Resource Validations</h4>
+
+<p>| Name | Type |
+| —- | —- |</p>
+         
+                    <hr />
+
+                    <div>Related articles:</div><br />
+
+                    <ul class="guides-section-items">
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/account/" class="guides-item-link">account<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/bill/" class="guides-item-link">bill<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/bill_line_item/" class="guides-item-link">bill_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/bill_payment/" class="guides-item-link">bill_payment<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/bill_payment_line_item/" class="guides-item-link">bill_payment_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/currency/" class="guides-item-link">currency<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/customer/" class="guides-item-link">customer<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/department/" class="guides-item-link">department<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/deposit/" class="guides-item-link">deposit<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/deposit_line_item/" class="guides-item-link">deposit_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/expense/" class="guides-item-link">expense<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/expense_line_item/" class="guides-item-link">expense_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/invoice/" class="guides-item-link">invoice<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/invoice_sales_line_item/" class="guides-item-link">invoice_sales_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/item/" class="guides-item-link">item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/journal_entry/" class="guides-item-link">journal_entry<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/journal_entry_line_item/" class="guides-item-link">journal_entry_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/ledger_class/" class="guides-item-link">ledger_class<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/payment/" class="guides-item-link">payment<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/payment_line_item/" class="guides-item-link">payment_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/preferences/" class="guides-item-link">preferences<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/primary_email_addr/" class="guides-item-link">primary_email_addr<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/primary_phone/" class="guides-item-link">primary_phone<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/resource/" class="guides-item-link">resource<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/subsidiary/" class="guides-item-link">subsidiary<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/transfer/" class="guides-item-link">transfer<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/quickbooks_online/resources/vendor/" class="guides-item-link">vendor<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                    </ul>
+                    <!-- .guides-section-pages -->
+                     
+                </div>
+                <!-- .post-content -->
+            </div>
+            <!-- .post-inside -->
+        </article>
+        <!-- .post -->
+        <nav id="page-nav" class="page-nav">
+            <div id="page-nav-inside" class="page-nav-inside sticky">
+                <h2 class="page-nav-title">Jump to Section</h2>
+            </div>
+            <!-- .page-nav-inside -->
+        </nav>
+        <!-- .page-nav -->
+    </div>
+    <!-- .guides-content -->
+</div>
+<!-- .inner-->
+  </main><!-- .site-content -->
+  <footer id="colophon" class="site-footer outer">
+  <div class="inner">
+    <div class="site-footer-inside">
+      <p class="site-info">
+        
+        
+        <span class="copyright">&copy; Modern Treasury Inc. All rights reserved.</span>
+        
+        
+          
+          
+<a class="" href="https://www.moderntreasury.com" target="_blank" rel="noopener">
+  
+  Maintained with love in San Francisco, CA by Modern Treasury
+  
+</a>
+
+        
+      </p><!-- .site-info -->
+      
+      
+      <div class="social-links">
+        
+          
+          
+<a class="button button-icon" href="https://twitter.com/ModernTreasury" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-twitter" aria-hidden="true"></span><span class="screen-reader-text">Twitter</span>
+  
+</a>
+
+        
+          
+          
+<a class="button button-icon" href="https://www.linkedin.com/company/modern-treasury" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-linkedin" aria-hidden="true"></span><span class="screen-reader-text">LinkedIn</span>
+  
+</a>
+
+        
+          
+          
+<a class="button button-icon" href="https://github.com/LedgerSync/ledger_sync" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-github" aria-hidden="true"></span><span class="screen-reader-text">GitHub</span>
+  
+</a>
+
+        
+      </div><!-- .social-links -->
+      
+    </div><!-- .site-footer-inside -->
+  </div><!-- .inner -->
+</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+    <!-- Scripts -->
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/prism.js" data-manual></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

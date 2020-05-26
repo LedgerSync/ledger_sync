@@ -10,7 +10,7 @@ require 'bundler/inline'
 gemfile do
   source 'https://rubygems.org'
   gem 'simply_serializable'
-  gem 'ledger_sync', path: '.'
+  gem 'ledger_sync', path: '../'
   gem 'pd_ruby'
   gem 'colorize'
   gem 'byebug'
