@@ -1,0 +1,113 @@
+---
+title: LedgerSync
+baseurl: "/"
+permalink: "/:title/"
+github_url: https://www.github.com/LedgerSync/ledger_sync
+slack_url: https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q
+modern_treasury_url: https://www.moderntreasury.com
+collections:
+  posts:
+    permalink: "/posts/:title/"
+description: An open-source library for easily syncing with accounting software, general
+  ledgers, ERPs, and other ledgers.
+palette: green
+palettes:
+  blue:
+    sass:
+      accent1: "#00c6ff"
+      accent2: "#0072ff"
+  green:
+    sass:
+      accent1: "#12db5d"
+      accent2: "#11998e"
+  navy:
+    sass:
+      accent1: "#004e92"
+      accent2: "#000428"
+  violet:
+    sass:
+      accent1: "#8e2de2"
+      accent2: "#4a00e0"
+header:
+  title: LedgerSync
+  logo_img: images/logo.svg
+  has_nav: true
+  nav_links:
+  - label: Home
+    url: "/"
+    type: link
+    has_subnav: false
+  - label: Guides
+    url: "/guides/"
+    type: link
+    has_subnav: false
+  - label: Reference
+    url: "/reference"
+    type: link
+    has_subnav: true
+    subnav_links:
+    - label: NetSuite REST
+      url: reference/netsuite
+      type: link
+    - label: NetSuite SOAP
+      url: reference/netsuite_soap
+      type: link
+    - label: QuickBooks Online
+      url: reference/quickbooks_online
+      type: link
+    - label: Stripe
+      url: reference/stripe
+      type: link
+  - label: Contribute
+    url: "/guides/contribute"
+    type: link
+    has_subnav: false
+  - label: Style Guide
+    url: "/style-guide/"
+    type: link
+    has_subnav: false
+  - label: GitHub
+    url: https://github.com/LedgerSync/ledger_sync
+    type: primary
+    has_subnav: false
+footer:
+  content: "&copy; Modern Treasury Inc. All rights reserved."
+  links:
+  - label: Maintained with love in San Francisco, CA by Modern Treasury
+    url: https://www.moderntreasury.com
+    type: link
+    new_window: true
+  has_social: true
+  social_links:
+  - label: Twitter
+    url: https://twitter.com/ModernTreasury
+    type: icon
+    icon_class: fa-twitter
+    new_window: true
+  - label: LinkedIn
+    url: https://www.linkedin.com/company/modern-treasury
+    type: icon
+    icon_class: fa-linkedin
+    new_window: true
+  - label: GitHub
+    url: https://github.com/LedgerSync/ledger_sync
+    type: icon
+    icon_class: fa-github
+    new_window: true
+sass:
+  indentWidth: 4
+  style: nested
+  precision: 10
+plugins:
+- jekyll-menus
+exclude:
+- Gemfile
+- Gemfile.lock
+- node_modules
+- vendor/bundle/
+- vendor/cache/
+- vendor/gems/
+- vendor/ruby/
+- ssg-build.sh
+- LICENSE.md
+- README.md

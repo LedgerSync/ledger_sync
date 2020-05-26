@@ -1,0 +1,29 @@
+<nav id="guides-nav" class="guides-nav">
+    <div id="guides-nav-inside" class="guides-nav-inside sticky">
+        <button id="guides-nav-toggle" class="guides-nav-toggle">Navigate<span class="icon-angle-right" aria-hidden="true"></span></button>
+        <div class="guides-toc-wrap">
+            <ul id="guides-toc" class="guides-toc">
+                {% assign site = include.site %} {% assign page = include.page %} {% assign root_page_path = include.root_folder | append: 'index.md' %} {% assign root_page = root_page_path | get_page %}
+                <li class="toc-item{% if page.path == root_page.path %} current{% endif %}">
+                    <a href="{{ root_page.url | relative_url }}">{{ root_page.title }}</a>
+                </li>
+
+                {% for section in include.sections %} {% assign section_folder = include.root_folder | append: section %} {% assign section_page_path = section_folder | append: '/index.md' %} {% assign section_page = section_page_path | get_page %} {% assign child_pages
+                = section_folder | get_pages | where_exp: "item", "item.basename != 'index.md'" | sort: 'weight' %} {% assign child_count = child_pages | size %} {% if child_count > 0 %} {% assign has_children = true %}{% else %} {% assign has_children
+                = false %}{% endif %} {% if page.path == section_page.path %} {% assign is_current_page = true %}{% else %} {% assign is_current_page = false %}{% endif %} {% if page.rel_dir == section_page.rel_dir or page.path == section_page.path %}
+                {% assign is_active = true %}{% else %} {% assign is_active = false %}{% endif %}
+                <li class="toc-item{% assign has_children_is_not_empty = has_children | is_not_empty %}{% if has_children_is_not_empty %} has-children{% endif %}{% assign is_current_page_is_not_empty = is_current_page | is_not_empty %}{% if is_current_page_is_not_empty %} current{% endif %}{% assign is_active_is_not_empty = is_active | is_not_empty %}{% if is_active_is_not_empty %} active{% endif %}">
+                    <a href="{{ section_page.url | relative_url }}">{{ section_page.title }}</a> {% assign has_children_is_not_empty = has_children | is_not_empty %} {% if has_children_is_not_empty %}
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> {% include guides_submenu.html child_pages=child_pages page=page site=site %} {% endif
+                    %}
+                </li>
+                {% endfor %}
+
+            </ul>
+            <!-- .guides-toc -->
+        </div>
+        <!-- .guides-toc-wrap -->
+    </div>
+    <!-- .guides-nav-inside -->
+</nav>
+<!-- .guides-nav -->
