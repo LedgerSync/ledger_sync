@@ -29,18 +29,20 @@ module ResourceHelpers
           attribute a[0], { type: LedgerSync::Type::String }.merge(a[1] || {})
         end
 
+        reference_class = args.fetch(:reference_class, LedgerSync::Resource)
+
         references_one = args.fetch(:references_one, [])
         references_one = [references_one] unless references_one.is_a?(Array)
         references_one.each do |a|
           a = [a] unless a.is_a?(Array)
-          references_one a[0], { to: LedgerSync::Resource }.merge(a[1] || {})
+          references_one a[0], { to: reference_class }.merge(a[1] || {})
         end
 
         references_many = args.fetch(:references_many, [])
         references_many = [references_many] unless references_many.is_a?(Array)
         references_many.each do |a|
           a = [a] unless a.is_a?(Array)
-          references_many a[0], { to: LedgerSync::Resource }.merge(a[1] || {})
+          references_many a[0], { to: reference_class }.merge(a[1] || {})
         end
       end
     )
