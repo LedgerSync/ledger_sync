@@ -1,0 +1,27 @@
+---
+title: <%= resource.resource_type %>
+weight: <%= weight %>
+layout: <%= "reference_#{client.root_key}" %>
+---
+
+## <%= resource.name %>
+
+## Attributes
+
+| Name | Type |
+| ---- | ---- |
+<% resource.resource_attributes.each do |key, attribute| -%>
+| <%= key %> | <%= attribute.type.class.name %> |
+<% end -%>
+
+
+## Operations
+
+<% resource.operations.each do |key, operation| -%>
+### <%= operation.name %>
+
+#### Resource Validations
+
+| Name | Type |
+| ---- | ---- |
+<% end -%>

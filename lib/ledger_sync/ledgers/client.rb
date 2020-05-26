@@ -102,6 +102,10 @@ module LedgerSync
         @resources ||= {}
       end
 
+      def self.root_key
+        @root_key ||= config.root_key
+      end
+
       def self.url_for(resource: nil); end
     end
   end

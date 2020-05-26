@@ -1,0 +1,28 @@
+{% assign section = include.section %}
+<section id="{{ section.section_id }}" class="block block-cta outer">
+  <div class="inner">
+    <div class="has-gradient">
+      <div class="grid grid-middle grid-center">
+        {% if section.title or section.subtitle %}
+        <div class="grid-item block-header">
+          {% assign title_is_not_empty = section.title | is_not_empty %}
+          {% if title_is_not_empty %}
+          <h2 class="block-title">{{ section.title }}</h2>
+          {% endif %}
+          {% assign subtitle_is_not_empty = section.subtitle | is_not_empty %}
+          {% if subtitle_is_not_empty %}
+          <p class="block-subtitle">{{ section.subtitle }}</p>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% assign actions_is_not_empty = section.actions | is_not_empty %}
+        {% if actions_is_not_empty %}
+        <div class="grid-item block-buttons">
+          
+          {% include cta_buttons.html actions=section.actions %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section><!-- .block -->

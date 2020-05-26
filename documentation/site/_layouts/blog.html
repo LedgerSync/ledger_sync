@@ -1,0 +1,51 @@
+---
+layout: body
+---
+
+  <header class="page-header has-gradient outer">
+    {% assign image_is_not_empty = page.image | is_not_empty %}
+    {% if image_is_not_empty %}
+    <div class="bg-img" style="background-image: url('{{ page.image | relative_url }}')"></div>
+    {% endif %}
+    <div class="inner-sm">
+      <h1 class="page-title">{{ page.title }}</h1>
+      {% assign subtitle_is_not_empty = page.subtitle | is_not_empty %}
+      {% if subtitle_is_not_empty %}
+      <p class="page-subtitle">{{ page.subtitle }}</p>
+      {% endif %}
+    </div>
+  </header><!--.page-header -->
+
+  <div class="inner-md outer">
+    <div class="post-feed">
+      {% assign display_posts = '/posts' | get_pages | sort: 'date' | reverse %}
+      {% for post in display_posts %}
+      <article class="post">
+        {% assign thumb_image_is_not_empty = post.thumb_image | is_not_empty %}
+        {% if thumb_image_is_not_empty %}
+        <a class="post-thumbnail" href="{{ post.url | relative_url }}"><img src="{{ post.thumb_image | relative_url }}" alt="{{ post.title }}" /></a>
+        {% endif %}
+        <header class="post-header">
+          <div class="post-meta">
+            <time class="published" datetime="{{ post.date | date: '%Y-%m-%d %H:%M' }}">{{ post.date | date: '%B %d, %Y' }}</time>
+          </div>
+          <h2 class="post-title line-left"><a href="{{ post.url | relative_url }}" rel="bookmark">{{ post.title }}</a></h2>
+        </header>
+        {% assign excerpt_is_not_empty = post.excerpt | is_not_empty %}
+        {% if excerpt_is_not_empty %}
+        <p class="post-excerpt">{{ post.excerpt }}</p>
+        <p class="read-more"><a href="{{ post.url | relative_url }}" class="read-more-link">Read More</a></p>
+        {% endif %}
+      </article><!-- .post -->
+    {% endfor %}
+    </div><!-- .post-feed -->
+
+    <!-- Pagination TBD -->
+    <!--
+    <nav class="pagination">
+      <a class="newer-posts" href="#">Newer</a>
+      <a class="older-posts" href="#">Older</a>
+    </nav>
+    -->
+
+  </div><!-- .inner-md -->

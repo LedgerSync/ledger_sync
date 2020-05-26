@@ -1,0 +1,7 @@
+Files: /documentation/site
+
+The source code for the theme contained in the `/documentation/site` directory are from
+https://github.com/stackbithq/stackbit-theme-libris, an open-source Jekyll-compatible theme.
+
+Any use is subject to `documentation/site/LICENSE.md` and any guidelines and/or licenses provided by
+Stackbit.
