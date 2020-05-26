@@ -25,7 +25,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Deserializer do
   let(:account_type) { 'bank' }
   let(:account_sub_type) { 'cash_on_hand' }
   let(:number) { '123' }
-  let(:classification) { 'asset' }
+  let(:classification) { nil }
   let(:currency) { FactoryBot.create(:quickbooks_online_currency) }
   let(:description) { 'A descirption' }
   let(:active) { true }
@@ -55,6 +55,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Deserializer do
         attributes: %i[
           account_sub_type
           account_type
+          classification
           active
           description
           name
@@ -66,6 +67,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Deserializer do
         values: {
           account_sub_type: account_sub_type,
           account_type: account_type,
+          classification: 'asset',
           currency: currency
         }
       )

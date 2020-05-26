@@ -15,10 +15,10 @@ module LedgerSync
 
           # Ref: https://github.com/LedgerSync/ledger_sync/issues/86
           if deserialized_resource.is_a?(LedgerSync::Ledgers::QuickBooksOnline::Account) && deserialized_resource.account_type
-            deserialized_resource.classification ||= deserialized_resource.class::TYPE_TO_CLASSIFICATION_MAPPING.fetch(
+            deserialized_resource.classification = deserialized_resource.class::TYPES_TO_CLASSIFICATION_MAPPING.fetch(
               deserialized_resource.account_type,
               nil
-            )
+            ) if deserialized_resource.classification.blank?
           end
 
           return deserialized_resource unless merge_for_full_update
