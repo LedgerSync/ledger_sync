@@ -4,15 +4,11 @@ require 'spec_helper'
 
 RSpec.describe LedgerSync::Serializer::Delegator do
   let(:custom_resource_class) do
-    class_name = "#{test_run_id}TestCustomResource2"
-    Object.const_get(class_name)
-  rescue NameError
-    Object.const_set(
-      class_name,
-      Class.new(LedgerSync::Resource) do
-        attribute :foo, type: LedgerSync::Type::String
-        attribute :type, type: LedgerSync::Type::String
-      end
+    new_resource_class(
+      attributes: %i[
+        foo
+        type
+      ]
     )
   end
   let(:resource) { custom_resource_class.new(foo: 'foo_1') }
