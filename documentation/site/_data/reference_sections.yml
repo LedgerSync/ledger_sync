@@ -1,0 +1,5 @@
+root_folder: /reference/
+sections:
+  - authentication
+  - helpers
+  - resources

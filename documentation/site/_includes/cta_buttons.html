@@ -1,0 +1,4 @@
+{% assign actions = include.actions %}
+{% for action in actions %}
+<a class="{% if action.type == 'primary' or action.type == 'secondary' %}button{% endif %}{% if action.type == 'secondary' %} button-secondary{% endif %}" href="{{ action.url | relative_url }}" {% assign new_window_is_not_empty = action.new_window | is_not_empty %}{% if new_window_is_not_empty %}target="_blank" rel="noopener"{% endif %}>{{ action.label }}</a>
+{% endfor %}

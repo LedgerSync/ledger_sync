@@ -1,0 +1,9 @@
+---
+title: <%= ledger.name %>
+weight: <%= weight %>
+layout: guides
+---
+
+{% include ledgers/<%= ledger.root_key %>_summary.md page=page site=site %}
+
+Visit [the <%= ledger.name %> reference guide](/reference/<%= ledger.name %>) for more detailed documentation.

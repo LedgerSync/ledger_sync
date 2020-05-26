@@ -10,11 +10,12 @@ gemfile do
   gem 'dotenv'
   gem 'ledger_sync'
   gem 'rack'
-  gem 'pd_ruby', '0.2.2', require: true
+  gem 'pd_ruby'
 end
 
 puts 'Gems installed and loaded!'
 
+require 'pd_ruby'
 require 'socket'
 require 'dotenv'
 require 'rack'

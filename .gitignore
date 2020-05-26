@@ -10,11 +10,19 @@
 # rspec failure tracking
 .rspec_status
 
-.byebug_history
-.qa_config.yml
+### Jekyll ###
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
 
+# byebug
+.byebug_history
+
+# Mac
 .DS_Store
 
+# dotenv
 .env
 
 .tool-versions

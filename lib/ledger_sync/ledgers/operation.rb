@@ -9,6 +9,10 @@ module LedgerSync
             @client_class ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Ledger")
           end
 
+          def inherited(base)
+            base.inferred_resource_class.operations[base.operation_method] = base
+          end
+
           def operation_method
             @operation_method ||= name.split('::').last.snakecase.to_sym
           end
