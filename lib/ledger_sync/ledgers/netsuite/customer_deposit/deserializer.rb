@@ -8,10 +8,10 @@ module LedgerSync
           id
 
           attribute :account,
-                    type: Type::Deserializer::Account.new(account_class: Account)
+                    type: Type::DeserializerAccountType.new(account_class: Account)
 
           attribute :customer,
-                    type: Type::Deserializer::Customer.new(customer_class: Customer)
+                    type: Type::DeserializerCustomerType.new(customer_class: Customer)
 
           attribute :payment
           attribute :undepFunds
