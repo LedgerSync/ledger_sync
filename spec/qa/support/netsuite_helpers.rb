@@ -11,8 +11,21 @@ module QA
       LedgerSync::Ledgers::NetSuite::Client
     end
 
+    def existing_account_resource
+      LedgerSync::Ledgers::NetSuite::Account.new(
+        ledger_id: 220,
+      )
+    end
+
+    def existing_customer_resource
+      LedgerSync::Ledgers::NetSuite::Customer.new(
+        ledger_id: 316,
+        companyName: "QA Customer #{test_run_id}"
+      )
+    end
+
     def existing_subsidiary_resource
-      LedgerSync::Subsidiary.new(
+      LedgerSync::Ledgers::NetSuite::Subsidiary.new(
         ledger_id: 2,
         name: "QA Subsidary #{test_run_id}"
       )
