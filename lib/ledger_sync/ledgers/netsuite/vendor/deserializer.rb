@@ -22,7 +22,7 @@ module LedgerSync
                     hash_attribute: :lastName
 
           attribute :subsidiary,
-                    type: Type::Deserializer::Subsidiary.new(subsidiary_class: Subsidiary)
+                    type: Type::DeserializerSubsidiaryType.new(subsidiary_class: Subsidiary)
         end
       end
     end

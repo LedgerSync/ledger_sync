@@ -23,7 +23,7 @@ module LedgerSync
                     resource_attribute: :last_name
 
           attribute :subsidiary,
-                    type: Serialization::Type::Reference.new
+                    type: Type::SerializerReferenceType.new
         end
       end
     end
