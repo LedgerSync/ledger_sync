@@ -1,6 +1,6 @@
 ---
 title: deposit_line_item
-weight: 6
+weight: 7
 layout: reference_netsuite
 ---
 

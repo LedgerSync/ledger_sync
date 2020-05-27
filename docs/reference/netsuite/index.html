@@ -198,6 +198,10 @@
   </li>
 
   <li class="toc-item">
+    <a href="/reference/netsuite/resources/customer_deposit/">customer_deposit</a>
+  </li>
+
+  <li class="toc-item">
     <a href="/reference/netsuite/resources/department/">department</a>
   </li>
 
@@ -261,7 +265,26 @@
                 </header>
                 <!-- .post-header -->
                 <div class="post-content">
-                    
+                    <h3 id="resource-metadata-and-schemas">Resource Metadata and Schemas</h3>
+
+<p>Due to NetSuites granular user permissions and custom attributes, resources and methods for those resources can vary from one user (a.k.a. token) to another.  Because of this variance, there are some helper classes that allow you to retrieve NetSuite records, allowed methods, attributes/parameters, etc.</p>
+
+<p>To retrieve the metadata for a record:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">metadata</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">NetSuite</span><span class="o">::</span><span class="no">Record</span><span class="o">::</span><span class="no">Metadata</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">client: </span><span class="n">netsuite_client</span><span class="p">,</span> <span class="c1"># Assuming this is previous defined</span>
+  <span class="ss">record: :customer</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">metadata</span><span class="p">.</span><span class="nf">http_methods</span> <span class="c1"># Returns a list of LedgerSync::Ledgers::NetSuite::Record::HTTPMethod objects</span>
+<span class="nb">puts</span> <span class="n">metadata</span><span class="p">.</span><span class="nf">properties</span> <span class="c1"># Returns a list of LedgerSync::Ledgers::NetSuite::Record::Property objects</span>
+</code></pre></div></div>
+
+<h3 id="reference">Reference</h3>
+
+<ul>
+  <li><a href="https://docs.oracle.com/cloud/latest/netsuitecs_gs/NSTRW/NSTRW.pdf">NetSuite REST API Documentation</a></li>
+</ul>
    
                 </div>
                 <!-- .post-content -->

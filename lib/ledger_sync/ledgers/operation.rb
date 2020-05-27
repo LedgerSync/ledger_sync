@@ -49,7 +49,9 @@ module LedgerSync
 
         def initialize(args = {})
           @client = args.fetch(:client)
+          @deserializer = args.fetch(:deserializer, nil)
           @resource = args.fetch(:resource)
+          @serializer = args.fetch(:serializer, nil)
           @resource_before_perform = resource.dup
           @result = nil
           @validation_contract = args.fetch(:validation_contract, nil)
@@ -80,7 +82,7 @@ module LedgerSync
         end
 
         def deserializer
-          deserializer_class.new(resource: resource)
+          @deserializer ||= deserializer_class.new
         end
 
         def deserializer_class
@@ -88,7 +90,7 @@ module LedgerSync
         end
 
         def serializer
-          serializer_class.new(resource: resource)
+          @serializer ||= deserializer_class.new
         end
 
         def serializer_class

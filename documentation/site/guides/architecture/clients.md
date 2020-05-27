@@ -15,6 +15,8 @@ Token Based Authentication.  While similar, the required keys are different.
 Unless you are customizing LedgerSync, you will always pass an instantiated client to an object (e.g. an operation).
 The object will handle using the client as needed.
 
+As most clients implement basic request functionality (e.g. `get`, `put`, `post`, `delete`, etc.), you can call these methods directly to perform custom requests.  Refer to the specific Client definitions for what parameters are permitted.
+
 ## Gotchas
 
 ### Oauth 2.0

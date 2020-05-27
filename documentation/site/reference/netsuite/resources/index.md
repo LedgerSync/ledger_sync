@@ -16,5 +16,6 @@ layout: reference_netsuite
 - [invoice_line_item](/reference/resources/netsuite/invoice_line_item)
 - [invoice](/reference/resources/netsuite/invoice)
 - [department](/reference/resources/netsuite/department)
+- [customer_deposit](/reference/resources/netsuite/customer_deposit)
 - [location](/reference/resources/netsuite/location)
 - [deposit](/reference/resources/netsuite/deposit)

@@ -61,6 +61,7 @@ module LedgerSync
       def self.included(base)
         base.extend(ClassMethods)
         base.include(LedgerSync::Ledgers::Mixins::InferSerializerMixin)
+        base.include(SimplySerializable::Mixin)
       end
     end
   end

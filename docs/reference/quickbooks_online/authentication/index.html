@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>LedgerSync - Authentication - LedgerSync</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An open-source library for easily syncing with accounting software, general ledgers, ERPs, and other ledgers." />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%26display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+</head>
+
+<body>
+
+    <div id="page" class="site">
+  <header id="masthead" class="site-header outer">
+  <div class="inner">
+    <div class="site-header-inside">
+      <div class="site-branding">
+        
+        
+        <p class="site-logo"><a href="/"><img src="/images/logo.svg" alt="LedgerSync" /></a></p>
+        
+      </div><!-- .site-branding -->
+      
+      
+      <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+        <div class="site-nav-inside">
+          <button id="menu-close" class="menu-toggle"><span class="screen-reader-text">Open Menu</span><span class="icon-close" aria-hidden="true"></span></button>
+          <ul class="menu">
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/">
+  
+  Home
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/guides/">
+  
+  Guides
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item has-children">
+              
+              
+<a class="" href="/reference">
+  
+  Reference
+  
+</a>
+
+              
+                
+                <ul class="submenu">
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/netsuite">
+  
+  NetSuite REST
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/netsuite_soap">
+  
+  NetSuite SOAP
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/quickbooks_online">
+  
+  QuickBooks Online
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/stripe">
+  
+  Stripe
+  
+</a>
+
+  </li>
+  
+</ul>
+
+              
+            </li>
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/guides/contribute">
+  
+  Contribute
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item menu-button">
+              
+              
+<a class="button" href="https://github.com/LedgerSync/ledger_sync">
+  
+  GitHub
+  
+</a>
+
+              
+            </li>
+            
+          </ul>
+        </div><!-- .site-nav-inside -->
+      </nav><!-- .site-navigation -->
+      <button id="menu-open" class="menu-toggle"><span class="screen-reader-text">Close Menu</span><span class="icon-menu" aria-hidden="true"></span></button>
+      
+    </div><!-- .site-header-inside -->
+  </div><!-- .inner -->
+</header><!-- .site-header -->
+
+  <main id="content" class="site-content">
+    <div class="inner outer">
+    <div class="guides-content">
+
+         <nav id="guides-nav" class="guides-nav">
+    <div id="guides-nav-inside" class="guides-nav-inside sticky">
+        <button id="guides-nav-toggle" class="guides-nav-toggle">Navigate<span class="icon-angle-right" aria-hidden="true"></span></button>
+        <div class="guides-toc-wrap">
+            <ul id="guides-toc" class="guides-toc">
+                   
+                <li class="toc-item">
+                    <a href="/reference/quickbooks_online/">QuickBooks Online</a>
+                </li>
+
+                        
+                <li class="toc-item current active">
+                    <a href="/reference/quickbooks_online/authentication/">Authentication</a>  
+                </li>
+                        
+                <li class="toc-item">
+                    <a href=""></a>  
+                </li>
+                        
+                <li class="toc-item has-children">
+                    <a href="/reference/quickbooks_online/resources/">Resources</a>  
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/account/">account</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill/">bill</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill_line_item/">bill_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill_payment/">bill_payment</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/bill_payment_line_item/">bill_payment_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/currency/">currency</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/customer/">customer</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/department/">department</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/deposit/">deposit</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/deposit_line_item/">deposit_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/expense/">expense</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/expense_line_item/">expense_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/invoice/">invoice</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/invoice_sales_line_item/">invoice_sales_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/item/">item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/journal_entry/">journal_entry</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/journal_entry_line_item/">journal_entry_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/ledger_class/">ledger_class</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/payment/">payment</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/payment_line_item/">payment_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/preferences/">preferences</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/primary_email_addr/">primary_email_addr</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/primary_phone/">primary_phone</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/resource/">resource</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/subsidiary/">subsidiary</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/transfer/">transfer</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/quickbooks_online/resources/vendor/">vendor</a>
+  </li>
+
+</ul>
+ 
+                </li>
+                
+
+            </ul>
+            <!-- .guides-toc -->
+        </div>
+        <!-- .guides-toc-wrap -->
+    </div>
+    <!-- .guides-nav-inside -->
+</nav>
+<!-- .guides-nav -->
+        <article class="post type-guides">
+            <div class="post-inside">
+                <header class="post-header">
+                    <h1 class="post-title line-left">Authentication</h1>
+                </header>
+                <!-- .post-header -->
+                <div class="post-content">
+                    <h3 id="oauth">OAuth</h3>
+
+<p>QuickBooks Online utilizes OAuth 2.0, which requires frequent refreshing of the access token.  The client will handle this automatically, attempting a single token refresh on any single request authentication failure.  Depending on how you use the library, every client has implements a class method <code class="highlighter-rouge">ledger_attributes_to_save</code>, which is an array of attributes that may change as the client is used.  You can also call the instance method <code class="highlighter-rouge">ledger_attributes_to_save</code> which will be a hash of these values.  It is a good practice to always store these attributes if you are saving access tokens in your database.</p>
+
+<h4 id="retrieve-access-token">Retrieve Access Token</h4>
+
+<p>The library contains a lightweight script that is helpful in retrieving and refreshing access tokens.  To use, do the following:</p>
+
+<ol>
+  <li>Create a <code class="highlighter-rouge">.env</code> file in the library root.</li>
+  <li>Add values for <code class="highlighter-rouge">QUICKBOOKS_ONLINE_CLIENT_ID</code> and <code class="highlighter-rouge">QUICKBOOKS_ONLINE_CLIENT_SECRET</code> (you can copy <code class="highlighter-rouge">.env.template</code>).</li>
+  <li>Ensure your developer application in <a href="https://developer.intuit.com">the QuickBooks Online developer portal</a> contains this redirect URI: <code class="highlighter-rouge">http://localhost:5678</code> (note: no trailing slash and port configurable with <code class="highlighter-rouge">PORT</code> environment variable)</li>
+  <li>Run <code class="highlighter-rouge">ruby bin/quickbooks_online_oauth_server.rb</code> from the library root (note: it must run from the root in order to update <code class="highlighter-rouge">.env</code>).</li>
+  <li>Visit the URL output in the terminal.</li>
+  <li>Upon redirect back to your <code class="highlighter-rouge">localhost</code>, the new values will be printed to the console and saved back to your <code class="highlighter-rouge">.env</code></li>
+</ol>
+
+<h4 id="ledger-helper-methods">Ledger Helper Methods</h4>
+
+<p>The client also implements some helper methods for getting tokens.  For example, you can set up an client using the following:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Retrieve the following values from Intuit app settings</span>
+<span class="n">client_id</span>     <span class="o">=</span> <span class="s1">'ID'</span>
+<span class="n">client_secret</span> <span class="o">=</span> <span class="s1">'SECRET'</span>
+<span class="n">redirect_uri</span>  <span class="o">=</span> <span class="s1">'http://localhost:3000'</span>
+
+<span class="n">oauth_client</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">QuickBooksOnline</span><span class="o">::</span><span class="no">OAuthClientHelper</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">client_id: </span><span class="n">client_id</span><span class="p">,</span>
+  <span class="ss">client_secret: </span><span class="n">client_secret</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">oauth_client</span><span class="p">.</span><span class="nf">authorization_url</span><span class="p">(</span><span class="ss">redirect_uri: </span><span class="n">redirect_uri</span><span class="p">)</span>
+
+<span class="c1"># Visit on the output URL and authorize a company.</span>
+<span class="c1"># You will be redirected back to the redirect_uri.</span>
+<span class="c1"># Copy the full url from your browser:</span>
+
+<span class="n">uri</span> <span class="o">=</span> <span class="s1">'https://localhost:3000/?code=FOO&amp;state=BAR&amp;realm_id=BAZ'</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">QuickBooksOnline</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new_from_oauth_client_uri</span><span class="p">(</span>
+  <span class="ss">oauth_client: </span><span class="n">oauth_client</span><span class="p">,</span>
+  <span class="ss">uri: </span><span class="n">uri</span>
+<span class="p">)</span>
+
+<span class="c1"># You can test that the auth works:</span>
+
+<span class="n">client</span><span class="p">.</span><span class="nf">refresh!</span>
+</code></pre></div></div>
+
+<p><strong>Note: If you have a <code class="highlighter-rouge">.env</code> file storing your secrets, the client will automatically update the variables and record previous values whenever values change</strong></p>
+          
+                </div>
+                <!-- .post-content -->
+            </div>
+            <!-- .post-inside -->
+        </article>
+        <!-- .post -->
+        <nav id="page-nav" class="page-nav">
+            <div id="page-nav-inside" class="page-nav-inside sticky">
+                <h2 class="page-nav-title">Jump to Section</h2>
+            </div>
+            <!-- .page-nav-inside -->
+        </nav>
+        <!-- .page-nav -->
+    </div>
+    <!-- .guides-content -->
+</div>
+<!-- .inner-->
+  </main><!-- .site-content -->
+  <footer id="colophon" class="site-footer outer">
+  <div class="inner">
+    <div class="site-footer-inside">
+      <p class="site-info">
+        
+        
+        <span class="copyright">&copy; Modern Treasury Inc. All rights reserved.</span>
+        
+        
+          
+          
+<a class="" href="https://www.moderntreasury.com" target="_blank" rel="noopener">
+  
+  Maintained with love in San Francisco, CA by Modern Treasury
+  
+</a>
+
+        
+      </p><!-- .site-info -->
+      
+      
+      <div class="social-links">
+        
+          
+          
+<a class="button button-icon" href="https://twitter.com/ModernTreasury" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-twitter" aria-hidden="true"></span><span class="screen-reader-text">Twitter</span>
+  
+</a>
+
+        
+          
+          
+<a class="button button-icon" href="https://www.linkedin.com/company/modern-treasury" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-linkedin" aria-hidden="true"></span><span class="screen-reader-text">LinkedIn</span>
+  
+</a>
+
+        
+          
+          
+<a class="button button-icon" href="https://github.com/LedgerSync/ledger_sync" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-github" aria-hidden="true"></span><span class="screen-reader-text">GitHub</span>
+  
+</a>
+
+        
+      </div><!-- .social-links -->
+      
+    </div><!-- .site-footer-inside -->
+  </div><!-- .inner -->
+</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+    <!-- Scripts -->
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/prism.js" data-manual></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

@@ -253,8 +253,16 @@
     <a href="/guides/customization/custom_resources/">Custom Resources</a>
   </li>
 
+  <li class="toc-item">
+    <a href="/guides/customization/custom_serializers/">Custom Serializers</a>
+  </li>
+
 </ul>
  
+                </li>
+                        
+                <li class="toc-item">
+                    <a href="/guides/tips_and_more/">Tips and More</a>  
                 </li>
                         
                 <li class="toc-item has-children">
@@ -262,7 +270,23 @@
                     <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
 
   <li class="toc-item">
+    <a href="/guides/contribute/console/">Console</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/deployment/">Console</a>
+  </li>
+
+  <li class="toc-item">
     <a href="/guides/contribute/documentation/">Documentation</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/qa/">QA</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/testing/">Testing</a>
   </li>
 
 </ul>
@@ -293,7 +317,46 @@
                 </header>
                 <!-- .post-header -->
                 <div class="post-content">
-                    
+                    <p>Each ledger defines operations that can be performed on specific resources (e.g. <code class="highlighter-rouge">Customer::Operations::Update</code>, <code class="highlighter-rouge">Payment::Operations::Create</code>).  The operation defines two key things:</p>
+
+<ul>
+  <li>a <code class="highlighter-rouge">Contract</code> class which is used to validate the resource using the <code class="highlighter-rouge">dry-validation</code> gem</li>
+  <li>a <code class="highlighter-rouge">perform</code> instance method, which handles the actual API requests and response/error handling.</li>
+</ul>
+
+<div class="note"><strong>Note:</strong>
+  Ledgers may support different operations for each resource type.
+</div>
+
+<h2 id="contracts">Contracts</h2>
+
+<p>Contracts are dry-validation schemas, which determine if an operation can be performed.  You can create custom schemas and pass them to operations.  Assuming you have an <code class="highlighter-rouge">operation_class</code> variable and <code class="highlighter-rouge">foo</code> is an attribute of a <code class="highlighter-rouge">custom_resource</code> (see above) that is required to be a string, you can implement it with the following:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CustomContract</span> <span class="o">&lt;</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:foo</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># A valid case</span>
+<span class="n">custom_resource</span> <span class="o">=</span> <span class="no">CustomResource</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">foo: </span><span class="s1">'asdf'</span><span class="p">)</span>
+<span class="n">op</span> <span class="o">=</span> <span class="n">operation_class</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">client: </span><span class="n">client</span><span class="p">,</span>
+  <span class="ss">resource: </span><span class="n">resource</span><span class="p">,</span>
+  <span class="ss">validation_contract: </span><span class="no">CustomContract</span>
+<span class="p">)</span>
+<span class="n">op</span><span class="p">.</span><span class="nf">valid?</span> <span class="c1"># =&gt; true</span>
+
+<span class="c1"># An invalid case</span>
+<span class="n">custom_resource</span> <span class="o">=</span> <span class="no">CustomResource</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">foo: </span><span class="kp">nil</span><span class="p">)</span>
+<span class="n">operation_class</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">client: </span><span class="n">client</span><span class="p">,</span>
+  <span class="ss">resource: </span><span class="n">resource</span><span class="p">,</span>
+  <span class="ss">validation_contract: </span><span class="no">CustomContract</span>
+<span class="p">)</span>
+<span class="n">op</span><span class="p">.</span><span class="nf">valid?</span> <span class="c1"># =&gt; false</span>
+
+</code></pre></div></div>
          
                     <hr />
 

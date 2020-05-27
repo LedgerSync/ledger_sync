@@ -1,6 +1,6 @@
 ---
 title: ledger_class
-weight: 10
+weight: 11
 layout: reference_netsuite
 ---
 
@@ -27,7 +27,7 @@ layout: reference_netsuite
 
 | Name | Type |
 | ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::LedgerClass::Operations::Create
+### LedgerSync::Ledgers::NetSuite::LedgerClass::Operations::Delete
 
 #### Resource Validations
 
@@ -39,7 +39,7 @@ layout: reference_netsuite
 
 | Name | Type |
 | ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::LedgerClass::Operations::Delete
+### LedgerSync::Ledgers::NetSuite::LedgerClass::Operations::Create
 
 #### Resource Validations
 

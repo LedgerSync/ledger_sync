@@ -253,8 +253,16 @@
     <a href="/guides/customization/custom_resources/">Custom Resources</a>
   </li>
 
+  <li class="toc-item">
+    <a href="/guides/customization/custom_serializers/">Custom Serializers</a>
+  </li>
+
 </ul>
  
+                </li>
+                        
+                <li class="toc-item">
+                    <a href="/guides/tips_and_more/">Tips and More</a>  
                 </li>
                         
                 <li class="toc-item has-children">
@@ -262,7 +270,23 @@
                     <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
 
   <li class="toc-item">
+    <a href="/guides/contribute/console/">Console</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/deployment/">Console</a>
+  </li>
+
+  <li class="toc-item">
     <a href="/guides/contribute/documentation/">Documentation</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/qa/">QA</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/testing/">Testing</a>
   </li>
 
 </ul>
@@ -303,6 +327,8 @@ Token Based Authentication.  While similar, the required keys are different.</p>
 
 <p>Unless you are customizing LedgerSync, you will always pass an instantiated client to an object (e.g. an operation).
 The object will handle using the client as needed.</p>
+
+<p>As most clients implement basic request functionality (e.g. <code class="highlighter-rouge">get</code>, <code class="highlighter-rouge">put</code>, <code class="highlighter-rouge">post</code>, <code class="highlighter-rouge">delete</code>, etc.), you can call these methods directly to perform custom requests.  Refer to the specific Client definitions for what parameters are permitted.</p>
 
 <h2 id="gotchas">Gotchas</h2>
 
