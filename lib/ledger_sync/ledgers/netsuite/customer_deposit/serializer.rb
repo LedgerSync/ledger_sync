@@ -6,10 +6,10 @@ module LedgerSync
       class CustomerDeposit
         class Serializer < NetSuite::Serializer
           attribute :account,
-                    type: Serialization::Type::Reference.new
+                    type: Type::SerializerReferenceType.new
 
           attribute :customer,
-                    type: Serialization::Type::Reference.new
+                    type: Type::SerializerReferenceType.new
 
           attribute :entityId,
                     resource_attribute: :external_id

@@ -11,7 +11,7 @@ module LedgerSync
 
           attribute :active,
                     hash_attribute: :isinactive,
-                    type: Type::Deserializer::Active.new
+                    type: Type::DeserializerActiveType.new
         end
       end
     end
