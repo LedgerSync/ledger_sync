@@ -1,6 +1,6 @@
 ---
 title: resource
-weight: 12
+weight: 13
 layout: reference_netsuite
 ---
 

@@ -253,8 +253,16 @@
     <a href="/guides/customization/custom_resources/">Custom Resources</a>
   </li>
 
+  <li class="toc-item">
+    <a href="/guides/customization/custom_serializers/">Custom Serializers</a>
+  </li>
+
 </ul>
  
+                </li>
+                        
+                <li class="toc-item">
+                    <a href="/guides/tips_and_more/">Tips and More</a>  
                 </li>
                         
                 <li class="toc-item has-children">
@@ -262,7 +270,23 @@
                     <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
 
   <li class="toc-item">
+    <a href="/guides/contribute/console/">Console</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/deployment/">Console</a>
+  </li>
+
+  <li class="toc-item">
     <a href="/guides/contribute/documentation/">Documentation</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/qa/">QA</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/testing/">Testing</a>
   </li>
 
 </ul>
@@ -293,7 +317,59 @@
                 </header>
                 <!-- .post-header -->
                 <div class="post-content">
-                    
+                    <h2 id="overview">Overview</h2>
+
+<p>LedgerSync leverages serialization and deserialization to convert resources into the necessary hash formats the ledger expects.  Generally, each resource will have 1 serializer and 1 deserializer.</p>
+
+<h2 id="serializers">Serializers</h2>
+
+<p>Serializers take a <code class="highlighter-rouge">Resource</code> and output a hash.  For example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">customer</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">NetSuite</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">companyName: </span><span class="s1">'Test Company'</span><span class="p">,</span>
+  <span class="ss">external_id: </span><span class="s1">'ext_123'</span>
+<span class="p">)</span>
+<span class="n">serializer</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">NetSuite</span><span class="o">::</span><span class="no">Customer</span><span class="o">::</span><span class="no">Serializer</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">serializer</span><span class="p">.</span><span class="nf">serialize</span><span class="p">(</span><span class="ss">resource: </span><span class="n">customer</span><span class="p">)</span>
+<span class="c1"># Sample output:</span>
+<span class="c1"># {</span>
+  <span class="c1">#   "companyName" =&gt; "Test Company",</span>
+<span class="c1">#   "entityId" =&gt; "ext_123",</span>
+<span class="c1">#   "externalId" =&gt; "ext_123",</span>
+<span class="c1">#   "email" =&gt; nil,</span>
+<span class="c1">#   "phone" =&gt; nil,</span>
+<span class="c1">#   "firstName" =&gt; nil,</span>
+<span class="c1">#   "lastName" =&gt; nil,</span>
+<span class="c1">#   "subsidiary" =&gt; nil</span>
+<span class="c1"># }</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="deserializers">Deserializers</h2>
+
+<p>Deserializers take a hash and output a <code class="highlighter-rouge">Resource</code>.  For example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">h</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"companyName"</span> <span class="o">=&gt;</span> <span class="s2">"Test Company"</span><span class="p">,</span>
+  <span class="s2">"entityId"</span> <span class="o">=&gt;</span> <span class="s2">"ext_123"</span><span class="p">,</span>
+  <span class="s2">"externalId"</span> <span class="o">=&gt;</span> <span class="s2">"ext_123"</span><span class="p">,</span>
+  <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+  <span class="s2">"id"</span> <span class="o">=&gt;</span> <span class="s2">"987654321"</span><span class="p">,</span>
+  <span class="s2">"phone"</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+  <span class="s2">"firstName"</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+  <span class="s2">"lastName"</span> <span class="o">=&gt;</span> <span class="kp">nil</span><span class="p">,</span>
+  <span class="s2">"subsidiary"</span> <span class="o">=&gt;</span> <span class="kp">nil</span>
+<span class="p">}</span>
+
+<span class="n">deserializer</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">NetSuite</span><span class="o">::</span><span class="no">Customer</span><span class="o">::</span><span class="no">Deserializer</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">customer</span> <span class="o">=</span> <span class="n">deserializer</span><span class="p">.</span><span class="nf">deserialize</span><span class="p">(</span><span class="ss">hash: </span><span class="n">h</span><span class="p">,</span> <span class="ss">resource: </span><span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">NetSuite</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">new</span><span class="p">)</span>
+<span class="n">customer</span><span class="p">.</span><span class="nf">ledger_id</span> <span class="c1"># =&gt; "987654321"</span>
+<span class="n">customer</span><span class="p">.</span><span class="nf">companyName</span> <span class="c1"># =&gt; "Test Company"</span>
+</code></pre></div></div>
+
+<h2 id="how-to-use">How to use</h2>
+
+<p>Serializers and deserializers are automatically inferred by each operation based on the naming convention.  It is possible to create your own serializers.  Please see <a href="/guides/customization">Customization</a> for more.</p>
          
                     <hr />
 

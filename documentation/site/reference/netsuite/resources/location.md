@@ -1,6 +1,6 @@
 ---
 title: location
-weight: 11
+weight: 12
 layout: reference_netsuite
 ---
 
@@ -17,13 +17,7 @@ layout: reference_netsuite
 
 ## Operations
 
-### LedgerSync::Ledgers::NetSuite::Location::Operations::Find
-
-#### Resource Validations
-
-| Name | Type |
-| ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::Location::Operations::Create
+### LedgerSync::Ledgers::NetSuite::Location::Operations::Delete
 
 #### Resource Validations
 
@@ -35,7 +29,13 @@ layout: reference_netsuite
 
 | Name | Type |
 | ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::Location::Operations::Delete
+### LedgerSync::Ledgers::NetSuite::Location::Operations::Create
+
+#### Resource Validations
+
+| Name | Type |
+| ---- | ---- |
+### LedgerSync::Ledgers::NetSuite::Location::Operations::Find
 
 #### Resource Validations
 

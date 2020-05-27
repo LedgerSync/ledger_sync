@@ -14,7 +14,7 @@ layout: reference_netsuite
 | ledger_id | LedgerSync::Type::ID |
 | name | LedgerSync::Type::String |
 | classification | LedgerSync::Type::String |
-| account_type | LedgerSync::Type::String |
+| account_type | LedgerSync::Type::StringFromSet |
 | account_sub_type | LedgerSync::Type::String |
 | number | LedgerSync::Type::String |
 | description | LedgerSync::Type::String |
@@ -24,13 +24,13 @@ layout: reference_netsuite
 
 ## Operations
 
-### LedgerSync::Ledgers::NetSuite::Account::Operations::Find
+### LedgerSync::Ledgers::NetSuite::Account::Operations::Create
 
 #### Resource Validations
 
 | Name | Type |
 | ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::Account::Operations::Create
+### LedgerSync::Ledgers::NetSuite::Account::Operations::Find
 
 #### Resource Validations
 

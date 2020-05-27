@@ -253,8 +253,16 @@
     <a href="/guides/customization/custom_resources/">Custom Resources</a>
   </li>
 
+  <li class="toc-item">
+    <a href="/guides/customization/custom_serializers/">Custom Serializers</a>
+  </li>
+
 </ul>
  
+                </li>
+                        
+                <li class="toc-item">
+                    <a href="/guides/tips_and_more/">Tips and More</a>  
                 </li>
                         
                 <li class="toc-item has-children">
@@ -262,7 +270,23 @@
                     <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
 
   <li class="toc-item">
+    <a href="/guides/contribute/console/">Console</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/deployment/">Console</a>
+  </li>
+
+  <li class="toc-item">
     <a href="/guides/contribute/documentation/">Documentation</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/qa/">QA</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/testing/">Testing</a>
   </li>
 
 </ul>
@@ -293,7 +317,27 @@
                 </header>
                 <!-- .post-header -->
                 <div class="post-content">
-                    
+                    <p>Searchers are used to search objects in the ledger.  A searcher takes an <code class="highlighter-rouge">client</code>, <code class="highlighter-rouge">query</code> string and optional <code class="highlighter-rouge">pagination</code> hash.  For example, to search customer’s by name:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">searcher</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">QuickBooksOnline</span><span class="o">::</span><span class="no">Customer</span><span class="o">::</span><span class="no">Searcher</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">client: </span><span class="n">client</span> <span class="c1"># assuming this is defined,</span>
+  <span class="ss">query: </span><span class="s1">'test'</span>
+<span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">searcher</span><span class="p">.</span><span class="nf">search</span> <span class="c1"># returns a LedgerSync::SearchResult</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="p">.</span><span class="nf">success?</span>
+  <span class="n">resources</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="nf">resources</span>
+  <span class="c1"># Do something with found resources</span>
+<span class="k">else</span> <span class="c1"># result.failure?</span>
+  <span class="k">raise</span> <span class="n">result</span><span class="p">.</span><span class="nf">error</span>
+<span class="k">end</span>
+
+<span class="c1"># Different ledgers may use different pagination strategies.  In order</span>
+<span class="c1"># to get the next and previous set of results, you can use the following:</span>
+<span class="n">next_searcher</span> <span class="o">=</span> <span class="n">searcher</span><span class="p">.</span><span class="nf">next_searcher</span>
+<span class="n">previous_searcher</span> <span class="o">=</span> <span class="n">searcher</span><span class="p">.</span><span class="nf">previous_searcher</span>
+</code></pre></div></div>
          
                     <hr />
 

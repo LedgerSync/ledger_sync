@@ -1,6 +1,6 @@
 ---
 title: vendor
-weight: 14
+weight: 15
 layout: reference_netsuite
 ---
 
@@ -23,12 +23,6 @@ layout: reference_netsuite
 
 ## Operations
 
-### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Find
-
-#### Resource Validations
-
-| Name | Type |
-| ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Create
 
 #### Resource Validations
@@ -42,6 +36,12 @@ layout: reference_netsuite
 | Name | Type |
 | ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Delete
+
+#### Resource Validations
+
+| Name | Type |
+| ---- | ---- |
+### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Find
 
 #### Resource Validations
 
