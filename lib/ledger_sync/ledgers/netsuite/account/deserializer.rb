@@ -10,8 +10,9 @@ module LedgerSync
           attribute :name,
                     hash_attribute: :acctname
 
-          attribute :account_type,
-                    hash_attribute: :accttype
+          mapping :account_type,
+                  hash_attribute: :accttype,
+                  hash: Account::TYPES.invert
 
           attribute :number,
                     hash_attribute: :acctnumber

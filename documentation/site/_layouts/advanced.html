@@ -1,0 +1,9 @@
+---
+layout: body
+---
+
+{% for section in page.sections %}
+  
+  {% assign component = section.type | append: ".html" %}
+  {% include {{ component }} section=section site=site %}
+{% endfor %}

@@ -9,6 +9,10 @@ module LedgerSync
             @client_class ||= Class.const_get("#{name.split('::')[0..2].join('::')}::Ledger")
           end
 
+          def inherited(base)
+            base.inferred_resource_class.operations[base.operation_method] = base
+          end
+
           def operation_method
             @operation_method ||= name.split('::').last.snakecase.to_sym
           end
@@ -45,7 +49,9 @@ module LedgerSync
 
         def initialize(args = {})
           @client = args.fetch(:client)
+          @deserializer = args.fetch(:deserializer, nil)
           @resource = args.fetch(:resource)
+          @serializer = args.fetch(:serializer, nil)
           @resource_before_perform = resource.dup
           @result = nil
           @validation_contract = args.fetch(:validation_contract, nil)
@@ -76,7 +82,7 @@ module LedgerSync
         end
 
         def deserializer
-          deserializer_class.new(resource: resource)
+          @deserializer ||= deserializer_class.new
         end
 
         def deserializer_class
@@ -84,7 +90,7 @@ module LedgerSync
         end
 
         def serializer
-          serializer_class.new(resource: resource)
+          @serializer ||= deserializer_class.new
         end
 
         def serializer_class

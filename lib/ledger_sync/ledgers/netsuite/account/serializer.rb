@@ -8,8 +8,9 @@ module LedgerSync
           attribute :name,
                     ledger_attribute: :acctname
 
-          attribute :account_type,
-                    ledger_attribute: :accttype
+          mapping :accttype,
+                  resource_attribute: :account_type,
+                  hash: Account::TYPES
 
           attribute :number,
                     ledger_attribute: :acctnumber

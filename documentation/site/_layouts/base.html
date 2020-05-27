@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>LedgerSync - {% assign title_is_not_empty = page.title | is_not_empty %}{% if title_is_not_empty %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ page.excerpt | default: site.description }}" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%26display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
+
+</head>
+
+<body>
+
+    {{ content }}
+    <!-- Scripts -->
+    <script src="{{ 'assets/js/plugins.js' | relative_url }}"></script>
+    <script src="{{ 'assets/js/prism.js' | relative_url }}" data-manual></script>
+    <script src="{{ 'assets/js/main.js' | relative_url }}"></script>
+</body>
+
+</html>

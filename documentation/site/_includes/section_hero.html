@@ -1,0 +1,28 @@
+{% assign section = include.section %}
+<section id="{{ section.section_id }}" class="block block-hero has-gradient outer">
+  {% assign image_is_not_empty = section.image | is_not_empty %}
+  {% if image_is_not_empty %}
+  <div class="bg-img" style="background-image: url('{{ section.image | relative_url }}')"></div>
+  {% endif %}
+  <div class="inner-sm">
+    {% assign title_is_not_empty = section.title | is_not_empty %}
+    {% if title_is_not_empty %}
+    <div class="block-header">
+      <h1 class="block-title">{{ section.title }}</h1>
+    </div>
+    {% endif %}
+    {% assign content_is_not_empty = section.content | is_not_empty %}
+    {% if content_is_not_empty %}
+    <div class="block-content">
+      {{ section.content | markdownify }}
+    </div>
+    {% endif %}
+    {% assign actions_is_not_empty = section.actions | is_not_empty %}
+    {% if actions_is_not_empty %}
+    <div class="block-buttons">
+      
+      {% include cta_buttons.html actions=section.actions %}
+    </div>
+    {% endif %}
+  </div>
+</section><!-- .block -->

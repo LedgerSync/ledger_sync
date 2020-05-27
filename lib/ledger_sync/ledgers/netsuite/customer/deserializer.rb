@@ -14,7 +14,7 @@ module LedgerSync
           attribute :phone
 
           attribute :subsidiary,
-                    type: Type::Deserializer::Subsidiary.new(subsidiary_class: Subsidiary)
+                    type: Type::DeserializerSubsidiaryType.new(subsidiary_class: Subsidiary)
         end
       end
     end

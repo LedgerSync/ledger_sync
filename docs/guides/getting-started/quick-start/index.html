@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <title>LedgerSync - Quick Start - LedgerSync</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An open-source library for easily syncing with accounting software, general ledgers, ERPs, and other ledgers." />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%26display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+</head>
+
+<body>
+
+    <div id="page" class="site">
+  <header id="masthead" class="site-header outer">
+  <div class="inner">
+    <div class="site-header-inside">
+      <div class="site-branding">
+        
+        
+        <p class="site-logo"><a href="/"><img src="/images/logo.svg" alt="LedgerSync" /></a></p>
+        
+      </div><!-- .site-branding -->
+      
+      
+      <nav id="main-navigation" class="site-navigation" aria-label="Main Navigation">
+        <div class="site-nav-inside">
+          <button id="menu-close" class="menu-toggle"><span class="screen-reader-text">Open Menu</span><span class="icon-close" aria-hidden="true"></span></button>
+          <ul class="menu">
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/">
+  
+  Home
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/guides/">
+  
+  Guides
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item has-children">
+              
+              
+<a class="" href="/reference">
+  
+  Reference
+  
+</a>
+
+              
+                
+                <ul class="submenu">
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/netsuite">
+  
+  NetSuite REST
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/netsuite_soap">
+  
+  NetSuite SOAP
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/quickbooks_online">
+  
+  QuickBooks Online
+  
+</a>
+
+  </li>
+  
+  <li class="menu-item">
+    
+    
+<a class="" href="/reference/stripe">
+  
+  Stripe
+  
+</a>
+
+  </li>
+  
+</ul>
+
+              
+            </li>
+            
+            <li class="menu-item">
+              
+              
+<a class="" href="/guides/contribute">
+  
+  Contribute
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item menu-button">
+              
+              
+<a class="button" href="https://github.com/LedgerSync/ledger_sync">
+  
+  GitHub
+  
+</a>
+
+              
+            </li>
+            
+          </ul>
+        </div><!-- .site-nav-inside -->
+      </nav><!-- .site-navigation -->
+      <button id="menu-open" class="menu-toggle"><span class="screen-reader-text">Close Menu</span><span class="icon-menu" aria-hidden="true"></span></button>
+      
+    </div><!-- .site-header-inside -->
+  </div><!-- .inner -->
+</header><!-- .site-header -->
+
+  <main id="content" class="site-content">
+    <div class="inner outer">
+    <div class="guides-content">
+
+        <nav id="guides-nav" class="guides-nav">
+    <div id="guides-nav-inside" class="guides-nav-inside sticky">
+        <button id="guides-nav-toggle" class="guides-nav-toggle">Navigate<span class="icon-angle-right" aria-hidden="true"></span></button>
+        <div class="guides-toc-wrap">
+            <ul id="guides-toc" class="guides-toc">
+                   
+                <li class="toc-item">
+                    <a href="/guides/">Welcome to LedgerSync</a>
+                </li>
+
+                        
+                <li class="toc-item has-children active">
+                    <a href="/guides/getting-started/">Getting Started</a>  
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
+
+  <li class="toc-item">
+    <a href="/guides/getting-started/installation/">Installation</a>
+  </li>
+
+  <li class="toc-item current">
+    <a href="/guides/getting-started/quick-start/">Quick Start</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/getting-started/get-help/">Get Help</a>
+  </li>
+
+</ul>
+ 
+                </li>
+                        
+                <li class="toc-item has-children">
+                    <a href="/guides/architecture/">Architecture</a>  
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
+
+  <li class="toc-item">
+    <a href="/guides/architecture/clients/">Clients</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/architecture/resources/">Resources</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/architecture/serialization/">Serialization</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/architecture/operations/">Operations</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/architecture/searchers/">Operations</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/architecture/results/">Results</a>
+  </li>
+
+</ul>
+ 
+                </li>
+                        
+                <li class="toc-item has-children">
+                    <a href="/guides/ledgers/">Ledgers</a>  
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
+
+  <li class="toc-item">
+    <a href="/guides/ledgers/netsuite/">NetSuite REST</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/ledgers/netsuite_soap/">NetSuite SOAP</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/ledgers/quickbooks_online/">QuickBooks Online</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/ledgers/stripe/">Stripe</a>
+  </li>
+
+</ul>
+ 
+                </li>
+                        
+                <li class="toc-item has-children">
+                    <a href="/guides/customization/">Customization</a>  
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
+
+  <li class="toc-item">
+    <a href="/guides/customization/resource_converters/">Resource Converters</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/customization/custom_resources/">Custom Resources</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/customization/custom_serializers/">Custom Serializers</a>
+  </li>
+
+</ul>
+ 
+                </li>
+                        
+                <li class="toc-item">
+                    <a href="/guides/tips_and_more/">Tips and More</a>  
+                </li>
+                        
+                <li class="toc-item has-children">
+                    <a href="/guides/contribute/">Contribute</a>  
+                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
+
+  <li class="toc-item">
+    <a href="/guides/contribute/console/">Console</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/deployment/">Console</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/documentation/">Documentation</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/qa/">QA</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/guides/contribute/testing/">Testing</a>
+  </li>
+
+</ul>
+ 
+                </li>
+                        
+                <li class="toc-item">
+                    <a href="/guides/community/">Where To Get Support</a>  
+                </li>
+                        
+                <li class="toc-item">
+                    <a href="/guides/modern-treasury/">Modern Treasury</a>  
+                </li>
+                
+
+            </ul>
+            <!-- .guides-toc -->
+        </div>
+        <!-- .guides-toc-wrap -->
+    </div>
+    <!-- .guides-nav-inside -->
+</nav>
+<!-- .guides-nav -->
+        <article class="post type-guides">
+            <div class="post-inside">
+                <header class="post-header">
+                    <h1 class="post-title line-left">Quick Start</h1>
+                </header>
+                <!-- .post-header -->
+                <div class="post-content">
+                    <h2 id="overview">Overview</h2>
+
+<p>To use LedgerSync, you must carry out an <code class="highlighter-rouge">Operation</code>.  The operation will be ledger-specific and will require the
+following:</p>
+
+<ol>
+  <li>Client</li>
+  <li>Resource(s)</li>
+</ol>
+
+<h2 id="1-create-a-client">1. Create a client</h2>
+
+<p>Clients are responsible for the authentication and requests for a specific ledger.  In this example, we will assume you
+are using the QuickBooks Online ledger.</p>
+
+<div class="note"><strong>Note:</strong> Each ledger has different requirements for authentication.  Please visit the
+ledger-specific pages to learn more.</div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">client</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">QuickBooksOnline</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">access_token: </span><span class="n">access_token</span><span class="p">,</span> <span class="c1"># assuming this is defined</span>
+  <span class="ss">client_id: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'QUICKBOOKS_ONLINE_CLIENT_ID'</span><span class="p">],</span>
+  <span class="ss">client_secret: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'QUICKBOOKS_ONLINE_CLIENT_SECRET'</span><span class="p">],</span>
+  <span class="ss">realm_id: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'QUICKBOOKS_ONLINE_REALM_ID'</span><span class="p">],</span>
+  <span class="ss">refresh_token: </span><span class="n">refresh_token</span> <span class="c1"># assuming this is defined</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="2-create-resources">2. Create resource(s)</h2>
+
+<p>Create a resource on which to operate.  Some resources have references to other resources.  You can use
+<code class="highlighter-rouge">Util::ResourcesBuilder</code> to create resources and relationships from a structured hash.</p>
+
+<div class="note"><strong>Note:</strong> Resources are ledger-specific, meaning they may have different attributes and
+references compared to other ledgers.  Please visit [the Reference](/reference) to learn about resource
+attributes.</div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resource</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">QuickBooksOnline</span><span class="o">::</span><span class="no">Customer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="no">DisplayName</span><span class="p">:</span> <span class="s1">'Sample Customer'</span><span class="p">,</span>
+  <span class="ss">external_id: </span><span class="n">customer_external_id</span> <span class="c1"># A unique ID from your platform</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="3-create-an-operation">3. Create an operation</h2>
+
+<p>Given our <code class="highlighter-rouge">client</code> and <code class="highlighter-rouge">resource</code> from above, we can now create an <code class="highlighter-rouge">Operation</code>.  Operations are typically CRUD-like
+methods, typically (though not always) only making a single request.</p>
+
+<p>Operations automatically determine a <code class="highlighter-rouge">Serializer</code> and <code class="highlighter-rouge">Deserializer</code>.  These serializers are used to translate to and
+the from the ruby <code class="highlighter-rouge">Resource</code> in the format required by the ledger.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">operation</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">QuickBooksOnline</span><span class="o">::</span><span class="no">Customer</span><span class="o">::</span><span class="no">Operations</span><span class="o">::</span><span class="no">Create</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">client: </span><span class="n">client</span><span class="p">,</span>
+  <span class="ss">resource: </span><span class="n">resource</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="4-perform-the-operation">4. Perform the operation</h2>
+
+<p>The next step is to perform the operation.  You can do this by simply calling <code class="highlighter-rouge">perform</code>.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span> <span class="o">=</span> <span class="n">operation</span><span class="p">.</span><span class="nf">perform</span> <span class="c1"># Returns a LedgerSync::OperationResult</span>
+</code></pre></div></div>
+
+<p>This method will return a
+<code class="highlighter-rouge">LedgerSync::OperationResult</code> which is a special object allowing you to determine the success of the operation, access
+responses values (serialized and deserialized), and investigate failures.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">result</span><span class="p">.</span><span class="nf">success?</span>
+  <span class="n">resource</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="nf">operation</span><span class="p">.</span><span class="nf">resource</span>
+  <span class="c1"># Do something with resource</span>
+<span class="k">else</span> <span class="c1"># result.failure?</span>
+  <span class="k">raise</span> <span class="n">result</span><span class="p">.</span><span class="nf">error</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="5-save-updates-to-authentication">5. Save updates to authentication</h2>
+
+<p>Because QuickBooks Online uses Oauth 2, you must always be sure to save the access_token, refresh_token, and expirations
+as they can change with any API call.  Operations will always save values back to the client.</p>
+
+<h3 id="automatically-update-values-in-env">Automatically update values in .env</h3>
+
+<p>If you have a <code class="highlighter-rouge">.env</code> file present in the root directory of your project, the client will automatically comment out old values and update new
+values.</p>
+
+<p>If you want to disable this functionality, you can do so by setting <code class="highlighter-rouge">update_dotenv</code> to <code class="highlighter-rouge">false</code> when instantiating the
+object:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">client</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">QuickBooksOnline</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">access_token: </span><span class="n">access_token</span><span class="p">,</span> <span class="c1"># assuming this is defined</span>
+  <span class="ss">client_id: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'QUICKBOOKS_ONLINE_CLIENT_ID'</span><span class="p">],</span>
+  <span class="ss">client_secret: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'QUICKBOOKS_ONLINE_CLIENT_SECRET'</span><span class="p">],</span>
+  <span class="ss">realm_id: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'QUICKBOOKS_ONLINE_REALM_ID'</span><span class="p">],</span>
+  <span class="ss">refresh_token: </span><span class="n">refresh_token</span><span class="p">,</span> <span class="c1"># assuming this is defined</span>
+  <span class="ss">update_dotenv: </span><span class="kp">false</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="manually-save-values">Manually save values</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span><span class="p">.</span><span class="nf">operation</span><span class="p">.</span><span class="nf">client</span><span class="p">.</span><span class="nf">ledger_attributes_to_save</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span>
+  <span class="c1"># save values</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="summary">Summary</h2>
+
+<p>That’s it!  Assuming proper authentication values and valid values on the resource, this will result in a new customer
+being created in QuickBooks Online.</p>
+
+<p>There are many other resources and operations that can be performed in QuickBooks Online.  For a complete guide of these
+and other ledgers, visit <a href="/reference">the Reference</a>.</p>
+         
+                    <hr />
+
+                    <div>Related articles:</div><br />
+
+                    <ul class="guides-section-items">
+                        
+                        <li class="guides-section-item"><a href="/guides/getting-started/installation/" class="guides-item-link">Installation<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/guides/getting-started/quick-start/" class="guides-item-link">Quick Start<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/guides/getting-started/get-help/" class="guides-item-link">Get Help<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                    </ul>
+                    <!-- .guides-section-pages -->
+                     
+                </div>
+                <!-- .post-content -->
+            </div>
+            <!-- .post-inside -->
+        </article>
+        <!-- .post -->
+        <nav id="page-nav" class="page-nav">
+            <div id="page-nav-inside" class="page-nav-inside sticky">
+                <h2 class="page-nav-title">Jump to Section</h2>
+            </div>
+            <!-- .page-nav-inside -->
+        </nav>
+        <!-- .page-nav -->
+    </div>
+    <!-- .guides-content -->
+</div>
+<!-- .inner-->
+  </main><!-- .site-content -->
+  <footer id="colophon" class="site-footer outer">
+  <div class="inner">
+    <div class="site-footer-inside">
+      <p class="site-info">
+        
+        
+        <span class="copyright">&copy; Modern Treasury Inc. All rights reserved.</span>
+        
+        
+          
+          
+<a class="" href="https://www.moderntreasury.com" target="_blank" rel="noopener">
+  
+  Maintained with love in San Francisco, CA by Modern Treasury
+  
+</a>
+
+        
+      </p><!-- .site-info -->
+      
+      
+      <div class="social-links">
+        
+          
+          
+<a class="button button-icon" href="https://twitter.com/ModernTreasury" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-twitter" aria-hidden="true"></span><span class="screen-reader-text">Twitter</span>
+  
+</a>
+
+        
+          
+          
+<a class="button button-icon" href="https://www.linkedin.com/company/modern-treasury" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-linkedin" aria-hidden="true"></span><span class="screen-reader-text">LinkedIn</span>
+  
+</a>
+
+        
+          
+          
+<a class="button button-icon" href="https://github.com/LedgerSync/ledger_sync" target="_blank" rel="noopener">
+  
+  <span class="icon fab fa-github" aria-hidden="true"></span><span class="screen-reader-text">GitHub</span>
+  
+</a>
+
+        
+      </div><!-- .social-links -->
+      
+    </div><!-- .site-footer-inside -->
+  </div><!-- .inner -->
+</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+    <!-- Scripts -->
+    <script src="/assets/js/plugins.js"></script>
+    <script src="/assets/js/prism.js" data-manual></script>
+    <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

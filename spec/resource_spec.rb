@@ -82,4 +82,16 @@ RSpec.describe LedgerSync::Resource do
       expect(resource.to_h).to eq(h)
     end
   end
+
+  describe '.operations' do
+    it do
+      resource_class = LedgerSync::Ledgers::QuickBooksOnline::Customer
+      h = {
+        create: LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create,
+        find: LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find,
+        update: LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Update
+      }
+      expect(resource_class.operations).to eq(h)
+    end
+  end
 end

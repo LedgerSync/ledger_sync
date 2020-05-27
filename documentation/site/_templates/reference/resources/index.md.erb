@@ -1,0 +1,9 @@
+---
+title: Resources
+weight: 0
+layout: <%= "reference_#{client.root_key}" %>
+---
+
+<% client.resources.each do |key, _resource| -%>
+- [<%= key %>](/reference/resources/<%= client.root_key %>/<%= key %>)
+<% end -%>
