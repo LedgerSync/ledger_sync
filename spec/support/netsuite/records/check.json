@@ -1,0 +1,129 @@
+{
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/check/2144"
+    }
+  ],
+  "account": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/316"
+      }
+    ],
+    "id": "316",
+    "refName": "1080 SVB Corporate Checking"
+  },
+  "balance": -1604.95,
+  "createdDate": "2020-05-11T21:53:00Z",
+  "currency": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/currency/1"
+      }
+    ],
+    "id": "1",
+    "refName": "USA"
+  },
+  "currencyName": "USA",
+  "currencysymbol": "USD",
+  "custbody_atlas_no_hdn": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_atlas_appr_by_creator/2"
+      }
+    ],
+    "id": "2",
+    "refName": "No"
+  },
+  "custbody_atlas_yes_hdn": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/customlist_atlas_appr_by_creator/1"
+      }
+    ],
+    "id": "1",
+    "refName": "Yes"
+  },
+  "customForm": "49",
+  "entity": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/vendor/52"
+      }
+    ],
+    "id": "52",
+    "refName": "Chipotle Mexican Grill"
+  },
+  "entityNexus": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/nexus/2"
+      }
+    ],
+    "id": "2",
+    "refName": "CA"
+  },
+  "exchangeRate": 1.0,
+  "expense": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/check/2144/expense"
+      }
+    ]
+  },
+  "id": "2144",
+  "isBaseCurrency": true,
+  "item": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/check/2144/item"
+      }
+    ]
+  },
+  "lastModifiedDate": "2020-05-11T21:53:00Z",
+  "nexus": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/nexus/2"
+      }
+    ],
+    "id": "2",
+    "refName": "CA"
+  },
+  "postingperiod": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/accountingperiod/42"
+      }
+    ],
+    "id": "42",
+    "refName": "May 2020"
+  },
+  "subsidiary": {
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/subsidiary/2"
+      }
+    ],
+    "id": "2",
+    "refName": "Modern Treasury"
+  },
+  "toBePrinted": false,
+  "total": 70.0,
+  "trandate": "2020-05-11",
+  "tranId": "1",
+  "transactionNumber": "CHECK4",
+  "userTotal": 70.0
+}

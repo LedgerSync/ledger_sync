@@ -7,11 +7,8 @@ module LedgerSync
         class SearcherDeserializer < NetSuite::Deserializer
           id
 
-          attribute :name
-
-          attribute :active,
-                    hash_attribute: :isinactive,
-                    type: Type::Deserializer::Active.new
+          attribute :trandate
+          attribute :memo
         end
       end
     end

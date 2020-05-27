@@ -5,7 +5,7 @@ module LedgerSync
     module NetSuite
       class Check
         class Deserializer < NetSuite::Deserializer
-	        id
+          id
 
           attribute :memo
           attribute :trandate

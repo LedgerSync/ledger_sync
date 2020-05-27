@@ -9,10 +9,6 @@ module LedgerSync
         references_one :department, to: Department
         attribute :amount, type: Type::Float
         attribute :memo, type: Type::String
-
-        def name
-          memo
-        end
       end
     end
   end

@@ -5,8 +5,6 @@ module LedgerSync
     module NetSuite
       class Check
         class Serializer < NetSuite::Serializer
-          id
-
           attribute :memo
           attribute :trandate
 

@@ -4,7 +4,7 @@ module LedgerSync
     module NetSuite
       class Check < NetSuite::Resource
         attribute :memo, type: Type::String
-        attribute :tranDate, type: Type::Date
+        attribute :trandate, type: Type::String
 
         references_one :account, to: Account
         references_one :department, to: Department
