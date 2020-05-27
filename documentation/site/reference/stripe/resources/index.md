@@ -4,5 +4,5 @@ weight: 0
 layout: reference_stripe
 ---
 
-- [resource](/reference/resources/stripe/resource)
-- [customer](/reference/resources/stripe/customer)
+- [resource](/reference/stripe/resources/resource)
+- [customer](/reference/stripe/resources/customer)
