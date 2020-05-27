@@ -1,30 +1,27 @@
+
 # frozen_string_literal: true
+
+require_relative '../account/deserializer'
+require_relative '../department/deserializer'
+require_relative '../ledger_class/deserializer'
 
 module LedgerSync
   module Ledgers
     module NetSuite
-      class Check
+      class CheckLineItem
         class Deserializer < NetSuite::Deserializer
-	        id
-
+          attribute :amount
           attribute :memo
-          attribute :trandate
 
           attribute :account,
                     type: Type::DeserializerAccountType.new(account_class: Account)
 
-          attribute :currency,
-                    type: Type::DeserializerCurrencyType.new(currency_class: Currency)
+          attribute :ledger_class,
+                    type: Type::DeserializerLedgerClassType.new(ledger_class: LedgerClass)
 
           attribute :department,
                     type: Type::DeserializerDepartmentType.new(department_class: Account)
 
-          attribute :entity,
-                    type: Type::DeserializerEntityType.new
-
-          references_many :line_items,
-                         hash_attribute: 'expense.items',
-                         deserializer: CheckLineItem::Deserializer
         end
       end
     end

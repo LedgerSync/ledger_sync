@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
+require_relative '../account/serializer'
+require_relative '../department/serializer'
+require_relative '../ledger_class/serializer'
+
 module LedgerSync
   module Ledgers
     module NetSuite
-      class Check
+      class CheckLineItem
         class Serializer < NetSuite::Serializer
-          id
-
+          attribute :amount
           attribute :memo
-          attribute :trandate
 
           attribute :account,
                     type: Type::SerializerReferenceType.new
@@ -16,16 +18,8 @@ module LedgerSync
           attribute :department,
                     type: Type::SerializerReferenceType.new
 
-          attribute :entity,
+          attribute :ledger_class,
                     type: Type::SerializerReferenceType.new
-
-          attribute :currency,
-                    type: Type::SerializerReferenceType.new
-
-	        references_many 'expense.items',
-                           resource_attribute: :line_items,
-                           serializer: CheckLineItem::Serializer
-
         end
       end
     end
