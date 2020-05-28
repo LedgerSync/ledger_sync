@@ -77,7 +77,30 @@
         "rel": "self",
         "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/check/2144/expense"
       }
-    ]
+    ],
+    "items": [
+      {
+        "links": [
+          {
+            "rel": "self",
+            "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/check/2144/expense/1"
+          }
+        ],
+        "account": {
+          "links": [
+            {
+              "rel": "self",
+              "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/account/227"
+            }
+          ],
+          "id": "227",
+          "refName": "6090 Job Supplies"
+        },
+        "amount": 70.0,
+        "line": 1
+      }
+    ],
+    "totalResults": 1
   },
   "id": "2144",
   "isBaseCurrency": true,
@@ -87,7 +110,9 @@
         "rel": "self",
         "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/check/2144/item"
       }
-    ]
+    ],
+    "items": [],
+    "totalResults": 0
   },
   "lastModifiedDate": "2020-05-11T21:53:00Z",
   "nexus": {

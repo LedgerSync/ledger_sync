@@ -22,7 +22,7 @@ module NetSuiteHelpers
     }.merge(override)
   end
 
-  def api_record_url(record:, id: nil, **params)
+  def api_record_url(record:, id: nil, params: {})
     resource_endpoint = netsuite_client.class.ledger_resource_type_for(resource_class: resource.class)
     ret = "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/#{resource_endpoint}"
 
@@ -31,13 +31,10 @@ module NetSuiteHelpers
       ret += id.to_s
     end
 
-    if params.present?
-      uri = URI(ret)
-      uri.query = params.to_query
-      ret = uri.to_s
-    end
-
-    ret
+    LedgerSync::Ledgers::Request.merge_params(
+      params: params,
+      url: ret
+    )
   end
 
   def netsuite_client(env: false)
@@ -229,7 +226,11 @@ module NetSuiteHelpers
     define_method("stub_#{record}_find") do
       stub_find_request(
         response_body: opts.hash,
-        url: send(url_method_name, id: opts.id)
+        url: send(
+          url_method_name,
+          id: opts.id,
+          params: netsuite_client.class::GLOBAL_REQUEST_PARAMS.fetch(:get, {})
+        )
       )
     end
 

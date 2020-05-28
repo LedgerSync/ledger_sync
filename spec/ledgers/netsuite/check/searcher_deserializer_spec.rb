@@ -22,7 +22,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Check::SearcherDeserializer do
     it do
       expect(deserialized_resource.ledger_id).to eq(id)
       expect(deserialized_resource.memo).to eq(memo)
-      expect(deserialized_resource.trandate).to eq(Date.parse(trandate))
+      expect(deserialized_resource.trandate).to eq(trandate)
     end
   end
 end
