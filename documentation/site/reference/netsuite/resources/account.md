@@ -24,13 +24,13 @@ layout: reference_netsuite
 
 ## Operations
 
-### LedgerSync::Ledgers::NetSuite::Account::Operations::Create
+### LedgerSync::Ledgers::NetSuite::Account::Operations::Find
 
 #### Resource Validations
 
 | Name | Type |
 | ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::Account::Operations::Find
+### LedgerSync::Ledgers::NetSuite::Account::Operations::Create
 
 #### Resource Validations
 
