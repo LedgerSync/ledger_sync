@@ -21,7 +21,7 @@ module LedgerSync
       def perform
         raise 'Request already performed' if performed?
 
-        url_with_params = self.class.merge_params(params: params, url: url)
+        url_with_params = Util::URLHelpers.merge_params_in_url(params: params, url: url)
 
         faraday_response = Faraday.send(method, url_with_params) do |req|
           req.headers = headers
