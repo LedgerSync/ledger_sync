@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'currency'
+require_relative 'subsidiary'
 require_relative 'journal_entry_line_item'
 
 module LedgerSync
@@ -12,6 +13,7 @@ module LedgerSync
         attribute :tranId, type: Type::String
 
         references_one :currency, to: Currency
+        references_one :subsidiary, to: Subsidiary
 
         references_many :line_items, to: JournalEntryLineItem
 

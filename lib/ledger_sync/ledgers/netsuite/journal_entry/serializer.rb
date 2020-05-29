@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/serializer'
+require_relative '../reference/serializer'
 require_relative '../journal_entry_line_item/serializer'
 
 module LedgerSync
@@ -18,11 +18,15 @@ module LedgerSync
 
           references_one :currency,
                          resource_attribute: :currency,
-                         serializer: Currency::Serializer
+                         serializer: Reference::Serializer
 
-           references_many 'line.items',
-                           resource_attribute: :line_items,
-                           serializer: JournalEntryLineItem::Serializer
+          references_one :subsidiary,
+                         resource_attribute: :subsidiary,
+                         serializer: Reference::Serializer
+
+          references_many 'line.items',
+                          resource_attribute: :line_items,
+                          serializer: JournalEntryLineItem::Serializer
 
         end
       end

@@ -46,7 +46,7 @@ module LedgerSync
           def response
             @response ||= client.patch(
               body: serializer.serialize(resource: resource),
-              path: ledger_resource_path
+              path: ledger_resource_path(params: request_params)
             )
           end
 

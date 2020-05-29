@@ -11,6 +11,10 @@ module LedgerSync
           end
 
           module InstanceMethods
+            def request_params
+              {}
+            end
+
             def ledger_resource_path(args = {})
               client.ledger_resource_path(
                 {

@@ -14,6 +14,7 @@ module LedgerSync
                 required(:trandate).maybe(:string)
                 required(:tranId).maybe(:string)
                 required(:currency).maybe(:hash, Types::Reference)
+                required(:subsidiary).maybe(:hash, Types::Reference)
                 required(:line_items).array(Types::Reference)
               end
             end

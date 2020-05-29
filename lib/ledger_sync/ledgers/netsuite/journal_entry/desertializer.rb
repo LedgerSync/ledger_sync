@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../currency/deserializer'
+require_relative '../subsidiary/deserializer'
 require_relative '../journal_entry_line_item/deserializer'
 
 module LedgerSync
@@ -20,9 +21,13 @@ module LedgerSync
                          hash_attribute: :currency,
                          deserializer: Currency::Deserializer
 
-         references_many :line_items,
-                         hash_attribute: 'line.items',
-                         deserializer: JournalEntryLineItem::Deserializer
+          references_one :subsidiary,
+                         hash_attribute: :subsidiary,
+                         deserializer: Subsidiary::Deserializer
+
+          references_many :line_items,
+                          hash_attribute: 'line.items',
+                          deserializer: JournalEntryLineItem::Deserializer
         end
       end
     end

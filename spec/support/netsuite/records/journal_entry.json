@@ -2,11 +2,11 @@
   "links": [
     {
       "rel": "self",
-      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/journalentry/1536"
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/journalentry/6447"
     }
   ],
   "approved": true,
-  "createdDate": "2020-05-05T15:56:00Z",
+  "createdDate": "2020-05-29T20:30:00Z",
   "currency": {
     "links": [
       {
@@ -47,8 +47,8 @@
     "id": "1",
     "refName": "Yes"
   },
-  "custbody_esc_created_date": "2020-05-05",
-  "custbody_esc_last_modified_date": "2020-05-05",
+  "custbody_esc_created_date": "2020-05-29",
+  "custbody_esc_last_modified_date": "2020-05-29",
   "customForm": "134",
   "entityNexus": {
     "links": [
@@ -61,14 +61,14 @@
     "refName": "CA"
   },
   "exchangerate": 1.0,
-  "id": "1536",
+  "id": "6447",
   "isbasecurrency": true,
-  "lastModifiedDate": "2020-05-05T15:56:00Z",
+  "lastModifiedDate": "2020-05-29T20:35:00Z",
   "line": {
     "links": [
       {
         "rel": "self",
-        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/journalentry/1536/line"
+        "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/record/v1/journalentry/6447/line"
       }
     ],
     "items": [
@@ -107,7 +107,7 @@
     ],
     "totalResults": 2
   },
-  "memo": "Journal & Transfer Example",
+  "memo": "Journal & Transfer Example Test 25",
   "nexus": {
     "links": [
       {
@@ -140,5 +140,5 @@
     "refName": "Modern Treasury"
   },
   "trandate": "2020-05-05",
-  "tranId": "JE46"
+  "tranId": "JE72"
 }
