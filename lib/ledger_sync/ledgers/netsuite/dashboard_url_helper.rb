@@ -18,6 +18,8 @@ module LedgerSync
                              "/app/accounting/transactions/transaction.nl?id=#{resource.ledger_id}"
                            when NetSuite::LedgerClass
                              "/app/common/otherlists/classtype.nl?id=#{resource.ledger_id}"
+                           when NetSuite::Subsidiary
+                             "/app/common/otherlists/subsidiarytype.nl?id=#{resource.ledger_id}"
                            end
         end
       end
