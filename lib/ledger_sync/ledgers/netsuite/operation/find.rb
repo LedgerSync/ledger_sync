@@ -9,6 +9,10 @@ module LedgerSync
         class Find
           include NetSuite::Operation::Mixin
 
+          def expand_sub_resources?
+            true
+          end
+
           private
 
           def find_in_ledger
@@ -39,7 +43,7 @@ module LedgerSync
 
           def response
             @response ||= client.get(
-              path: ledger_resource_path
+              path: ledger_resource_path(params: { expandSubResources: true })
             )
           end
 

@@ -12,7 +12,20 @@ module LedgerSync
 
           module InstanceMethods
             def ledger_resource_path(args = {})
-              client.ledger_resource_path({ resource: resource }.merge(args))
+              new_params = params.merge(args.fetch(:params, {}))
+              client.ledger_resource_path(
+                {
+                  resource: resource
+                }.merge(
+                  args.merge(
+                    params: new_params
+                  )
+                )
+              )
+            end
+
+            def params
+              {}
             end
           end
         end

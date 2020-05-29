@@ -62,10 +62,14 @@ module LedgerSync
 
         def ledger_resource_path(args = {})
           resource = args.fetch(:resource, nil)
+          params = args.fetch(:params, {})
 
           ret = self.class.ledger_resource_type_for(resource_class: resource.class) # This can be turned into a case statement if we need to override
           ret += "/#{resource.ledger_id}" if resource.ledger_id.present? && args.fetch(:id, true)
-          ret
+          [
+            ret,
+            params.map { |v| v.join('=') }
+          ].compact.join('?')
         end
 
         def metadata_for(record:)
@@ -137,7 +141,7 @@ module LedgerSync
           )
         end
 
-        def request(body: nil, headers: {}, method:, path: nil, request_url: nil)
+        def request(body: nil, headers: {}, method:, params: {}, path: nil, request_url: nil)
           request_url ||= url_from_path(path: path)
 
           token = new_token(
