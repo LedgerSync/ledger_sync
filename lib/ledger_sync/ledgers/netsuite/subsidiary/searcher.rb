@@ -4,7 +4,7 @@ module LedgerSync
   module Ledgers
     module NetSuite
       class Subsidiary
-        class Searcher < Searcher
+        class Searcher < NetSuite::Searcher
         end
       end
     end
