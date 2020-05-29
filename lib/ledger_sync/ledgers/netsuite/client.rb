@@ -129,20 +129,23 @@ module LedgerSync
 
         private
 
-        def new_token(body:, method:, url:)
+        def new_token(args = {})
           Token.new(
-            body: body,
-            consumer_key: consumer_key,
-            consumer_secret: consumer_secret,
-            method: method,
-            token_id: token_id,
-            token_secret: token_secret,
-            url: url
+            args.merge(
+              consumer_key: consumer_key,
+              consumer_secret: consumer_secret,
+              token_id: token_id,
+              token_secret: token_secret
+            )
           )
         end
 
-        def request(body: nil, headers: {}, method:, params: {}, path: nil, request_url: nil)
-          request_url ||= url_from_path(path: path)
+        def request(args = {})
+          body        = args.fetch(:body, nil)
+          headers     = args.fetch(:headers, {})
+          method      = args.fetch(:method)
+          path        = args.fetch(:path, nil)
+          request_url = args.fetch(:request_url, url_from_path(path: path))
 
           token = new_token(
             body: body,

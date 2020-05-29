@@ -15,16 +15,8 @@ module LedgerSync
               client.ledger_resource_path(
                 {
                   resource: resource
-                }.merge(
-                  args.merge(
-                    params: params.merge(args.fetch(:params, {}))
-                  )
-                )
+                }.merge(args)
               )
-            end
-
-            def params
-              {}
             end
           end
         end
