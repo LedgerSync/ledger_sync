@@ -23,6 +23,12 @@ layout: reference_netsuite
 
 ## Operations
 
+### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Find
+
+#### Resource Validations
+
+| Name | Type |
+| ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Create
 
 #### Resource Validations
@@ -36,12 +42,6 @@ layout: reference_netsuite
 | Name | Type |
 | ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Delete
-
-#### Resource Validations
-
-| Name | Type |
-| ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::Vendor::Operations::Find
 
 #### Resource Validations
 

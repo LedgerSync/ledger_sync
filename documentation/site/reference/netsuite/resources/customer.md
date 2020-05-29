@@ -28,12 +28,6 @@ layout: reference_netsuite
 
 | Name | Type |
 | ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::Customer::Operations::Create
-
-#### Resource Validations
-
-| Name | Type |
-| ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Customer::Operations::Update
 
 #### Resource Validations
@@ -41,6 +35,12 @@ layout: reference_netsuite
 | Name | Type |
 | ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Customer::Operations::Delete
+
+#### Resource Validations
+
+| Name | Type |
+| ---- | ---- |
+### LedgerSync::Ledgers::NetSuite::Customer::Operations::Create
 
 #### Resource Validations
 
