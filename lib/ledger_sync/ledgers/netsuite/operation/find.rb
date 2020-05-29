@@ -39,7 +39,7 @@ module LedgerSync
 
           def response
             @response ||= client.get(
-              path: ledger_resource_path
+              path: ledger_resource_path(params: { expandSubResources: true })
             )
           end
 

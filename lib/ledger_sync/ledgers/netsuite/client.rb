@@ -62,10 +62,14 @@ module LedgerSync
 
         def ledger_resource_path(args = {})
           resource = args.fetch(:resource, nil)
+          params   = args.fetch(:params, {})
 
           ret = self.class.ledger_resource_type_for(resource_class: resource.class) # This can be turned into a case statement if we need to override
           ret += "/#{resource.ledger_id}" if resource.ledger_id.present? && args.fetch(:id, true)
-          ret
+          Util::URLHelpers.merge_params_in_path(
+            path: ret,
+            params: params
+          )
         end
 
         def metadata_for(record:)
@@ -125,20 +129,23 @@ module LedgerSync
 
         private
 
-        def new_token(body:, method:, url:)
+        def new_token(args = {})
           Token.new(
-            body: body,
-            consumer_key: consumer_key,
-            consumer_secret: consumer_secret,
-            method: method,
-            token_id: token_id,
-            token_secret: token_secret,
-            url: url
+            args.merge(
+              consumer_key: consumer_key,
+              consumer_secret: consumer_secret,
+              token_id: token_id,
+              token_secret: token_secret
+            )
           )
         end
 
-        def request(body: nil, headers: {}, method:, path: nil, request_url: nil)
-          request_url ||= url_from_path(path: path)
+        def request(args = {})
+          body        = args.fetch(:body, nil)
+          headers     = args.fetch(:headers, {})
+          method      = args.fetch(:method)
+          path        = args.fetch(:path, nil)
+          request_url = args.fetch(:request_url, url_from_path(path: path))
 
           token = new_token(
             body: body,

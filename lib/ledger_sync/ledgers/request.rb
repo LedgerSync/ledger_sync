@@ -6,20 +6,24 @@ module LedgerSync
       attr_reader :body,
                   :headers,
                   :method,
+                  :params,
                   :response,
                   :url
 
-      def initialize(body: nil, headers: {}, method: nil, url: nil)
+      def initialize(body: nil, headers: {}, params: {}, method: nil, url: nil)
         @body = body
         @headers = headers
         @method = method
+        @params = params
         @url = url
       end
 
       def perform
         raise 'Request already performed' if performed?
 
-        faraday_response = Faraday.send(method, url) do |req|
+        url_with_params = Util::URLHelpers.merge_params_in_url(params: params, url: url)
+
+        faraday_response = Faraday.send(method, url_with_params) do |req|
           req.headers = headers
           req.body = body.to_json unless body.nil?
         end

@@ -22,7 +22,11 @@ module NetSuiteHelpers
     }.merge(override)
   end
 
-  def api_record_url(record:, id: nil, **params)
+  def api_record_url(args = {})
+    _record = args.fetch(:record)
+    id      = args.fetch(:id, nil)
+    params  = args.fetch(:params, {})
+
     resource_endpoint = netsuite_client.class.ledger_resource_type_for(resource_class: resource.class)
     ret = "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/#{resource_endpoint}"
 
@@ -229,7 +233,13 @@ module NetSuiteHelpers
     define_method("stub_#{record}_find") do
       stub_find_request(
         response_body: opts.hash,
-        url: send(url_method_name, id: opts.id)
+        url: send(
+          url_method_name,
+          params: {
+            expandSubResources: true
+          },
+          id: opts.id
+        )
       )
     end
 
