@@ -21,7 +21,7 @@ module LedgerSync
       def perform
         raise 'Request already performed' if performed?
 
-        url_with_params = self.class.merge_params(params: params, url: url)
+        url_with_params = Util::URLHelpers.merge_params_in_url(params: params, url: url)
 
         faraday_response = Faraday.send(method, url_with_params) do |req|
           req.headers = headers
@@ -51,17 +51,6 @@ module LedgerSync
 
       def self.put(**keywords)
         new(keywords.merge(method: :put))
-      end
-
-      def self.merge_params(args = {})
-        params = args.fetch(:params)
-        uri = args.fetch(:url)
-
-        uri = URI.parse(uri) unless uri.is_a?(URI::HTTPS) || uri.is_a?(URI::HTTP)
-        uri.query = URI.encode_www_form(
-          params.inject(URI.decode_www_form(String(uri.query))) { |prev, param| prev << param }
-        )
-        uri.to_s
       end
     end
   end
