@@ -9,10 +9,6 @@ module LedgerSync
         class Find
           include NetSuite::Operation::Mixin
 
-          def expand_sub_resources?
-            true
-          end
-
           private
 
           def find_in_ledger
