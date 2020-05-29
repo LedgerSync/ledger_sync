@@ -68,7 +68,7 @@ module LedgerSync
           ret += "/#{resource.ledger_id}" if resource.ledger_id.present? && args.fetch(:id, true)
           [
             ret,
-            params.map { |v| v.join('=') }
+            params.map { |v| v.join('=') }.join('&')
           ].compact.join('?')
         end
 
