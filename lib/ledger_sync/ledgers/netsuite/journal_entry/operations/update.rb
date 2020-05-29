@@ -11,7 +11,7 @@ module LedgerSync
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
                 required(:memo).maybe(:string)
-                required(:trandate).maybe(:string)
+                required(:trandate).maybe(:date?)
                 required(:tranId).maybe(:string)
                 required(:currency).maybe(:hash, Types::Reference)
                 required(:subsidiary).maybe(:hash, Types::Reference)
@@ -20,7 +20,7 @@ module LedgerSync
             end
 
             def request_params
-              { replace: 'line' }
+              super.merge({ replace: 'line' })
             end
           end
         end

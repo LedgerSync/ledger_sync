@@ -34,10 +34,6 @@ module LedgerSync
             ).perform
           end
 
-          def ledger_id
-            @ledger_id ||= response.headers['Location'].split('/').last
-          end
-
           def operate
             update_in_ledger
               .and_then { success }
@@ -46,7 +42,7 @@ module LedgerSync
           def response
             @response ||= client.patch(
               body: serializer.serialize(resource: resource),
-              path: ledger_resource_path(params: request_params)
+              path: ledger_resource_path
             )
           end
 

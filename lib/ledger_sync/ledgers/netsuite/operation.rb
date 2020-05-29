@@ -15,11 +15,21 @@ module LedgerSync
               {}
             end
 
+            def ledger_id
+              @ledger_id ||= Util::URLHelpers.id_from_url(url: response.headers['Location'])
+            end
+
             def ledger_resource_path(args = {})
               client.ledger_resource_path(
                 {
                   resource: resource
-                }.merge(args)
+                }.merge(
+                  args.merge(
+                    params: request_params.merge(
+                      args.fetch(:params, {})
+                    )
+                  )
+                )
               )
             end
           end

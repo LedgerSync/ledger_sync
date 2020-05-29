@@ -13,6 +13,7 @@ RSpec.shared_examples 'a netsuite operation' do
       described_class.inferred_resource_class.resource_type.to_s
     end
   end
+  let(:request_params) { described_class.new(client: client, resource: nil).request_params }
 
   before do
     case described_class.operation_method
@@ -33,18 +34,18 @@ RSpec.shared_examples 'a netsuite operation' do
     before do
       case described_class.operation_method
       when :create
-        stub_find_for_record
         stub_create_for_record
+        stub_find_for_record(params: {expandSubResources: true})
       when :delete
         resource.ledger_id = netsuite_records.send(record).hash['id']
         stub_delete_for_record
       when :find
         resource.ledger_id = netsuite_records.send(record).hash['id']
-        stub_find_for_record
+        stub_find_for_record(params: {expandSubResources: true})
       when :update
         resource.ledger_id = netsuite_records.send(record).hash['id']
-        stub_find_for_record
-        stub_update_for_record
+        stub_find_for_record(params: {expandSubResources: true})
+        stub_update_for_record(params: request_params)
       end
     end
 

@@ -148,6 +148,7 @@ module LedgerSync
           path        = args.fetch(:path, nil)
           request_url = args.fetch(:request_url, url_from_path(path: path))
 
+          raise request_url if request_url.include?('replace=line&expandSubResources=true')
           token = new_token(
             body: body,
             method: method,

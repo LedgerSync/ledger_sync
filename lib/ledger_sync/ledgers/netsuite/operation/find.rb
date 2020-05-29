@@ -10,7 +10,7 @@ module LedgerSync
           include NetSuite::Operation::Mixin
 
           def request_params
-            { expandSubResources: true }
+            super.merge({ expandSubResources: true })
           end
 
           private
@@ -43,7 +43,7 @@ module LedgerSync
 
           def response
             @response ||= client.get(
-              path: ledger_resource_path(params: request_params)
+              path: ledger_resource_path
             )
           end
 
