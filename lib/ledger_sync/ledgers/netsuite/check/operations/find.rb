@@ -16,7 +16,7 @@ module LedgerSync
                 required(:department).maybe(:hash, Types::Reference)
                 required(:entity).maybe(:hash, Types::Reference)
                 required(:currency).maybe(:hash, Types::Reference)
-                required(:line_items).maybe(:hash, Types::Reference)
+                required(:line_items).array(Types::Reference)
               end
             end
           end

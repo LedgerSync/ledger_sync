@@ -16,7 +16,7 @@ module LedgerSync
                 required(:department).filled(:hash, Types::Reference)
                 required(:entity).filled(:hash, Types::Reference)
                 required(:currency).filled(:hash, Types::Reference)
-                required(:line_items).filled(:hash, Types::Reference)
+                required(:line_items).array(Types::Reference)
               end
             end
           end
