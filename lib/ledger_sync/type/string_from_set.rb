@@ -34,7 +34,7 @@ module LedgerSync
 
       def valid_value?(args = {})
         value = args.fetch(:value).try(:to_s)
-        return if value.nil?
+        return true if value.blank?
 
         @values.include?(value)
       end
