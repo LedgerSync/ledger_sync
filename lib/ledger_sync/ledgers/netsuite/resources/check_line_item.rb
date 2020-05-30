@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
-require_relative 'account'
-require_relative 'department'
-require_relative 'ledger_class'
-
 module LedgerSync
   module Ledgers
     module NetSuite
       class CheckLineItem < NetSuite::Resource
-        references_one :account, to: Account
-        references_one :ledger_class, to: LedgerClass
-        references_one :department, to: Department
+        references_one :account
+        references_one :ledger_class
+        references_one :department
         attribute :amount, type: Type::Float
         attribute :memo, type: Type::String
       end

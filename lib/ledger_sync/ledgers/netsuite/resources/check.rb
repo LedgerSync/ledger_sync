@@ -1,4 +1,9 @@
 # frozen_string_literal: true
+
+require_relative 'check_line_item'
+require_relative 'customer'
+require_relative 'vendor'
+
 module LedgerSync
   module Ledgers
     module NetSuite
