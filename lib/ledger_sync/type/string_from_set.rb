@@ -22,6 +22,12 @@ module LedgerSync
         )
       end
 
+      def cast_value(args = {})
+        value = args.fetch(:value)
+        return if value.blank?
+        value.strip
+      end
+
       def valid?(args = {})
         super && valid_value?(args)
       end
@@ -34,7 +40,7 @@ module LedgerSync
 
       def valid_value?(args = {})
         value = args.fetch(:value).try(:to_s)
-        return if value.nil?
+        return true if value.blank?
 
         @values.include?(value)
       end
