@@ -29,6 +29,6 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Check, qa: true, client: :netsuite
     )
   end
 
-  it_behaves_like 'a full netsuite resource'
+  it_behaves_like 'a full netsuite resource CRUD'
   it_behaves_like 'a searcher'
 end
