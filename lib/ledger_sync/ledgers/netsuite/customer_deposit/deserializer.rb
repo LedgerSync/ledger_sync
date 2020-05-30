@@ -7,11 +7,9 @@ module LedgerSync
         class Deserializer < NetSuite::Deserializer
           id
 
-          attribute :account,
-                    type: Type::DeserializerAccountType.new(account_class: Account)
+          references_one :account
 
-          attribute :customer,
-                    type: Type::DeserializerCustomerType.new(customer_class: Customer)
+          references_one :customer
 
           attribute :payment
           attribute :undepFunds
