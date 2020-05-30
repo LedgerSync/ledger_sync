@@ -12,12 +12,8 @@ module LedgerSync
           attribute :entitytype
           attribute :credit
           attribute :debit
-          # references_one :account,
-          #                resource_attribute: :account,
-          #                serializer: Account::Serializer
 
           references_one :account,
-                         resource_attribute: :account,
                          serializer: Reference::Serializer
         end
       end

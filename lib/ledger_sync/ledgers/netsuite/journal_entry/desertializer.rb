@@ -17,13 +17,9 @@ module LedgerSync
 
           attribute :tranId
 
-          references_one :currency,
-                         hash_attribute: :currency,
-                         deserializer: Currency::Deserializer
+          references_one :currency
 
-          references_one :subsidiary,
-                         hash_attribute: :subsidiary,
-                         deserializer: Subsidiary::Deserializer
+          references_one :subsidiary
 
           references_many :line_items,
                           hash_attribute: 'line.items',
