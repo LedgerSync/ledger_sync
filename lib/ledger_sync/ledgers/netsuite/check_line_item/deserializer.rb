@@ -3,16 +3,13 @@
 module LedgerSync
   module Ledgers
     module NetSuite
-      class CustomerDeposit
+      class CheckLineItem
         class Deserializer < NetSuite::Deserializer
-          id
-
+          attribute :amount
+          attribute :memo
           references_one :account
-
-          references_one :customer
-
-          attribute :payment
-          attribute :undepFunds
+          references_one :ledger_class
+          references_one :department
         end
       end
     end

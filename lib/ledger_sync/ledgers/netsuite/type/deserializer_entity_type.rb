@@ -4,21 +4,18 @@ module LedgerSync
   module Ledgers
     module NetSuite
       class Type
-        class DeserializerAccountType < LedgerSync::Type::Value
-          def initialize(args = {})
-            @account_class = args.fetch(:account_class)
-          end
-
+        class DeserializerEntityType < LedgerSync::Type::Value
           private
 
           def cast_value(args = {})
             value = args.fetch(:value)
 
-            return if value.nil?
-
-            @account_class.new(
-              ledger_id: value.fetch('id', nil)
-            )
+            unless value.nil?
+              resource = (value.fetch("links").first.fetch("href").include? "vendor") ? Vendor : Customer
+              resource.new(
+                ledger_id: value['id']
+              )
+            end
           end
 
           def valid_classes

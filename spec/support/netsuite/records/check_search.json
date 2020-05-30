@@ -1,0 +1,29 @@
+{
+  "links": [
+    {
+      "rel": "self",
+      "href": "https://5743578-sb1.suitetalk.api.netsuite.com/services/rest/query/v1/suiteql?limit=1000&offset=0"
+    }
+  ],
+  "count": 2,
+  "hasMore": false,
+  "items": [
+    {
+      "links": [],
+      "currency": "1",
+      "entity": "52",
+      "id": "2144",
+      "trandate": "5/11/2020"
+    },
+    {
+      "links": [],
+      "currency": "1",
+      "entity": "52",
+      "id": "4250",
+      "memo": "Sean B",
+      "trandate": "5/24/2020"
+    }
+  ],
+  "offset": 0,
+  "totalResults": 2
+}

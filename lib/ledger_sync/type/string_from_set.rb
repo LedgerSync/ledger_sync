@@ -22,12 +22,6 @@ module LedgerSync
         )
       end
 
-      def cast_value(args = {})
-        value = args.fetch(:value)
-        return if value.blank?
-        value.strip
-      end
-
       def valid?(args = {})
         super && valid_value?(args)
       end
