@@ -11,9 +11,6 @@ module LedgerSync
           attribute :customer,
                     type: Type::SerializerReferenceType.new
 
-          attribute :entityId,
-                    resource_attribute: :external_id
-
           attribute :externalId,
                     resource_attribute: :external_id
 

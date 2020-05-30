@@ -8,9 +8,6 @@ module LedgerSync
           attribute :companyName,
                     resource_attribute: :company_name
 
-          attribute :entityId,
-                    resource_attribute: :external_id
-
           attribute :externalId,
                     resource_attribute: :external_id
 
