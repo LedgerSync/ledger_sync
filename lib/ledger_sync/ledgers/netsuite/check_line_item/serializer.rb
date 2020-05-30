@@ -8,9 +8,9 @@ module LedgerSync
           attribute :amount
           attribute :memo
 
-          references_one :account
-          references_one :department
-          references_one :ledger_class
+          ledger_reference :account
+          ledger_reference :department
+          ledger_reference :ledger_class
         end
       end
     end

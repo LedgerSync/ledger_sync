@@ -8,22 +8,17 @@ module LedgerSync
           attribute :memo
           attribute :trandate
 
-          attribute :account,
-                    type: Type::SerializerReferenceType.new
+          ledger_reference :account
 
-          attribute :department,
-                    type: Type::SerializerReferenceType.new
+          ledger_reference :department
 
-          attribute :entity,
-                    type: Type::SerializerReferenceType.new
+          ledger_reference :currency
 
-          attribute :currency,
-                    type: Type::SerializerReferenceType.new
+          ledger_reference :entity
 
-	        references_many 'expense.items',
-                           resource_attribute: :line_items,
-                           serializer: CheckLineItem::Serializer
-
+          references_many 'expense.items',
+                          resource_attribute: :line_items,
+                          serializer: CheckLineItem::Serializer
         end
       end
     end
