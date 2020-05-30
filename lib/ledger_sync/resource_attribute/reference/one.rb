@@ -13,7 +13,9 @@ module LedgerSync
           end
 
           module ClassMethods
-            def references_one(name, to:)
+            def references_one(name, to: nil)
+              to ||= inferred_client_class.resources[name]
+
               resource_attribute = ResourceAttribute::Reference::One.new(
                 name: name,
                 resource_class: self,

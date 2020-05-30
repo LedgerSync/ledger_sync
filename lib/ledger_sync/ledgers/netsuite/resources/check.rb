@@ -6,10 +6,10 @@ module LedgerSync
         attribute :memo, type: Type::String
         attribute :trandate, type: Type::String
 
-        references_one :account, to: Account
-        references_one :department, to: Department
+        references_one :account
+        references_one :department
         references_one :entity, to: [Customer, Vendor]
-        references_one :currency, to: Currency
+        references_one :currency
 
         references_many :line_items, to: CheckLineItem
       end
