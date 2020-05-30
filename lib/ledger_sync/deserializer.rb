@@ -51,7 +51,9 @@ module LedgerSync
     end
 
     def self.attribute(resource_attribute, args = {}, &block)
-      raise 'You cannot provide resource_attribute in args.  Pass the value as the first argument.' if args.key?(:resource_attribute)
+      if args.key?(:resource_attribute)
+        raise 'You cannot provide resource_attribute in args.  Pass the value as the first argument.'
+      end
 
       _attribute(
         args.merge(
@@ -74,7 +76,7 @@ module LedgerSync
         resource_attribute,
         {
           type: Serialization::Type::DeserializerReferencesOneType.new(
-            deserializer: args.fetch(:deserializer)
+            deserializer: deserializer_from(resource_attribute, args)
           )
         }.merge(args),
         &block
@@ -86,12 +88,21 @@ module LedgerSync
         resource_attribute,
         {
           type: Serialization::Type::DeserializerReferencesManyType.new(
-            deserializer: args.fetch(:deserializer)
+            deserializer: deserializer_from(resource_attribute, args)
           )
         }.merge(args),
         &block
       )
     end
+
+    def self.deserializer_from(resource_attribute, args = {})
+      if args.key?(:deserializer)
+        args.fetch(:deserializer)
+      else
+        resource_key = inferred_resource_class.resource_attributes[resource_attribute].type.resource_class.resource_type
+        require "ledger_sync/ledgers/#{inferred_client_class.root_key}/#{resource_key}/deserializer"
+        inferred_client_class.resources[resource_attribute]::Deserializer
+      end
+    end
   end
 end
-

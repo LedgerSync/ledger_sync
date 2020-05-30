@@ -62,7 +62,7 @@ module LedgerSync
         hash_attribute,
         {
           type: Serialization::Type::SerializerReferencesOneType.new(
-            serializer: args.fetch(:serializer)
+            serializer: args.fetch(:serializer, inferred_client_class.resources[hash_attribute]::Serializer)
           )
         }.merge(args),
         &block
@@ -74,7 +74,7 @@ module LedgerSync
         hash_attribute,
         {
           type: Serialization::Type::SerializerReferencesManyType.new(
-            serializer: args.fetch(:serializer)
+            serializer: args.fetch(:serializer, inferred_client_class.resources[hash_attribute]::Serializer)
           )
         }.merge(args),
         &block

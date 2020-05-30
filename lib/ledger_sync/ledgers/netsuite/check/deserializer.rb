@@ -8,23 +8,20 @@ module LedgerSync
           id
 
           attribute :memo
+
           attribute :trandate
 
-          attribute :account,
-                    type: Type::DeserializerAccountType.new(account_class: Account)
+          references_one :account
 
-          attribute :currency,
-                    type: Type::DeserializerCurrencyType.new(currency_class: Currency)
+          references_one :currency
 
-          attribute :department,
-                    type: Type::DeserializerDepartmentType.new(department_class: Account)
+          references_one :department
 
           attribute :entity,
                     type: Type::DeserializerEntityType.new
 
           references_many :line_items,
-                         hash_attribute: 'expense.items',
-                         deserializer: CheckLineItem::Deserializer
+                          hash_attribute: 'expense.items'
         end
       end
     end

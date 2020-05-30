@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 require_relative '../account/deserializer'
@@ -13,15 +12,14 @@ module LedgerSync
           attribute :amount
           attribute :memo
 
-          attribute :account,
-                    type: Type::DeserializerAccountType.new(account_class: Account)
+          references_one :account,
+                         deserializer: Account::Deserializer
 
-          attribute :ledger_class,
-                    type: Type::DeserializerLedgerClassType.new(ledger_class: LedgerClass)
+          references_one :ledger_class,
+                         deserializer: LedgerClass::Deserializer
 
-          attribute :department,
-                    type: Type::DeserializerDepartmentType.new(department_class: Account)
-
+          references_one :department,
+                         deserializer: Department::Deserializer
         end
       end
     end
