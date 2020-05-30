@@ -52,17 +52,6 @@ module LedgerSync
       def self.put(**keywords)
         new(keywords.merge(method: :put))
       end
-
-      def self.merge_params(args = {})
-        params = args.fetch(:params)
-        uri = args.fetch(:url)
-
-        uri = URI.parse(uri) unless uri.is_a?(URI::HTTPS) || uri.is_a?(URI::HTTP)
-        uri.query = URI.encode_www_form(
-          params.inject(URI.decode_www_form(String(uri.query))) { |prev, param| prev << param }
-        )
-        uri.to_s
-      end
     end
   end
 end
