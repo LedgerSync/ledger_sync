@@ -8,8 +8,6 @@ module LedgerSync
     module NetSuite
       class JournalEntry
         class Serializer < NetSuite::Serializer
-          id
-
           attribute :memo
 
           attribute :trandate

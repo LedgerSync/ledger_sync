@@ -5,8 +5,6 @@ module LedgerSync
     module NetSuite
       class Subsidiary
         class Serializer < NetSuite::Serializer
-          id
-
           attribute :name
 
           attribute :state

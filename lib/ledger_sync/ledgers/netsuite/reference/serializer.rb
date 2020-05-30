@@ -5,7 +5,7 @@ module LedgerSync
     module NetSuite
       class Reference
         class Serializer < NetSuite::Serializer
-          id
+          attribute :id, resource_attribute: :ledger_id
         end
       end
     end

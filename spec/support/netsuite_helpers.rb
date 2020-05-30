@@ -97,7 +97,7 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_find_for_record(params:)
+  def stub_find_for_record(params: {})
     send("stub_#{netsuite_resource_type}_find", params)
   end
 
@@ -157,7 +157,7 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_update_for_record(params:)
+  def stub_update_for_record(params: {})
     send("stub_#{netsuite_resource_type}_update", params)
   end
 
@@ -233,18 +233,20 @@ module NetSuiteHelpers
       )
     end
 
-    define_method("stub_#{record}_find") do |params|
+    define_method("stub_#{record}_find") do |params = {}|
       stub_find_request(
         response_body: opts.hash,
         url: send(
           url_method_name,
-          params: params,
+          params: params.merge(
+            expandSubResources: true
+          ),
           id: opts.id
         )
       )
     end
 
-    define_method("stub_#{record}_update") do |params|
+    define_method("stub_#{record}_update") do |params = {}|
       stub_update_request(
         url: send(
           url_method_name,

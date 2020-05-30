@@ -35,16 +35,16 @@ RSpec.shared_examples 'a netsuite operation' do
       case described_class.operation_method
       when :create
         stub_create_for_record
-        stub_find_for_record(params: {expandSubResources: true})
+        stub_find_for_record(params: { expandSubResources: true })
       when :delete
         resource.ledger_id = netsuite_records.send(record).hash['id']
         stub_delete_for_record
       when :find
         resource.ledger_id = netsuite_records.send(record).hash['id']
-        stub_find_for_record(params: {expandSubResources: true})
+        stub_find_for_record(params: { expandSubResources: true })
       when :update
         resource.ledger_id = netsuite_records.send(record).hash['id']
-        stub_find_for_record(params: {expandSubResources: true})
+        stub_find_for_record(params: { expandSubResources: true })
         stub_update_for_record(params: request_params)
       end
     end

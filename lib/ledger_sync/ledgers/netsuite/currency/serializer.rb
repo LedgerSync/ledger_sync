@@ -5,8 +5,6 @@ module LedgerSync
     module NetSuite
       class Currency
         class Serializer < NetSuite::Serializer
-          id
-
           attribute :name
 
           attribute :externalid,
