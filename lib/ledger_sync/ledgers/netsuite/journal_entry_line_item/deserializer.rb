@@ -1,3 +1,6 @@
+
+
+
 # frozen_string_literal: true
 
 require_relative '../account/deserializer'
@@ -11,10 +14,7 @@ module LedgerSync
           attribute :entitytype
           attribute :credit
           attribute :debit
-          references_one :account,
-                         hash_attribute: :account,
-                         deserializer: Account::Deserializer
-
+          references_one :account
         end
       end
     end
