@@ -10,12 +10,6 @@ module LedgerSync
           # 'Accept' => 'application/schema+json'
         }.freeze
 
-        GLOBAL_REQUEST_PARAMS = {
-          get: {
-            'expandSubResources' => true
-          }
-        }.freeze
-
         WRITE_HEADERS = {
           'Accept' => '*/*',
           'Content-Type' => 'application/json',
@@ -171,7 +165,6 @@ module LedgerSync
               .merge(
                 'Host' => api_host
               ),
-            params: GLOBAL_REQUEST_PARAMS.fetch(method.to_sym, {}),
             method: method,
             url: request_url
           )

@@ -35,10 +35,13 @@ module NetSuiteHelpers
       ret += id.to_s
     end
 
-    LedgerSync::Ledgers::Request.merge_params(
-      params: params,
-      url: ret
-    )
+    if params.present?
+      uri = URI(ret)
+      uri.query = params.to_query
+      ret = uri.to_s
+    end
+
+    ret
   end
 
   def netsuite_client(env: false)
