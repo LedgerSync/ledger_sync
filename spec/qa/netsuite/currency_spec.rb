@@ -9,9 +9,9 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Currency, qa: true, client: :netsu
       name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :netsuite_currency }
+  let(:record) { :currency }
   let(:resource) do
-    FactoryBot.create(:currency)
+    FactoryBot.create(:netsuite_currency, symbol: 'ABC')
   end
 
   it_behaves_like 'a full netsuite resource'

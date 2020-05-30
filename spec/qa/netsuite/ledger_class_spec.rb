@@ -9,9 +9,9 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::LedgerClass, qa: true, client: :ne
       name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :netsuite_ledger_class }
+  let(:record) { :classification }
   let(:resource) do
-    LedgerSync::LedgerClass.new(
+    LedgerSync::Ledgers::NetSuite::LedgerClass.new(
       external_id: "ledger_class_#{test_run_id}",
       name: "Test Ledger Class #{test_run_id}"
     )
