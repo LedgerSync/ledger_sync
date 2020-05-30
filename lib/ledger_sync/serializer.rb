@@ -87,7 +87,7 @@ module LedgerSync
       else
         resource_key = inferred_resource_class.resource_attributes[hash_attribute].type.resource_class.resource_type
         require "ledger_sync/ledgers/#{inferred_client_class.root_key}/#{resource_key}/serializer"
-        inferred_client_class.resources[hash_attribute]::Serializer
+        inferred_client_class.resources[resource_key]::Serializer
       end
     end
   end

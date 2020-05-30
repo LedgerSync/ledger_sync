@@ -101,7 +101,7 @@ module LedgerSync
       else
         resource_key = inferred_resource_class.resource_attributes[resource_attribute].type.resource_class.resource_type
         require "ledger_sync/ledgers/#{inferred_client_class.root_key}/#{resource_key}/deserializer"
-        inferred_client_class.resources[resource_attribute]::Deserializer
+        inferred_client_class.resources[resource_key]::Deserializer
       end
     end
   end
