@@ -97,8 +97,8 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_find_for_record
-    send("stub_#{netsuite_resource_type}_find")
+  def stub_find_for_record(params: {})
+    send("stub_#{netsuite_resource_type}_find", params)
   end
 
   def stub_find_request(response_body:, url:)
@@ -157,8 +157,8 @@ module NetSuiteHelpers
       )
   end
 
-  def stub_update_for_record
-    send("stub_#{netsuite_resource_type}_update")
+  def stub_update_for_record(params: {})
+    send("stub_#{netsuite_resource_type}_update", params)
   end
 
   def stub_update_request(url:)
@@ -226,26 +226,33 @@ module NetSuiteHelpers
 
     define_method("stub_#{record}_delete") do
       stub_delete_request(
-        url: send(url_method_name, id: opts.id)
-      )
-    end
-
-    define_method("stub_#{record}_find") do
-      stub_find_request(
-        response_body: opts.hash,
         url: send(
           url_method_name,
-          params: {
-            expandSubResources: true
-          },
           id: opts.id
         )
       )
     end
 
-    define_method("stub_#{record}_update") do
+    define_method("stub_#{record}_find") do |params = {}|
+      stub_find_request(
+        response_body: opts.hash,
+        url: send(
+          url_method_name,
+          params: params.merge(
+            expandSubResources: true
+          ),
+          id: opts.id
+        )
+      )
+    end
+
+    define_method("stub_#{record}_update") do |params = {}|
       stub_update_request(
-        url: send(url_method_name, id: opts.id)
+        url: send(
+          url_method_name,
+          params: params,
+          id: opts.id
+        )
       )
     end
   end
