@@ -7,6 +7,7 @@ module LedgerSync
     class Attribute
       attr_reader :block,
                   :hash_attribute,
+                  :if_method,
                   :resource_attribute,
                   :resource_class,
                   :type
@@ -17,6 +18,7 @@ module LedgerSync
         @resource_attribute = args.fetch(:resource_attribute, nil).try(:to_s)
         @resource_class     = args.fetch(:resource_class, nil)
         @type               = args.fetch(:type, nil) || LedgerSync::Type::Value.new
+        @if_method          = args.fetch(:if, nil)
       end
 
       def block_value_for(args = {})

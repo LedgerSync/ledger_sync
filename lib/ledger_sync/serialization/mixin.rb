@@ -46,10 +46,12 @@ module LedgerSync
           resource_class     = args.fetch(:resource_class, nil)
           serializer         = args.fetch(:serializer, nil)
           type               = args.fetch(:type, nil)
+          if_method          = args.fetch(:if, nil)
 
           attribute_class.new(
             block: block,
             hash_attribute: hash_attribute,
+            if: if_method,
             resource_attribute: resource_attribute,
             resource_class: resource_class,
             serializer: serializer,

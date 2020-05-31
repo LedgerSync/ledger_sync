@@ -21,12 +21,15 @@ module LedgerSync
         self.class.attributes.each do |converter_attribute|
           next if only_changes && !source.attribute_changed?(converter_attribute.source_attribute)
 
-
-          # This is for in place changes
-          destination = converter_attribute.build_destination!(
+          args_to_pass = {
             destination: destination,
             source: source
-          )
+          }
+          next if converter_attribute.if_method.present? && !send(converter_attribute.if_method, args_to_pass)
+
+
+          # This is for in place changes
+          destination = converter_attribute.build_destination!(args_to_pass)
         end
 
         destination

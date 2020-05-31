@@ -7,7 +7,13 @@ RSpec.describe LedgerSync::Serializer do
     Class.new(LedgerSync::Serializer) do
       attribute :name
       attribute :phone_number
-      attribute :email
+      attribute :email, if: :email_present?
+
+      def email_present?(args = {})
+        resource = args.fetch(:resource)
+
+        resource.email.present?
+      end
     end
   end
 
@@ -54,6 +60,13 @@ RSpec.describe LedgerSync::Serializer do
         'phone_number' => 'test_phone'
       }
       expect(test_serializer.serialize(resource: test_resource)).to eq(h)
+    end
+
+    context 'if method' do
+      it do
+        test_resource.email = nil
+        expect(test_serializer.serialize(resource: test_resource)).not_to have_key('email')
+      end
     end
 
     context 'only_changes' do
