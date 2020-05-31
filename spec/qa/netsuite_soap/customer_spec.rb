@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Customer, qa: true, client: :n
   end
   let(:record) { :customer }
   let(:resource) do
-    LedgerSync::Customer.new(
+    LedgerSync::NetSuiteSOAP::Customer.new(
       email: "#{rand_id}@example.com",
       name: "Test Customer #{rand_id}",
       phone_number: '1234567890',

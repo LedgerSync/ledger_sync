@@ -9,9 +9,9 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Department, qa: true, client: :net
       name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :netsuite_department }
+  let(:record) { :department }
   let(:resource) do
-    LedgerSync::Department.new(
+    LedgerSync::Ledgers::NetSuite::Department.new(
       external_id: "department_#{test_run_id}",
       name: "Test Department #{test_run_id}"
     )

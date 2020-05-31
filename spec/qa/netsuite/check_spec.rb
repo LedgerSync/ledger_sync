@@ -9,11 +9,11 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Check, qa: true, client: :netsuite
       memo: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :netsuite_check }
+  let(:record) { :check }
   let(:resource) do
     LedgerSync::Ledgers::NetSuite::Check.new(
-      memo: "Hello World",
-      trandate: "2020-06-01",
+      memo: 'Hello World',
+      trandate: '2020-06-01',
       entity: LedgerSync::Ledgers::NetSuite::Vendor.new(ledger_id: 52),
       account: LedgerSync::Ledgers::NetSuite::Account.new(ledger_id: 316),
       department: nil,

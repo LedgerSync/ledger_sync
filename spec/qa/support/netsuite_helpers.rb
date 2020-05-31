@@ -13,7 +13,7 @@ module QA
 
     def existing_account_resource
       LedgerSync::Ledgers::NetSuite::Account.new(
-        ledger_id: 220,
+        ledger_id: 220
       )
     end
 
@@ -24,7 +24,7 @@ module QA
       )
     end
 
-    def existing_subsidiary_resource
+    def existing_netsuite_subsidiary_resource
       LedgerSync::Ledgers::NetSuite::Subsidiary.new(
         ledger_id: 2,
         name: "QA Subsidary #{test_run_id}"

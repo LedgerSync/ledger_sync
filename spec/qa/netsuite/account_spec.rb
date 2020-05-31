@@ -9,11 +9,11 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Account, qa: true, client: :netsui
       name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :netsuite_customer }
+  let(:record) { :account }
   let(:resource) do
     FactoryBot.create(
-      :account,
-      account_type: 'Income',
+      :netsuite_account,
+      account_type: 'income',
       number: '100199'
     )
   end
