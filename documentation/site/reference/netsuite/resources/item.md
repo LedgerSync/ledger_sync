@@ -1,6 +1,6 @@
 ---
 title: item
-weight: 10
+weight: 12
 layout: reference_netsuite
 ---
 

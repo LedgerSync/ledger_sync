@@ -1,6 +1,6 @@
 ---
 title: invoice_line_item
-weight: 9
+weight: 11
 layout: reference_netsuite
 ---
 

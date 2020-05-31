@@ -1,6 +1,6 @@
 ---
 title: subsidiary
-weight: 14
+weight: 18
 layout: reference_netsuite
 ---
 
