@@ -27,6 +27,12 @@ module LedgerSync
           Rack::Utils.build_query(str_params.merge(HashHelpers.deep_stringify_keys(params)))
         ].compact.join('?')
       end
+
+      def self.id_from_url(args = {})
+        uri = args.fetch(:url)
+
+        URI.parse(uri).path.split('/').last
+      end
     end
   end
 end

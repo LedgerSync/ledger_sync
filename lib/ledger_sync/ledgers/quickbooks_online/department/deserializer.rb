@@ -19,7 +19,7 @@ module LedgerSync
           attribute(:parent) do |args = {}|
             hash = args.fetch(:hash)
 
-            LedgerSync::Department.new(ledger_id: hash['ParentRef']) if hash['ParentRef'].nil?
+            LedgerSync::QuickBooks::Department.new(ledger_id: hash['ParentRef']) if hash['ParentRef'].nil?
           end
         end
       end
