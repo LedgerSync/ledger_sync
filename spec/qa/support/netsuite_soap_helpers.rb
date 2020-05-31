@@ -12,7 +12,7 @@ module QA
     end
 
     def existing_subsidiary_resource
-      LedgerSync::Subsidiary.new(
+      LedgerSync::Ledgers::NetSuiteSOAP::Subsidiary.new(
         ledger_id: 2,
         name: "QA Subsidary #{test_run_id}"
       )
