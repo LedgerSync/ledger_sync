@@ -123,7 +123,8 @@ module LedgerSync
         def self.ledger_resource_type_overrides
           {
             CustomerDeposit => 'customerdeposit',
-            LedgerClass => 'classification'
+            LedgerClass => 'classification',
+            JournalEntry => 'journalEntry'
           }
         end
 

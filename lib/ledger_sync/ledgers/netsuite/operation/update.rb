@@ -34,10 +34,6 @@ module LedgerSync
             ).perform
           end
 
-          def ledger_id
-            @ledger_id ||= response.headers['Location'].split('/').last
-          end
-
           def operate
             update_in_ledger
               .and_then { success }
