@@ -1,6 +1,6 @@
 ---
 title: customer
-weight: 3
+weight: 5
 layout: reference_netsuite
 ---
 
@@ -22,7 +22,7 @@ layout: reference_netsuite
 
 ## Operations
 
-### LedgerSync::Ledgers::NetSuite::Customer::Operations::Find
+### LedgerSync::Ledgers::NetSuite::Customer::Operations::Create
 
 #### Resource Validations
 
@@ -40,7 +40,7 @@ layout: reference_netsuite
 
 | Name | Type |
 | ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::Customer::Operations::Create
+### LedgerSync::Ledgers::NetSuite::Customer::Operations::Find
 
 #### Resource Validations
 

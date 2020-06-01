@@ -1,6 +1,6 @@
 ---
 title: department
-weight: 5
+weight: 7
 layout: reference_netsuite
 ---
 
@@ -21,12 +21,6 @@ layout: reference_netsuite
 
 ## Operations
 
-### LedgerSync::Ledgers::NetSuite::Department::Operations::Find
-
-#### Resource Validations
-
-| Name | Type |
-| ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Department::Operations::Create
 
 #### Resource Validations
@@ -40,6 +34,12 @@ layout: reference_netsuite
 | Name | Type |
 | ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::Department::Operations::Delete
+
+#### Resource Validations
+
+| Name | Type |
+| ---- | ---- |
+### LedgerSync::Ledgers::NetSuite::Department::Operations::Find
 
 #### Resource Validations
 

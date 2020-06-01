@@ -1,6 +1,6 @@
 ---
 title: customer_deposit
-weight: 4
+weight: 6
 layout: reference_netsuite
 ---
 
@@ -20,6 +20,12 @@ layout: reference_netsuite
 
 ## Operations
 
+### LedgerSync::Ledgers::NetSuite::CustomerDeposit::Operations::Delete
+
+#### Resource Validations
+
+| Name | Type |
+| ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::CustomerDeposit::Operations::Find
 
 #### Resource Validations
@@ -33,12 +39,6 @@ layout: reference_netsuite
 | Name | Type |
 | ---- | ---- |
 ### LedgerSync::Ledgers::NetSuite::CustomerDeposit::Operations::Update
-
-#### Resource Validations
-
-| Name | Type |
-| ---- | ---- |
-### LedgerSync::Ledgers::NetSuite::CustomerDeposit::Operations::Delete
 
 #### Resource Validations
 
