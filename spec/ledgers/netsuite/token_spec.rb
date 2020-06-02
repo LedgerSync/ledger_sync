@@ -97,6 +97,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Token do
   describe '#signature' do
     it do
       allow(token).to receive(:signature_data_string) { expected_signature_data_string }
+      pd token.headers(realm: 'TEST_REALM')['Authorization']
       expect(token.signature).to eq('i7MEtGwhCTIZbTsTrNGw9LdcERn4wsjt5C7TxmKWIfU=')
     end
 

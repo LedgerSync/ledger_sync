@@ -14,23 +14,25 @@ module LedgerSync
                     :consumer_key,
                     :consumer_secret,
                     :method,
+                    :oauth_version,
                     :signature_method,
                     :token_id,
                     :token_secret,
                     :url
 
-        def initialize(body: {}, consumer_key:, consumer_secret:, method:, nonce: nil, signature_method: nil, timestamp: nil, token_id:, token_secret:, url:)
-          @body = body || {}
+        def initialize(args = {})
+          @body             = args.fetch(:body, {})
           @body_json_string = body.to_json
-          @consumer_key = consumer_key
-          @consumer_secret = consumer_secret
-          @method = method.to_s.upcase
-          @nonce = nonce
-          @signature_method = signature_method || DEFAULT_SIGNATURE_METHOD
-          @timestamp = timestamp
-          @token_id = token_id
-          @token_secret = token_secret
-          @url = url
+          @consumer_key     = args.fetch(:consumer_key)
+          @consumer_secret  = args.fetch(:consumer_secret)
+          @method           = args.fetch(:method).to_s.upcase
+          @nonce            = args.fetch(:nonce, nil)
+          @oauth_version    = args.fetch(:oauth_version, nil) || self.class::OAUTH_VERSION
+          @signature_method = args.fetch(:signature_method, nil) || self.class::DEFAULT_SIGNATURE_METHOD
+          @timestamp        = args.fetch(:timestamp, nil)
+          @token_id         = args.fetch(:token_id)
+          @token_secret     = args.fetch(:token_secret)
+          @url              = args.fetch(:url)
         end
 
         def alphanumerics
@@ -46,7 +48,7 @@ module LedgerSync
               [:oauth_signature_method, signature_method],
               [:oauth_timestamp, timestamp],
               [:oauth_nonce, escape(nonce)],
-              [:oauth_version, OAUTH_VERSION],
+              [:oauth_version, oauth_version],
               [:oauth_signature, escape(signature)]
             ]
 
@@ -102,6 +104,8 @@ module LedgerSync
             signer.hmac_sha1(key: signature_key)
           when 'HMAC-SHA256'
             signer.hmac_sha256(key: signature_key)
+          else
+            raise "Uknown signature method: #{signature_method}"
           end
         end
 
