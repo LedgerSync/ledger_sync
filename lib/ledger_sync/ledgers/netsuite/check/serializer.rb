@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/serializer'
+
 module LedgerSync
   module Ledgers
     module NetSuite
@@ -8,13 +10,17 @@ module LedgerSync
           attribute :memo
           attribute :trandate
 
-          ledger_reference :account
+          references_one :account,
+                         serializer: Reference::Serializer
 
-          ledger_reference :department
+          references_one :department,
+                         serializer: Reference::Serializer
 
-          ledger_reference :currency
+          references_one :currency,
+                         serializer: Reference::Serializer
 
-          ledger_reference :entity
+          references_one :entity,
+                         serializer: Reference::Serializer
 
           references_many 'expense.items',
                           resource_attribute: :line_items,

@@ -6,17 +6,17 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Customer, qa: true, client: :netsu
   let(:client) { netsuite_client }
   let(:attribute_updates) do
     {
-      name: "QA UPDATE #{test_run_id}"
+      companyName: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :netsuite_customer }
+  let(:record) { :customer }
   let(:resource) do
-    LedgerSync::Customer.new(
+    LedgerSync::Ledgers::NetSuite::Customer.new(
       email: "#{test_run_id}@example.com",
       external_id: "customer_#{test_run_id}",
-      name: "Test Customer #{test_run_id}",
-      phone_number: '1234567890',
-      subsidiary: existing_subsidiary_resource
+      companyName: "Test Customer #{test_run_id}",
+      phone: '1234567890',
+      subsidiary: existing_netsuite_subsidiary_resource
     )
   end
 

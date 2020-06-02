@@ -21,8 +21,7 @@ serializer = LedgerSync::Ledgers::NetSuite::Customer::Serializer.new
 serializer.serialize(resource: customer)
 # Sample output:
 # {
-  #   "companyName" => "Test Company",
-#   "entityId" => "ext_123",
+#   "companyName" => "Test Company",
 #   "externalId" => "ext_123",
 #   "email" => nil,
 #   "phone" => nil,
@@ -40,7 +39,6 @@ Deserializers take a hash and output a `Resource`.  For example:
 ```ruby
 h = {
   "companyName" => "Test Company",
-  "entityId" => "ext_123",
   "externalId" => "ext_123",
   "email" => nil,
   "id" => "987654321",

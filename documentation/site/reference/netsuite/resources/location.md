@@ -1,6 +1,6 @@
 ---
 title: location
-weight: 12
+weight: 16
 layout: reference_netsuite
 ---
 

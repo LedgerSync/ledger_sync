@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
+require_relative '../reference/serializer'
+
 module LedgerSync
   module Ledgers
     module NetSuite
       class CustomerDeposit
         class Serializer < NetSuite::Serializer
-          attribute :account,
-                    type: Type::SerializerReferenceType.new
+          references_one :account,
+                         serializer: Reference::Serializer
 
-          attribute :customer,
-                    type: Type::SerializerReferenceType.new
-
-          attribute :entityId,
-                    resource_attribute: :external_id
+          references_one :customer,
+                         serializer: Reference::Serializer
 
           attribute :externalId,
                     resource_attribute: :external_id

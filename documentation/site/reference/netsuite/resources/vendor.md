@@ -1,6 +1,6 @@
 ---
 title: vendor
-weight: 15
+weight: 19
 layout: reference_netsuite
 ---
 

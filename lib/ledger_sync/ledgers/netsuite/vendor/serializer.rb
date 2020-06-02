@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/serializer'
+
 module LedgerSync
   module Ledgers
     module NetSuite
@@ -7,9 +9,6 @@ module LedgerSync
         class Serializer < NetSuite::Serializer
           attribute :companyName,
                     resource_attribute: :company_name
-
-          attribute :entityId,
-                    resource_attribute: :external_id
 
           attribute :externalId,
                     resource_attribute: :external_id
@@ -22,8 +21,8 @@ module LedgerSync
           attribute :lastName,
                     resource_attribute: :last_name
 
-          attribute :subsidiary,
-                    type: Type::SerializerReferenceType.new
+          references_one :subsidiary,
+                         serializer: Reference::Serializer
         end
       end
     end

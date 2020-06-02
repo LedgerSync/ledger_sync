@@ -1,6 +1,6 @@
 ---
 title: invoice
-weight: 8
+weight: 10
 layout: reference_netsuite
 ---
 

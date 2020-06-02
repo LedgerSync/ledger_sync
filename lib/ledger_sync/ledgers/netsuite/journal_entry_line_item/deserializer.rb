@@ -14,6 +14,7 @@ module LedgerSync
           attribute :entitytype
           attribute :credit
           attribute :debit
+          attribute :memo
           references_one :account
         end
       end
