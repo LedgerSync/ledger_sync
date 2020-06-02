@@ -13,6 +13,7 @@ module LedgerSync
         attribute :credit, type: Type::Float
         attribute :debit, type: Type::Float
         attribute :entitytype, type: Type::String
+        attribute :memo, type: Type::String
 
         def name
           description

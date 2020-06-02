@@ -14,9 +14,11 @@ module LedgerSync
 
           attribute :tranId
 
-          references_one :currency
+          references_one :currency,
+                         serializer: Reference::Serializer
 
-          references_one :subsidiary
+          references_one :subsidiary,
+                         serializer: Reference::Serializer
 
           references_many 'line.items',
                           resource_attribute: :line_items,
