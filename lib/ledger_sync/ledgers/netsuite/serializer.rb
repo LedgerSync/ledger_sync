@@ -7,10 +7,6 @@ module LedgerSync
   module Ledgers
     module NetSuite
       class Serializer < LedgerSync::Serializer
-        def self.ledger_reference(hash_attribute, args = {})
-          attribute hash_attribute,
-                    args.merge(type: Type::SerializerReferenceType.new)
-        end
       end
     end
   end

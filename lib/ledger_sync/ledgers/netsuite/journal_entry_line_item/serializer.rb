@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../account/serializer'
 require_relative '../reference/serializer'
 
 module LedgerSync
@@ -12,7 +11,7 @@ module LedgerSync
           attribute :entitytype
           attribute :credit
           attribute :debit
-
+          attribute :memo
           references_one :account,
                          serializer: Reference::Serializer
         end

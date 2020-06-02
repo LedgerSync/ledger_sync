@@ -1,6 +1,6 @@
 ---
 title: currency
-weight: 2
+weight: 4
 layout: reference_netsuite
 ---
 

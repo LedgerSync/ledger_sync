@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/serializer'
+
 module LedgerSync
   module Ledgers
     module NetSuite
@@ -18,8 +20,8 @@ module LedgerSync
 
           attribute :lastName
 
-          attribute :subsidiary,
-                    type: Type::SerializerReferenceType.new
+          references_one :subsidiary,
+                         serializer: Reference::Serializer
         end
       end
     end
