@@ -8,6 +8,7 @@ module LedgerSync
       class Attribute
         attr_reader :block,
                     :destination_attribute,
+                    :if_method,
                     :source_attribute,
                     :type
 
@@ -16,6 +17,7 @@ module LedgerSync
           @destination_attribute = args.fetch(:destination_attribute, nil).to_s
           @source_attribute      = args.fetch(:source_attribute, destination_attribute).to_s
           @type                  = args.fetch(:type, nil) || LedgerSync::Type::Value.new
+          @if_method             = args.fetch(:if, nil)
 
           return if block.blank?
 

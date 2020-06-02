@@ -10,7 +10,17 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
 
     # Standard attributes
     klass.attribute :foo_to, source_attribute: :foo_from
-    klass.attribute :bar_to, source_attribute: :bar_from
+    klass.attribute :bar_to, source_attribute: :bar_from, if: :bar_from_present?
+
+    klass.define_method(:bar_from_present?) do |args = {}|
+      source = args.fetch(:source)
+
+      if source.is_a?(Hash)
+        source['bar_from'].present?
+      else
+        source.bar_from.present?
+      end
+    end
 
     # references_one
     klass.references_one :ref_one_to,
@@ -176,6 +186,14 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     let(:source) { source_hash }
 
     it { expect_hash_values }
+
+    context 'with if method' do
+      let(:destination) { {} }
+      before { source[:bar_from] = nil }
+      it do
+        expect(converted).not_to have_key('bar_to')
+      end
+    end
   end
 
   context 'when destination=resource, source=hash' do
@@ -197,5 +215,12 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     let(:source) { source_resource }
 
     it { expect_hash_values }
+    context 'with if method' do
+      let(:destination) { {} }
+      before { source.bar_from = nil }
+      it do
+        expect(converted).not_to have_key('bar_to')
+      end
+    end
   end
 end

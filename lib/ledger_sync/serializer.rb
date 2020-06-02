@@ -28,6 +28,7 @@ module LedgerSync
 
       self.class.attributes.each_value do |serializer_attribute|
         next if only_changes && !resource.attribute_changed?(serializer_attribute.resource_attribute)
+        next if serializer_attribute.if_method.present? && !send(serializer_attribute.if_method, resource: resource)
 
         ret = Util::HashHelpers.deep_merge(
           hash_to_merge_into: ret,
