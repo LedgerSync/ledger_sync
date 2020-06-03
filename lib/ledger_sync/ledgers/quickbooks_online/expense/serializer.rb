@@ -29,14 +29,15 @@ module LedgerSync
 
           attribute('EntityRef') do |args = {}|
             resource = args.fetch(:resource)
-
-            {
-              'name' => resource.entity.name,
-              'value' => resource.entity.ledger_id,
-              'type' => Client.ledger_resource_type_for(
-                resource_class: resource.entity.class
-              ).classify
-            }
+            if resource.entity
+              {
+                'name' => resource.entity.name,
+                'value' => resource.entity.ledger_id,
+                'type' => Client.ledger_resource_type_for(
+                  resource_class: resource.entity.class
+                ).classify
+              }
+            end
           end
 
           attribute 'DocNumber',
