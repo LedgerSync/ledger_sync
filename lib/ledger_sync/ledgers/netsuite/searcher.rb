@@ -18,6 +18,10 @@ module LedgerSync
           @query_table ||= client.class.ledger_resource_type_for(resource_class: self.class.inferred_resource_class)
         end
 
+        def request_url
+          client.api_base_url.gsub('/record/v1', '') + "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
+        end
+
         def resources
           resource_class = self.class.inferred_resource_class
 
@@ -25,7 +29,7 @@ module LedgerSync
             @request = client
                        .post(
                          body: { q: query_string.to_s },
-                         request_url: client.api_base_url.gsub('/record/v1', '') + "/query/v1/suiteql?limit=#{limit}&offset=#{offset}"
+                         request_url: request_url
                        )
 
             case request.status
@@ -37,6 +41,10 @@ module LedgerSync
               end
             when 404
               []
+            when 400
+              if request.body["title"].include? "Invalid search query Search error occurred: Record ‘subsidiary’ was not found"
+                raise LedgerSync::Ledgers::NetSuite::Error::SubsidiariesNotEnabled
+              end
             end
           end
         end
