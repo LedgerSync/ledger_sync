@@ -15,7 +15,7 @@ module LedgerSync
           attribute :tranId
 
           references_one :currency,
-                         serializer: Reference::Serializer
+                         serializer: Reference::Serializer, if: :currency_present?
 
           references_one :subsidiary,
                          serializer: Reference::Serializer
@@ -24,6 +24,11 @@ module LedgerSync
                           resource_attribute: :line_items,
                           serializer: JournalEntryLineItem::Serializer
 
+          def currency_present?(args = {})
+            resource = args.fetch(:resource)
+
+            resource.currency.present?
+          end
         end
       end
     end

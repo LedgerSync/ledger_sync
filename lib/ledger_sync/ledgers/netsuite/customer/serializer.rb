@@ -9,9 +9,6 @@ module LedgerSync
         class Serializer < NetSuite::Serializer
           attribute :companyName
 
-          attribute :entityId,
-                    resource_attribute: :external_id
-
           attribute :externalId,
                     resource_attribute: :external_id
 
