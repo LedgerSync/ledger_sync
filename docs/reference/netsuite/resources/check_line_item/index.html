@@ -3,10 +3,10 @@
 
 <head>
 
-    <title>LedgerSync - Getting Started - LedgerSync</title>
+    <title>LedgerSync - check_line_item - LedgerSync</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="In this section you'll find basic information about Libris and how to use it." />
+    <meta name="description" content="An open-source library for easily syncing with accounting software, general ledgers, ERPs, and other ledgers." />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i%26display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/main.css">
 
@@ -164,107 +164,23 @@
     <div class="inner outer">
     <div class="guides-content">
 
-        <nav id="guides-nav" class="guides-nav">
+         <nav id="guides-nav" class="guides-nav">
     <div id="guides-nav-inside" class="guides-nav-inside sticky">
         <button id="guides-nav-toggle" class="guides-nav-toggle">Navigate<span class="icon-angle-right" aria-hidden="true"></span></button>
         <div class="guides-toc-wrap">
             <ul id="guides-toc" class="guides-toc">
                    
                 <li class="toc-item">
-                    <a href="/guides/">Welcome to LedgerSync</a>
+                    <a href="/reference/netsuite/">NetSuite</a>
                 </li>
 
-                        
-                <li class="toc-item has-children current active">
-                    <a href="/guides/getting-started/">Getting Started</a>  
-                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
-
-  <li class="toc-item">
-    <a href="/guides/getting-started/installation/">Installation</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/getting-started/quick-start/">Quick Start</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/getting-started/get-help/">Get Help</a>
-  </li>
-
-</ul>
- 
-                </li>
                         
                 <li class="toc-item has-children">
-                    <a href="/guides/architecture/">Architecture</a>  
+                    <a href="/reference/netsuite/authentication/">Authentication</a>  
                     <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
 
   <li class="toc-item">
-    <a href="/guides/architecture/clients/">Clients</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/architecture/resources/">Resources</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/architecture/serialization/">Serialization</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/architecture/operations/">Operations</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/architecture/searchers/">Operations</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/architecture/results/">Results</a>
-  </li>
-
-</ul>
- 
-                </li>
-                        
-                <li class="toc-item has-children">
-                    <a href="/guides/ledgers/">Ledgers</a>  
-                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
-
-  <li class="toc-item">
-    <a href="/guides/ledgers/netsuite/">NetSuite REST</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/ledgers/netsuite_soap/">NetSuite SOAP</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/ledgers/quickbooks_online/">QuickBooks Online</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/ledgers/stripe/">Stripe</a>
-  </li>
-
-</ul>
- 
-                </li>
-                        
-                <li class="toc-item has-children">
-                    <a href="/guides/customization/">Customization</a>  
-                    <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
-
-  <li class="toc-item">
-    <a href="/guides/customization/resource_converters/">Resource Converters</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/customization/custom_resources/">Custom Resources</a>
-  </li>
-
-  <li class="toc-item">
-    <a href="/guides/customization/custom_serializers/">Custom Serializers</a>
+    <a href="/reference/netsuite/authentication/token_based_authentication/">Token Based Authentication</a>
   </li>
 
 </ul>
@@ -272,43 +188,91 @@
                 </li>
                         
                 <li class="toc-item">
-                    <a href="/guides/tips_and_more/">Tips and More</a>  
+                    <a href=""></a>  
                 </li>
                         
-                <li class="toc-item has-children">
-                    <a href="/guides/contribute/">Contribute</a>  
+                <li class="toc-item has-children active">
+                    <a href="/reference/netsuite/resources/">Resources</a>  
                     <button class="submenu-toggle"><span class="screen-reader-text">Submenu</span><span class="icon-angle-right" aria-hidden="true"></span></button> <ul class="toc-submenu">
 
   <li class="toc-item">
-    <a href="/guides/contribute/console/">Console</a>
+    <a href="/reference/netsuite/resources/account/">account</a>
   </li>
 
   <li class="toc-item">
-    <a href="/guides/contribute/deployment/">Console</a>
+    <a href="/reference/netsuite/resources/check/">check</a>
+  </li>
+
+  <li class="toc-item current">
+    <a href="/reference/netsuite/resources/check_line_item/">check_line_item</a>
   </li>
 
   <li class="toc-item">
-    <a href="/guides/contribute/documentation/">Documentation</a>
+    <a href="/reference/netsuite/resources/currency/">currency</a>
   </li>
 
   <li class="toc-item">
-    <a href="/guides/contribute/qa/">QA</a>
+    <a href="/reference/netsuite/resources/customer/">customer</a>
   </li>
 
   <li class="toc-item">
-    <a href="/guides/contribute/testing/">Testing</a>
+    <a href="/reference/netsuite/resources/customer_deposit/">customer_deposit</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/department/">department</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/deposit/">deposit</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/deposit_line_item/">deposit_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/invoice/">invoice</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/invoice_line_item/">invoice_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/item/">item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/journal_entry/">journal_entry</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/journal_entry_line_item/">journal_entry_line_item</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/ledger_class/">ledger_class</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/location/">location</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/resource/">resource</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/subsidiary/">subsidiary</a>
+  </li>
+
+  <li class="toc-item">
+    <a href="/reference/netsuite/resources/vendor/">vendor</a>
   </li>
 
 </ul>
  
-                </li>
-                        
-                <li class="toc-item">
-                    <a href="/guides/community/">Where To Get Support</a>  
-                </li>
-                        
-                <li class="toc-item">
-                    <a href="/guides/modern-treasury/">Modern Treasury</a>  
                 </li>
                 
 
@@ -323,12 +287,55 @@
         <article class="post type-guides">
             <div class="post-inside">
                 <header class="post-header">
-                    <h1 class="post-title line-left">Getting Started</h1>
+                    <h1 class="post-title line-left">check_line_item</h1>
                 </header>
                 <!-- .post-header -->
                 <div class="post-content">
-                    <p>Once you have <a href="/guides/getting-started/installation">installed LedgerSync</a>, visit the
-<a href="/guides/getting-started/quick-start">Quick Start Guide</a> to perform your first operation.</p>
+                    <h2 id="ledgersyncledgersnetsuitechecklineitem">LedgerSync::Ledgers::NetSuite::CheckLineItem</h2>
+
+<h2 id="attributes">Attributes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>external_id</td>
+      <td>LedgerSync::Type::ID</td>
+    </tr>
+    <tr>
+      <td>ledger_id</td>
+      <td>LedgerSync::Type::ID</td>
+    </tr>
+    <tr>
+      <td>account</td>
+      <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+    <tr>
+      <td>ledger_class</td>
+      <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+    <tr>
+      <td>department</td>
+      <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+    <tr>
+      <td>amount</td>
+      <td>LedgerSync::Type::Float</td>
+    </tr>
+    <tr>
+      <td>memo</td>
+      <td>LedgerSync::Type::String</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="operations">Operations</h2>
+
          
                     <hr />
 
@@ -336,11 +343,43 @@
 
                     <ul class="guides-section-items">
                         
-                        <li class="guides-section-item"><a href="/guides/getting-started/installation/" class="guides-item-link">Installation<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/account/" class="guides-item-link">account<span class="icon-angle-right" aria-hidden="true"></span></a></li>
                         
-                        <li class="guides-section-item"><a href="/guides/getting-started/quick-start/" class="guides-item-link">Quick Start<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/check/" class="guides-item-link">check<span class="icon-angle-right" aria-hidden="true"></span></a></li>
                         
-                        <li class="guides-section-item"><a href="/guides/getting-started/get-help/" class="guides-item-link">Get Help<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/check_line_item/" class="guides-item-link">check_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/currency/" class="guides-item-link">currency<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/customer/" class="guides-item-link">customer<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/customer_deposit/" class="guides-item-link">customer_deposit<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/department/" class="guides-item-link">department<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/deposit/" class="guides-item-link">deposit<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/deposit_line_item/" class="guides-item-link">deposit_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/invoice/" class="guides-item-link">invoice<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/invoice_line_item/" class="guides-item-link">invoice_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/item/" class="guides-item-link">item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/journal_entry/" class="guides-item-link">journal_entry<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/journal_entry_line_item/" class="guides-item-link">journal_entry_line_item<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/ledger_class/" class="guides-item-link">ledger_class<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/location/" class="guides-item-link">location<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/resource/" class="guides-item-link">resource<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/subsidiary/" class="guides-item-link">subsidiary<span class="icon-angle-right" aria-hidden="true"></span></a></li>
+                        
+                        <li class="guides-section-item"><a href="/reference/netsuite/resources/vendor/" class="guides-item-link">vendor<span class="icon-angle-right" aria-hidden="true"></span></a></li>
                         
                     </ul>
                     <!-- .guides-section-pages -->

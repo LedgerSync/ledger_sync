@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>LedgerSync - customer - LedgerSync</title>
+    <title>LedgerSync - check - LedgerSync</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="An open-source library for easily syncing with accounting software, general ledgers, ERPs, and other ledgers." />
@@ -199,7 +199,7 @@
     <a href="/reference/netsuite/resources/account/">account</a>
   </li>
 
-  <li class="toc-item">
+  <li class="toc-item current">
     <a href="/reference/netsuite/resources/check/">check</a>
   </li>
 
@@ -211,7 +211,7 @@
     <a href="/reference/netsuite/resources/currency/">currency</a>
   </li>
 
-  <li class="toc-item current">
+  <li class="toc-item">
     <a href="/reference/netsuite/resources/customer/">customer</a>
   </li>
 
@@ -287,11 +287,11 @@
         <article class="post type-guides">
             <div class="post-inside">
                 <header class="post-header">
-                    <h1 class="post-title line-left">customer</h1>
+                    <h1 class="post-title line-left">check</h1>
                 </header>
                 <!-- .post-header -->
                 <div class="post-content">
-                    <h2 id="ledgersyncledgersnetsuitecustomer">LedgerSync::Ledgers::NetSuite::Customer</h2>
+                    <h2 id="ledgersyncledgersnetsuitecheck">LedgerSync::Ledgers::NetSuite::Check</h2>
 
 <h2 id="attributes">Attributes</h2>
 
@@ -312,53 +312,57 @@
       <td>LedgerSync::Type::ID</td>
     </tr>
     <tr>
-      <td>email</td>
+      <td>memo</td>
       <td>LedgerSync::Type::String</td>
     </tr>
     <tr>
-      <td>companyName</td>
+      <td>trandate</td>
       <td>LedgerSync::Type::String</td>
     </tr>
     <tr>
-      <td>firstName</td>
-      <td>LedgerSync::Type::String</td>
-    </tr>
-    <tr>
-      <td>lastName</td>
-      <td>LedgerSync::Type::String</td>
-    </tr>
-    <tr>
-      <td>phone</td>
-      <td>LedgerSync::Type::String</td>
-    </tr>
-    <tr>
-      <td>subsidiary</td>
+      <td>account</td>
       <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+    <tr>
+      <td>department</td>
+      <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+    <tr>
+      <td>entity</td>
+      <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+    <tr>
+      <td>currency</td>
+      <td>LedgerSync::Type::ReferenceOne</td>
+    </tr>
+    <tr>
+      <td>line_items</td>
+      <td>LedgerSync::Type::ReferenceMany</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="operations">Operations</h2>
 
-<h3 id="ledgersyncledgersnetsuitecustomeroperationsupdate">LedgerSync::Ledgers::NetSuite::Customer::Operations::Update</h3>
+<h3 id="ledgersyncledgersnetsuitecheckoperationsfind">LedgerSync::Ledgers::NetSuite::Check::Operations::Find</h3>
 
 <h4 id="resource-validations">Resource Validations</h4>
 
 <p>| Name | Type |
 | —- | —- |</p>
-<h3 id="ledgersyncledgersnetsuitecustomeroperationsdelete">LedgerSync::Ledgers::NetSuite::Customer::Operations::Delete</h3>
+<h3 id="ledgersyncledgersnetsuitecheckoperationscreate">LedgerSync::Ledgers::NetSuite::Check::Operations::Create</h3>
 
 <h4 id="resource-validations-1">Resource Validations</h4>
 
 <p>| Name | Type |
 | —- | —- |</p>
-<h3 id="ledgersyncledgersnetsuitecustomeroperationsfind">LedgerSync::Ledgers::NetSuite::Customer::Operations::Find</h3>
+<h3 id="ledgersyncledgersnetsuitecheckoperationsupdate">LedgerSync::Ledgers::NetSuite::Check::Operations::Update</h3>
 
 <h4 id="resource-validations-2">Resource Validations</h4>
 
 <p>| Name | Type |
 | —- | —- |</p>
-<h3 id="ledgersyncledgersnetsuitecustomeroperationscreate">LedgerSync::Ledgers::NetSuite::Customer::Operations::Create</h3>
+<h3 id="ledgersyncledgersnetsuitecheckoperationsdelete">LedgerSync::Ledgers::NetSuite::Check::Operations::Delete</h3>
 
 <h4 id="resource-validations-3">Resource Validations</h4>
 
