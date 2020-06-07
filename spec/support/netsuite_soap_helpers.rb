@@ -18,7 +18,7 @@ module NetSuiteSOAPHelpers
   end
 
   def stub_customer_find
-    stub_request(:get, "https://netsuite_account_id.suitetalk.api.netsuite.com/wsdl/v2016_2_0/netsuite.wsdl").
+    stub_request(:get, "https://netsuite-account-id.suitetalk.api.netsuite.com/wsdl/v2016_2_0/netsuite.wsdl").
          with(
            headers: {
        	  'Accept'=>'*/*',

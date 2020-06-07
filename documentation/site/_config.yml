@@ -58,6 +58,10 @@ header:
     - label: Stripe
       url: reference/stripe
       type: link
+  - label: Blog
+    url: "/blog"
+    type: link
+    has_subnav: false
   - label: Contribute
     url: "/guides/contribute"
     type: link

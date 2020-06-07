@@ -10,13 +10,17 @@ $font: (
 // Palette.
 {% assign palette = site.palettes[site.palette].sass %}
 $palette: (
+  danger:            #fc381d,
   primary:           #424b5f,
   secondary:         #283040,
   meta:              #67758d,
   border:            #dee5ef,
   bg:                #f7f9fb,
   note:              #fcb41d,
+  warning:           #fcb41d,
+  success:           #12db5d,
   important:         #fc381d,
+  info:              #1E90FF,
   accent:            {{ palette.accent1 }},
   accent-alt:        {{ palette.accent2 }},
 );

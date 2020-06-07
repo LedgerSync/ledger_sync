@@ -69,7 +69,7 @@ module LedgerSync
           raise ArgumentError, "get_page can not have sub-folders inside collection folder, received #{page_path}"
         end
 
-        site.collections[relative_page_parts[0]].guides.find do |doc|
+        site.collections[relative_page_parts[0]].docs.find do |doc|
           if doc.data.key?('slug') && doc.data.key?('ext')
             doc.data['slug'] + doc.data['ext'] == relative_page_parts[1]
           else
@@ -94,7 +94,7 @@ module LedgerSync
           raise ArgumentError, "get_pages can not have sub-folders inside collection folder, received #{folder_path}"
         end
 
-        site.collections[relative_folder_parts[0]].guides
+        site.collections[relative_folder_parts[0]].docs
       else
         site.pages.select { |page| File.dirname(page.path).sub(%r{^/}, '').sub(%r{/$}, '') == relative_folder_path }
       end

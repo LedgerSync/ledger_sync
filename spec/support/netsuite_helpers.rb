@@ -10,14 +10,14 @@ module NetSuiteHelpers
     if write
       override = override.merge(
         'Content-Type' => 'application/json',
-        'Host' => 'netsuite_account_id.suitetalk.api.netsuite.com'
+        'Host' => 'netsuite-account-id.suitetalk.api.netsuite.com'
       )
     end
 
     {
       'Accept' => '*/*',
       'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization' => /OAuth realm="netsuite_account_id",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="[0-9]+",oauth_nonce="[0-9a-zA-Z]+",oauth_version="1.0",oauth_signature=".+"/,
+      'Authorization' => /OAuth realm="NETSUITE_ACCOUNT_ID",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="[0-9]+",oauth_nonce="[0-9a-zA-Z]+",oauth_version="1.0",oauth_signature=".+"/,
       'User-Agent' => /.*/
     }.merge(override)
   end
@@ -28,7 +28,7 @@ module NetSuiteHelpers
     params  = args.fetch(:params, {})
 
     resource_endpoint = netsuite_client.class.ledger_resource_type_for(resource_class: resource.class)
-    ret = "https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/#{resource_endpoint}"
+    ret = "https://netsuite-account-id.suitetalk.api.netsuite.com/services/rest/record/v1/#{resource_endpoint}"
 
     if id.present?
       ret += '/' unless ret.end_with?('/')
@@ -182,7 +182,7 @@ module NetSuiteHelpers
 
     if record.end_with?('_search')
       define_method("stub_#{record}") do
-        stub_request(:post, 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/query/v1/suiteql?limit=10&offset=0')
+        stub_request(:post, 'https://netsuite-account-id.suitetalk.api.netsuite.com/services/rest/query/v1/suiteql?limit=10&offset=0')
           .to_return(
             status: 200,
             body: opts.hash.to_json
@@ -191,7 +191,7 @@ module NetSuiteHelpers
       next
     elsif record.end_with?('_metadata_properties')
       define_method("stub_#{record}") do
-        stub_request(:get, 'https://netsuite_account_id.suitetalk.api.netsuite.com/rest/platform/v1/metadata-catalog/record/customer')
+        stub_request(:get, 'https://netsuite-account-id.suitetalk.api.netsuite.com/rest/platform/v1/metadata-catalog/record/customer')
           .to_return(
             status: 200,
             body: opts.hash.to_json
@@ -200,7 +200,7 @@ module NetSuiteHelpers
       next
     elsif record.end_with?('_metadata')
       define_method("stub_#{record}") do
-        stub_request(:get, 'https://netsuite_account_id.suitetalk.api.netsuite.com/services/rest/record/v1/metadata-catalog?select=customer')
+        stub_request(:get, 'https://netsuite-account-id.suitetalk.api.netsuite.com/services/rest/record/v1/metadata-catalog?select=customer')
           .to_return(
             status: 200,
             body: opts.hash.to_json

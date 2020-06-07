@@ -108,6 +108,30 @@ window.$guidesify = {
   </table>
 </div>
 
-<div class="note"><strong>Note:</strong> Both of the features you used above are parts of the Document Object Model (DOM) API, which allows you to manipulate documents.</div>
+<div class="alert note">
+  <strong>Note:</strong>
+  Both of the features you used above are parts of the Document Object Model (DOM) API, which allows you to manipulate documents.
+</div>
 
-<div class="important"><strong>Important:</strong> In this article, try entering the example code lines into your JavaScript console to see what happens. For more details on JavaScript consoles, see Discover browser developer tools.</div>
+<div class="alert danger"><strong>Important:</strong> In this article, try entering the example code lines into your JavaScript console to see what happens. For more details on JavaScript consoles, see Discover browser developer tools.</div>
+
+<div class="alert info"><strong>Info:</strong> In this article, try entering the example code lines into your JavaScript console to see what happens. For more details on JavaScript consoles, see Discover browser developer tools.</div>
+
+
+{% capture example_content %}
+```ruby
+token = LedgerSync::Ledgers::NetSuite::Token.new(
+  method: method,
+  consumer_key: consumer_key,
+  consumer_secret: consumer_secret,
+  realm: realm,
+  token_id: token_id,
+  token_secret: token_secret,
+  url: url
+)
+
+puts token.signature_data_string
+```
+{% endcapture %}
+
+{% include example.md content=example_content %}
