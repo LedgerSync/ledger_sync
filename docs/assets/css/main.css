@@ -544,14 +544,49 @@ img {
   height: auto;
   max-width: 100%; }
 
+/* Examples */
+.example-container {
+  background: #424b5f;
+  box-shadow: 5px 5px 5px #999;
+  padding: 20px;
+  margin: 20px 0; }
+  .example-container::before {
+    content: 'Example';
+    color: #ffffff;
+    font-size: 1.2em;
+    text-transform: uppercase; }
+  .example-container :nth-child(1) {
+    margin-top: 10px; }
+  .example-container .result {
+    content: 'Result';
+    color: #ffffff;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    margin-bottom: 1em; }
+  .example-container pre {
+    margin: 0; }
+
 /* Notifications */
-.note {
-  background: #fff7e6;
-  border-left: 5px solid #fcb41d;
+.alert {
   border-radius: 5px;
   color: #283040;
   margin-bottom: 1.875em;
   padding: 1em 1.125em; }
+  .alert.note {
+    background: #fff7e6;
+    border-left: 5px solid #fcb41d; }
+  .alert.success {
+    background: #bffad5;
+    border-left: 5px solid #12db5d; }
+  .alert.danger {
+    background: #ffe9e6;
+    border-left: 5px solid #fc381d; }
+  .alert.warning {
+    background: #fff7e6;
+    border-left: 5px solid #fcb41d; }
+  .alert.info {
+    background: #eaf5ff;
+    border-left: 5px solid #1E90FF; }
 
 .important {
   background: #ffe9e6;

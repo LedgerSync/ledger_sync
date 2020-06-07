@@ -130,6 +130,18 @@
             <li class="menu-item">
               
               
+<a class="" href="/blog">
+  
+  Blog
+  
+</a>
+
+              
+            </li>
+            
+            <li class="menu-item">
+              
+              
 <a class="" href="/guides/contribute">
   
   Contribute
@@ -284,9 +296,32 @@ body {
   </table>
 </div>
 
-<div class="note"><strong>Note:</strong> Both of the features you used above are parts of the Document Object Model (DOM) API, which allows you to manipulate documents.</div>
+<div class="alert note">
+  <strong>Note:</strong>
+  Both of the features you used above are parts of the Document Object Model (DOM) API, which allows you to manipulate documents.
+</div>
 
-<div class="important"><strong>Important:</strong> In this article, try entering the example code lines into your JavaScript console to see what happens. For more details on JavaScript consoles, see Discover browser developer tools.</div>
+<div class="alert danger"><strong>Important:</strong> In this article, try entering the example code lines into your JavaScript console to see what happens. For more details on JavaScript consoles, see Discover browser developer tools.</div>
+
+<div class="alert info"><strong>Info:</strong> In this article, try entering the example code lines into your JavaScript console to see what happens. For more details on JavaScript consoles, see Discover browser developer tools.</div>
+
+<div class="example-container">
+  <div class="content">
+    <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">token</span> <span class="o">=</span> <span class="no">LedgerSync</span><span class="o">::</span><span class="no">Ledgers</span><span class="o">::</span><span class="no">NetSuite</span><span class="o">::</span><span class="no">Token</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+  <span class="ss">method: </span><span class="nb">method</span><span class="p">,</span>
+  <span class="ss">consumer_key: </span><span class="n">consumer_key</span><span class="p">,</span>
+  <span class="ss">consumer_secret: </span><span class="n">consumer_secret</span><span class="p">,</span>
+  <span class="ss">realm: </span><span class="n">realm</span><span class="p">,</span>
+  <span class="ss">token_id: </span><span class="n">token_id</span><span class="p">,</span>
+  <span class="ss">token_secret: </span><span class="n">token_secret</span><span class="p">,</span>
+  <span class="ss">url: </span><span class="n">url</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">token</span><span class="p">.</span><span class="nf">signature_data_string</span>
+</code></pre></div>    </div>
+  </div>
+
+</div>
 
         </div>
     </div>
