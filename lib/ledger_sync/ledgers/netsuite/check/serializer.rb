@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../reference/serializer'
+require_relative '../check_line_item/serializer'
 
 module LedgerSync
   module Ledgers
