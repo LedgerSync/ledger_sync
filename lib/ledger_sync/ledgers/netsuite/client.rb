@@ -37,11 +37,11 @@ module LedgerSync
         end
 
         def account_id_for_oauth
-          account_id.split('-sb').join('_SB')
+          account_id.gsub(/\-/, '_').upcase
         end
 
         def account_id_for_url
-          account_id.split('_SB').join('-sb')
+          account_id.gsub(/_/, '-').downcase
         end
 
         def api_base_url

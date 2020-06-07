@@ -17,6 +17,7 @@ layout: reference_netsuite
 | credit | LedgerSync::Type::Float |
 | debit | LedgerSync::Type::Float |
 | entitytype | LedgerSync::Type::String |
+| memo | LedgerSync::Type::String |
 
 
 ## Operations

@@ -9,9 +9,7 @@ module LedgerSync
         DEFAULT_SIGNATURE_METHOD = 'HMAC-SHA256'
         OAUTH_VERSION = '1.0'
 
-        attr_reader :body,
-                    :body_json_string,
-                    :consumer_key,
+        attr_reader :consumer_key,
                     :consumer_secret,
                     :method,
                     :oauth_version,
@@ -21,8 +19,6 @@ module LedgerSync
                     :url
 
         def initialize(args = {})
-          @body             = args.fetch(:body, {})
-          @body_json_string = body.to_json
           @consumer_key     = args.fetch(:consumer_key)
           @consumer_secret  = args.fetch(:consumer_secret)
           @method           = args.fetch(:method).to_s.upcase
@@ -92,10 +88,6 @@ module LedgerSync
 
         private
 
-        def body_array
-          @body_array ||= body.to_param.split('&').map { |k| k.split('=').map { |v| unescape(v) } }
-        end
-
         def compute_digest(str)
           signer = Util::Signer.new(str: str)
 
@@ -120,7 +112,7 @@ module LedgerSync
             oauth_signature_method: signature_method,
             oauth_timestamp: timestamp,
             oauth_token: token_id,
-            oauth_version: OAUTH_VERSION
+            oauth_version: oauth_version
           }.to_a
         end
 

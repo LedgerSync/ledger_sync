@@ -121,7 +121,7 @@ module LedgerSync
                                 destination_attribute_first_dot_part.to_sym
                               ).type.resource_class.new
                             end
-          type.cast(destination: new_destination, value: value)
+          type.cast(destination: new_destination, source: source, value: value)
         end
       end
     end
