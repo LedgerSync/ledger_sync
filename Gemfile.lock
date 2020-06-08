@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (1.4.0)
+    ledger_sync (1.4.1)
       activemodel
       colorize
       coveralls
