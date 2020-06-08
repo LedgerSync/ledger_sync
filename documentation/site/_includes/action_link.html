@@ -1,7 +1,10 @@
 {% assign action = include.action %}
-<a class="{% if action.type != 'link' %}button{% endif %}{% if action.type == 'secondary' %} button-secondary{% endif %}{% if action.type == 'icon' %} button-icon{% endif %}" href="{{ action.url | relative_url }}"{% assign new_window_is_not_empty = action.new_window | is_not_empty %}{% if new_window_is_not_empty %} target="_blank" rel="noopener"{% endif %}>
+<a class="{% if action.type != 'link' and action.type != 'svg' %}button{% endif %}{% if action.type == 'secondary' %} button-secondary{% endif %}{% if action.type == 'icon' %} button-icon{% endif %}" href="{{ action.url | relative_url }}" {% assign new_window_is_not_empty=action.new_window
+    | is_not_empty %}{% if new_window_is_not_empty %} target="_blank" rel="noopener" {% endif %}>
   {% if action.type == 'icon' and action.icon_class %}
   <span class="icon fab {{ action.icon_class }}" aria-hidden="true"></span><span class="screen-reader-text">{{ action.label }}</span>
+  {% elsif action.type == 'svg' and action.svg_url %}
+    <img src="{{ action.svg_url }}" alt="{{ action.svg_alt }}" />
   {% else %}
   {{ action.label }}
   {% endif %}
