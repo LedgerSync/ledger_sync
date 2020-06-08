@@ -1,5 +1,5 @@
 ---
-title: Console
+title: Deployment
 layout: guides
 ---
 
