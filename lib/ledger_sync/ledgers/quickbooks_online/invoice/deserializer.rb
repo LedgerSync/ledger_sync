@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../invoice_sales_line_item/deserializer'
+require_relative '../reference/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -10,8 +11,8 @@ module LedgerSync
           id
 
           references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
           date :transaction_date,
                hash_attribute: 'TxnDate'
@@ -19,11 +20,13 @@ module LedgerSync
           attribute :memo,
                     hash_attribute: 'PrivateNote'
 
-          attribute 'customer.ledger_id',
-                    hash_attribute: 'CustomerRef.value'
+          references_one :customer,
+                         hash_attribute: 'CustomerRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'DepositToAccountRef.value'
+          references_one :account,
+                         hash_attribute: 'DepositToAccountRef',
+                         deserialier: Reference::Deserializer
 
           references_many :line_items,
                           hash_attribute: 'Line',

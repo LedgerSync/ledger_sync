@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../deposit_line_item/serializer'
-require_relative '../currency/serializer'
+require_relative '../reference/serializer'
 
 module LedgerSync
   module Ledgers
@@ -10,9 +10,9 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          references_one :CurrencyRef,
+          references_one 'CurrencyRef',
                          resource_attribute: :currency,
-                         serializer: Currency::Serializer
+                         serializer: Reference::Serializer
 
           date 'TxnDate',
                resource_attribute: :transaction_date
@@ -23,11 +23,13 @@ module LedgerSync
           attribute 'ExchangeRate',
                     resource_attribute: :exchange_rate
 
-          attribute 'DepositToAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one 'DepositToAccountRef',
+                         resource_attribute: :account,
+                         serializer: Reference::Serializer
 
-          attribute 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one 'DepartmentRef',
+                         resource_attribute: :department,
+                         serializer: Reference::Serializer
 
           references_many 'Line',
                           resource_attribute: :line_items,

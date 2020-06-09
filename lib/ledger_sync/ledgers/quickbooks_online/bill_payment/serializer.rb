@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/serializer'
-require_relative '../department/serializer'
+require_relative '../reference/serializer'
 require_relative '../bill_payment_line_item/serializer'
 
 module LedgerSync
@@ -14,18 +13,21 @@ module LedgerSync
           amount 'TotalAmt',
                  resource_attribute: :amount
 
-          references_one :CurrencyRef,
+          references_one 'CurrencyRef',
                          resource_attribute: :currency,
-                         serializer: Currency::Serializer
+                         serializer: Reference::Serializer
 
-          attribute 'VendorRef.value',
-                    resource_attribute: 'vendor.ledger_id'
+          references_one 'VendorRef',
+                         resource_attribute: :vendor,
+                         serializer: Reference::Serializer
 
-          attribute 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one 'DepartmentRef',
+                         resource_attribute: :department,
+                         serializer: Reference::Serializer
 
-          attribute 'APAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one 'APAccountRef',
+                         resource_attribute: :account,
+                         serializer: Reference::Serializer
 
           attribute 'DocNumber',
                     resource_attribute: :reference_number

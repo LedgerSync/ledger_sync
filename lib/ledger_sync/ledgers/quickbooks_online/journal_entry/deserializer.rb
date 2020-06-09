@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/deserializer'
+require_relative '../reference/deserializer'
 require_relative '../journal_entry_line_item/deserializer'
 
 module LedgerSync
@@ -11,8 +11,8 @@ module LedgerSync
           id
 
           references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
           date :transaction_date,
                hash_attribute: 'TxnDate'

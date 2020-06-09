@@ -189,7 +189,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       request_hash: {
         'Id' => nil,
         'TotalAmt' => 1.0,
-        'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+        'CurrencyRef' => { 'value' => 'USD' },
         'VendorRef' => { 'value' => '123' },
         'DepartmentRef' => { 'value' => '123' },
         'APAccountRef' => { 'value' => '123' },
@@ -467,7 +467,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       .with(
         body: { 'Id' => nil,
                 'TotalAmt' => 123.45,
-                'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+                'CurrencyRef' => { 'value' => 'USD' },
                 'CustomerRef' => { 'value' => '123' },
                 'DepositToAccountRef' => { 'value' => '123' },
                 'ARAccountRef' => { 'value' => '123' },
@@ -709,7 +709,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/invoice')
       .with(
         body: { 'Id' => nil,
-                'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+                'CurrencyRef' => { 'value' => 'USD' },
                 'TxnDate' => '2019-09-01',
                 'PrivateNote' => 'Memo 1',
                 'CustomerRef' => { 'value' => '123' },
@@ -960,7 +960,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: { 'Vendor' =>
           { 'Balance' => 0,
             'Vendor1099' => false,
-            'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+            'CurrencyRef' => { 'value' => 'USD' },
             'domain' => 'QBO',
             'sparse' => false,
             'Id' => '123',
@@ -1097,8 +1097,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             "Balance": 0,
             "Vendor1099": false,
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "domain": 'QBO',
             "sparse": false,
@@ -1138,9 +1137,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
           'Description' => 'This is Sample Account',
           'Active' => true,
           'CurrencyRef' => {
-            'value' => 'USD',
-            'name' => 'United States Dollar'
-
+            'value' => 'USD'
           }
         },
         headers: {
@@ -1165,8 +1162,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             "CurrentBalance": 0,
             "CurrentBalanceWithSubAccounts": 0,
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "domain": 'QBO',
             "sparse": false,
@@ -1194,8 +1190,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
           "AccountSubType": 'CashOnHand',
           "AcctNum": nil,
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "Classification": nil,
           "Description": 'This is Sample Account',
@@ -1223,8 +1218,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             "CurrentBalance": 0,
             "CurrentBalanceWithSubAccounts": 0,
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "domain": 'QBO',
             "sparse": false,
@@ -1266,8 +1260,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             "CurrentBalance": 0,
             "CurrentBalanceWithSubAccounts": 0,
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "domain": 'QBO',
             "sparse": false,
@@ -1315,8 +1308,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 "CurrentBalance": 0,
                 "CurrentBalanceWithSubAccounts": 0,
                 "CurrencyRef": {
-                  "value": 'USD',
-                  "name": 'United States Dollar'
+                  "value": 'USD'
                 },
                 "domain": 'QBO',
                 "sparse": false,
@@ -1348,8 +1340,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
           "CurrentBalance": 0,
           "CurrentBalanceWithSubAccounts": 0,
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "domain": 'QBO',
           "sparse": false,
@@ -1384,8 +1375,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             "CurrentBalance": 0,
             "CurrentBalanceWithSubAccounts": 0,
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "domain": 'QBO',
             "sparse": false,
@@ -1410,8 +1400,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           "Id": nil,
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "PaymentType": 'Cash',
           "TxnDate": '2019-09-01',
@@ -1515,8 +1504,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             },
             "TxnDate": '2019-09-01',
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -1574,8 +1562,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           "Id": nil,
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "PaymentType": 'Cash',
           "TxnDate": '2019-09-01',
@@ -1678,8 +1665,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             },
             "TxnDate": '2019-09-01',
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -1789,8 +1775,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             },
             "TxnDate": '2019-09-01',
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -1848,8 +1833,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           "Id": '123',
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "PaymentType": 'Cash',
           "TxnDate": '2019-09-01',
@@ -1980,8 +1964,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             },
             "TxnDate": '2019-09-01',
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -2041,8 +2024,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           "Id": nil,
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "TxnDate": '2019-09-01',
           "PrivateNote": 'Memo',
@@ -2121,8 +2103,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
               "name": 'Sample Department'
             },
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -2202,8 +2183,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
               "name": 'Sample Department'
             },
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -2255,8 +2235,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           "Id": '123',
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "TxnDate": '2019-09-01',
           "PrivateNote": 'Memo',
@@ -2341,8 +2320,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
               "name": 'Sample Department'
             },
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -2405,8 +2383,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
           },
           "TxnDate": '2019-09-01',
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           }
         },
         headers: {
@@ -2440,8 +2417,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             },
             "TxnDate": '2019-09-01',
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo'
           },
@@ -2485,8 +2461,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             },
             "TxnDate": '2019-09-01',
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo'
           },
@@ -2513,8 +2488,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
           },
           "TxnDate": '2019-09-01',
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "domain": 'QBO',
           "sparse": false,
@@ -2555,8 +2529,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             },
             "TxnDate": '2019-09-01',
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo'
           },
@@ -2574,8 +2547,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           "Id": nil,
           "CurrencyRef": {
-            "value": 'USD',
-            "name": 'United States Dollar'
+            "value": 'USD'
           },
           "DueDate": '2019-09-01',
           "PrivateNote": 'Memo',
@@ -2650,8 +2622,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
               "name": 'Sample Department'
             },
             "CurrencyRef": {
-              "value": 'USD',
-              "name": 'United States Dollar'
+              "value": 'USD'
             },
             "PrivateNote": 'Memo',
             "Line": [
@@ -2816,19 +2787,23 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           'Id' => '123',
           'CurrencyRef' => {
-            'value' => 'USD', 'name' => 'United States Dollar'
+            'value' => 'USD',
+            'name' => 'United States Dollar'
           },
           'DueDate' => '2019-09-01',
           'PrivateNote' => 'Memo',
           'TxnDate' => '2019-09-01',
           'VendorRef' => {
-            'value' => '123', 'name' => 'Sample Vendor'
+            'value' => '123',
+            'name' => 'Sample Vendor'
           },
           'APAccountRef' => {
-            'value' => '123', 'name' => 'Accounts Payable (A/P)'
+            'value' => '123',
+            'name' => 'Accounts Payable (A/P)'
           },
           'DepartmentRef' => {
-            'value' => '123', 'name' => 'Sample Department'
+            'value' => '123',
+            'name' => 'Sample Department'
           },
           'DocNumber' => 'Ref123',
           'Line' =>
@@ -2935,7 +2910,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/journalentry')
       .with(
         body: { 'Id' => nil,
-                'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+                'CurrencyRef' => { 'value' => 'USD' },
                 'TxnDate' => '2019-09-01',
                 'PrivateNote' => 'Memo',
                 'DocNumber' => 'Ref123',
@@ -3306,7 +3281,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'Active' => true,
                 'SubClass' => false,
                 'FullyQualifiedName' => nil,
-                'ParentRef' => { 'value' => nil } }.to_json,
+                'ParentRef' => nil }.to_json,
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -3408,7 +3383,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'Active' => true,
                 'SubClass' => false,
                 'FullyQualifiedName' => nil,
-                'ParentRef' => { 'value' => nil },
+                'ParentRef' => nil,
                 'domain' => 'QBO',
                 'sparse' => false,
                 'SyncToken' => '0',

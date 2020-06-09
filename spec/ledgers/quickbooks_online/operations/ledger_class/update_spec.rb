@@ -2,8 +2,9 @@
 
 require 'spec_helper'
 
-support :input_helpers
-support :quickbooks_online_helpers
+support :input_helpers,
+        :operation_shared_examples,
+        :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::Update do
   include InputHelpers

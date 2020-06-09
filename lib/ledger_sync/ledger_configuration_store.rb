@@ -15,9 +15,7 @@ module LedgerSync
 
     def add_alias(client_key, existing_config)
       if respond_to?(client_key)
-        if send(client_key) != existing_config
-          raise LedgerSync::ConfigurationError, "Alias already taken: #{client_key}"
-        end
+        raise "Alias already taken: #{client_key}" if send(client_key) != existing_config
 
         return
       end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/deserializer'
-require_relative '../department/deserializer'
+require_relative '../reference/deserializer'
 require_relative '../bill_payment_line_item/deserializer'
 
 module LedgerSync
@@ -15,17 +14,20 @@ module LedgerSync
                  hash_attribute: 'TotalAmt'
 
           references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'vendor.ledger_id',
-                    hash_attribute: 'VendorRef.value'
+          references_one :vendor,
+                         hash_attribute: 'VendorRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'department.ledger_id',
-                    hash_attribute: 'DepartmentRef.value'
+          references_one :account,
+                         hash_attribute: 'APAccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'APAccountRef.value'
+          references_one :department,
+                         hash_attribute: 'DepartmentRef',
+                         deserializer: Reference::Deserializer
 
           attribute :reference_number,
                     hash_attribute: 'DocNumber'
@@ -48,6 +50,14 @@ module LedgerSync
 
           attribute 'bank_account.ledger_id',
                     hash_attribute: 'CheckPayment.BankAccountRef.value'
+
+          references_one :credit_card_account,
+                         hash_attribute: 'CreditCardPayment.CCAccountRef',
+                         deserializer: Reference::Deserializer
+
+          references_one :bank_account,
+                         hash_attribute: 'CheckPayment.BankAccountRef',
+                         deserializer: Reference::Deserializer
 
           references_many :line_items,
                           hash_attribute: 'Line',

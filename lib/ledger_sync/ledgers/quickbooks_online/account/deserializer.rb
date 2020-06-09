@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/deserializer'
+require_relative '../reference/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -34,8 +34,8 @@ module LedgerSync
                     hash_attribute: 'Active'
 
           references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
         end
       end
     end
