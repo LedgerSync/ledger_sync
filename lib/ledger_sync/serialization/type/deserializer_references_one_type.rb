@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'serializer_type'
+require_relative 'deserializer_type'
 
 module LedgerSync
   module Serialization
