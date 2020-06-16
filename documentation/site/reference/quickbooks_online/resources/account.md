@@ -42,3 +42,9 @@ layout: reference_quickbooks_online
 
 | Name | Type |
 | ---- | ---- |
+
+## Searchers
+
+| Name |
+| ---- |
+| `LedgerSync::Ledgers::QuickBooksOnline::Account::Searcher` |

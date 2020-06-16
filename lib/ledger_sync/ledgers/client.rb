@@ -45,12 +45,12 @@ module LedgerSync
         )
       end
 
-      def searcher_for(resource_type:, query: '')
-        searcher_class_for(resource_type: resource_type).new(client: self, query: query)
+      def searcher_for(*args)
+        self.class.searcher_for(*args)
       end
 
-      def searcher_class_for(resource_type:)
-        base_module.const_get(LedgerSync::Util::StringHelpers.camelcase(resource_type.to_s))::Searcher
+      def searcher_class_for(*args)
+        self.class.searcher_class_for(*args)
       end
 
       def url_for(*_args)
@@ -104,6 +104,14 @@ module LedgerSync
 
       def self.root_key
         @root_key ||= config.root_key
+      end
+
+      def self.searcher_for(resource_type:, query: '')
+        searcher_class_for(resource_type: resource_type).new(client: self, query: query)
+      end
+
+      def self.searcher_class_for(resource_type:)
+        base_module.const_get(LedgerSync::Util::StringHelpers.camelcase(resource_type.to_s))::Searcher
       end
 
       def self.url_for(resource: nil); end
