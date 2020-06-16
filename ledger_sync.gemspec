@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('bundler', '~> 1.16')
   spec.add_development_dependency('byebug', '>= 0')
   spec.add_development_dependency('factory_bot')
+  spec.add_development_dependency('overcommit')
   spec.add_development_dependency('jekyll', '~> 3.8.4')
   spec.add_development_dependency('jekyll-menus', '~> 0.6.0')
   spec.add_development_dependency('jekyll-paginate', '~> 1.1')
