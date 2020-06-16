@@ -4,8 +4,8 @@ require 'spec_helper'
 
 RSpec.describe LedgerSync::Ledgers::NetSuite::Check::SearcherDeserializer do
   let(:id) { 'ledger_id_asdf' }
-  let(:memo) { "Hello World" }
-  let(:trandate) { "5/11/2020" }
+  let(:memo) { 'Hello World' }
+  let(:trandate) { '5/11/2020' }
 
   let(:h) do
     {

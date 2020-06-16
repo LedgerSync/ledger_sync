@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 support :input_helpers,
-:operation_shared_examples,
+        :operation_shared_examples,
         :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Operations::Create do

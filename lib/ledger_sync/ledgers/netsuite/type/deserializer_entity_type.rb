@@ -11,7 +11,7 @@ module LedgerSync
             value = args.fetch(:value)
 
             unless value.nil?
-              resource = (value.fetch("links").first.fetch("href").include? "vendor") ? Vendor : Customer
+              resource = (value.fetch('links').first.fetch('href').include? 'vendor') ? Vendor : Customer
               resource.new(
                 ledger_id: value['id']
               )

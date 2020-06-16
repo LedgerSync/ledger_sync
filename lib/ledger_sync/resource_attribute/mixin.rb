@@ -55,7 +55,7 @@ module LedgerSync
 
       def initialize(**data)
         # Initialize empty values
-        resource_attributes.keys.each { |e| instance_variable_set("@#{e}", nil) }
+        resource_attributes.each_key { |e| instance_variable_set("@#{e}", nil) }
 
         assign_attributes(data)
 
@@ -85,7 +85,7 @@ module LedgerSync
       end
 
       def serialize_attributes
-        Hash[resource_attributes.map { |k, v| [k, v.value] }]
+        resource_attributes.transform_values(&:value)
       end
     end
   end

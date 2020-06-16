@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 support :input_helpers
@@ -7,9 +9,9 @@ RSpec.describe 'quickbooks_online/vendors/search', type: :feature do
   include InputHelpers
   include QuickBooksOnlineHelpers
 
-  before {
+  before do
     stub_search_vendor
-  }
+  end
 
   let(:input) do
     {

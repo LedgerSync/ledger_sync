@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'oauth2'
 
 module LedgerSync
   module Ledgers
     module NetSuiteSOAP
       class Client < Ledgers::Client
-        DEFAULT_API_VERSION = '2016_2'.freeze
+        DEFAULT_API_VERSION = '2016_2'
 
         attr_reader :account_id,
                     :api_version,

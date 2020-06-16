@@ -37,7 +37,7 @@ module LedgerSync
         end
 
         def account_id_for_oauth
-          account_id.gsub(/\-/, '_').upcase
+          account_id.gsub(/-/, '_').upcase
         end
 
         def account_id_for_url

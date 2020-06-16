@@ -10,7 +10,7 @@ def register_factory(prefix:, resource_class:)
         case resource_attribute.type
         when LedgerSync::Type::StringFromSet
           add_attribute(attribute) { resource_attribute.type.values.first }
-        when  LedgerSync::Type::String, LedgerSync::Type::ID
+        when LedgerSync::Type::String, LedgerSync::Type::ID
           case attribute.to_sym
           when :ledger_id
             sequence(attribute) { nil }

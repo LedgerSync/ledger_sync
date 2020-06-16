@@ -65,7 +65,9 @@ module LedgerSync
         end
 
         def resource!
-          raise "Resource class does not exist for QuickBooks Online object: #{quickbooks_online_resource_type}" if resource.nil?
+          if resource.nil?
+            raise "Resource class does not exist for QuickBooks Online object: #{quickbooks_online_resource_type}"
+          end
 
           resource
         end

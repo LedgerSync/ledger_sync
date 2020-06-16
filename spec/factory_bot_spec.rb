@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe FactoryBot do
   def regex(prefix, count = 1)
-    /#{prefix}\-#{test_run_id}[a-zA-Z0-9]{8}-#{count}/
+    /#{prefix}-#{test_run_id}[a-zA-Z0-9]{8}-#{count}/
   end
 
   after do

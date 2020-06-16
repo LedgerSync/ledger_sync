@@ -6,8 +6,7 @@ module LedgerSync
   module Ledgers
     module NetSuite
       class Account < NetSuite::Resource
-
-         TYPES = {
+        TYPES = {
           'bank' => 'Bank',
           'other_current_assets' => 'OthCurrAsset',
           'fixed_asset' => 'FixedAsset',

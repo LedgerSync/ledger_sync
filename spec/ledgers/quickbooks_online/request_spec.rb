@@ -97,7 +97,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Request do
     end
 
     it 'refreshes and parses error' do
-      allow(request).to receive(:oauth).and_wrap_original do |m, *args|
+      allow(request).to receive(:oauth).and_wrap_original do |_m, *_args|
         raise OAuth2::Error, OpenStruct.new
       end
       allow(request).to receive(:parse_error).twice.and_return(

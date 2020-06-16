@@ -25,9 +25,7 @@ RSpec.shared_examples 'a successful operation' do |stubs: []|
 
   it 'is successful' do
     result = described_class.new(resource: resource, client: client).perform
-    if ENV.fetch('DEBUG', false) && result.failure?
-      byebug
-    end
+    byebug if ENV.fetch('DEBUG', false) && result.failure?
     expect(result).to be_a(LedgerSync::OperationResult::Success)
   end
 end

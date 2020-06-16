@@ -151,4 +151,3 @@ RSpec.shared_examples 'a searcher' do
     expect(result).to be_success
   end
 end
-

@@ -27,7 +27,6 @@ module LedgerSync
           }
           next if converter_attribute.if_method.present? && !send(converter_attribute.if_method, args_to_pass)
 
-
           # This is for in place changes
           destination = converter_attribute.build_destination!(args_to_pass)
         end

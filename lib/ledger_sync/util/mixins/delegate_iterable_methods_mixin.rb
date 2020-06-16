@@ -18,6 +18,7 @@ module LedgerSync
           ARRAY_METHODS = (SHARED_METHODS | %i[]).freeze
 
           HASH_METHODS = (SHARED_METHODS | %i[
+            each_key
             each_value
             fetch
             key?

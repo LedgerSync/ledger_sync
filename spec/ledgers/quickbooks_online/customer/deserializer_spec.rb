@@ -40,7 +40,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Deserializer do
     let(:customer) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new }
 
     it do
-      deserializer = described_class.new()
+      deserializer = described_class.new
       deserialized_customer = deserializer.deserialize(hash: h, resource: customer)
       expect(customer.PrimaryEmailAddr).to be_nil
       expect(customer.DisplayName).to be_nil

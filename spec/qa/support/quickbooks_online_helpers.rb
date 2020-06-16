@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 qa_support :ledger_helpers,
-        :quickbooks_online_shared_examples
+           :quickbooks_online_shared_examples
 
 module QA
   module QuickBooksOnlineHelpers

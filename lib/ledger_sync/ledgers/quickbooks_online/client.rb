@@ -243,7 +243,9 @@ module LedgerSync
           @access_token = token.token
 
           @expires_at = Time&.at(token.expires_at.to_i)&.to_datetime
-          @refresh_token_expires_at = Time&.at(Time.now.to_i + token.params['x_refresh_token_expires_in'])&.to_datetime unless token.params['x_refresh_token_expires_in'].nil?
+          unless token.params['x_refresh_token_expires_in'].nil?
+            @refresh_token_expires_at = Time&.at(Time.now.to_i + token.params['x_refresh_token_expires_in'])&.to_datetime
+          end
 
           @previous_refresh_tokens << refresh_token if refresh_token.present?
           @refresh_token = token.refresh_token

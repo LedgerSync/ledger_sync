@@ -49,8 +49,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::JournalEntry::Operations::
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
-  stubs: %i[
-    stub_find_journal_entry
-    stub_update_journal_entry
-  ]
+                  stubs: %i[
+                    stub_find_journal_entry
+                    stub_update_journal_entry
+                  ]
 end
