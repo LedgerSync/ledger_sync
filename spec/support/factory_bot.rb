@@ -2,8 +2,11 @@
 
 require 'factory_bot'
 
-def register_factory(prefix:, resource_class:)
-  key = "#{prefix}_#{resource_class.resource_type}"
+def register_factory(args = {}) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  prefix         = args.fetch(:prefix)
+  resource_class = args.fetch(:resource_class)
+  key            = "#{prefix}_#{resource_class.resource_type}"
+
   FactoryBot.define do
     factory key, class: resource_class do
       resource_class.resource_attributes.each do |attribute, resource_attribute|
@@ -28,12 +31,22 @@ def register_factory(prefix:, resource_class:)
         when LedgerSync::Type::Integer
           add_attribute(attribute) { 123 }
         when LedgerSync::Type::ReferenceOne
-          resource_attribute_key = "#{prefix}_#{resource_attribute.type.resource_class.is_a?(Array) ? resource_attribute.type.resource_class.first.resource_type : resource_attribute.type.resource_class.resource_type}"
+          key_ending = if resource_attribute.type.resource_class.is_a?(Array)
+                         resource_attribute.type.resource_class.first.resource_type
+                       else
+                         resource_attribute.type.resource_class.resource_type
+                       end
+          resource_attribute_key = "#{prefix}_#{key_ending}"
           next if resource_attribute_key == key
 
           references_one attribute, factory: resource_attribute_key
         when LedgerSync::Type::ReferenceMany
-          resource_attribute_key = "#{prefix}_#{resource_attribute.type.resource_class.is_a?(Array) ? resource_attribute.type.resource_class.first.resource_type : resource_attribute.type.resource_class.resource_type}"
+          key_ending = if resource_attribute.type.resource_class.is_a?(Array)
+                         resource_attribute.type.resource_class.first.resource_type
+                       else
+                         resource_attribute.type.resource_class.resource_type
+                       end
+          resource_attribute_key = "#{prefix}_#{key_ending}"
           next if resource_attribute_key == key
 
           references_many attribute, factory: resource_attribute_key

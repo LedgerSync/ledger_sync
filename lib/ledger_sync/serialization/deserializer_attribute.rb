@@ -59,7 +59,9 @@ module LedgerSync
           resource.public_send(
             "#{first_attribute}=",
             build_resource_value_from_nested_attributes(
-              resource.public_send(first_attribute) || resource.class.resource_attributes[first_attribute.to_sym].type.resource_class.new,
+              resource.public_send(
+                first_attribute
+              ) || resource.class.resource_attributes[first_attribute.to_sym].type.resource_class.new,
               value,
               remaining_attributes
             )
@@ -71,7 +73,9 @@ module LedgerSync
 
       def resource_attribute_class(resource:)
         @resource_attribute_type ||= {}
-        @resource_attribute_type[resource] ||= resource.class.resource_attributes[resource_attribute_dot_parts.first.to_sym].type.resource_class
+        @resource_attribute_type[resource] ||= resource.class.resource_attributes[
+          resource_attribute_dot_parts.first.to_sym
+        ].type.resource_class
       end
     end
   end

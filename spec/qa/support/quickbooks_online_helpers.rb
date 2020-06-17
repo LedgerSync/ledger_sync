@@ -11,7 +11,7 @@ module QA
       LedgerSync::Ledgers::QuickBooksOnline::Client
     end
 
-    def find_or_create_in_ledger(factory, qa: true, client:)
+    def find_or_create_in_ledger(factory, client:)
       resource_class = FactoryBot.factories[factory].build_class
       searcher = client.searcher_class_for(resource_type: resource_class.resource_type)
       resource = searcher.new(

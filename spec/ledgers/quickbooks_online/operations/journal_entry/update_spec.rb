@@ -27,11 +27,25 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::JournalEntry::Operations::
   end
 
   let(:line_item_1) do
-    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account1, ledger_class: ledger_class, department: department, entry_type: 'credit'))
+    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(
+      journal_entry_line_item_resource(
+        account: account1,
+        ledger_class: ledger_class,
+        department: department,
+        entry_type: 'credit'
+      )
+    )
   end
 
   let(:line_item_2) do
-    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(journal_entry_line_item_resource(account: account2, ledger_class: ledger_class, department: department, entry_type: 'debit'))
+    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(
+      journal_entry_line_item_resource(
+        account: account2,
+        ledger_class: ledger_class,
+        department: department,
+        entry_type: 'debit'
+      )
+    )
   end
 
   let(:resource) do

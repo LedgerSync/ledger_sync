@@ -205,7 +205,9 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         'Line' => [
           {
             'Amount' => 1.0,
-            'LinkedTxn' => [{ 'TxnId' => '123', 'TxnType' => 'Bill' }]
+            'LinkedTxn' => [
+              { 'TxnId' => '123', 'TxnType' => 'Bill' }
+            ]
           }
         ]
       },
@@ -474,7 +476,11 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'ExchangeRate' => 1.0,
                 'TxnDate' => '2019-09-01',
                 'Line' =>
-           [{ 'Amount' => 1.0, 'LinkedTxn' => [{ 'TxnId' => '123', 'TxnType' => 'Invoice' }] }] },
+           [
+             { 'Amount' => 1.0, 'LinkedTxn' => [
+               { 'TxnId' => '123', 'TxnType' => 'Invoice' }
+             ] }
+           ] },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -503,31 +509,37 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'TxnDate' => '2019-12-03',
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'Line' =>
-            [{ 'Amount' => 100.0,
-               'LinkedTxn' => [{ 'TxnId' => '123', 'TxnType' => 'Invoice' }],
-               'LineEx' =>
+            [
+              { 'Amount' => 100.0,
+                'LinkedTxn' => [
+                  { 'TxnId' => '123', 'TxnType' => 'Invoice' }
+                ],
+                'LineEx' =>
                { 'any' =>
-                 [{ 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnId', 'Value' => '123' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false },
-                  { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnOpenBalance', 'Value' => '100.00' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false },
-                  { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnReferenceNumber', 'Value' => '1038' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false }] } }] },
+                 [
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnId', 'Value' => '123' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false },
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnOpenBalance', 'Value' => '100.00' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false },
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnReferenceNumber', 'Value' => '1038' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false }
+                 ] } }
+            ] },
                 'time' => '2019-12-23T06:51:43.325-08:00' }.to_json,
         headers: {}
       )
@@ -564,31 +576,37 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'TxnDate' => '2019-12-03',
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'Line' =>
-            [{ 'Amount' => 100.0,
-               'LinkedTxn' => [{ 'TxnId' => '123', 'TxnType' => 'Invoice' }],
-               'LineEx' =>
+            [
+              { 'Amount' => 100.0,
+                'LinkedTxn' => [
+                  { 'TxnId' => '123', 'TxnType' => 'Invoice' }
+                ],
+                'LineEx' =>
                { 'any' =>
-                 [{ 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnId', 'Value' => '123' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false },
-                  { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnOpenBalance', 'Value' => '100.00' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false },
-                  { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnReferenceNumber', 'Value' => '1038' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false }] } }] },
+                 [
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnId', 'Value' => '123' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false },
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnOpenBalance', 'Value' => '100.00' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false },
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnReferenceNumber', 'Value' => '1038' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false }
+                 ] } }
+            ] },
                 'time' => '2019-12-23T06:51:43.325-08:00' }.to_json,
         headers: {}
       )
@@ -608,7 +626,11 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'ExchangeRate' => 1.0,
                 'TxnDate' => '2019-09-01',
                 'Line' =>
-           [{ 'Amount' => 1.0, 'LinkedTxn' => [{ 'TxnId' => '123', 'TxnType' => 'Invoice' }] }],
+           [
+             { 'Amount' => 1.0, 'LinkedTxn' => [
+               { 'TxnId' => '123', 'TxnType' => 'Invoice' }
+             ] }
+           ],
                 'PaymentMethodRef' => { 'value' => '29' },
                 'UnappliedAmt' => 0,
                 'ProcessPayment' => false,
@@ -646,31 +668,37 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'TxnDate' => '2019-12-03',
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'Line' =>
-            [{ 'Amount' => 100.0,
-               'LinkedTxn' => [{ 'TxnId' => '123', 'TxnType' => 'Invoice' }],
-               'LineEx' =>
+            [
+              { 'Amount' => 100.0,
+                'LinkedTxn' => [
+                  { 'TxnId' => '123', 'TxnType' => 'Invoice' }
+                ],
+                'LineEx' =>
                { 'any' =>
-                 [{ 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnId', 'Value' => '123' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false },
-                  { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnOpenBalance', 'Value' => '100.00' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false },
-                  { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
-                    'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
-                    'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
-                    'value' => { 'Name' => 'txnReferenceNumber', 'Value' => '1038' },
-                    'nil' => false,
-                    'globalScope' => true,
-                    'typeSubstituted' => false }] } }] },
+                 [
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnId', 'Value' => '123' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false },
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnOpenBalance', 'Value' => '100.00' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false },
+                   { 'name' => '{http://schema.intuit.com/finance/v3}NameValue',
+                     'declaredType' => 'com.intuit.schema.finance.v3.NameValue',
+                     'scope' => 'javax.xml.bind.JAXBElement$GlobalScope',
+                     'value' => { 'Name' => 'txnReferenceNumber', 'Value' => '1038' },
+                     'nil' => false,
+                     'globalScope' => true,
+                     'typeSubstituted' => false }
+                 ] } }
+            ] },
                 'time' => '2019-12-23T06:51:43.325-08:00' }.to_json,
         headers: {}
       )
@@ -687,12 +715,14 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'CustomerRef' => { 'value' => '123' },
                 'DepositToAccountRef' => { 'value' => '123' },
                 'Line' =>
-           [{ 'Id' => nil,
-              'DetailType' => 'SalesItemLineDetail',
-              'SalesItemLineDetail' =>
+           [
+             { 'Id' => nil,
+               'DetailType' => 'SalesItemLineDetail',
+               'SalesItemLineDetail' =>
               { 'ItemRef' => { 'value' => '123' }, 'ClassRef' => { 'value' => nil } },
-              'Amount' => 1.0,
-              'Description' => 'Sample Description' }] },
+               'Amount' => 1.0,
+               'Description' => 'Sample Description' }
+           ] },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -716,24 +746,28 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'MetaData' =>
             { 'CreateTime' => '2020-01-15T06:25:44-08:00',
               'LastUpdatedTime' => '2020-01-15T06:25:44-08:00' },
-            'CustomField' => [{ 'DefinitionId' => '1', 'Type' => 'StringType' }],
+            'CustomField' => [
+              { 'DefinitionId' => '1', 'Type' => 'StringType' }
+            ],
             'DocNumber' => '1040',
             'TxnDate' => '2019-09-01',
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'PrivateNote' => 'Memo 1',
             'LinkedTxn' => [],
             'Line' =>
-            [{ 'Id' => '1',
-               'LineNum' => 1,
-               'Description' => 'Test Item',
-               'Amount' => 1.5,
-               'DetailType' => 'SalesItemLineDetail',
-               'SalesItemLineDetail' =>
+            [
+              { 'Id' => '1',
+                'LineNum' => 1,
+                'Description' => 'Test Item',
+                'Amount' => 1.5,
+                'DetailType' => 'SalesItemLineDetail',
+                'SalesItemLineDetail' =>
                { 'ItemRef' => { 'value' => '33', 'name' => 'Services' },
                  'TaxCodeRef' => { 'value' => 'NON' } } },
-             { 'Amount' => 1.5,
-               'DetailType' => 'SubTotalLineDetail',
-               'SubTotalLineDetail' => {} }],
+              { 'Amount' => 1.5,
+                'DetailType' => 'SubTotalLineDetail',
+                'SubTotalLineDetail' => {} }
+            ],
             'CustomerRef' => { 'value' => '83', 'name' => 'Lola' },
             'DueDate' => '2019-09-01',
             'TotalAmt' => 1.5,
@@ -772,24 +806,28 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'MetaData' =>
             { 'CreateTime' => '2020-01-15T06:25:44-08:00',
               'LastUpdatedTime' => '2020-01-15T06:25:44-08:00' },
-            'CustomField' => [{ 'DefinitionId' => '1', 'Type' => 'StringType' }],
+            'CustomField' => [
+              { 'DefinitionId' => '1', 'Type' => 'StringType' }
+            ],
             'DocNumber' => '1040',
             'TxnDate' => '2019-09-01',
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'PrivateNote' => 'Memo 1',
             'LinkedTxn' => [],
             'Line' =>
-            [{ 'Id' => '1',
-               'LineNum' => 1,
-               'Description' => 'Test Item',
-               'Amount' => 1.5,
-               'DetailType' => 'SalesItemLineDetail',
-               'SalesItemLineDetail' =>
+            [
+              { 'Id' => '1',
+                'LineNum' => 1,
+                'Description' => 'Test Item',
+                'Amount' => 1.5,
+                'DetailType' => 'SalesItemLineDetail',
+                'SalesItemLineDetail' =>
                { 'ItemRef' => { 'value' => '33', 'name' => 'Services' },
                  'TaxCodeRef' => { 'value' => 'NON' } } },
-             { 'Amount' => 1.5,
-               'DetailType' => 'SubTotalLineDetail',
-               'SubTotalLineDetail' => {} }],
+              { 'Amount' => 1.5,
+                'DetailType' => 'SubTotalLineDetail',
+                'SubTotalLineDetail' => {} }
+            ],
             'CustomerRef' => { 'value' => '83', 'name' => 'Lola' },
             'DueDate' => '2019-09-01',
             'TotalAmt' => 1.5,
@@ -812,12 +850,14 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'CustomerRef' => { 'value' => '123', 'name' => 'Lola' },
                 'DepositToAccountRef' => { 'value' => '123' },
                 'Line' =>
-           [{ 'Id' => nil,
-              'DetailType' => 'SalesItemLineDetail',
-              'SalesItemLineDetail' =>
+           [
+             { 'Id' => nil,
+               'DetailType' => 'SalesItemLineDetail',
+               'SalesItemLineDetail' =>
               { 'ItemRef' => { 'value' => '123' }, 'ClassRef' => { 'value' => nil } },
-              'Amount' => 1.0,
-              'Description' => 'Sample Description' }],
+               'Amount' => 1.0,
+               'Description' => 'Sample Description' }
+           ],
                 'Deposit' => 0,
                 'AllowIPNPayment' => false,
                 'AllowOnlinePayment' => false,
@@ -829,7 +869,9 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'MetaData' =>
            { 'CreateTime' => '2020-01-15T06:25:44-08:00',
              'LastUpdatedTime' => '2020-01-15T06:25:44-08:00' },
-                'CustomField' => [{ 'DefinitionId' => '1', 'Type' => 'StringType' }],
+                'CustomField' => [
+                  { 'DefinitionId' => '1', 'Type' => 'StringType' }
+                ],
                 'DocNumber' => '1040',
                 'LinkedTxn' => [],
                 'DueDate' => '2019-09-01',
@@ -861,24 +903,28 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'MetaData' =>
             { 'CreateTime' => '2020-01-15T06:25:44-08:00',
               'LastUpdatedTime' => '2020-01-15T06:25:44-08:00' },
-            'CustomField' => [{ 'DefinitionId' => '1', 'Type' => 'StringType' }],
+            'CustomField' => [
+              { 'DefinitionId' => '1', 'Type' => 'StringType' }
+            ],
             'DocNumber' => '1040',
             'TxnDate' => '2019-09-01',
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'PrivateNote' => 'Memo 1',
             'LinkedTxn' => [],
             'Line' =>
-            [{ 'Id' => '1',
-               'LineNum' => 1,
-               'Description' => 'Test Item',
-               'Amount' => 1.5,
-               'DetailType' => 'SalesItemLineDetail',
-               'SalesItemLineDetail' =>
+            [
+              { 'Id' => '1',
+                'LineNum' => 1,
+                'Description' => 'Test Item',
+                'Amount' => 1.5,
+                'DetailType' => 'SalesItemLineDetail',
+                'SalesItemLineDetail' =>
                { 'ItemRef' => { 'value' => '33', 'name' => 'Services' },
                  'TaxCodeRef' => { 'value' => 'NON' } } },
-             { 'Amount' => 1.5,
-               'DetailType' => 'SubTotalLineDetail',
-               'SubTotalLineDetail' => {} }],
+              { 'Amount' => 1.5,
+                'DetailType' => 'SubTotalLineDetail',
+                'SubTotalLineDetail' => {} }
+            ],
             'CustomerRef' => { 'value' => '83', 'name' => 'Lola' },
             'DueDate' => '2019-09-01',
             'TotalAmt' => 1.5,
@@ -987,22 +1033,24 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         status: 200,
         body: { 'QueryResponse' =>
           { 'Vendor' =>
-            [{ 'Balance' => 0,
-               'Vendor1099' => false,
-               'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
-               'domain' => 'QBO',
-               'sparse' => false,
-               'Id' => '123',
-               'SyncToken' => '0',
-               'MetaData' =>
+            [
+              { 'Balance' => 0,
+                'Vendor1099' => false,
+                'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
+                'domain' => 'QBO',
+                'sparse' => false,
+                'Id' => '123',
+                'SyncToken' => '0',
+                'MetaData' =>
                { 'CreateTime' => '2019-09-12T09:05:52-07:00',
                  'LastUpdatedTime' => '2019-09-12T09:05:52-07:00' },
-               'GivenName' => 'Sample',
-               'FamilyName' => 'Vendor',
-               'DisplayName' => 'Sample Vendor',
-               'PrintOnCheckName' => 'Sample Vendor',
-               'Active' => true,
-               'PrimaryEmailAddr' => { 'Address' => 'test@example.com' } }] } }.to_json,
+                'GivenName' => 'Sample',
+                'FamilyName' => 'Vendor',
+                'DisplayName' => 'Sample Vendor',
+                'PrintOnCheckName' => 'Sample Vendor',
+                'Active' => true,
+                'PrimaryEmailAddr' => { 'Address' => 'test@example.com' } }
+            ] } }.to_json,
         headers: {}
       )
   end
@@ -1010,7 +1058,30 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_update_vendor
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/vendor')
       .with(
-        body: {"Id":"123","DisplayName":"Sample Vendor","GivenName":"Sample","FamilyName":"Vendor","PrimaryEmailAddr":{"Address":"test@example.com"},"Balance":0,"Vendor1099":false,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T09:05:52-07:00","LastUpdatedTime":"2019-09-12T09:05:52-07:00"},"PrintOnCheckName":"Sample Vendor","Active":true},
+        body: {
+          "Id": '123',
+          "DisplayName": 'Sample Vendor',
+          "GivenName": 'Sample',
+          "FamilyName": 'Vendor',
+          "PrimaryEmailAddr": {
+            "Address": 'test@example.com'
+          },
+          "Balance": 0,
+          "Vendor1099": false,
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "domain": 'QBO',
+          "sparse": false,
+          "SyncToken": '0',
+          "MetaData": {
+            "CreateTime": '2019-09-12T09:05:52-07:00',
+            "LastUpdatedTime": '2019-09-12T09:05:52-07:00'
+          },
+          "PrintOnCheckName": 'Sample Vendor',
+          "Active": true
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1021,7 +1092,33 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Vendor":{"Balance":0,"Vendor1099":false,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-09-12T09:05:52-07:00","LastUpdatedTime":"2019-09-12T09:06:44-07:00"},"GivenName":"Sample","FamilyName":"Vendor","DisplayName":"Sample Vendor","PrintOnCheckName":"Sample Vendor","Active":true,"PrimaryEmailAddr":{"Address":"test@example.com"}},"time":"2019-09-12T09:06:44.249-07:00"}.to_json,
+        body: {
+          "Vendor": {
+            "Balance": 0,
+            "Vendor1099": false,
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '1',
+            "MetaData": {
+              "CreateTime": '2019-09-12T09:05:52-07:00',
+              "LastUpdatedTime": '2019-09-12T09:06:44-07:00'
+            },
+            "GivenName": 'Sample',
+            "FamilyName": 'Vendor',
+            "DisplayName": 'Sample Vendor',
+            "PrintOnCheckName": 'Sample Vendor',
+            "Active": true,
+            "PrimaryEmailAddr": {
+              "Address": 'test@example.com'
+            }
+          },
+          "time": '2019-09-12T09:06:44.249-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1056,7 +1153,32 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Account":{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}},"time":"2019-09-12T12:22:16.650-07:00"}.to_json,
+        body: {
+          "Account": {
+            "Name": 'Sample Account',
+            "SubAccount": false,
+            "FullyQualifiedName": 'Sample Account',
+            "Active": true,
+            "Classification": 'Asset',
+            "AccountType": 'Bank',
+            "AccountSubType": 'CashOnHand',
+            "CurrentBalance": 0,
+            "CurrentBalanceWithSubAccounts": 0,
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-09-12T12:22:16-07:00',
+              "LastUpdatedTime": '2019-09-12T12:22:16-07:00'
+            }
+          },
+          "time": '2019-09-12T12:22:16.650-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1065,7 +1187,20 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_create_account_with_missing_classification
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: {"Id":nil,"Name":"Sample Account","AccountType":"Bank","AccountSubType":"CashOnHand","AcctNum":nil,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"Classification":nil,"Description":"This is Sample Account","Active":true},
+        body: {
+          "Id": nil,
+          "Name": 'Sample Account',
+          "AccountType": 'Bank',
+          "AccountSubType": 'CashOnHand',
+          "AcctNum": nil,
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "Classification": nil,
+          "Description": 'This is Sample Account',
+          "Active": true
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1076,7 +1211,32 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Account":{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":nil,"AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}},"time":"2019-09-12T12:22:16.650-07:00"}.to_json,
+        body: {
+          "Account": {
+            "Name": 'Sample Account',
+            "SubAccount": false,
+            "FullyQualifiedName": 'Sample Account',
+            "Active": true,
+            "Classification": nil,
+            "AccountType": 'Bank',
+            "AccountSubType": 'CashOnHand',
+            "CurrentBalance": 0,
+            "CurrentBalanceWithSubAccounts": 0,
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-09-12T12:22:16-07:00',
+              "LastUpdatedTime": '2019-09-12T12:22:16-07:00'
+            }
+          },
+          "time": '2019-09-12T12:22:16.650-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1094,13 +1254,42 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Account":{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}},"time":"2019-09-12T12:34:00.276-07:00"}.to_json,
+        body: {
+          "Account": {
+            "Name": 'Sample Account',
+            "SubAccount": false,
+            "FullyQualifiedName": 'Sample Account',
+            "Active": true,
+            "Classification": 'Asset',
+            "AccountType": 'Bank',
+            "AccountSubType": 'CashOnHand',
+            "CurrentBalance": 0,
+            "CurrentBalanceWithSubAccounts": 0,
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-09-12T12:22:16-07:00',
+              "LastUpdatedTime": '2019-09-12T12:22:16-07:00'
+            }
+          },
+          "time": '2019-09-12T12:34:00.276-07:00'
+        }.to_json,
         headers: {}
       )
   end
 
   def stub_search_account
-    stub_request(:get, "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Account%20WHERE%20Name%20LIKE%20'%25Sample%20Account%25'%20STARTPOSITION%201%20MAXRESULTS%2010")
+    stub_request(
+      :get,
+      'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Account%20WHERE'\
+      "%20Name%20LIKE%20'%25Sample%20Account%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
+    )
       .with(
         headers: {
           'Accept' => 'application/json',
@@ -1112,7 +1301,35 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"QueryResponse":{"Account":[{"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}}]}}.to_json,
+        body: {
+          "QueryResponse": {
+            "Account": [
+              {
+                "Name": 'Sample Account',
+                "SubAccount": false,
+                "FullyQualifiedName": 'Sample Account',
+                "Active": true,
+                "Classification": 'Asset',
+                "AccountType": 'Bank',
+                "AccountSubType": 'CashOnHand',
+                "CurrentBalance": 0,
+                "CurrentBalanceWithSubAccounts": 0,
+                "CurrencyRef": {
+                  "value": 'USD',
+                  "name": 'United States Dollar'
+                },
+                "domain": 'QBO',
+                "sparse": false,
+                "Id": '123',
+                "SyncToken": '0',
+                "MetaData": {
+                  "CreateTime": '2019-09-12T12:22:16-07:00',
+                  "LastUpdatedTime": '2019-09-12T12:22:16-07:00'
+                }
+              }
+            ]
+          }
+        }.to_json,
         headers: {}
       )
   end
@@ -1120,7 +1337,31 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_update_account
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/account')
       .with(
-        body: {"Name":"Sample Account","SubAccount":false,"FullyQualifiedName":"Sample Account","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"},"AcctNum":nil,"Description":"This is Sample Account"},
+        body: {
+          "Name": 'Sample Account',
+          "SubAccount": false,
+          "FullyQualifiedName": 'Sample Account',
+          "Active": true,
+          "Classification": 'Asset',
+          "AccountType": 'Bank',
+          "AccountSubType": 'CashOnHand',
+          "CurrentBalance": 0,
+          "CurrentBalanceWithSubAccounts": 0,
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "domain": 'QBO',
+          "sparse": false,
+          "Id": '123',
+          "SyncToken": '0',
+          "MetaData": {
+            "CreateTime": '2019-09-12T12:22:16-07:00',
+            "LastUpdatedTime": '2019-09-12T12:22:16-07:00'
+          },
+          "AcctNum": nil,
+          "Description": 'This is Sample Account'
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1131,7 +1372,32 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Account":{"Name":"Sample","SubAccount":false,"FullyQualifiedName":"Sample","Active":true,"Classification":"Asset","AccountType":"Bank","AccountSubType":"CashOnHand","CurrentBalance":0,"CurrentBalanceWithSubAccounts":0,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-09-12T12:22:16-07:00","LastUpdatedTime":"2019-09-12T12:22:16-07:00"}},"time":"2019-09-12T12:36:42.241-07:00"}.to_json,
+        body: {
+          "Account": {
+            "Name": 'Sample',
+            "SubAccount": false,
+            "FullyQualifiedName": 'Sample',
+            "Active": true,
+            "Classification": 'Asset',
+            "AccountType": 'Bank',
+            "AccountSubType": 'CashOnHand',
+            "CurrentBalance": 0,
+            "CurrentBalanceWithSubAccounts": 0,
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '1',
+            "MetaData": {
+              "CreateTime": '2019-09-12T12:22:16-07:00',
+              "LastUpdatedTime": '2019-09-12T12:22:16-07:00'
+            }
+          },
+          "time": '2019-09-12T12:36:42.241-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1141,7 +1407,59 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_create_expense
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: {"Id":nil,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]},
+        body: {
+          "Id": nil,
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "PaymentType": 'Cash',
+          "TxnDate": '2019-09-01',
+          "PrivateNote": 'Memo',
+          "ExchangeRate": 1.0,
+          "EntityRef": {
+            "value": '123',
+            "name": 'Sample Vendor',
+            "type": 'Vendor'
+          },
+          "DocNumber": 'Ref123',
+          "AccountRef": {
+            "value": '123'
+          },
+          "DepartmentRef": {
+            "value": '123'
+          },
+          "Line": [
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            },
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            }
+          ]
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1152,7 +1470,100 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Purchase":{"AccountRef":{"value":"123","name":"Sample Account"},"PaymentType":"Cash","EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[],"DocNumber":"Ref123","DepartmentRef":{"value":"123","name":"Sample Department"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}},{"Id":"2","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}}]},"time":"2019-09-20T09:44:50.133-07:00"}.to_json,
+        body: {
+          "Purchase": {
+            "AccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "PaymentType": 'Cash',
+            "EntityRef": {
+              "value": '123',
+              "name": 'Sample Vendor',
+              "type": 'Vendor'
+            },
+            "TotalAmt": 24_690.0,
+            "PurchaseEx": {
+              "any": [
+                {
+                  "name": '{http://schema.intuit.com/finance/v3}NameValue',
+                  "declaredType": 'com.intuit.schema.finance.v3.NameValue',
+                  "scope": 'javax.xml.bind.JAXBElement$GlobalScope',
+                  "value": {
+                    "Name": 'TxnType',
+                    "Value": '54'
+                  },
+                  "nil": false,
+                  "globalScope": true,
+                  "typeSubstituted": false
+                }
+              ]
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-09-20T09:44:50-07:00',
+              "LastUpdatedTime": '2019-09-20T09:44:50-07:00'
+            },
+            "CustomField": [],
+            "DocNumber": 'Ref123',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "TxnDate": '2019-09-01',
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              }
+            ]
+          },
+          "time": '2019-09-20T09:44:50.133-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1160,7 +1571,58 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_create_expense_with_cutomer_entity
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: {"Id":nil,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","type":"Customer"},"DocNumber":"Ref123","AccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]},
+        body: {
+          "Id": nil,
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "PaymentType": 'Cash',
+          "TxnDate": '2019-09-01',
+          "PrivateNote": 'Memo',
+          "ExchangeRate": 1.0,
+          "EntityRef": {
+            "value": '123',
+            "type": 'Customer'
+          },
+          "DocNumber": 'Ref123',
+          "AccountRef": {
+            "value": '123'
+          },
+          "DepartmentRef": {
+            "value": '123'
+          },
+          "Line": [
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            },
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            }
+          ]
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1171,7 +1633,100 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Purchase":{"AccountRef":{"value":"123","name":"Sample Account"},"PaymentType":"Cash","EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[],"DocNumber":"Ref123","DepartmentRef":{"value":"123","name":"Sample Department"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}},{"Id":"2","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}}]},"time":"2019-09-20T09:44:50.133-07:00"}.to_json,
+        body: {
+          "Purchase": {
+            "AccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "PaymentType": 'Cash',
+            "EntityRef": {
+              "value": '123',
+              "name": 'Sample Vendor',
+              "type": 'Vendor'
+            },
+            "TotalAmt": 24_690.0,
+            "PurchaseEx": {
+              "any": [
+                {
+                  "name": '{http://schema.intuit.com/finance/v3}NameValue',
+                  "declaredType": 'com.intuit.schema.finance.v3.NameValue',
+                  "scope": 'javax.xml.bind.JAXBElement$GlobalScope',
+                  "value": {
+                    "Name": 'TxnType',
+                    "Value": '54'
+                  },
+                  "nil": false,
+                  "globalScope": true,
+                  "typeSubstituted": false
+                }
+              ]
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-09-20T09:44:50-07:00',
+              "LastUpdatedTime": '2019-09-20T09:44:50-07:00'
+            },
+            "CustomField": [],
+            "DocNumber": 'Ref123',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "TxnDate": '2019-09-01',
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              }
+            ]
+          },
+          "time": '2019-09-20T09:44:50.133-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1189,7 +1744,100 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Purchase":{"AccountRef":{"value":"123","name":"Sample Account"},"PaymentType":"Cash","EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[],"DocNumber":"Ref123","DepartmentRef":{"value":"123","name":"Sample Department"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}},{"Id":"2","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}}]},"time":"2019-09-20T09:44:50.133-07:00"}.to_json,
+        body: {
+          "Purchase": {
+            "AccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "PaymentType": 'Cash',
+            "EntityRef": {
+              "value": '123',
+              "name": 'Sample Vendor',
+              "type": 'Vendor'
+            },
+            "TotalAmt": 24_690.0,
+            "PurchaseEx": {
+              "any": [
+                {
+                  "name": '{http://schema.intuit.com/finance/v3}NameValue',
+                  "declaredType": 'com.intuit.schema.finance.v3.NameValue',
+                  "scope": 'javax.xml.bind.JAXBElement$GlobalScope',
+                  "value": {
+                    "Name": 'TxnType',
+                    "Value": '54'
+                  },
+                  "nil": false,
+                  "globalScope": true,
+                  "typeSubstituted": false
+                }
+              ]
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-09-20T09:44:50-07:00',
+              "LastUpdatedTime": '2019-09-20T09:44:50-07:00'
+            },
+            "CustomField": [],
+            "DocNumber": 'Ref123',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "TxnDate": '2019-09-01',
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              }
+            ]
+          },
+          "time": '2019-09-20T09:44:50.133-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1197,7 +1845,86 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_update_expense
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/purchase')
       .with(
-        body: {"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PaymentType":"Cash","TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"DocNumber":"Ref123","AccountRef":{"value":"123","name":"Sample Account"},"DepartmentRef":{"value":"123","name":"Sample Department"},"Line":[{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}],"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[]},
+        body: {
+          "Id": '123',
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "PaymentType": 'Cash',
+          "TxnDate": '2019-09-01',
+          "PrivateNote": 'Memo',
+          "ExchangeRate": 1.0,
+          "EntityRef": {
+            "value": '123',
+            "name": 'Sample Vendor',
+            "type": 'Vendor'
+          },
+          "DocNumber": 'Ref123',
+          "AccountRef": {
+            "value": '123',
+            "name": 'Sample Account'
+          },
+          "DepartmentRef": {
+            "value": '123',
+            "name": 'Sample Department'
+          },
+          "Line": [
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            },
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            }
+          ],
+          "TotalAmt": 24_690.0,
+          "PurchaseEx": {
+            "any": [
+              {
+                "name": '{http://schema.intuit.com/finance/v3}NameValue',
+                "declaredType": 'com.intuit.schema.finance.v3.NameValue',
+                "scope": 'javax.xml.bind.JAXBElement$GlobalScope',
+                "value": {
+                  "Name": 'TxnType',
+                  "Value": '54'
+                },
+                "nil": false,
+                "globalScope": true,
+                "typeSubstituted": false
+              }
+            ]
+          },
+          "domain": 'QBO',
+          "sparse": false,
+          "SyncToken": '0',
+          "MetaData": {
+            "CreateTime": '2019-09-20T09:44:50-07:00',
+            "LastUpdatedTime": '2019-09-20T09:44:50-07:00'
+          },
+          "CustomField": []
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1208,7 +1935,100 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Purchase":{"AccountRef":{"value":"123","name":"Sample Account"},"PaymentType":"Cash","EntityRef":{"value":"123","name":"Sample Vendor","type":"Vendor"},"TotalAmt":24690.0,"PurchaseEx":{"any":[{"name":"{http://schema.intuit.com/finance/v3}NameValue","declaredType":"com.intuit.schema.finance.v3.NameValue","scope":"javax.xml.bind.JAXBElement$GlobalScope","value":{"Name":"TxnType","Value":"54"},"nil":false,"globalScope":true,"typeSubstituted":false}]},"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-09-20T09:44:50-07:00","LastUpdatedTime":"2019-09-20T09:44:50-07:00"},"CustomField":[],"DocNumber":"Ref123","DepartmentRef":{"value":"123","name":"Sample Department"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}},{"Id":"2","Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Sample Account"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}}]},"time":"2019-09-20T09:44:50.133-07:00"}.to_json,
+        body: {
+          "Purchase": {
+            "AccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "PaymentType": 'Cash',
+            "EntityRef": {
+              "value": '123',
+              "name": 'Sample Vendor',
+              "type": 'Vendor'
+            },
+            "TotalAmt": 24_690.0,
+            "PurchaseEx": {
+              "any": [
+                {
+                  "name": '{http://schema.intuit.com/finance/v3}NameValue',
+                  "declaredType": 'com.intuit.schema.finance.v3.NameValue',
+                  "scope": 'javax.xml.bind.JAXBElement$GlobalScope',
+                  "value": {
+                    "Name": 'TxnType',
+                    "Value": '54'
+                  },
+                  "nil": false,
+                  "globalScope": true,
+                  "typeSubstituted": false
+                }
+              ]
+            },
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '1',
+            "MetaData": {
+              "CreateTime": '2019-09-20T09:44:50-07:00',
+              "LastUpdatedTime": '2019-09-20T09:44:50-07:00'
+            },
+            "CustomField": [],
+            "DocNumber": 'Ref123',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "TxnDate": '2019-09-01',
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Sample Account'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              }
+            ]
+          },
+          "time": '2019-09-20T09:44:50.133-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1218,7 +2038,58 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_create_deposit
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit')
       .with(
-        body: {"Id":nil,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"Line":[{"Id":nil,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":{"value":"245","name":"Sample Vendor","type":"Vendor"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":nil,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":nil},"Amount":123.45,"Description":"Sample Transaction"}]},
+        body: {
+          "Id": nil,
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "TxnDate": '2019-09-01',
+          "PrivateNote": 'Memo',
+          "ExchangeRate": 1.0,
+          "DepositToAccountRef": {
+            "value": '123'
+          },
+          "DepartmentRef": {
+            "value": '123'
+          },
+          "Line": [
+            {
+              "Id": nil,
+              "DetailType": 'DepositLineDetail',
+              "DepositLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                },
+                "Entity": {
+                  "value": '245',
+                  "name": 'Sample Vendor',
+                  "type": 'Vendor'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            },
+            {
+              "Id": nil,
+              "DetailType": 'DepositLineDetail',
+              "DepositLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                },
+                "Entity": nil
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            }
+          ]
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1229,7 +2100,70 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Deposit":{"DepositToAccountRef":{"value":"123","name":"Cash on hand"},"TotalAmt":246.9,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-11T11:54:50-07:00","LastUpdatedTime":"2019-10-11T11:54:50-07:00"},"TxnDate":"2019-09-01","DepartmentRef":{"value":"123","name":"Sample Department"},"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","LineNum":1,"Description":"Sample Transaction","Amount":123.45,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123","name":"Cash on hand"},"ClassRef":{"value":"123","name":"Sample Class"}}},{"Id":"2","LineNum":2,"Description":"Sample Transaction","Amount":123.45,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123","name":"Cash on hand"},"ClassRef":{"value":"123","name":"Sample Class"}}}]},"time":"2019-10-11T11:54:50.879-07:00"}.to_json,
+        body: {
+          "Deposit": {
+            "DepositToAccountRef": {
+              "value": '123',
+              "name": 'Cash on hand'
+            },
+            "TotalAmt": 246.9,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-10-11T11:54:50-07:00',
+              "LastUpdatedTime": '2019-10-11T11:54:50-07:00'
+            },
+            "TxnDate": '2019-09-01',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "LineNum": 1,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'DepositLineDetail',
+                "DepositLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Cash on hand'
+                  },
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "LineNum": 2,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'DepositLineDetail',
+                "DepositLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Cash on hand'
+                  },
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  }
+                }
+              }
+            ]
+          },
+          "time": '2019-10-11T11:54:50.879-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1247,7 +2181,70 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Deposit":{"DepositToAccountRef":{"value":"123","name":"Cash on hand"},"TotalAmt":246.9,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-11T11:54:50-07:00","LastUpdatedTime":"2019-10-11T11:54:50-07:00"},"TxnDate":"2019-09-01","DepartmentRef":{"value":"123","name":"Sample Department"},"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","LineNum":1,"Description":"Sample Transaction","Amount":123.45,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123","name":"Cash on hand"},"ClassRef":{"value":"123","name":"Sample Class"}}},{"Id":"2","LineNum":2,"Description":"Sample Transaction","Amount":123.45,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123","name":"Cash on hand"},"ClassRef":{"value":"123","name":"Sample Class"}}}]},"time":"2019-10-11T11:54:50.879-07:00"}.to_json,
+        body: {
+          "Deposit": {
+            "DepositToAccountRef": {
+              "value": '123',
+              "name": 'Cash on hand'
+            },
+            "TotalAmt": 246.9,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-10-11T11:54:50-07:00',
+              "LastUpdatedTime": '2019-10-11T11:54:50-07:00'
+            },
+            "TxnDate": '2019-09-01',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "LineNum": 1,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'DepositLineDetail',
+                "DepositLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Cash on hand'
+                  },
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "LineNum": 2,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'DepositLineDetail',
+                "DepositLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Cash on hand'
+                  },
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  }
+                }
+              }
+            ]
+          },
+          "time": '2019-10-11T11:54:50.879-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1255,7 +2252,64 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_update_deposit
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/deposit')
       .with(
-        body: {"Id":"123","CurrencyRef":{"value":"USD","name":"United States Dollar"},"TxnDate":"2019-09-01","PrivateNote":"Memo","ExchangeRate":1.0,"DepositToAccountRef":{"value":"123","name":"Cash on hand"},"DepartmentRef":{"value":"123","name":"Sample Department"},"Line":[{"Id":nil,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":nil},"Amount":123.45,"Description":"Sample Transaction"},{"Id":nil,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"},"Entity":nil},"Amount":123.45,"Description":"Sample Transaction"}],"TotalAmt":246.9,"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-11T11:54:50-07:00","LastUpdatedTime":"2019-10-11T11:54:50-07:00"}},
+        body: {
+          "Id": '123',
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "TxnDate": '2019-09-01',
+          "PrivateNote": 'Memo',
+          "ExchangeRate": 1.0,
+          "DepositToAccountRef": {
+            "value": '123',
+            "name": 'Cash on hand'
+          },
+          "DepartmentRef": {
+            "value": '123',
+            "name": 'Sample Department'
+          },
+          "Line": [
+            {
+              "Id": nil,
+              "DetailType": 'DepositLineDetail',
+              "DepositLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                },
+                "Entity": nil
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            },
+            {
+              "Id": nil,
+              "DetailType": 'DepositLineDetail',
+              "DepositLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                },
+                "Entity": nil
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            }
+          ],
+          "TotalAmt": 246.9,
+          "domain": 'QBO',
+          "sparse": false,
+          "SyncToken": '0',
+          "MetaData": {
+            "CreateTime": '2019-10-11T11:54:50-07:00',
+            "LastUpdatedTime": '2019-10-11T11:54:50-07:00'
+          }
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1266,7 +2320,70 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Deposit":{"DepositToAccountRef":{"value":"123","name":"Cash on hand"},"TotalAmt":246.9,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-10-11T11:54:50-07:00","LastUpdatedTime":"2019-10-11T11:54:50-07:00"},"TxnDate":"2019-09-01","DepartmentRef":{"value":"123","name":"Sample Department"},"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"3","LineNum":1,"Description":"Sample Transaction","Amount":123.45,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123","name":"Cash on hand"},"ClassRef":{"value":"123","name":"Sample Class"}}},{"Id":"4","LineNum":2,"Description":"Sample Transaction","Amount":123.45,"DetailType":"DepositLineDetail","DepositLineDetail":{"AccountRef":{"value":"123","name":"Cash on hand"},"ClassRef":{"value":"123","name":"Sample Class"}}}]},"time":"2019-10-11T11:54:50.879-07:00"}.to_json,
+        body: {
+          "Deposit": {
+            "DepositToAccountRef": {
+              "value": '123',
+              "name": 'Cash on hand'
+            },
+            "TotalAmt": 246.9,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '1',
+            "MetaData": {
+              "CreateTime": '2019-10-11T11:54:50-07:00',
+              "LastUpdatedTime": '2019-10-11T11:54:50-07:00'
+            },
+            "TxnDate": '2019-09-01',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '3',
+                "LineNum": 1,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'DepositLineDetail',
+                "DepositLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Cash on hand'
+                  },
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  }
+                }
+              },
+              {
+                "Id": '4',
+                "LineNum": 2,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'DepositLineDetail',
+                "DepositLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Cash on hand'
+                  },
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  }
+                }
+              }
+            ]
+          },
+          "time": '2019-10-11T11:54:50.879-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1276,7 +2393,22 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_create_transfer
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer')
       .with(
-        body: {"Id":nil,"Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123"},"ToAccountRef":{"value":"123"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"}},
+        body: {
+          "Id": nil,
+          "Amount": 123.45,
+          "PrivateNote": 'Memo',
+          "FromAccountRef": {
+            "value": '123'
+          },
+          "ToAccountRef": {
+            "value": '123'
+          },
+          "TxnDate": '2019-09-01',
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          }
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1287,7 +2419,34 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Transfer":{"FromAccountRef":{"value":"123","name":"Sample Account"},"ToAccountRef":{"value":"123","name":"Sample Account"},"Amount":123.45,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-03T21:46:28-07:00","LastUpdatedTime":"2019-10-03T21:46:28-07:00"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo"},"time":"2019-10-03T21:46:27.963-07:00"}.to_json,
+        body: {
+          "Transfer": {
+            "FromAccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "ToAccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "Amount": 123.45,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-10-03T21:46:28-07:00',
+              "LastUpdatedTime": '2019-10-03T21:46:28-07:00'
+            },
+            "TxnDate": '2019-09-01',
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo'
+          },
+          "time": '2019-10-03T21:46:27.963-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1305,7 +2464,34 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Transfer":{"FromAccountRef":{"value":"123","name":"Sample Account"},"ToAccountRef":{"value":"123","name":"Sample Account"},"Amount":12345.0,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-03T21:46:28-07:00","LastUpdatedTime":"2019-10-03T21:46:28-07:00"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo"},"time":"2019-10-03T21:46:27.963-07:00"}.to_json,
+        body: {
+          "Transfer": {
+            "FromAccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "ToAccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "Amount": 12_345.0,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-10-03T21:46:28-07:00',
+              "LastUpdatedTime": '2019-10-03T21:46:28-07:00'
+            },
+            "TxnDate": '2019-09-01',
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo'
+          },
+          "time": '2019-10-03T21:46:27.963-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1313,7 +2499,31 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_update_transfer
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/transfer')
       .with(
-        body: {"Id":"123","Amount":123.45,"PrivateNote":"Memo","FromAccountRef":{"value":"123","name":"Sample Account"},"ToAccountRef":{"value":"123","name":"Sample Account"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"domain":"QBO","sparse":false,"SyncToken":"0","MetaData":{"CreateTime":"2019-10-03T21:46:28-07:00","LastUpdatedTime":"2019-10-03T21:46:28-07:00"}},
+        body: {
+          "Id": '123',
+          "Amount": 123.45,
+          "PrivateNote": 'Memo',
+          "FromAccountRef": {
+            "value": '123',
+            "name": 'Sample Account'
+          },
+          "ToAccountRef": {
+            "value": '123',
+            "name": 'Sample Account'
+          },
+          "TxnDate": '2019-09-01',
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "domain": 'QBO',
+          "sparse": false,
+          "SyncToken": '0',
+          "MetaData": {
+            "CreateTime": '2019-10-03T21:46:28-07:00',
+            "LastUpdatedTime": '2019-10-03T21:46:28-07:00'
+          }
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1324,7 +2534,34 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Transfer":{"FromAccountRef":{"value":"123","name":"Sample Account"},"ToAccountRef":{"value":"123","name":"Sample Account"},"Amount":123.45,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"1","MetaData":{"CreateTime":"2019-10-03T21:46:28-07:00","LastUpdatedTime":"2019-10-03T21:46:28-07:00"},"TxnDate":"2019-09-01","CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo"},"time":"2019-10-03T21:46:27.963-07:00"}.to_json,
+        body: {
+          "Transfer": {
+            "FromAccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "ToAccountRef": {
+              "value": '123',
+              "name": 'Sample Account'
+            },
+            "Amount": 123.45,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '1',
+            "MetaData": {
+              "CreateTime": '2019-10-03T21:46:28-07:00',
+              "LastUpdatedTime": '2019-10-03T21:46:28-07:00'
+            },
+            "TxnDate": '2019-09-01',
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo'
+          },
+          "time": '2019-10-03T21:46:27.963-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1334,7 +2571,56 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_create_bill
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill')
       .with(
-        body: {"Id":nil,"CurrencyRef":{"value":"USD","name":"United States Dollar"},"DueDate":"2019-09-01","PrivateNote":"Memo","TxnDate":"2019-09-01","VendorRef":{"value":"123"},"APAccountRef":{"value":"123"},"DepartmentRef":{"value":"123"},"DocNumber":"Ref123","Line":[{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"},{"Id":nil,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123"},"ClassRef":{"value":"123"}},"Amount":123.45,"Description":"Sample Transaction"}]},
+        body: {
+          "Id": nil,
+          "CurrencyRef": {
+            "value": 'USD',
+            "name": 'United States Dollar'
+          },
+          "DueDate": '2019-09-01',
+          "PrivateNote": 'Memo',
+          "TxnDate": '2019-09-01',
+          "VendorRef": {
+            "value": '123'
+          },
+          "APAccountRef": {
+            "value": '123'
+          },
+          "DepartmentRef": {
+            "value": '123'
+          },
+          "DocNumber": 'Ref123',
+          "Line": [
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            },
+            {
+              "Id": nil,
+              "DetailType": 'AccountBasedExpenseLineDetail',
+              "AccountBasedExpenseLineDetail": {
+                "AccountRef": {
+                  "value": '123'
+                },
+                "ClassRef": {
+                  "value": '123'
+                }
+              },
+              "Amount": 123.45,
+              "Description": 'Sample Transaction'
+            }
+          ]
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1345,7 +2631,85 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Bill":{"DueDate":"2019-09-01","Balance":246.9,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-13T10:43:04-07:00","LastUpdatedTime":"2019-10-13T10:43:04-07:00"},"DocNumber":"Ref123","TxnDate":"2019-09-01","DepartmentRef":{"value":"123","name":"Sample Department"},"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","LineNum":1,"Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}},{"Id":"2","LineNum":2,"Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}}],"VendorRef":{"value":"123","name":"Sample Vendor"},"APAccountRef":{"value":"123","name":"Accounts Payable (A/P)"},"TotalAmt":246.9},"time":"2019-10-13T10:43:04.169-07:00"}.to_json,
+        body: {
+          "Bill": {
+            "DueDate": '2019-09-01',
+            "Balance": 246.9,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-10-13T10:43:04-07:00',
+              "LastUpdatedTime": '2019-10-13T10:43:04-07:00'
+            },
+            "DocNumber": 'Ref123',
+            "TxnDate": '2019-09-01',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "LineNum": 1,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Opening Balance Equity'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "LineNum": 2,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Opening Balance Equity'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              }
+            ],
+            "VendorRef": {
+              "value": '123',
+              "name": 'Sample Vendor'
+            },
+            "APAccountRef": {
+              "value": '123',
+              "name": 'Accounts Payable (A/P)'
+            },
+            "TotalAmt": 246.9
+          },
+          "time": '2019-10-13T10:43:04.169-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1363,7 +2727,85 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
       )
       .to_return(
         status: 200,
-        body: {"Bill":{"DueDate":"2019-09-01","Balance":246.9,"domain":"QBO","sparse":false,"Id":"123","SyncToken":"0","MetaData":{"CreateTime":"2019-10-13T10:43:04-07:00","LastUpdatedTime":"2019-10-13T10:43:04-07:00"},"DocNumber":"Ref123","TxnDate":"2019-09-01","DepartmentRef":{"value":"123","name":"Sample Department"},"CurrencyRef":{"value":"USD","name":"United States Dollar"},"PrivateNote":"Memo","Line":[{"Id":"1","LineNum":1,"Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}},{"Id":"2","LineNum":2,"Description":"Sample Transaction","Amount":123.45,"DetailType":"AccountBasedExpenseLineDetail","AccountBasedExpenseLineDetail":{"AccountRef":{"value":"123","name":"Opening Balance Equity"},"BillableStatus":"NotBillable","ClassRef":{"value":"123","name":"Sample Class"},"TaxCodeRef":{"value":"NON"}}}],"VendorRef":{"value":"123","name":"Sample Vendor"},"APAccountRef":{"value":"123","name":"Accounts Payable (A/P)"},"TotalAmt":246.9},"time":"2019-10-13T10:43:04.169-07:00"}.to_json,
+        body: {
+          "Bill": {
+            "DueDate": '2019-09-01',
+            "Balance": 246.9,
+            "domain": 'QBO',
+            "sparse": false,
+            "Id": '123',
+            "SyncToken": '0',
+            "MetaData": {
+              "CreateTime": '2019-10-13T10:43:04-07:00',
+              "LastUpdatedTime": '2019-10-13T10:43:04-07:00'
+            },
+            "DocNumber": 'Ref123',
+            "TxnDate": '2019-09-01',
+            "DepartmentRef": {
+              "value": '123',
+              "name": 'Sample Department'
+            },
+            "CurrencyRef": {
+              "value": 'USD',
+              "name": 'United States Dollar'
+            },
+            "PrivateNote": 'Memo',
+            "Line": [
+              {
+                "Id": '1',
+                "LineNum": 1,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Opening Balance Equity'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              },
+              {
+                "Id": '2',
+                "LineNum": 2,
+                "Description": 'Sample Transaction',
+                "Amount": 123.45,
+                "DetailType": 'AccountBasedExpenseLineDetail',
+                "AccountBasedExpenseLineDetail": {
+                  "AccountRef": {
+                    "value": '123',
+                    "name": 'Opening Balance Equity'
+                  },
+                  "BillableStatus": 'NotBillable',
+                  "ClassRef": {
+                    "value": '123',
+                    "name": 'Sample Class'
+                  },
+                  "TaxCodeRef": {
+                    "value": 'NON'
+                  }
+                }
+              }
+            ],
+            "VendorRef": {
+              "value": '123',
+              "name": 'Sample Vendor'
+            },
+            "APAccountRef": {
+              "value": '123',
+              "name": 'Accounts Payable (A/P)'
+            },
+            "TotalAmt": 246.9
+          },
+          "time": '2019-10-13T10:43:04.169-07:00'
+        }.to_json,
         headers: {}
       )
   end
@@ -1371,36 +2813,66 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   def stub_update_bill
     stub_request(:post, 'https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/bill')
       .with(
-        body: {"Id"=>"123",
-          "CurrencyRef"=>{"value"=>"USD", "name"=>"United States Dollar"},
-          "DueDate"=>"2019-09-01",
-          "PrivateNote"=>"Memo",
-          "TxnDate"=>"2019-09-01",
-          "VendorRef"=>{"value"=>"123", "name"=>"Sample Vendor"},
-          "APAccountRef"=>{"value"=>"123", "name"=>"Accounts Payable (A/P)"},
-          "DepartmentRef"=>{"value"=>"123", "name"=>"Sample Department"},
-          "DocNumber"=>"Ref123",
-          "Line"=>
-           [{"Id"=>nil,
-             "DetailType"=>"AccountBasedExpenseLineDetail",
-             "AccountBasedExpenseLineDetail"=>
-              {"AccountRef"=>{"value"=>"123"}, "ClassRef"=>{"value"=>"123"}},
-             "Amount"=>123.45,
-             "Description"=>"Sample Transaction"},
-            {"Id"=>nil,
-             "DetailType"=>"AccountBasedExpenseLineDetail",
-             "AccountBasedExpenseLineDetail"=>
-              {"AccountRef"=>{"value"=>"123"}, "ClassRef"=>{"value"=>"123"}},
-             "Amount"=>123.45,
-             "Description"=>"Sample Transaction"}],
-          "Balance"=>246.9,
-          "domain"=>"QBO",
-          "sparse"=>false,
-          "SyncToken"=>"0",
-          "MetaData"=>
-           {"CreateTime"=>"2019-10-13T10:43:04-07:00",
-            "LastUpdatedTime"=>"2019-10-13T10:43:04-07:00"},
-          "TotalAmt"=>246.9},
+        body: {
+          'Id' => '123',
+          'CurrencyRef' => {
+            'value' => 'USD', 'name' => 'United States Dollar'
+          },
+          'DueDate' => '2019-09-01',
+          'PrivateNote' => 'Memo',
+          'TxnDate' => '2019-09-01',
+          'VendorRef' => {
+            'value' => '123', 'name' => 'Sample Vendor'
+          },
+          'APAccountRef' => {
+            'value' => '123', 'name' => 'Accounts Payable (A/P)'
+          },
+          'DepartmentRef' => {
+            'value' => '123', 'name' => 'Sample Department'
+          },
+          'DocNumber' => 'Ref123',
+          'Line' =>
+           [
+             {
+               'Id' => nil,
+               'DetailType' => 'AccountBasedExpenseLineDetail',
+               'AccountBasedExpenseLineDetail' =>
+              {
+                'AccountRef' => {
+                  'value' => '123'
+                }, 'ClassRef' => {
+                  'value' => '123'
+                }
+              },
+               'Amount' => 123.45,
+               'Description' => 'Sample Transaction'
+             },
+             {
+               'Id' => nil,
+               'DetailType' => 'AccountBasedExpenseLineDetail',
+               'AccountBasedExpenseLineDetail' =>
+               {
+                 'AccountRef' => {
+                   'value' => '123'
+                 }, 'ClassRef' => {
+                   'value' => '123'
+                 }
+               },
+               'Amount' => 123.45,
+               'Description' => 'Sample Transaction'
+             }
+           ],
+          'Balance' => 246.9,
+          'domain' => 'QBO',
+          'sparse' => false,
+          'SyncToken' => '0',
+          'MetaData' =>
+           {
+             'CreateTime' => '2019-10-13T10:43:04-07:00',
+             'LastUpdatedTime' => '2019-10-13T10:43:04-07:00'
+           },
+          'TotalAmt' => 246.9
+        },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1427,26 +2899,28 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'PrivateNote' => 'Memo',
             'Line' =>
-            [{ 'Id' => '3',
-               'LineNum' => 1,
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'AccountBasedExpenseLineDetail',
-               'AccountBasedExpenseLineDetail' =>
+            [
+              { 'Id' => '3',
+                'LineNum' => 1,
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'AccountBasedExpenseLineDetail',
+                'AccountBasedExpenseLineDetail' =>
                { 'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
                  'BillableStatus' => 'NotBillable',
                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
                  'TaxCodeRef' => { 'value' => 'NON' } } },
-             { 'Id' => '4',
-               'LineNum' => 2,
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'AccountBasedExpenseLineDetail',
-               'AccountBasedExpenseLineDetail' =>
-               { 'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
-                 'BillableStatus' => 'NotBillable',
-                 'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
-                 'TaxCodeRef' => { 'value' => 'NON' } } }],
+              { 'Id' => '4',
+                'LineNum' => 2,
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'AccountBasedExpenseLineDetail',
+                'AccountBasedExpenseLineDetail' =>
+                { 'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
+                  'BillableStatus' => 'NotBillable',
+                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
+                  'TaxCodeRef' => { 'value' => 'NON' } } }
+            ],
             'VendorRef' => { 'value' => '123', 'name' => 'Sample Vendor' },
             'APAccountRef' => { 'value' => '123', 'name' => 'Accounts Payable (A/P)' },
             'TotalAmt' => 246.9 },
@@ -1466,22 +2940,24 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'PrivateNote' => 'Memo',
                 'DocNumber' => 'Ref123',
                 'Line' =>
-           [{ 'DetailType' => 'JournalEntryLineDetail',
-              'Amount' => 123.45,
-              'JournalEntryLineDetail' =>
+           [
+             { 'DetailType' => 'JournalEntryLineDetail',
+               'Amount' => 123.45,
+               'JournalEntryLineDetail' =>
               { 'PostingType' => 'Credit',
                 'AccountRef' => { 'value' => '123' },
                 'ClassRef' => { 'value' => '123' },
                 'DepartmentRef' => { 'value' => '123' } },
-              'Description' => 'Sample Transaction' },
-            { 'DetailType' => 'JournalEntryLineDetail',
-              'Amount' => 123.45,
-              'JournalEntryLineDetail' =>
-              { 'PostingType' => 'Debit',
-                'AccountRef' => { 'value' => '123' },
-                'ClassRef' => { 'value' => '123' },
-                'DepartmentRef' => { 'value' => '123' } },
-              'Description' => 'Sample Transaction' }] },
+               'Description' => 'Sample Transaction' },
+             { 'DetailType' => 'JournalEntryLineDetail',
+               'Amount' => 123.45,
+               'JournalEntryLineDetail' =>
+               { 'PostingType' => 'Debit',
+                 'AccountRef' => { 'value' => '123' },
+                 'ClassRef' => { 'value' => '123' },
+                 'DepartmentRef' => { 'value' => '123' } },
+               'Description' => 'Sample Transaction' }
+           ] },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1506,24 +2982,26 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'PrivateNote' => 'Memo',
             'Line' =>
-            [{ 'Id' => '0',
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'JournalEntryLineDetail',
-               'JournalEntryLineDetail' =>
+            [
+              { 'Id' => '0',
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'JournalEntryLineDetail',
+                'JournalEntryLineDetail' =>
                { 'PostingType' => 'Credit',
                  'AccountRef' => { 'value' => '123', 'name' => 'Cash on hand' },
                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
                  'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } },
-             { 'Id' => '1',
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'JournalEntryLineDetail',
-               'JournalEntryLineDetail' =>
-               { 'PostingType' => 'Debit',
-                 'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
-                 'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
-                 'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } }] },
+              { 'Id' => '1',
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'JournalEntryLineDetail',
+                'JournalEntryLineDetail' =>
+                { 'PostingType' => 'Debit',
+                  'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
+                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
+                  'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } }
+            ] },
                 'time' => '2019-10-13T13:28:14.170-07:00' }.to_json,
         headers: {}
       )
@@ -1556,24 +3034,26 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'PrivateNote' => 'Memo',
             'Line' =>
-            [{ 'Id' => '0',
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'JournalEntryLineDetail',
-               'JournalEntryLineDetail' =>
+            [
+              { 'Id' => '0',
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'JournalEntryLineDetail',
+                'JournalEntryLineDetail' =>
                { 'PostingType' => 'Credit',
                  'AccountRef' => { 'value' => '123', 'name' => 'Cash on hand' },
                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
                  'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } },
-             { 'Id' => '1',
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'JournalEntryLineDetail',
-               'JournalEntryLineDetail' =>
-               { 'PostingType' => 'Debit',
-                 'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
-                 'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
-                 'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } }] },
+              { 'Id' => '1',
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'JournalEntryLineDetail',
+                'JournalEntryLineDetail' =>
+                { 'PostingType' => 'Debit',
+                  'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
+                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
+                  'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } }
+            ] },
                 'time' => '2019-10-13T13:28:14.170-07:00' }.to_json,
         headers: {}
       )
@@ -1595,22 +3075,24 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
                 'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
                 'PrivateNote' => 'Memo',
                 'Line' =>
-           [{ 'DetailType' => 'JournalEntryLineDetail',
-              'JournalEntryLineDetail' =>
+           [
+             { 'DetailType' => 'JournalEntryLineDetail',
+               'JournalEntryLineDetail' =>
               { 'PostingType' => 'Credit',
                 'AccountRef' => { 'value' => '123' },
                 'ClassRef' => { 'value' => '123' },
                 'DepartmentRef' => { 'value' => '123' } },
-              'Amount' => 123.45,
-              'Description' => 'Sample Transaction' },
-            { 'DetailType' => 'JournalEntryLineDetail',
-              'JournalEntryLineDetail' =>
-              { 'PostingType' => 'Debit',
-                'AccountRef' => { 'value' => '123' },
-                'ClassRef' => { 'value' => '123' },
-                'DepartmentRef' => { 'value' => '123' } },
-              'Amount' => 123.45,
-              'Description' => 'Sample Transaction' }] },
+               'Amount' => 123.45,
+               'Description' => 'Sample Transaction' },
+             { 'DetailType' => 'JournalEntryLineDetail',
+               'JournalEntryLineDetail' =>
+               { 'PostingType' => 'Debit',
+                 'AccountRef' => { 'value' => '123' },
+                 'ClassRef' => { 'value' => '123' },
+                 'DepartmentRef' => { 'value' => '123' } },
+               'Amount' => 123.45,
+               'Description' => 'Sample Transaction' }
+           ] },
         headers: {
           'Accept' => 'application/json',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -1635,24 +3117,26 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
             'CurrencyRef' => { 'value' => 'USD', 'name' => 'United States Dollar' },
             'PrivateNote' => 'Memo',
             'Line' =>
-            [{ 'Id' => '2',
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'JournalEntryLineDetail',
-               'JournalEntryLineDetail' =>
+            [
+              { 'Id' => '2',
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'JournalEntryLineDetail',
+                'JournalEntryLineDetail' =>
                { 'PostingType' => 'Credit',
                  'AccountRef' => { 'value' => '123', 'name' => 'Cash on hand' },
                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
                  'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } },
-             { 'Id' => '3',
-               'Description' => 'Sample Transaction',
-               'Amount' => 123.45,
-               'DetailType' => 'JournalEntryLineDetail',
-               'JournalEntryLineDetail' =>
-               { 'PostingType' => 'Debit',
-                 'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
-                 'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
-                 'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } }] },
+              { 'Id' => '3',
+                'Description' => 'Sample Transaction',
+                'Amount' => 123.45,
+                'DetailType' => 'JournalEntryLineDetail',
+                'JournalEntryLineDetail' =>
+                { 'PostingType' => 'Debit',
+                  'AccountRef' => { 'value' => '123', 'name' => 'Opening Balance Equity' },
+                  'ClassRef' => { 'value' => '123', 'name' => 'Sample Class' },
+                  'DepartmentRef' => { 'value' => '123', 'name' => 'Sample Department' } } }
+            ] },
                 'time' => '2019-10-13T13:28:14.170-07:00' }.to_json,
         headers: {}
       )
@@ -1747,18 +3231,20 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         status: 200,
         body: { 'QueryResponse' =>
           { 'Department' =>
-            [{ 'Name' => 'Test Department',
-               'SubDepartment' => true,
-               'ParentRef' => { 'value' => nil },
-               'FullyQualifiedName' => 'Test Department',
-               'Active' => true,
-               'domain' => 'QBO',
-               'sparse' => false,
-               'Id' => '123',
-               'SyncToken' => '0',
-               'MetaData' =>
+            [
+              { 'Name' => 'Test Department',
+                'SubDepartment' => true,
+                'ParentRef' => { 'value' => nil },
+                'FullyQualifiedName' => 'Test Department',
+                'Active' => true,
+                'domain' => 'QBO',
+                'sparse' => false,
+                'Id' => '123',
+                'SyncToken' => '0',
+                'MetaData' =>
                { 'CreateTime' => '2019-12-04T14:24:59-08:00',
-                 'LastUpdatedTime' => '2019-12-04T14:24:59-08:00' } }] } }.to_json,
+                 'LastUpdatedTime' => '2019-12-04T14:24:59-08:00' } }
+            ] } }.to_json,
         headers: {}
       )
   end
@@ -1897,17 +3383,19 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
         status: 200,
         body: { 'QueryResponse' =>
           { 'Class' =>
-            [{ 'Name' => 'Test Class',
-               'SubClass' => false,
-               'FullyQualifiedName' => 'Test Class',
-               'Active' => true,
-               'domain' => 'QBO',
-               'sparse' => false,
-               'Id' => '5000000000000137302',
-               'SyncToken' => '0',
-               'MetaData' =>
+            [
+              { 'Name' => 'Test Class',
+                'SubClass' => false,
+                'FullyQualifiedName' => 'Test Class',
+                'Active' => true,
+                'domain' => 'QBO',
+                'sparse' => false,
+                'Id' => '5000000000000137302',
+                'SyncToken' => '0',
+                'MetaData' =>
                { 'CreateTime' => '2019-12-04T08:34:10-08:00',
-                 'LastUpdatedTime' => '2019-12-04T08:34:10-08:00' } }] } }.to_json,
+                 'LastUpdatedTime' => '2019-12-04T08:34:10-08:00' } }
+            ] } }.to_json,
         headers: {}
       )
   end
