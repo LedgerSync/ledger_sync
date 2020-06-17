@@ -21,7 +21,7 @@ module LedgerSync
         def last_name
           return if name.nil?
 
-          name.split(' ')[1..]
+          name.split(' ')[1..-1]
         end
       end
     end
