@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 support :quickbooks_online_helpers
@@ -5,7 +7,13 @@ support :quickbooks_online_helpers
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department::Operations::Create do
   include QuickBooksOnlineHelpers
 
-  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Department.new(name: 'Test Department', active: true, sub_department: false) }
+  let(:resource) do
+    LedgerSync::Ledgers::QuickBooksOnline::Department.new(
+      name: 'Test Department',
+      active: true,
+      sub_department: false
+    )
+  end
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'

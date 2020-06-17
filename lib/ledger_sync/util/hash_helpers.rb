@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 # Inspired by
 # https://github.com/rails/rails/blob/v6.0.0/activesupport/lib/active_support/core_ext/hash/keys.rb#L116
@@ -20,7 +22,11 @@ module LedgerSync
       end
 
       def deep_symbolize_keys(hash)
-        deep_transform_keys_in_object(hash) { |key| key.to_sym rescue key }
+        deep_transform_keys_in_object(hash) do |key|
+          key.to_sym
+        rescue StandardError
+          key
+        end
       end
 
       def deep_transform_keys_in_object(object, &block)
@@ -37,7 +43,11 @@ module LedgerSync
       end
 
       def deep_stringify_keys(hash)
-        deep_transform_keys_in_object(hash) { |key| key.to_s rescue key }
+        deep_transform_keys_in_object(hash) do |key|
+          key.to_s
+        rescue StandardError
+          key
+        end
       end
     end
   end

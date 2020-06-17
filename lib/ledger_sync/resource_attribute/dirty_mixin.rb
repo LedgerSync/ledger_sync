@@ -36,7 +36,7 @@ module LedgerSync
       # Change the dirty change set of {"name" => ["Bill", "Bob"]}
       # to current values of attributes that have changed: {"name" => "Bob"}
       def changes_to_h
-        Hash[changes.map { |k, v| [k, v.last] }]
+        changes.transform_values(&:last)
       end
 
       def dirty_attributes_to_h

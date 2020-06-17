@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Setup
 #
 # gem install bundler
@@ -25,7 +27,6 @@ require 'rack/lobster'
 Dotenv.load
 
 port = ENV.fetch('PORT', 5678)
-app = Rack::Lobster.new
 server = TCPServer.new port
 
 base_url = "http://localhost:#{port}"
@@ -41,16 +42,16 @@ client = LedgerSync::Ledgers::QuickBooksOnline::Client.new_from_env(test: true)
 puts 'Go to the following URL:'
 puts client.authorization_url(redirect_uri: base_url)
 
-while session = server.accept
+while (session = server.accept)
   request = session.gets
 
   puts request
 
   # 1
-  method, full_path = request.split(' ')
+  _method, full_path = request.split(' ')
 
   # 2
-  path, query = full_path.split('?')
+  _path, query = full_path.split('?')
 
   params = Hash[query.split('&').map { |e| e.split('=') }] if query.present?
 

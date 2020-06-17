@@ -4,7 +4,13 @@ require 'spec_helper'
 
 # Ref: https://5743578-sb1.app.netsuite.com/app/help/helpcenter.nl?fid=section_1534941088.html
 RSpec.describe LedgerSync::Ledgers::NetSuite::Token do
-  let(:expected_signature_data_string) { 'POST&https%3A%2F%2F1234567.restlets.api.netsuite.com%2Fapp%2Fsite%2Fhosting%2Frestlet.nl&customParam%3DsomeValue%26deploy%3D1%26oauth_consumer_key%3Def40afdd8abaac111b13825dd5e5e2ddddb44f86d5a0dd6dcf38c20aae6b67e4%26oauth_nonce%3DfjaLirsIcCGVZWzBX0pg%26oauth_signature_method%3DHMAC-SHA256%26oauth_timestamp%3D1508242306%26oauth_token%3D2b0ce516420110bcbd36b69e99196d1b7f6de3c6234c5afb799b73d87569f5cc%26oauth_version%3D1.0%26script%3D6%26testParam%3DsomeOtherValue' }
+  let(:expected_signature_data_string) do
+    'POST&https%3A%2F%2F1234567.restlets.api.netsuite.com%2Fapp%2Fsite%2Fhosting%2Frestlet.nl&customParam%3DsomeValue'\
+    '%26deploy%3D1%26oauth_consumer_key%3Def40afdd8abaac111b13825dd5e5e2ddddb44f86d5a0dd6dcf38c20aae6b67e4%26'\
+    'oauth_nonce%3DfjaLirsIcCGVZWzBX0pg%26oauth_signature_method%3DHMAC-SHA256%26oauth_timestamp%3D1508242306%26'\
+    'oauth_token%3D2b0ce516420110bcbd36b69e99196d1b7f6de3c6234c5afb799b73d87569f5cc%26oauth_version%3D1.0%26script'\
+    '%3D6%26testParam%3DsomeOtherValue'
+  end
 
   let(:account_id) { '1234567' }
   let(:body) { nil }
@@ -16,7 +22,10 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Token do
   let(:token_id) { '2b0ce516420110bcbd36b69e99196d1b7f6de3c6234c5afb799b73d87569f5cc' }
   let(:token_secret) { 'c29a677df7d5439a458c063654187e3d678d73aca8e3c9d8bea1478a3eb0d295' }
   let(:timestamp) { '1508242306' }
-  let(:url) { 'https://1234567.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=6&deploy=1&customParam=someValue&testParam=someOtherValue' }
+  let(:url) do
+    'https://1234567.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=6&deploy=1&customParam=someValue'\
+    '&testParam=someOtherValue'
+  end
 
   let(:token) do
     described_class.new(
@@ -72,8 +81,8 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Token do
 
     describe '#parameters_string' do
       it do
-        # s = 'a2=r%20b&a3=2%20q&a3=a&b5=%3D%253D&c%40=&c2=&oauth_consumer_key=9djdj82h48djs9d2&oauth_nonce=7d8f3e4a&oauth_signature_method=HMAC-SHA1&oauth_timestamp=137131201&oauth_token=kkk9d7dh3k39sjv7&oauth_version=1.0'
-        s = 'a2=r%20b&a3=a&b5=%3D%253D&c%40=&oauth_consumer_key=9djdj82h48djs9d2&oauth_nonce=7d8f3e4a&oauth_signature_method=HMAC-SHA1&oauth_timestamp=137131201&oauth_token=kkk9d7dh3k39sjv7&oauth_version=1.0'
+        s = 'a2=r%20b&a3=a&b5=%3D%253D&c%40=&oauth_consumer_key=9djdj82h48djs9d2&oauth_nonce=7d8f3e4a&'\
+            'oauth_signature_method=HMAC-SHA1&oauth_timestamp=137131201&oauth_token=kkk9d7dh3k39sjv7&oauth_version=1.0'
         expect(token.send(:parameters_string)).to eq(s)
       end
     end
@@ -87,8 +96,9 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Token do
 
     describe '#signature_data_string' do
       it do
-        # s = 'POST&http%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3D2%2520q%26a3%3Da%26b5%3D%253D%25253D%26c%2540%3D%26c2%3D%26oauth_consumer_key%3D9djdj82h48djs9d2%26oauth_nonce%3D7d8f3e4a%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D137131201%26oauth_token%3Dkkk9d7dh3k39sjv7%26oauth_version%3D1.0'
-        s = 'POST&http%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3Da%26b5%3D%253D%25253D%26c%2540%3D%26oauth_consumer_key%3D9djdj82h48djs9d2%26oauth_nonce%3D7d8f3e4a%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D137131201%26oauth_token%3Dkkk9d7dh3k39sjv7%26oauth_version%3D1.0'
+        s = 'POST&http%3A%2F%2Fexample.com%2Frequest&a2%3Dr%2520b%26a3%3Da%26b5%3D%253D%25253D%26c%2540%3D%26'\
+            'oauth_consumer_key%3D9djdj82h48djs9d2%26oauth_nonce%3D7d8f3e4a%26oauth_signature_method%3DHMAC-SHA1%26'\
+            'oauth_timestamp%3D137131201%26oauth_token%3Dkkk9d7dh3k39sjv7%26oauth_version%3D1.0'
         expect(token.send(:signature_data_string)).to eq(s)
       end
     end

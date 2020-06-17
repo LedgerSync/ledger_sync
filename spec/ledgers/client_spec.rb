@@ -42,12 +42,22 @@ RSpec.describe LedgerSync::Ledgers::Client do
   end
 
   describe '#searcher_for' do
-    it { expect(subject.searcher_for(resource_type: :customer)).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher) }
-    it { expect { subject.searcher_for(resource_type: :asdf) }.to raise_error(NameError, 'uninitialized constant LedgerSync::Ledgers::QuickBooksOnline::Asdf') }
+    it do
+      searcher = subject.searcher_for(resource_type: :customer)
+      expect(searcher).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher)
+    end
+    it do
+      expect { subject.searcher_for(resource_type: :asdf) }.to raise_error(
+        NameError, 'uninitialized constant LedgerSync::Ledgers::QuickBooksOnline::Asdf'
+      )
+    end
   end
 
   describe '#searcher_class_for' do
-    it { expect(subject.searcher_class_for(resource_type: :customer)).to eq(LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher) }
+    it do
+      searcher = subject.searcher_class_for(resource_type: :customer)
+      expect(searcher).to eq(LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher)
+    end
   end
 
   describe '.base_operation_module_for' do
@@ -72,7 +82,10 @@ RSpec.describe LedgerSync::Ledgers::Client do
 
   describe '.ledger_attributes_to_save' do
     it { expect { described_class.ledger_attributes_to_save }.to raise_error(NotImplementedError) }
-    it { expect(subject.class.ledger_attributes_to_save).to eq(%i[access_token expires_at refresh_token refresh_token_expires_at]) }
+    it do
+      values = subject.class.ledger_attributes_to_save
+      expect(values).to eq(%i[access_token expires_at refresh_token refresh_token_expires_at])
+    end
   end
 
   describe '.operation_class_for' do

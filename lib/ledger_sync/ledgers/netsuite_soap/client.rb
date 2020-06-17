@@ -1,33 +1,27 @@
+# frozen_string_literal: true
+
 require 'oauth2'
 
 module LedgerSync
   module Ledgers
     module NetSuiteSOAP
       class Client < Ledgers::Client
-        DEFAULT_API_VERSION = '2016_2'.freeze
+        DEFAULT_API_VERSION = '2016_2'
 
         attr_reader :account_id,
                     :api_version,
                     :consumer_key,
                     :consumer_secret,
-                    :account_id,
                     :token_id,
                     :token_secret
 
-        def initialize(
-          account_id:,
-          api_version: nil,
-          consumer_key:,
-          consumer_secret:,
-          token_id:,
-          token_secret:
-        )
-          @account_id = account_id
-          @api_version = api_version || DEFAULT_API_VERSION
-          @consumer_key = consumer_key
-          @consumer_secret = consumer_secret
-          @token_id = token_id
-          @token_secret = token_secret
+        def initialize(args = {})
+          @account_id      = args.fetch(:account_id)
+          @api_version     = args.fetch(:api_version, DEFAULT_API_VERSION)
+          @consumer_key    = args.fetch(:consumer_key)
+          @consumer_secret = args.fetch(:consumer_secret)
+          @token_id        = args.fetch(:token_id)
+          @token_secret    = args.fetch(:token_secret)
         end
 
         #
@@ -51,11 +45,11 @@ module LedgerSync
         def setup
           setup_account_id_for_gem = account_id_for_gem
           setup_account_id_for_url = account_id_for_url
-          setup_api_version = api_version
-          setup_consumer_key = consumer_key
-          setup_consumer_secret = consumer_secret
-          setup_token_id = token_id
-          setup_token_secret = token_secret
+          setup_api_version        = api_version
+          setup_consumer_key       = consumer_key
+          setup_consumer_secret    = consumer_secret
+          setup_token_id           = token_id
+          setup_token_secret       = token_secret
 
           ::NetSuite.configure do
             reset!

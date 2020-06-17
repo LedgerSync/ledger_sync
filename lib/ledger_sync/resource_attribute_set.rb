@@ -47,7 +47,7 @@ module LedgerSync
     end
 
     def to_h
-      Hash[attributes.map { |k, v| [k, v.value] }]
+      attributes.transform_values(&:value)
     end
   end
 end

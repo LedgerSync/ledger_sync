@@ -79,7 +79,9 @@ module LedgerSync
 
         def destination_attribute_class(destination:)
           @destination_attribute_type ||= {}
-          @destination_attribute_type[destination] ||= destination.class.destination_attributes[destination_attribute_dot_parts.first.to_sym].type.resource_class
+          @destination_attribute_type[destination] ||= destination.class.destination_attributes[
+            destination_attribute_dot_parts.first.to_sym
+          ].type.resource_class
         end
 
         def destination_attribute_dot_parts

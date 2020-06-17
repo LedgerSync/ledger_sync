@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Util::Signer do
   describe '#hmac_sha1' do
     context 'https://ruby-doc.org/stdlib-2.4.0/libdoc/openssl/rdoc/OpenSSL/HMAC.html#method-c-digest' do
       let(:key) { 'key' }
-      let(:str) { 'The quick brown fox jumps over the lazy dog'}
+      let(:str) { 'The quick brown fox jumps over the lazy dog' }
       let(:signature) { signer.hmac_sha1(escape: false, key: key) }
 
       it { expect(signature).to eq('3nybhbi3iqa8ino29wqQcBydtNk=') }

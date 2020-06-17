@@ -8,7 +8,7 @@ module LedgerSync
       def initialize(args = {})
         @raw = args.with_indifferent_access
 
-        self.class.attributes.except { |k, _| e.to_sym == :raw }.each do |name, attr_settings|
+        self.class.attributes.except { |_k, _| e.to_sym == :raw }.each do |name, attr_settings|
           if attr_settings.key?(:default)
             instance_variable_set(
               "@#{name}",

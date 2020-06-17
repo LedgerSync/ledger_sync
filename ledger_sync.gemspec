@@ -11,7 +11,8 @@ Gem::Specification.new do |spec|
   # spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
   spec.authors = ['Ryan Jackson']
   spec.date = '2019-05-21'
-  spec.description = 'LedgerSync is a simple library that allows you to sync common objects to popular accounting software like QuickBooks Online, Xero, NetSuite, etc.'
+  spec.description = 'LedgerSync is a simple library that allows you to sync common objects to popular accounting '\
+                     'software like QuickBooks Online, Xero, NetSuite, etc.'
   spec.email = ['ryanwjackson@gmail.com']
   spec.homepage = 'https://github.com/LedgerSync/ledger_sync'
   spec.licenses = ['MIT']
@@ -36,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('jekyll-menus', '~> 0.6.0')
   spec.add_development_dependency('jekyll-paginate', '~> 1.1')
   spec.add_development_dependency('jekyll-paginate-v2', '~> 1.9')
+  spec.add_development_dependency('overcommit')
   spec.add_development_dependency('rake', '~> 13.0')
   spec.add_development_dependency('rspec', '~> 3.2')
   spec.add_development_dependency('rubocop', '>= 0')

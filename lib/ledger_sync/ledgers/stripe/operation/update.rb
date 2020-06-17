@@ -8,8 +8,6 @@ module LedgerSync
       class Operation
         class Update
           include Stripe::Operation::Mixin
-
-          private
         end
       end
     end

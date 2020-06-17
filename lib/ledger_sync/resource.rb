@@ -48,7 +48,9 @@ module LedgerSync
     end
 
     def changes
-      super.merge(Hash[resource_attributes.references_many.map { |ref| [ref.name, ref.changes['value']] if ref.changed? }.compact])
+      super.merge(Hash[resource_attributes.references_many.map do |ref|
+                         [ref.name, ref.changes['value']] if ref.changed?
+                       end.compact])
     end
 
     def class_from_resource_type(obj)

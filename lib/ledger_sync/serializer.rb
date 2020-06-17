@@ -40,7 +40,9 @@ module LedgerSync
     end
 
     def self.attribute(hash_attribute, args = {}, &block)
-      raise 'You cannot provide hash_attribute in args.  Pass the value as the first argument.' if args.key?(:hash_attribute)
+      if args.key?(:hash_attribute)
+        raise 'You cannot provide hash_attribute in args.  Pass the value as the first argument.'
+      end
 
       _attribute(
         args.merge(

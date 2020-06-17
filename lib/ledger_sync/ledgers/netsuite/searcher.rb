@@ -42,7 +42,9 @@ module LedgerSync
             when 404
               []
             when 400
-              if request.body["title"].include? "Invalid search query Search error occurred: Record ‘subsidiary’ was not found"
+              if request.body['title'].include?(
+                'Invalid search query Search error occurred: Record ‘subsidiary’ was not found'
+              )
                 raise LedgerSync::Ledgers::NetSuite::Error::SubsidiariesNotEnabled
               end
             end

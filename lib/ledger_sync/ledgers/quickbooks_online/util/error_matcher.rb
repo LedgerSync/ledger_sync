@@ -24,15 +24,18 @@ module LedgerSync
           end
 
           def error_message
-            (body && JSON.parse(body).dig('fault', 'error')&.first&.fetch('message')) ||
-            (body && JSON.parse(body).dig('Fault', 'Error')&.first&.fetch('Message')) ||
-              (body && JSON.parse(body).dig('error')) ||
-              error.message
+            return error.message unless body
+
+            parsed_body = JSON.parse(body)
+
+            parsed_body.dig('fault', 'error')&.first&.fetch('message') ||
+              parsed_body.dig('Fault', 'Error')&.first&.fetch('Message') ||
+              parsed_body.dig('error')
           end
 
           def detail
             (body && JSON.parse(body).dig('fault', 'error')&.first&.fetch('detail')) ||
-            (body && JSON.parse(body).dig('Fault', 'Error')&.first&.fetch('Detail'))
+              (body && JSON.parse(body).dig('Fault', 'Error')&.first&.fetch('Detail'))
           end
 
           def code

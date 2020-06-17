@@ -27,8 +27,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Transfer::Operations::Upda
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
-  stubs: %i[
-    stub_find_transfer
-    stub_update_transfer
-  ]
+                  stubs: %i[
+                    stub_find_transfer
+                    stub_update_transfer
+                  ]
 end

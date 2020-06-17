@@ -37,7 +37,7 @@ module LedgerSync
         end
 
         def account_id_for_oauth
-          account_id.gsub(/\-/, '_').upcase
+          account_id.gsub(/-/, '_').upcase
         end
 
         def account_id_for_url
@@ -64,7 +64,7 @@ module LedgerSync
           resource = args.fetch(:resource, nil)
           params   = args.fetch(:params, {})
 
-          ret = self.class.ledger_resource_type_for(resource_class: resource.class) # This can be turned into a case statement if we need to override
+          ret = self.class.ledger_resource_type_for(resource_class: resource.class)
           ret += "/#{resource.ledger_id}" if resource.ledger_id.present? && args.fetch(:id, true)
           Util::URLHelpers.merge_params_in_path(
             path: ret,

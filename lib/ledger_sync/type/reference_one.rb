@@ -23,7 +23,7 @@ module LedgerSync
                                 resource_class
                               else
                                 [resource_class]
-        end
+                              end
       end
 
       private

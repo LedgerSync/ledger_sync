@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'webhook payloads' do
   describe '#original_payload' do
     it do
