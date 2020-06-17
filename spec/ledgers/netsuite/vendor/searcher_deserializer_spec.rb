@@ -19,7 +19,9 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Customer::SearcherDeserializer do
 
   describe '#deserialize' do
     let(:serializer) { described_class.new }
-    let(:deserialized_resource) { serializer.deserialize(hash: h, resource: LedgerSync::Ledgers::NetSuite::Customer.new) }
+    let(:deserialized_resource) do
+      serializer.deserialize(hash: h, resource: LedgerSync::Ledgers::NetSuite::Customer.new)
+    end
 
     it do
       expect(deserialized_resource.ledger_id).to eq(id)

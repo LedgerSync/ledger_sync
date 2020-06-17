@@ -55,10 +55,10 @@ module Docs
                   .sort_by(&:root_key)
       end
 
-      def rm(fn)
-        yellow "Removing: #{fn}"
-        FileUtils.rm_rf(fn, secure: true)
-        green "Removed: #{fn}"
+      def rm(filename)
+        yellow "Removing: #{filename}"
+        FileUtils.rm_rf(filename, secure: true)
+        green "Removed: #{filename}"
         nl
       end
 

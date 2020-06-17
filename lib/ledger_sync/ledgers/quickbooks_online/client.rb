@@ -96,7 +96,8 @@ module LedgerSync
           ledger_resource_type = self.class.ledger_resource_type_for(
             resource_class: resource_class
           ).classify
-          full_query = "SELECT * FROM #{ledger_resource_type} WHERE #{query} STARTPOSITION #{offset} MAXRESULTS #{limit}"
+          full_query = "SELECT * FROM #{ledger_resource_type} WHERE #{query} STARTPOSITION #{offset} MAXRESULTS "\
+                       "#{limit}"
           url = "#{oauth_base_uri}/query?query=#{CGI.escape(full_query)}"
 
           request(
@@ -116,7 +117,9 @@ module LedgerSync
         end
 
         def revoke_token!
-          headers = OAUTH_HEADERS.dup.merge('Authorization' => 'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret))
+          headers = OAUTH_HEADERS.dup.merge(
+            'Authorization' => 'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret)
+          )
           LedgerSync::Ledgers::Request.new(
             body: {
               token: access_token
@@ -141,7 +144,7 @@ module LedgerSync
           oauth_token
         end
 
-        def update_secrets_in_dotenv
+        def update_secrets_in_dotenv # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           return if ENV['TEST_ENV'] && !ENV['USE_DOTENV_ADAPTOR_SECRETS']
 
           filename = File.join(Dir.pwd, '.env')
@@ -166,6 +169,7 @@ module LedgerSync
                 tempfile.puts line
               end
             end
+
             tempfile.close
             FileUtils.mv tempfile.path, filename
           end
@@ -244,7 +248,9 @@ module LedgerSync
 
           @expires_at = Time&.at(token.expires_at.to_i)&.to_datetime
           unless token.params['x_refresh_token_expires_in'].nil?
-            @refresh_token_expires_at = Time&.at(Time.now.to_i + token.params['x_refresh_token_expires_in'])&.to_datetime
+            @refresh_token_expires_at = Time&.at(
+              Time.now.to_i + token.params['x_refresh_token_expires_in']
+            )&.to_datetime
           end
 
           @previous_refresh_tokens << refresh_token if refresh_token.present?

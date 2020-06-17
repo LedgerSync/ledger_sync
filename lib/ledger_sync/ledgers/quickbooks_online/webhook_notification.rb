@@ -13,9 +13,10 @@ module LedgerSync
                     :realm_id,
                     :webhook
 
-        def initialize(payload:, webhook: nil)
-          @original_payload = payload
-          @payload = payload.is_a?(String) ? JSON.parse(payload) : payload
+        def initialize(args = {})
+          @original_payload = args.fetch(:payload)
+          @webhook          = args.fetch(:webhook, nil)
+          @payload          = original_payload.is_a?(String) ? JSON.parse(original_payload) : original_payload
 
           @realm_id = @payload.dig('realmId')
           raise 'Invalid payload: Could not find realmId' if @realm_id.blank?

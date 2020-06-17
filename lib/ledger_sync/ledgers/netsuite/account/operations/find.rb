@@ -22,7 +22,7 @@ module LedgerSync
             end
           end
         end
-        end
+      end
     end
   end
 end

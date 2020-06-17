@@ -54,19 +54,12 @@ module LedgerSync
 
       def self.included(base)
         base.class_eval do
-          serialize only: %i[
-            next_searcher
-            previous_searcher
+          # TODO: removed next and previous searcher, because it causes a string of them.
+          # We should add next_searcher_params which would be easier to serialize.
+          simply_serialize only: %i[
             resources
             searcher
           ]
-        end
-      end
-
-      def self.included(base)
-        base.class_eval do
-          # TODO: removed next and previous searcher, because it causes a string of them.  We should add next_searcher_params which would be easier to serialize.
-          simply_serialize only: %i[resources searcher]
         end
       end
 

@@ -5,7 +5,7 @@ require_relative 'netsuite/record_collection'
 # Define globally so it's only evaluated once.
 NETSUITE_RECORD_COLLECTION = Test::NetSuite::RecordCollection.new
 
-module NetSuiteHelpers
+module NetSuiteHelpers # rubocop:disable Metrics/ModuleLength
   def authorized_headers(override = {}, write: false)
     if write
       override = override.merge(
@@ -17,7 +17,19 @@ module NetSuiteHelpers
     {
       'Accept' => '*/*',
       'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Authorization' => /OAuth realm="NETSUITE_ACCOUNT_ID",oauth_consumer_key="NETSUITE_CONSUMER_KEY",oauth_token="NETSUITE_TOKEN_ID",oauth_signature_method="HMAC-SHA256",oauth_timestamp="[0-9]+",oauth_nonce="[0-9a-zA-Z]+",oauth_version="1.0",oauth_signature=".+"/,
+      'Authorization' =>
+        /
+        OAuth
+        \s
+        realm="NETSUITE_ACCOUNT_ID",
+        oauth_consumer_key="NETSUITE_CONSUMER_KEY",
+        oauth_token="NETSUITE_TOKEN_ID",
+        oauth_signature_method="HMAC-SHA256",
+        oauth_timestamp="[0-9]+",
+        oauth_nonce="[0-9a-zA-Z]+",
+        oauth_version="1.0",
+        oauth_signature=".+"
+        /x,
       'User-Agent' => /.*/
     }.merge(override)
   end
@@ -44,15 +56,48 @@ module NetSuiteHelpers
     ret
   end
 
-  def netsuite_client(env: false)
-    env ||= ENV.key?('USE_DOTENV_ADAPTOR_SECRETS')
+  def env_account_id
+    return ENV.fetch('NETSUITE_ACCOUNT_ID', 'netsuite_account_id') if netsuite_env?
+
+    'netsuite_account_id'
+  end
+
+  def env_consumer_key
+    return ENV.fetch('NETSUITE_CONSUMER_KEY', 'NETSUITE_CONSUMER_KEY') if netsuite_env?
+
+    'NETSUITE_CONSUMER_KEY'
+  end
+
+  def env_consumer_secret
+    return ENV.fetch('NETSUITE_CONSUMER_SECRET', 'NETSUITE_CONSUMER_SECRET') if netsuite_env?
+
+    'NETSUITE_CONSUMER_SECRET'
+  end
+
+  def env_token_id
+    return ENV.fetch('NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_ID') if netsuite_env?
+
+    'NETSUITE_TOKEN_ID'
+  end
+
+  def env_token_secret
+    return ENV.fetch('NETSUITE_TOKEN_SECRET', 'NETSUITE_TOKEN_SECRET') if netsuite_env?
+
+    'NETSUITE_TOKEN_SECRET'
+  end
+
+  def netsuite_client
     LedgerSync.ledgers.netsuite.new(
-      account_id: env ? ENV.fetch('NETSUITE_ACCOUNT_ID', 'netsuite_account_id') : 'netsuite_account_id',
-      consumer_key: env ? ENV.fetch('NETSUITE_CONSUMER_KEY', 'NETSUITE_CONSUMER_KEY') : 'NETSUITE_CONSUMER_KEY',
-      consumer_secret: env ? ENV.fetch('NETSUITE_CONSUMER_SECRET', 'NETSUITE_CONSUMER_SECRET') : 'NETSUITE_CONSUMER_SECRET',
-      token_id: env ? ENV.fetch('NETSUITE_TOKEN_ID', 'NETSUITE_TOKEN_ID') : 'NETSUITE_TOKEN_ID',
-      token_secret: env ? ENV.fetch('NETSUITE_TOKEN_SECRET', 'NETSUITE_TOKEN_SECRET') : 'NETSUITE_TOKEN_SECRET'
+      account_id: env_account_id,
+      consumer_key: env_consumer_key,
+      consumer_secret: env_consumer_secret,
+      token_id: env_token_id,
+      token_secret: env_token_secret
     )
+  end
+
+  def netsuite_env?
+    @netsuite_env ||= ENV.key?('USE_DOTENV_ADAPTOR_SECRETS')
   end
 
   def netsuite_records

@@ -34,7 +34,7 @@ module LedgerSync
       MSG
     end
 
-    def is_empty(input)
+    def is_empty(input) # rubocop:disable Naming/PredicateName
       if input.respond_to?(:empty?)
         input.empty?
       else
@@ -42,11 +42,11 @@ module LedgerSync
       end
     end
 
-    def is_not_empty(input)
+    def is_not_empty(input) # rubocop:disable Naming/PredicateName
       if input.respond_to?(:empty?)
         !input.empty?
       else
-        !!input
+        !!input # rubocop:disable Style/DoubleNegation
       end
     end
 

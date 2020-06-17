@@ -4,7 +4,7 @@ module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class DashboardURLHelper < LedgerSync::Ledgers::DashboardURLHelper
-        def resource_path
+        def resource_path # rubocop:disable Metrics/CyclomaticComplexity
           @resource_path = case resource
                            when QuickBooksOnline::Account
                              "/register?accountId=#{resource.ledger_id}"
@@ -26,7 +26,7 @@ module LedgerSync
                              "/transfer?txnId=#{resource.ledger_id}"
                            when QuickBooksOnline::Vendor
                              "/vendordetail?nameId=#{resource.ledger_id}"
-          end
+                           end
         end
       end
     end

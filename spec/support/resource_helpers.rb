@@ -1,17 +1,10 @@
 # frozen_string_literal: true
 
 module ResourceHelpers
-  def new_resource_class(args = {})
-    @test_resource_counter ||= 0
-    @test_resource_counter += 1
+  def new_resource_class(args = {}) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+    class_name = args.fetch(:name, "#{test_run_id}TestCustomResource#{test_resource_counter_increment!}")
 
-    class_name = args.fetch(:name, "#{test_run_id}TestCustomResource#{@test_resource_counter}")
-
-    begin
-      Object.send(:remove_const, class_name)
-    rescue NameError
-      nil
-    end
+    remove_customer_resource_class(class_name: class_name)
 
     Object.const_set(
       class_name,
@@ -46,6 +39,21 @@ module ResourceHelpers
         end
       end
     )
+  end
+
+  def remove_customer_resource_class(args = {})
+    class_name = args.fetch(:class_name)
+
+    begin
+      Object.send(:remove_const, class_name)
+    rescue NameError
+      nil
+    end
+  end
+
+  def test_resource_counter_increment!
+    @test_resource_counter ||= 0
+    @test_resource_counter += 1
   end
 end
 

@@ -23,11 +23,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Updat
   end
 
   let(:line_item_1) do
-    LedgerSync::Ledgers::QuickBooksOnline::DepositLineItem.new(deposit_line_item_resource(account: account, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::DepositLineItem.new(
+      deposit_line_item_resource(account: account, ledger_class: ledger_class)
+    )
   end
 
   let(:line_item_2) do
-    LedgerSync::Ledgers::QuickBooksOnline::DepositLineItem.new(deposit_line_item_resource(account: account, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::DepositLineItem.new(
+      deposit_line_item_resource(account: account, ledger_class: ledger_class)
+    )
   end
 
   let(:resource) do

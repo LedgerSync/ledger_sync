@@ -10,7 +10,14 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Invoice::Operations::Find 
 
   let(:customer) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new(ledger_id: '123') }
   let(:account) { LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: '123') }
-  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Invoice.new(ledger_id: '123', customer: customer, account: account, line_items: []) }
+  let(:resource) do
+    LedgerSync::Ledgers::QuickBooksOnline::Invoice.new(
+      ledger_id: '123',
+      customer: customer,
+      account: account,
+      line_items: []
+    )
+  end
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
