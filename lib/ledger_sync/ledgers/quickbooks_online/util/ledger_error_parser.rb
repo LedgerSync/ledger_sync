@@ -13,7 +13,7 @@ module LedgerSync
             end
 
             def output_message
-              "Request trhottled with: #{error_message}"
+              "Request throttle with: #{error_message}"
             end
 
             def match?
