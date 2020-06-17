@@ -13,4 +13,5 @@ before_install:
   - gem install overcommit
 script:
   - bundle exec rspec --order rand
+  - overcommit --sign
   - overcommit --run
