@@ -21,6 +21,7 @@ PreCommit:
       - 'documentation/site/assets/webfonts/**/*.svg'
 
   RuboCop:
+    command: ['bundle', 'exec', 'rubocop']
     enabled: true
     on_warn: fail # Treat all warnings as failures
 
