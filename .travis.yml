@@ -13,8 +13,6 @@ before_install:
   - gem install overcommit
 script:
   - bundle exec rspec --order rand
-  - bundle exec rubocop --version
-  - overcommit --sign
   - overcommit --run
 jobs:
   allow_failures:
