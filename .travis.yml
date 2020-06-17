@@ -13,7 +13,7 @@ before_install:
   - gem install overcommit
 script:
   - bundle exec rspec --order rand
-  - overcommit --run
+  - overcommit --sign && overcommit --run
 jobs:
   allow_failures:
     - rvm: ruby-head
