@@ -21,7 +21,7 @@ RSpec.describe FactoryBot do
     end
 
     expect(FactoryBot.build(:test_factory).name).to match(regex(:name))
-    FactoryBot.custom_rewind_sequences
+    FactoryBot.rewind_sequences
     expect(FactoryBot.build(:test_factory).name).to match(regex(:name))
   end
 
