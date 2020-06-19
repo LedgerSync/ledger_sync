@@ -34,7 +34,6 @@ module LedgerSync
                 type: value['type']
               ).new(
                 ledger_id: value['value'],
-                display_name: value['name']
               )
             end
           end

@@ -13,6 +13,10 @@ module LedgerSync
         references_one :PrimaryPhone, to: PrimaryPhone
         references_one :PrimaryEmailAddr, to: PrimaryEmailAddr
         references_one :subsidiary, to: Subsidiary
+
+        def name
+          self.DisplayName
+        end
       end
     end
   end
