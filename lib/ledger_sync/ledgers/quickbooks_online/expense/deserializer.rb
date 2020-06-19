@@ -33,7 +33,7 @@ module LedgerSync
               Client.resource_from_ledger_type(
                 type: value['type']
               ).new(
-                ledger_id: value['value'],
+                ledger_id: value['value']
               )
             end
           end
