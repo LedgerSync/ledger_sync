@@ -25,3 +25,17 @@ layout: <%= "reference_#{client.root_key}" %>
 | Name | Type |
 | ---- | ---- |
 <% end -%>
+
+## Searchers
+
+<% searcher_class = begin -%>
+<% client.searcher_class_for(resource_type: resource.resource_type) -%>
+<% rescue NameError -%>
+<% end -%>
+<% if searcher_class.present? -%>
+| Name |
+| ---- |
+| `<%= searcher_class %>` |
+<% else -%>
+There are no searchers for this resource.
+<% end -%>
