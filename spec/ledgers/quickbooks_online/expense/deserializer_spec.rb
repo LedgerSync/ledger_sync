@@ -113,7 +113,6 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Deserializer do
       entity = deserialized_resource.entity
       expect(entity).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
       expect(entity.ledger_id).to eq(vendor_ledger_id)
-      expect(entity.display_name).to eq(vendor_display_name)
     end
   end
 end
