@@ -80,21 +80,14 @@ module LedgerSync
 
           def initialize(client:, error:)
             @client = client
+
             super(error: error)
           end
 
-          def parse
-            PARSERS.map do |parser|
-              matcher = parser.new(error: error)
-              next unless matcher.match?
-
-              return matcher.error_class.new(
-                client: client,
-                message: matcher.output_message,
-                response: error
-              )
-            end
-            nil
+          def additional_error_args
+            {
+              client: client
+            }
           end
         end
       end

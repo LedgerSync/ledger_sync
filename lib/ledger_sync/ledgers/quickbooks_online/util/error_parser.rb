@@ -9,8 +9,13 @@ module LedgerSync
         class ErrorParser
           attr_reader :error
 
-          def initialize(error:)
-            @error = error
+          def initialize(args = {})
+            @error = args.fetch(:error)
+            @parsers = args.fetch(:parsers, nil)
+          end
+
+          def additional_error_args
+            {}
           end
 
           def error_class
@@ -18,7 +23,23 @@ module LedgerSync
           end
 
           def parse
-            raise NotImplementedError
+            parsers.map do |parser|
+              matcher = parser.new(error: error)
+              next unless matcher.match?
+
+              return matcher.error_class.new(
+                additional_error_args.merge(
+                  message: matcher.output_message,
+                  response: error
+                )
+              )
+            end
+
+            nil
+          end
+
+          def parsers
+            @parsers ||= self.class::PARSERS
           end
         end
       end
