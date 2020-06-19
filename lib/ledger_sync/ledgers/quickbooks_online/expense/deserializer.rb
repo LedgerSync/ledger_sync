@@ -8,6 +8,8 @@ module LedgerSync
     module QuickBooksOnline
       class Expense
         class Deserializer < QuickBooksOnline::Deserializer
+          id
+
           references_one :currency,
                          hash_attribute: :CurrencyRef,
                          deserializer: Currency::Deserializer
