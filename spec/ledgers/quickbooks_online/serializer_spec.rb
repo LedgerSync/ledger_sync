@@ -103,7 +103,12 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Serializer do
   describe '#serialize' do
     it 'deep merges values' do
       serializer_class = LedgerSync::Ledgers::QuickBooksOnline::Customer::Serializer
-      customer = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(DisplayName: 'test', PrimaryEmailAddr: create(:quickbooks_online_primary_email_addr, Address: 'test@example.com'))
+      customer = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(
+        DisplayName: 'test',
+        PrimaryEmailAddr: create(
+          :quickbooks_online_primary_email_addr, Address: 'test@example.com'
+        )
+      )
       serializer = serializer_class.new
 
       h = {

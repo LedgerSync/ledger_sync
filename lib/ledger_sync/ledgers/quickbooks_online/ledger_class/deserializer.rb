@@ -21,7 +21,6 @@ module LedgerSync
 
           attribute 'parent.ledger_id',
                     hash_attribute: 'ParentRef.value'
-
         end
       end
     end

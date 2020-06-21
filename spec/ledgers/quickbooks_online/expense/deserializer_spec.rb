@@ -35,9 +35,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Deserializer do
   end
   let(:currency) { FactoryBot.create(:quickbooks_online_currency) }
   let(:line_items) do
+    # Account is required:
+    # https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/purchase#create-a-purchase
     [
       LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new(
-        account: LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: 'account_ledger_id_1'), # Account is required: https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/purchase#create-a-purchase
+        account: LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: 'account_ledger_id_1'),
         ledger_class: ledger_class,
         amount: 10_000,
         description: 'Description 1'
@@ -111,7 +113,6 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Deserializer do
       entity = deserialized_resource.entity
       expect(entity).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
       expect(entity.ledger_id).to eq(vendor_ledger_id)
-      expect(entity.display_name).to eq(vendor_display_name)
     end
   end
 end

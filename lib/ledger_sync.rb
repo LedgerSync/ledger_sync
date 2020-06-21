@@ -90,7 +90,9 @@ module LedgerSync
   end
 
   def self.log_level=(val)
-    raise ArgumentError, 'log_level should only be set to `nil`, `debug` or `info`' if !val.nil? && ![LEVEL_DEBUG, LEVEL_ERROR, LEVEL_INFO].include?(val)
+    if !val.nil? && ![LEVEL_DEBUG, LEVEL_ERROR, LEVEL_INFO].include?(val)
+      raise ArgumentError, 'log_level should only be set to `nil`, `debug` or `info`'
+    end
 
     @log_level = val
   end

@@ -18,7 +18,7 @@ module LedgerSync
 
             def match?
               code == 6240 ||
-              message.include?('the name supplied already exists')
+                message.include?('the name supplied already exists')
             end
           end
 
@@ -33,7 +33,7 @@ module LedgerSync
 
             def match?
               code == 610 ||
-              message.include?('object not found')
+                message.include?('object not found')
             end
           end
 

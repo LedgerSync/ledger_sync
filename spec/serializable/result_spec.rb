@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 RSpec.describe LedgerSync::Result, type: :serializable do
-    describe LedgerSync::Result do
+  describe LedgerSync::Result do
     it do
       subject = described_class.Success(:val).simply_serialize
       h = {

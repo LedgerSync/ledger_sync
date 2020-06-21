@@ -4,7 +4,7 @@ module LedgerSync
   module Ledgers
     module NetSuite
       class DashboardURLHelper < LedgerSync::Ledgers::DashboardURLHelper
-        def resource_path
+        def resource_path # rubocop:disable Metrics/CyclomaticComplexity
           @resource_path = case resource
                            when NetSuite::Account
                              "/app/accounting/account/account.nl?id=#{resource.ledger_id}"

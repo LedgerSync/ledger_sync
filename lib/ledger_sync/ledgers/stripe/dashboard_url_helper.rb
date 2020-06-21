@@ -13,7 +13,7 @@ module LedgerSync
                                client: self,
                                resource: resource
                              )
-          end
+                           end
         end
       end
     end

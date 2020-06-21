@@ -55,7 +55,12 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Request do
   def stub_refresh
     stub_request(:post, 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer')
       .with(
-        body: { 'client_id' => 'client_id', 'client_secret' => 'client_secret', 'grant_type' => 'refresh_token', 'refresh_token' => 'refresh_token' },
+        body: {
+          'client_id' => 'client_id',
+          'client_secret' => 'client_secret',
+          'grant_type' => 'refresh_token',
+          'refresh_token' => 'refresh_token'
+        },
         headers: {
           'Accept' => '*/*',
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
@@ -63,7 +68,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Request do
           'User-Agent' => /Faraday .+/
         }
       )
-      .to_return(status: 200, body: '', headers: {})
+      .to_return(
+        status: 200,
+        body: '',
+        headers: {}
+      )
   end
 
   describe '#perform' do
@@ -97,7 +106,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Request do
     end
 
     it 'refreshes and parses error' do
-      allow(request).to receive(:oauth).and_wrap_original do |m, *args|
+      allow(request).to receive(:oauth).and_wrap_original do |_m, *_args|
         raise OAuth2::Error, OpenStruct.new
       end
       allow(request).to receive(:parse_error).twice.and_return(

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LedgerSync
   class LedgerConfigurationStore
     include Enumerable
@@ -13,7 +15,9 @@ module LedgerSync
 
     def add_alias(client_key, existing_config)
       if respond_to?(client_key)
-        raise LedgerSync::ConfigurationError, "Alias already taken: #{client_key}" if send(client_key) != existing_config
+        if send(client_key) != existing_config
+          raise LedgerSync::ConfigurationError, "Alias already taken: #{client_key}"
+        end
 
         return
       end

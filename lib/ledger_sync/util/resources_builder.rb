@@ -36,12 +36,12 @@ module LedgerSync
 
       private
 
-      def build_resource(external_id:, type:)
-        external_id = external_id.to_sym
-        type = type.to_sym
-
-        ledger_id = @data.dig(type, external_id, :ledger_id)
+      def build_resource(args = {}) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+        external_id  = args.fetch(:external_id).to_sym
+        type         = args.fetch(:type).to_sym
+        ledger_id    = @data.dig(type, external_id, :ledger_id)
         current_data = @data.dig(type, external_id, :data)
+
         raise "No data provided for #{type} (ID: #{external_id})" if current_data.nil?
 
         resource_class = if ledger == :root

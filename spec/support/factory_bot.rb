@@ -2,15 +2,18 @@
 
 require 'factory_bot'
 
-def register_factory(prefix:, resource_class:)
-  key = "#{prefix}_#{resource_class.resource_type}"
+def register_factory(args = {}) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  prefix         = args.fetch(:prefix)
+  resource_class = args.fetch(:resource_class)
+  key            = "#{prefix}_#{resource_class.resource_type}"
+
   FactoryBot.define do
     factory key, class: resource_class do
       resource_class.resource_attributes.each do |attribute, resource_attribute|
         case resource_attribute.type
         when LedgerSync::Type::StringFromSet
           add_attribute(attribute) { resource_attribute.type.values.first }
-        when  LedgerSync::Type::String, LedgerSync::Type::ID
+        when LedgerSync::Type::String, LedgerSync::Type::ID
           case attribute.to_sym
           when :ledger_id
             sequence(attribute) { nil }
@@ -28,12 +31,22 @@ def register_factory(prefix:, resource_class:)
         when LedgerSync::Type::Integer
           add_attribute(attribute) { 123 }
         when LedgerSync::Type::ReferenceOne
-          resource_attribute_key = "#{prefix}_#{resource_attribute.type.resource_class.is_a?(Array) ? resource_attribute.type.resource_class.first.resource_type : resource_attribute.type.resource_class.resource_type}"
+          key_ending = if resource_attribute.type.resource_class.is_a?(Array)
+                         resource_attribute.type.resource_class.first.resource_type
+                       else
+                         resource_attribute.type.resource_class.resource_type
+                       end
+          resource_attribute_key = "#{prefix}_#{key_ending}"
           next if resource_attribute_key == key
 
           references_one attribute, factory: resource_attribute_key
         when LedgerSync::Type::ReferenceMany
-          resource_attribute_key = "#{prefix}_#{resource_attribute.type.resource_class.is_a?(Array) ? resource_attribute.type.resource_class.first.resource_type : resource_attribute.type.resource_class.resource_type}"
+          key_ending = if resource_attribute.type.resource_class.is_a?(Array)
+                         resource_attribute.type.resource_class.first.resource_type
+                       else
+                         resource_attribute.type.resource_class.resource_type
+                       end
+          resource_attribute_key = "#{prefix}_#{key_ending}"
           next if resource_attribute_key == key
 
           references_many attribute, factory: resource_attribute_key
@@ -62,50 +75,30 @@ RSpec.configure do |config|
     FactoryBot.find_definitions
     generate_resource_factories
   end
-  config.after { FactoryBot.custom_rewind_sequences }
-  # config.after { FactoryBot.configuration.sequence_store.map(&:rewind) }
+  config.after { FactoryBot.rewind_sequences }
 end
 
-FactoryBot.configuration.skip_create
-FactoryBot.configuration.initialize_with { new(attributes) } # Allows initializing read-only attrs
+FactoryBot.define do
+  skip_create
+  initialize_with { new(attributes) } # Allows initializing read-only attrs
+end
 
 module FactoryBot
-  def self.custom_rewind_sequences
-    FactoryBot.configuration.sequence_store.map(&:rewind)
-    rewind_sequences
+  def self.rand_id(*appends, include_test_run_id: true)
+    ret = ''
+    ret += test_run_id if include_test_run_id
+    ret += (0...8).map { rand(65..90).chr }.join
+    appends.each do |append|
+      ret += "-#{append}"
+    end
+    ret
   end
 
-  class Configuration
-    def sequence_store
-      @sequence_store ||= []
-    end
-
-    def rand_id(*appends, include_test_run_id: true)
-      ret = ''
-      ret += test_run_id if include_test_run_id
-      ret += (0...8).map { rand(65..90).chr }.join
-      appends.each do |append|
-        ret += "-#{append}"
-      end
-      ret
-    end
-
-    def test_run_id(*appends, **keywords)
-      @test_run_id ||= rand_id(
-        *appends,
-        **keywords.merge(include_test_run_id: false)
-      )
-    end
-  end
-
-  class SyntaxRunner
-    def rand_id(*args)
-      FactoryBot.configuration.rand_id(*args)
-    end
-
-    def test_run_id(*args)
-      FactoryBot.configuration.test_run_id(*args)
-    end
+  def self.test_run_id(*appends, **keywords)
+    @test_run_id ||= rand_id(
+      *appends,
+      **keywords.merge(include_test_run_id: false)
+    )
   end
 
   class DefinitionProxy
@@ -138,23 +131,6 @@ module FactoryBot
         FactoryBot.build_list(factory, count)
       end
     end
-
-    #
-    # Overwriting method so that it globally registers the sequence.  This is a
-    # monkey patch to avoid time digging through the `method_missing` issues.
-    #
-    # @param [String] name
-    # @param [Array] *args
-    # @param [Proc] &block
-    #
-    # @return [FactoryBot::Declaration]
-    #
-    def sequence(name, *args, &block)
-      sequence = Sequence.new(name, *args, &block)
-      # FactoryBot.register_sequence(sequence)
-      FactoryBot.configuration.sequence_store << sequence
-      add_attribute(name) { increment_sequence(sequence) }
-    end
   end
 end
 
@@ -164,7 +140,7 @@ end
 # @return [String]
 #
 def rand_id(*args)
-  FactoryBot.configuration.rand_id(*args)
+  FactoryBot.rand_id(*args)
 end
 
 #
@@ -173,5 +149,5 @@ end
 # @return [String]
 #
 def test_run_id(*args)
-  @test_run_id ||= FactoryBot.configuration.test_run_id(*args)
+  @test_run_id ||= FactoryBot.test_run_id(*args)
 end

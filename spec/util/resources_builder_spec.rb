@@ -70,7 +70,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
     end
 
     it do
-      data[:resource_with_date][:date_resource_1][:data][:date_attr] = 12345
+      data[:resource_with_date][:date_resource_1][:data][:date_attr] = 12_345
       builder = described_class.new(
         data: data,
         ledger: :root,
@@ -78,7 +78,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         root_resource_external_id: root_resource_external_id,
         root_resource_type: root_resource_type
       )
-      expect(data[:resource_with_date][:date_resource_1][:data][:date_attr]).to eq(12345)
+      expect(data[:resource_with_date][:date_resource_1][:data][:date_attr]).to eq(12_345)
       expect { builder.resource }.to raise_error(LedgerSync::ResourceAttributeError::TypeError)
     end
   end
@@ -160,7 +160,8 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
         '3aab091a-1a8a-4c96-b86c-f145198da13d' => {
           data: {
             currency: 'foo',
-            memo: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at 2019-10-24 18:21:53 UTC",
+            memo: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at "\
+                  '2019-10-24 18:21:53 UTC',
             payment_type: 'cash',
             transaction_date: Date.new(2019, 10, 25),
             entity: '928db55e-6552-4aaf-96d7-10c693922b1f',

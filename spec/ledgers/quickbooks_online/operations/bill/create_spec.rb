@@ -33,11 +33,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Create d
   end
 
   let(:line_item_1) do
-    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
+      bill_line_item_resource(account: account2, ledger_class: ledger_class)
+    )
   end
 
   let(:line_item_2) do
-    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(bill_line_item_resource(account: account2, ledger_class: ledger_class))
+    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
+      bill_line_item_resource(account: account2, ledger_class: ledger_class)
+    )
   end
 
   let(:resource) do

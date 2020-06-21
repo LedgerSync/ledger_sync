@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module LedgerSync
   module TestHelpers
-    extend self
+    module_function
 
     def operations_hash
       @operations_hash ||= begin

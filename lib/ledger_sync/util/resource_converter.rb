@@ -14,25 +14,29 @@ module LedgerSync
         source       = args.fetch(:source).dup
         source       = Util::HashHelpers.deep_stringify_keys(source) if source.is_a?(Hash)
 
-        if source.is_a?(Hash) && args.key?(:only_changes)
-          raise 'only_changes can only be passed when the source is a resource'
-        end
-
-        self.class.attributes.each do |converter_attribute|
-          next if only_changes && !source.attribute_changed?(converter_attribute.source_attribute)
-
+        convertable_attributes(only_changes: only_changes, source: source).each do |converter_attribute|
           args_to_pass = {
             destination: destination,
             source: source
           }
           next if converter_attribute.if_method.present? && !send(converter_attribute.if_method, args_to_pass)
 
-
           # This is for in place changes
           destination = converter_attribute.build_destination!(args_to_pass)
         end
 
         destination
+      end
+
+      def convertable_attributes(args = {})
+        converter_attributes = self.class.attributes
+        source               = args.fetch(:source)
+
+        return converter_attributes unless args[:only_changes] == true
+
+        raise 'only_changes can only be passed when the source is a resource' if source.is_a?(Hash)
+
+        converter_attributes.select { |e| source.attribute_changed?(e.source_attribute) }
       end
 
       def self._attribute(destination_attribute = nil, args = {}, &block)

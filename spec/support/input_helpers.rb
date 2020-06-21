@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module InputHelpers
+module InputHelpers # rubocop:disable Metrics/ModuleLength
   def customer_resource(**merge)
     {
       external_id: :ext_id,

@@ -1,8 +1,7 @@
 <ul class="{{ include.menu_class }}">
-  {% for action in include.submenu %}
-  <li class="menu-item{% if include.page.url == action.url %} current{% endif %}{% if action.type != 'link' %} menu-button{% endif %}">
-    
-    {% include action_link.html action=action %}
-  </li>
-  {% endfor %}
+    {% for action in include.submenu %}
+    <li class="menu-item{% if include.page.url == action.url %} current{% endif %}{% if action.type != 'link' %} menu-button{% endif %}">
+        {% include action_link.html action=action %}
+    </li>
+    {% endfor %}
 </ul>

@@ -13,7 +13,7 @@ module LedgerSync
             end
 
             def output_message
-              "Request trhottled with: #{error_message}"
+              "Request throttle with: #{error_message}"
             end
 
             def match?
@@ -33,7 +33,7 @@ module LedgerSync
 
             def match?
               code == 3200 ||
-              message.include?('authenticationfailed') ||
+                message.include?('authenticationfailed') ||
                 message.include?('errorcode=003200')
             end
           end
@@ -49,7 +49,7 @@ module LedgerSync
 
             def match?
               code == 3100 ||
-              message.include?('authorizationfailed') ||
+                message.include?('authorizationfailed') ||
                 message.include?('errorcode=003100')
             end
           end

@@ -73,8 +73,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Invoice::Operations::Updat
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
-  stubs: %i[
-    stub_find_invoice
-    stub_update_invoice
-  ]
+                  stubs: %i[
+                    stub_find_invoice
+                    stub_update_invoice
+                  ]
 end

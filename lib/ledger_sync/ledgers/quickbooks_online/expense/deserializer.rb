@@ -8,6 +8,8 @@ module LedgerSync
     module QuickBooksOnline
       class Expense
         class Deserializer < QuickBooksOnline::Deserializer
+          id
+
           references_one :currency,
                          hash_attribute: :CurrencyRef,
                          deserializer: Currency::Deserializer
@@ -33,8 +35,7 @@ module LedgerSync
               Client.resource_from_ledger_type(
                 type: value['type']
               ).new(
-                ledger_id: value['value'],
-                display_name: value['name']
+                ledger_id: value['value']
               )
             end
           end

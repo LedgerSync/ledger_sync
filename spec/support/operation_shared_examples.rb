@@ -5,7 +5,7 @@ RSpec.shared_examples 'a valid operation' do
     instance = described_class.new(resource: resource, client: client)
     if ENV.fetch('DEBUG', false) && !instance.valid?
       pd instance.errors
-      byebug if ENV['DEBUG']
+      byebug if ENV['DEBUG'] # rubocop:disable Lint/Debugger
     end
     expect(instance).to be_valid
   end
@@ -25,9 +25,7 @@ RSpec.shared_examples 'a successful operation' do |stubs: []|
 
   it 'is successful' do
     result = described_class.new(resource: resource, client: client).perform
-    if ENV.fetch('DEBUG', false) && result.failure?
-      byebug
-    end
+    byebug if ENV.fetch('DEBUG', false) && result.failure? # rubocop:disable Lint/Debugger
     expect(result).to be_a(LedgerSync::OperationResult::Success)
   end
 end

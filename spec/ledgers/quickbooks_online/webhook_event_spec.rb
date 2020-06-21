@@ -49,11 +49,17 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::WebhookEvent do
   end
 
   describe '#find_operation' do
-    it { expect(instance.find_operation(client: quickbooks_online_client)).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find) }
+    it do
+      op = instance.find_operation(client: quickbooks_online_client)
+      expect(op).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find)
+    end
   end
 
   describe '#find_operation_class' do
-    it { expect(instance.find_operation_class(client: quickbooks_online_client)).to eq(LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find) }
+    it do
+      op = instance.find_operation_class(client: quickbooks_online_client)
+      expect(op).to eq(LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find)
+    end
   end
 
   describe '#last_updated_at' do

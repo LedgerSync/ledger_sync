@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe FactoryBot do
   def regex(prefix, count = 1)
-    /#{prefix}\-#{test_run_id}[a-zA-Z0-9]{8}-#{count}/
+    /#{prefix}-#{test_run_id}[a-zA-Z0-9]{8}-#{count}/
   end
 
   after do
@@ -21,7 +21,7 @@ RSpec.describe FactoryBot do
     end
 
     expect(FactoryBot.build(:test_factory).name).to match(regex(:name))
-    FactoryBot.custom_rewind_sequences
+    FactoryBot.rewind_sequences
     expect(FactoryBot.build(:test_factory).name).to match(regex(:name))
   end
 

@@ -141,7 +141,7 @@ module LedgerSync
         def url_params
           return {} if uri.query.nil?
 
-          @url_params ||= Hash[CGI.parse(uri.query).map { |k, v| [k, v.first] }]
+          @url_params ||= CGI.parse(uri.query).transform_values(&:first)
         end
 
         def url_without_params

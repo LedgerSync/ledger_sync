@@ -31,7 +31,7 @@ module LedgerSync
         attr_reader :attribute,
                     :validation
 
-        def initialize(message:, attribute:, operation:, validation:, response:nil)
+        def initialize(message:, attribute:, operation:, validation:, response: nil)
           @attribute = attribute
           @validation = validation
 

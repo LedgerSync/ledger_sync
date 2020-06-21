@@ -14,7 +14,9 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::U
   let(:department) { build(:quickbooks_online_department, ledger_id: '123') }
   let(:currency) { build(:quickbooks_online_currency, name: 'United States Dollar', symbol: 'USD') }
 
-  let(:line_item) { build(:quickbooks_online_bill_payment_line_item, amount: 100, ledger_id: nil, ledger_transactions: [bill]) }
+  let(:line_item) do
+    build(:quickbooks_online_bill_payment_line_item, amount: 100, ledger_id: nil, ledger_transactions: [bill])
+  end
 
   let(:resource) do
     build(
