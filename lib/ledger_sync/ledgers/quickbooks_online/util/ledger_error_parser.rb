@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'error_parser'
-
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      class Util
-        class LedgerErrorParser < ErrorParser
+      module Util
+        class LedgerErrorParser < LedgerSync::Util::ErrorParser
           class ThrottleMatcher < ErrorMatcher
             def error_class
               Error::LedgerError::ThrottleError
@@ -69,7 +67,7 @@ module LedgerSync
             end
           end
 
-          PARSERS = [
+          MATCHERS = [
             AuthenticationMatcher,
             AuthorizationMatcher,
             ClientMatcher,

@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'error_parser'
-
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      class Util
-        class OperationErrorParser < ErrorParser
+      module Util
+        class OperationErrorParser < LedgerSync::Util::ErrorParser
           class DuplicateNameMatcher < ErrorMatcher
             def error_class
               Error::OperationError::DuplicateLedgerResourceError
@@ -66,7 +64,7 @@ module LedgerSync
           end
 
           # ! always keep GenericMatcher as last
-          PARSERS = [
+          MATCHERS = [
             DuplicateNameMatcher,
             NotFoundMatcher,
             ValidationError,

@@ -3,26 +3,8 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      class Util
-        class ErrorMatcher
-          attr_reader :error,
-                      :message
-
-          def initialize(error:)
-            @error = error
-            @message = error.message.to_s
-          end
-
-          def body
-            error.response.body
-          rescue NoMethodError
-            nil
-          end
-
-          def error_class
-            raise NotImplementedError
-          end
-
+      module Util
+        class ErrorMatcher < LedgerSync::Util::ErrorMatcher
           def error_message
             return error.message unless body
 
@@ -41,14 +23,6 @@ module LedgerSync
           def code
             ((body && JSON.parse(body).dig('fault', 'error')&.first&.fetch('code')) ||
             (body && JSON.parse(body).dig('Fault', 'Error')&.first&.fetch('code'))).to_i
-          end
-
-          def match?
-            raise NotImplementedError
-          end
-
-          def output_message
-            raise NotImplementedError
           end
         end
       end
