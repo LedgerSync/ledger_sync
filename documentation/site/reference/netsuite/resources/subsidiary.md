@@ -18,3 +18,9 @@ layout: reference_netsuite
 
 ## Operations
 
+
+## Searchers
+
+| Name |
+| ---- |
+| `LedgerSync::Ledgers::NetSuite::Subsidiary::Searcher` |
