@@ -1,10 +1,10 @@
 ---
-title: Operations
+title: Searchers
 weight: 5
 layout: guides
 ---
 
-Searchers are used to search objects in the ledger.  A searcher takes an `client`, `query` string and optional `pagination` hash.  For example, to search customer's by name:
+Searchers are used to lookup and scan objects in the ledger.  A searcher takes a `client`, `query` string and optional `pagination` hash.  For example, to search customer's by name:
 
 ```ruby
 searcher = LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher.new(

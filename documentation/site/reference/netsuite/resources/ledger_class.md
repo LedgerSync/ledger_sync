@@ -45,3 +45,9 @@ layout: reference_netsuite
 
 | Name | Type |
 | ---- | ---- |
+
+## Searchers
+
+| Name |
+| ---- |
+| `LedgerSync::Ledgers::NetSuite::LedgerClass::Searcher` |
