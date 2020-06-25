@@ -11,15 +11,27 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Updat
   include QuickBooksOnlineHelpers
 
   let(:account) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
+    create(
+      :quickbooks_online_account,
+      external_id: :ext_id,
+      ledger_id: '123'
+    )
   end
 
   let(:department) do
-    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
+    create(
+      :quickbooks_online_department,
+      external_id: :ext_id,
+      ledger_id: '123'
+    )
   end
 
   let(:ledger_class) do
-    LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: '123')
+    create(
+      :quickbooks_online_ledger_class,
+      external_id: :ext_id,
+      ledger_id: '123'
+    )
   end
 
   let(:line_item_1) do

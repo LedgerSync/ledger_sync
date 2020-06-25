@@ -61,8 +61,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Deserializer do
     {
       'Id' => nil,
       'CurrencyRef' => {
-        'name' => currency.name,
-        'value' => currency.symbol
+        'name' => currency.Name,
+        'value' => currency.Symbol
       },
       'DepartmentRef' => { 'value' => department.ledger_id },
       'DocNumber' => 'Ref123',

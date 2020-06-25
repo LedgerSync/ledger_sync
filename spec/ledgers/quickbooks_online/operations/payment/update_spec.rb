@@ -55,8 +55,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Payment::Operations::Updat
   let(:currency) do
     create(
       :quickbooks_online_currency,
-      name: 'United States Dollar',
-      symbol: 'USD'
+      Name: 'United States Dollar',
+      Symbol: 'USD'
     )
   end
 

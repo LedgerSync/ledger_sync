@@ -12,24 +12,24 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Update d
 
   # Account 1 needs to be Liability account
   let(:account1) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
+    build(:quickbooks_online_account, ledger_id: '123')
   end
 
   # Account 2 needs to be different
   let(:account2) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
+    build(:quickbooks_online_account, ledger_id: '123')
   end
 
   let(:vendor) do
-    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(vendor_resource(ledger_id: '123'))
+    build(:quickbooks_online_vendor, ledger_id: '123')
   end
 
   let(:department) do
-    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
+    build(:quickbooks_online_department, ledger_id: '123')
   end
 
   let(:ledger_class) do
-    LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: '123')
+    build(:quickbooks_online_ledger_class, ledger_id: '123')
   end
 
   let(:line_item_1) do

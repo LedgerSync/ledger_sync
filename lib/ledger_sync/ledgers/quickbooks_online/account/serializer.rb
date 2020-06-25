@@ -9,26 +9,20 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          attribute 'Name',
-                    resource_attribute: :name
-          mapping 'AccountType',
-                  resource_attribute: :account_type,
-                  hash: Account::TYPES
-          mapping 'AccountSubType',
-                  resource_attribute: :account_sub_type,
-                  hash: Account::SUB_TYPES
-          attribute 'AcctNum',
-                    resource_attribute: :number
-          mapping 'Classification',
-                  resource_attribute: :classification,
-                  hash: Account::CLASSIFICATIONS
-          attribute 'Description',
-                    resource_attribute: :description
-          attribute 'Active',
-                    resource_attribute: :active
+          attribute :Name
+          attribute :AcctNum
+          attribute :Description
+          attribute :Active
 
-          references_one 'CurrencyRef',
-                         resource_attribute: :currency,
+          mapping :AccountType,
+                  hash: Account::TYPES
+          mapping :AccountSubType,
+                  hash: Account::SUB_TYPES
+          mapping :Classification,
+                  hash: Account::CLASSIFICATIONS
+
+          references_one :CurrencyRef,
+                         resource_attribute: :Currency,
                          serializer: Reference::Serializer
         end
       end

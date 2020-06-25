@@ -4,12 +4,12 @@ module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Currency < QuickBooksOnline::Resource
-        attribute :exchange_rate, type: Type::Float
-        attribute :name, type: Type::String
-        attribute :symbol, type: Type::String
+        attribute :ExchangeRate, type: Type::Float
+        attribute :Name, type: Type::String
+        attribute :Symbol, type: Type::String
 
         def ledger_id
-          symbol
+          self.Symbol
         end
       end
     end

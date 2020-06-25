@@ -9,16 +9,13 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          attribute 'Name',
-                    resource_attribute: :name
-          attribute 'Active',
-                    resource_attribute: :active
-          attribute 'SubClass',
-                    resource_attribute: :sub_class
-          attribute 'FullyQualifiedName',
-                    resource_attribute: :fully_qualified_name
+          attribute :Name
+          attribute :Active
+          attribute :SubClass
+          attribute :FullyQualifiedName
+
           references_one 'ParentRef',
-                         resource_attribute: :parent,
+                         resource_attribute: :Parent,
                          serializer: Reference::Serializer
         end
       end

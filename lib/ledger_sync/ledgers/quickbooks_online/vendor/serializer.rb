@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative '../primary_phone/serializer'
+require_relative '../primary_email_addr/serializer'
+
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
@@ -7,17 +10,16 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          attribute 'DisplayName',
-                    resource_attribute: :display_name
+          attribute :DisplayName
+          attribute :GivenName
+          attribute :MiddleName
+          attribute :FamilyName
+          attribute :CompanyName
 
-          attribute 'GivenName',
-                    resource_attribute: :first_name
-
-          attribute 'FamilyName',
-                    resource_attribute: :last_name
-
-          attribute 'PrimaryEmailAddr.Address',
-                    resource_attribute: :email
+          references_one :PrimaryPhone,
+                         serializer: PrimaryPhone::Serializer
+          references_one :PrimaryEmailAddr,
+                         serializer: PrimaryEmailAddr::Serializer
         end
       end
     end

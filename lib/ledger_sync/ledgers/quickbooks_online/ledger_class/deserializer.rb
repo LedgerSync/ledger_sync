@@ -9,19 +9,12 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          attribute :name,
-                    hash_attribute: 'Name'
+          attribute :Name
+          attribute :Active
+          attribute :SubClass
+          attribute :FullyQualifiedName
 
-          attribute :active,
-                    hash_attribute: 'Active'
-
-          attribute :sub_class,
-                    hash_attribute: 'SubClass'
-
-          attribute :fully_qualified_name,
-                    hash_attribute: 'FullyQualifiedName'
-
-          references_one :parent,
+          references_one :Parent,
                          hash_attribute: 'ParentRef',
                          deserializer: Reference::Deserializer
         end

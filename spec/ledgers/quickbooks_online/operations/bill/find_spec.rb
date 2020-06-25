@@ -9,23 +9,14 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Find do
   include QuickBooksOnlineHelpers
 
   let(:account) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(
-      ledger_id: '123',
-      name: 'Test',
-      account_type: 'bank',
-      account_sub_type: 'cash_on_hand'
-    )
+    build(:quickbooks_online_account, ledger_id: '123')
   end
   let(:vendor) do
-    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(
-      ledger_id: '123',
-      first_name: 'Test',
-      last_name: 'Testing'
-    )
+    build(:quickbooks_online_vendor, ledger_id: '123')
   end
 
   let(:department) do
-    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
+    build(:quickbooks_online_department, ledger_id: '123')
   end
 
   let(:resource) do

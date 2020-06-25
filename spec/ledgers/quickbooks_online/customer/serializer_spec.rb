@@ -8,6 +8,9 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Serializer do
       :quickbooks_online_customer,
       ledger_id: id,
       DisplayName: name,
+      GivenName: given_name,
+      FamilyName: family_name,
+      MiddleName: middle_name,
       PrimaryPhone: create(
         :quickbooks_online_primary_phone,
         FreeFormNumber: phone_number
@@ -20,12 +23,18 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Serializer do
   end
   let(:id) { '123' }
   let(:name) { 'test_name' }
+  let(:given_name) { 'given_name' }
+  let(:family_name) { 'family_name' }
+  let(:middle_name) { 'middle_name' }
   let(:email) { 'test_email' }
   let(:phone_number) { 'test_phone_number' }
 
   let(:h) do
     {
       'DisplayName' => name,
+      'GivenName' => given_name,
+      'FamilyName' => family_name,
+      'MiddleName' => middle_name,
       'PrimaryPhone' => {
         'FreeFormNumber' => phone_number
       },

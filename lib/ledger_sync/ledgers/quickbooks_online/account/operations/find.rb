@@ -10,14 +10,14 @@ module LedgerSync
               params do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
-                required(:name).maybe(:string)
-                required(:classification).maybe(:string)
-                required(:account_type).maybe(:string)
-                required(:account_sub_type).maybe(:string)
-                required(:number).maybe(:string)
-                required(:currency).maybe(:hash, Types::Reference)
-                required(:description).maybe(:string)
-                required(:active).maybe(:bool)
+                required(:AccountType).maybe(:string)
+                required(:AccountSubType).maybe(:string)
+                required(:AcctNum).maybe(:string)
+                required(:Active).maybe(:bool)
+                required(:Classification).maybe(:string)
+                required(:Currency).maybe(:hash, Types::Reference)
+                required(:Description).maybe(:string)
+                required(:Name).maybe(:string)
               end
             end
           end

@@ -201,8 +201,8 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
       :currency => {
         'foo' => {
           data: {
-            name: 'United States Dollar',
-            symbol: 'USD'
+            Name: 'United States Dollar',
+            Symbol: 'USD'
           }
         }
       }

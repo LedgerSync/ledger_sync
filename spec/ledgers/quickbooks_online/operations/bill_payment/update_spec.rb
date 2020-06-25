@@ -8,14 +8,37 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::Update do
   include QuickBooksOnlineHelpers
 
-  let(:vendor) { build(:quickbooks_online_vendor, ledger_id: '123') }
-  let(:account) { build(:quickbooks_online_account, ledger_id: '123') }
-  let(:bill) { build(:quickbooks_online_bill, ledger_id: '123') }
-  let(:department) { build(:quickbooks_online_department, ledger_id: '123') }
-  let(:currency) { build(:quickbooks_online_currency, name: 'United States Dollar', symbol: 'USD') }
+  let(:vendor) do
+    build(:quickbooks_online_vendor, ledger_id: '123')
+  end
+
+  let(:account) do
+    build(:quickbooks_online_account, ledger_id: '123')
+  end
+
+  let(:bill) do
+    build(:quickbooks_online_bill, ledger_id: '123')
+  end
+
+  let(:department) do
+    build(:quickbooks_online_department, ledger_id: '123')
+  end
+
+  let(:currency) do
+    build(
+      :quickbooks_online_currency,
+      Name: 'United States Dollar',
+      Symbol: 'USD'
+    )
+  end
 
   let(:line_item) do
-    build(:quickbooks_online_bill_payment_line_item, amount: 100, ledger_id: nil, ledger_transactions: [bill])
+    build(
+      :quickbooks_online_bill_payment_line_item,
+      amount: 100,
+      ledger_id: nil,
+      ledger_transactions: [bill]
+    )
   end
 
   let(:resource) do

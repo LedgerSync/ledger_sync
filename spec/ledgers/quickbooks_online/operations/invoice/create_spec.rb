@@ -59,8 +59,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Invoice::Operations::Creat
       customer: customer,
       currency: create(
         :quickbooks_online_currency,
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       account: account,
       memo: 'Memo 1',

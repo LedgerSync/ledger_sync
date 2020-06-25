@@ -10,13 +10,14 @@ module LedgerSync
               params do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
-                optional(:display_name).maybe(:string)
-                optional(:first_name).maybe(:string)
-                optional(:last_name).maybe(:string)
-                optional(:email).maybe(:string)
-                optional(:company_name).maybe(:string)
-                optional(:phone_number).maybe(:string)
-                optional(:subsidiary).maybe(:hash, Types::Reference)
+                optional(:CompanyName).maybe(:string)
+                optional(:DisplayName).maybe(:string)
+                optional(:FamilyName).maybe(:string)
+                optional(:GivenName).maybe(:string)
+                optional(:MiddleName).maybe(:string)
+                required(:PrimaryPhone).maybe(:hash, Types::Reference)
+                required(:PrimaryEmailAddr).maybe(:hash, Types::Reference)
+                optional(:Subsidiary).maybe(:hash, Types::Reference)
               end
             end
           end
@@ -25,3 +26,4 @@ module LedgerSync
     end
   end
 end
+

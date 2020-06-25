@@ -9,32 +9,20 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          attribute :name,
-                    hash_attribute: 'Name'
+          attribute :Name
+          attribute :AcctNum
+          attribute :Description
+          attribute :Active
 
-          mapping :account_type,
-                  hash_attribute: 'AccountType',
+          mapping :AccountType,
                   hash: Account::TYPES.invert
-
-          mapping :account_sub_type,
-                  hash_attribute: 'AccountSubType',
+          mapping :AccountSubType,
                   hash: Account::SUB_TYPES.invert
-
-          attribute :number,
-                    hash_attribute: 'AcctNum'
-
-          mapping :classification,
-                  hash_attribute: 'Classification',
+          mapping :Classification,
                   hash: Account::CLASSIFICATIONS.invert
 
-          attribute :description,
-                    hash_attribute: 'Description'
-
-          attribute :active,
-                    hash_attribute: 'Active'
-
-          references_one :currency,
-                         hash_attribute: 'CurrencyRef',
+          references_one :Currency,
+                         hash_attribute: :CurrencyRef,
                          deserializer: Reference::Deserializer
         end
       end

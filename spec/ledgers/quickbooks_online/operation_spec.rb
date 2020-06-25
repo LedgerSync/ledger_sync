@@ -10,11 +10,17 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Operation do
   describe '#perform' do
     it do
       customer1 = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(
-        DisplayName: 'Customer 1'
+        DisplayName: 'Customer 1',
+        GivenName: '',
+        FamilyName: '',
+        MiddleName: ''
       )
 
       customer2 = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(
-        DisplayName: 'Customer 2'
+        DisplayName: 'Customer 2',
+        GivenName: '',
+        FamilyName: '',
+        MiddleName: ''
       )
 
       operation1 = LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(
@@ -30,9 +36,10 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Operation do
       stub_customer_create(
         request_body: customer_request_body_hash.merge(
           'DisplayName' => 'Customer 1',
-          'PrimaryEmailAddr' => {
-            'Address' => nil
-          }
+          'PrimaryEmailAddr' => nil,
+          'GivenName' => '',
+          'FamilyName' => '',
+          'MiddleName' => ''
         )
       )
       result1 = operation1.perform
@@ -41,9 +48,10 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Operation do
       stub_customer_create(
         request_body: customer_request_body_hash.merge(
           'DisplayName' => 'Customer 2',
-          'PrimaryEmailAddr' => {
-            'Address' => nil
-          }
+          'PrimaryEmailAddr' => nil,
+          'GivenName' => '',
+          'FamilyName' => '',
+          'MiddleName' => ''
         )
       )
       result2 = operation2.perform

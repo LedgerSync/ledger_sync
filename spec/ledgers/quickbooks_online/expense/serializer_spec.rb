@@ -15,7 +15,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Serializer do
   let(:entity_type) { 'Vendor' }
   let(:vendor) do
     LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(
-      display_name: vendor_display_name,
+      DisplayName: vendor_display_name,
       ledger_id: vendor_ledger_id
     )
   end
@@ -61,7 +61,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Serializer do
     {
       'Id' => nil,
       'CurrencyRef' => {
-        'value' => currency.symbol
+        'value' => currency.Symbol
       },
       'DepartmentRef' => { 'value' => department.ledger_id },
       'DocNumber' => 'Ref123',

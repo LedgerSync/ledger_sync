@@ -12,10 +12,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::F
 
   let(:resource) do
     LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(
-      ledger_id: '123',
-      name: 'Test Class',
-      active: true,
-      sub_class: false
+      ledger_id: '123'
     )
   end
   let(:client) { quickbooks_online_client }

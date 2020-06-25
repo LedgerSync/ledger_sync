@@ -11,8 +11,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Transfer::Operations::Find
   let(:currency) do
     create(
       :quickbooks_online_currency,
-      name: 'United States Dollar',
-      symbol: 'USD'
+      Name: 'United States Dollar',
+      Symbol: 'USD'
     )
   end
   let(:from_account) do

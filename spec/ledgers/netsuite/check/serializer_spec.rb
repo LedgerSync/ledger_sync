@@ -1,0 +1,1 @@
+# serializer_spec.rb
