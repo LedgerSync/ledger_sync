@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/deserializer'
+require_relative '../reference/deserializer'
 require_relative '../payment_line_item/deserializer'
 
 module LedgerSync
@@ -14,17 +14,20 @@ module LedgerSync
                  hash_attribute: 'TotalAmt'
 
           references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'customer.ledger_id',
-                    hash_attribute: 'CustomerRef.value'
+          references_one :customer,
+                         hash_attribute: 'CustomerRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'deposit_account.ledger_id',
-                    hash_attribute: 'DepositToAccountRef.value'
+          references_one :deposit_account,
+                         hash_attribute: 'DepositToAccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'ARAccountRef.value'
+          references_one :account,
+                         hash_attribute: 'ARAccountRef',
+                         deserializer: Account::Deserializer
 
           attribute :reference_number,
                     hash_attribute: 'PaymentRefNum'

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../expense_line_item/deserializer'
-require_relative '../currency/deserializer'
+require_relative '../reference/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -11,8 +11,8 @@ module LedgerSync
           id
 
           references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
           mapping :payment_type,
                   hash_attribute: 'PaymentType',
@@ -43,11 +43,13 @@ module LedgerSync
           attribute :reference_number,
                     hash_attribute: 'DocNumber'
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'AccountRef.value'
+          references_one :account,
+                         hash_attribute: 'AccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'department.ledger_id',
-                    hash_attribute: 'DepartmentRef.value'
+          references_one :department,
+                         hash_attribute: 'DepartmentRef',
+                         deserializer: Reference::Deserializer
 
           references_many :line_items,
                           hash_attribute: 'Line',

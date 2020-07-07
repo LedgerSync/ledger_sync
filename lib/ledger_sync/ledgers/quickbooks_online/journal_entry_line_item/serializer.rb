@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../expense_line_item/serializer'
+require_relative '../reference/serializer'
 
 module LedgerSync
   module Ledgers
@@ -18,14 +18,17 @@ module LedgerSync
                   resource_attribute: :entry_type,
                   hash: JournalEntryLineItem::TYPES
 
-          attribute 'JournalEntryLineDetail.AccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one 'JournalEntryLineDetail.AccountRef',
+                         resource_attribute: :account,
+                         serializer: Reference::Serializer
 
-          attribute 'JournalEntryLineDetail.ClassRef.value',
-                    resource_attribute: 'ledger_class.ledger_id'
+          references_one 'JournalEntryLineDetail.ClassRef',
+                         resource_attribute: :ledger_class,
+                         serializer: Reference::Serializer
 
-          attribute 'JournalEntryLineDetail.DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one 'JournalEntryLineDetail.DepartmentRef',
+                         resource_attribute: :department,
+                         serializer: Reference::Serializer
 
           attribute 'Description',
                     resource_attribute: :description

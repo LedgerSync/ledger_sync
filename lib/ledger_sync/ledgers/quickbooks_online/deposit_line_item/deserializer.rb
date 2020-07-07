@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/deserializer'
+
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
@@ -7,11 +9,13 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'DepositLineDetail.AccountRef.value'
+          references_one :account,
+                         hash_attribute: 'DepositLineDetail.AccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'ledger_class.ledger_id',
-                    hash_attribute: 'DepositLineDetail.ClassRef.value'
+          references_one :ledger_class,
+                         hash_attribute: 'DepositLineDetail.ClassRef',
+                         deserializer: Reference::Deserializer
 
           attribute(:entity) do |args = {}|
             hash = args.fetch(:hash)

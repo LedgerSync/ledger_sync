@@ -2,7 +2,8 @@
 
 require 'spec_helper'
 
-support :quickbooks_online_helpers
+support :quickbooks_online_helpers,
+        :operation_shared_examples
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::Create do
   include QuickBooksOnlineHelpers

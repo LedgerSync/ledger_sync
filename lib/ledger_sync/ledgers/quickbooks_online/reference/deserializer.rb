@@ -3,12 +3,9 @@
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      class Currency
+      class Reference
         class Deserializer < QuickBooksOnline::Deserializer
-          attribute :symbol,
-                    hash_attribute: :value
-
-          attribute :name
+          attribute :ledger_id, hash_attribute: :value
         end
       end
     end

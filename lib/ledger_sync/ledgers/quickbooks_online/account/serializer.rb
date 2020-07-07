@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/serializer'
+require_relative '../reference/serializer'
 
 module LedgerSync
   module Ledgers
@@ -27,9 +27,9 @@ module LedgerSync
           attribute 'Active',
                     resource_attribute: :active
 
-          references_one :CurrencyRef,
+          references_one 'CurrencyRef',
                          resource_attribute: :currency,
-                         serializer: Currency::Serializer
+                         serializer: Reference::Serializer
         end
       end
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../expense_line_item/deserializer'
+require_relative '../reference/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -14,14 +14,17 @@ module LedgerSync
                   hash_attribute: 'JournalEntryLineDetail.PostingType',
                   hash: JournalEntryLineItem::TYPES.invert
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'JournalEntryLineDetail.AccountRef.value'
+          references_one :account,
+                         hash_attribute: 'JournalEntryLineDetail.AccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'ledger_class.ledger_id',
-                    hash_attribute: 'JournalEntryLineDetail.ClassRef.value'
+          references_one :ledger_class,
+                         hash_attribute: 'JournalEntryLineDetail.ClassRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'department.ledger_id',
-                    hash_attribute: 'JournalEntryLineDetail.DepartmentRef.value'
+          references_one :department,
+                         hash_attribute: 'JournalEntryLineDetail.DepartmentRef',
+                         deserializer: Reference::Deserializer
 
           attribute :description,
                     hash_attribute: 'Description'

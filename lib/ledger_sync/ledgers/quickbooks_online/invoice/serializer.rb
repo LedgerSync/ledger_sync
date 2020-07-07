@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../invoice_sales_line_item/serializer'
+require_relative '../reference/serializer'
 
 module LedgerSync
   module Ledgers
@@ -9,9 +10,9 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          references_one :CurrencyRef,
+          references_one 'CurrencyRef',
                          resource_attribute: :currency,
-                         serializer: Currency::Serializer
+                         serializer: Reference::Serializer
 
           date 'TxnDate',
                resource_attribute: :transaction_date
@@ -19,11 +20,13 @@ module LedgerSync
           attribute 'PrivateNote',
                     resource_attribute: :memo
 
-          attribute 'CustomerRef.value',
-                    resource_attribute: 'customer.ledger_id'
+          references_one 'CustomerRef',
+                         resource_attribute: :customer,
+                         serializer: Reference::Serializer
 
-          attribute 'DepositToAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one 'DepositToAccountRef',
+                         resource_attribute: :account,
+                         serializer: Reference::Serializer
 
           references_many 'Line',
                           resource_attribute: :line_items,

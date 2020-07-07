@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/serializer'
+require_relative '../reference/serializer'
 require_relative '../journal_entry_line_item/serializer'
 
 module LedgerSync
@@ -10,9 +10,9 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          references_one :CurrencyRef,
+          references_one 'CurrencyRef',
                          resource_attribute: :currency,
-                         serializer: Currency::Serializer
+                         serializer: Reference::Serializer
 
           date 'TxnDate',
                resource_attribute: :transaction_date

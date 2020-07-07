@@ -38,7 +38,6 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Serializer do
       'AcctNum' => number,
       'Classification' => LedgerSync::Ledgers::QuickBooksOnline::Account::CLASSIFICATIONS[classification],
       'CurrencyRef' => {
-        'name' => currency.name,
         'value' => currency.symbol
       },
       'Description' => description,
