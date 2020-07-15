@@ -16,7 +16,8 @@ module LedgerSync
           references_one :department,
                          serializer: Reference::Serializer
 
-          references_one :ledger_class,
+          references_one :class,
+                         resource_attribute: :ledger_class,
                          serializer: Reference::Serializer
         end
       end

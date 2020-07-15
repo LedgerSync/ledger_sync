@@ -8,7 +8,8 @@ module LedgerSync
           attribute :amount
           attribute :memo
           references_one :account
-          references_one :ledger_class
+          references_one :ledger_class,
+                         hash_attribute: 'class'
           references_one :department
         end
       end
