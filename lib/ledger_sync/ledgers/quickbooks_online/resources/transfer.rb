@@ -7,16 +7,16 @@ module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Transfer < QuickBooksOnline::Resource
-        attribute :amount, type: Type::Integer
-        attribute :memo, type: Type::String
-        attribute :transaction_date, type: Type::Date
+        attribute :Amount, type: Type::Integer
+        attribute :PrivateNote, type: Type::String
+        attribute :TxnDate, type: Type::Date
 
-        references_one :from_account, to: Account
-        references_one :to_account, to: Account
-        references_one :currency, to: Currency
+        references_one :FromAccount, to: Account
+        references_one :ToAccount, to: Account
+        references_one :Currency, to: Currency
 
         def name
-          "Transaction: #{amount} #{currency}"
+          "Transfer: #{self.Amount} #{self.Currency}"
         end
       end
     end

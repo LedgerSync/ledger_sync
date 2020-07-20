@@ -32,11 +32,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::C
     )
   end
 
-  let(:line_item) do
+  let(:line) do
     build(
-      :quickbooks_online_bill_payment_line_item,
-      amount: 100,
-      ledger_transactions: [bill]
+      :quickbooks_online_bill_payment_line,
+      Amount: 100,
+      LinkedTxn: [bill]
     )
   end
 
@@ -45,22 +45,22 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::C
       :quickbooks_online_bill_payment,
       ledger_id: nil,
 
-      amount: 100,
-      memo: 'Note',
-      transaction_date: Date.parse('2019-09-01'),
-      exchange_rate: 1.0,
-      reference_number: 'Ref123',
-      payment_type: :credit_card,
+      TotalAmt: 100,
+      PrivateNote: 'Note',
+      TxnDate: Date.parse('2019-09-01'),
+      ExchangeRate: 1.0,
+      DocNumber: 'Ref123',
+      PayType: :credit_card,
 
-      account: account,
-      currency: currency,
-      department: department,
-      vendor: vendor,
+      APAccount: account,
+      Currency: currency,
+      Department: department,
+      Vendor: vendor,
 
-      credit_card_account: account,
-      bank_account: nil,
+      CreditCardPayment: build(:quickbooks_online_credit_card_payment, CCAccount: account),
+      CheckPayment: nil,
 
-      line_items: [line_item]
+      Line: [line]
     )
   end
 

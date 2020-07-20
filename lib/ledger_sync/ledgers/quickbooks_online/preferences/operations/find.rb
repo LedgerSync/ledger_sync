@@ -10,16 +10,16 @@ module LedgerSync
               params do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).value(:nil)
-                required(:accounting_info).maybe(:hash)
-                required(:product_and_services).maybe(:hash)
-                required(:sales_forms).maybe(:hash)
-                required(:email_messages).maybe(:hash)
-                required(:vendor_and_purchases).maybe(:hash)
-                required(:time_tracking).maybe(:hash)
-                required(:tax).maybe(:hash)
-                required(:currency).maybe(:hash)
-                required(:report).maybe(:hash)
-                required(:other).maybe(:hash)
+                required(:AccountingInfoPrefs).maybe(:hash)
+                required(:ProductAndServicesPrefs).maybe(:hash)
+                required(:SalesFormsPrefs).maybe(:hash)
+                required(:EmailMessagesPrefs).maybe(:hash)
+                required(:VendorAndPurchasesPrefs).maybe(:hash)
+                required(:TimeTrackingPrefs).maybe(:hash)
+                required(:TaxPrefs).maybe(:hash)
+                required(:CurrencyPrefs).maybe(:hash)
+                required(:ReportPrefs).maybe(:hash)
+                required(:OtherPrefs).maybe(:hash)
               end
             end
           end

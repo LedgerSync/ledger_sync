@@ -23,7 +23,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Creat
       :quickbooks_online_vendor,
       external_id: :ext_id,
       ledger_id: '123',
-      display_name: 'Sample Vendor'
+      DisplayName: 'Sample Vendor'
     )
   end
 
@@ -45,23 +45,29 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Creat
 
   let(:line_item_1) do
     build(
-      :quickbooks_online_deposit_line_item,
-      account: account,
-      ledger_class: ledger_class,
-      entity: entity,
-      amount: 12_345,
-      description: 'Sample Transaction'
+      :quickbooks_online_deposit_line,
+      Amount: 12_345,
+      Description: 'Sample Transaction 1',
+      DepositLineDetail: build(
+        :quickbooks_online_deposit_line_detail,
+        Account: account,
+        Class: ledger_class,
+        Entity: entity
+      )
     )
   end
 
   let(:line_item_2) do
     build(
-      :quickbooks_online_deposit_line_item,
-      account: account,
-      ledger_class: ledger_class,
-      entity: nil,
-      amount: 12_345,
-      description: 'Sample Transaction'
+      :quickbooks_online_deposit_line,
+      Amount: 12_345,
+      Description: 'Sample Transaction 2',
+      DepositLineDetail: build(
+        :quickbooks_online_deposit_line_detail,
+        Account: account,
+        Class: ledger_class,
+        Entity: nil
+      )
     )
   end
 
@@ -76,13 +82,13 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Creat
   let(:resource) do
     build(
       :quickbooks_online_deposit,
-      account: account,
-      department: department,
-      currency: currency,
-      memo: 'Memo',
-      exchange_rate: 1.0,
-      transaction_date: Date.parse('2019-09-01'),
-      line_items: [
+      DepositToAccount: account,
+      Department: department,
+      Currency: currency,
+      PrivateNote: 'Memo',
+      ExchangeRate: 1.0,
+      TxnDate: Date.parse('2019-09-01'),
+      Line: [
         line_item_1,
         line_item_2
       ]
@@ -92,5 +98,5 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deposit::Operations::Creat
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_create_deposit
+  it_behaves_like 'a successful operation', stubs: :stub_deposit_create
 end

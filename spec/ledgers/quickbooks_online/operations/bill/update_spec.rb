@@ -33,29 +33,47 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Update d
   end
 
   let(:line_item_1) do
-    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
-      bill_line_item_resource(account: account2, ledger_class: ledger_class)
+    build(
+      :quickbooks_online_bill_line,
+      Amount: 12_345,
+      Description: 'Sample Transaction 1',
+      AccountBasedExpenseLineDetail: build(
+        :quickbooks_online_account_based_expense_line_detail,
+        Account: account2,
+        Class: ledger_class
+      )
     )
   end
 
   let(:line_item_2) do
-    LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
-      bill_line_item_resource(account: account2, ledger_class: ledger_class)
+    build(
+      :quickbooks_online_bill_line,
+      Amount: 12_345,
+      Description: 'Sample Transaction 2',
+      AccountBasedExpenseLineDetail: build(
+        :quickbooks_online_account_based_expense_line_detail,
+        Account: account2,
+        Class: ledger_class
+      )
     )
   end
 
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::Bill.new(
-      bill_resource(
-        ledger_id: '123',
-        account: account1,
-        department: department,
-        vendor: vendor,
-        line_items: [
-          line_item_1,
-          line_item_2
-        ]
-      )
+    build(
+      :quickbooks_online_bill,
+      ledger_id: '123',
+      APAccount: account1,
+      Department: department,
+      Vendor: vendor,
+      Currency: build(:quickbooks_online_currency, Symbol: 'USD', Name: 'United States Dollar'),
+      DocNumber: 'Ref123',
+      PrivateNote: 'Memo',
+      TxnDate: Date.parse('2019-09-01'),
+      DueDate: Date.parse('2019-09-01'),
+      Line: [
+        line_item_1,
+        line_item_2
+      ]
     )
   end
 
@@ -64,7 +82,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Bill::Operations::Update d
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
                   stubs: %i[
-                    stub_find_bill
-                    stub_update_bill
+                    stub_bill_find
+                    stub_bill_update
                   ]
 end

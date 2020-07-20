@@ -9,17 +9,17 @@ module LedgerSync
             class Contract < LedgerSync::Ledgers::Contract
               params do
                 required(:external_id).maybe(:string)
-                required(:account).hash(Types::Reference)
-                optional(:currency).hash(Types::Reference)
-                required(:department).hash(Types::Reference)
-                optional(:exchange_rate).maybe(:float)
+                required(:Account).hash(Types::Reference)
+                optional(:Currency).hash(Types::Reference)
+                required(:Department).hash(Types::Reference)
+                optional(:ExchangeRate).maybe(:float)
                 optional(:ledger_id).value(:nil)
-                required(:line_items).array(Types::Reference)
-                optional(:memo).filled(:string)
-                required(:payment_type).filled(:string)
-                optional(:reference_number).maybe(:string)
-                optional(:transaction_date).filled(:date?)
-                optional(:entity).hash(Types::Reference)
+                required(:Line).array(Types::Reference)
+                optional(:PrivateNote).filled(:string)
+                required(:PaymentType).filled(:string)
+                optional(:DocNumber).maybe(:string)
+                optional(:TxnDate).filled(:date?)
+                optional(:Entity).hash(Types::Reference)
               end
             end
           end

@@ -4,7 +4,7 @@ require_relative 'account'
 require_relative 'currency'
 require_relative 'customer'
 require_relative 'department'
-require_relative 'expense_line_item'
+require_relative 'expense_line'
 require_relative 'vendor'
 require_relative 'bill_payment'
 
@@ -14,25 +14,25 @@ module LedgerSync
       class Expense < QuickBooksOnline::Resource
         PAYMENT_TYPES = BillPayment::PAYMENT_TYPES
 
-        attribute :memo, type: Type::String
-        attribute :payment_type, type: Type::StringFromSet.new(values: PAYMENT_TYPES.keys)
-        attribute :transaction_date, type: Type::Date
-        attribute :exchange_rate, type: Type::Float
-        attribute :reference_number, type: Type::String
+        attribute :PrivateNote, type: Type::String
+        attribute :PaymentType, type: Type::StringFromSet.new(values: PAYMENT_TYPES.keys)
+        attribute :TxnDate, type: Type::Date
+        attribute :ExchangeRate, type: Type::Float
+        attribute :DocNumber, type: Type::String
 
-        references_one :entity, to: [Customer, Vendor]
-        references_one :account, to: Account
-        references_one :department, to: Department
-        references_one :currency, to: Currency
+        references_one :Entity, to: [Customer, Vendor]
+        references_one :Account, to: Account
+        references_one :Department, to: Department
+        references_one :Currency, to: Currency
 
-        references_many :line_items, to: ExpenseLineItem
+        references_many :Line, to: ExpenseLine
 
         def amount
           line_items.map(&:amount).sum
         end
 
         def name
-          "Purchase: #{amount} #{currency.try(:symbol)}"
+          "Purchase: #{amount} #{self.Currency.try(:symbol)}"
         end
       end
     end
