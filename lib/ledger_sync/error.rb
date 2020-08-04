@@ -5,7 +5,7 @@ module LedgerSync
     module HelpersMixin
       module ClassMethods
         def raise_if_unexpected_class(expected:, given:)
-          expected = [expected] unless expected.is_a?(Array)
+          expected = Array(expected)
           expected = expected.map { |e| (e.is_a?(Class) ? e : e.class) }
           given = given.class unless given.is_a?(Class)
 
@@ -32,7 +32,7 @@ module LedgerSync
 
     class UnexpectedClassError < self
       def initialize(expected:, given:)
-        expected = [expected] unless expected.is_a?(Array)
+        expected = Array(expected)
 
         super(
           message: "Unexpected class.  Given #{given.name}.  Expected: #{expected.map(&:name).join(', ')}"

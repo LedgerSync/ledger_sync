@@ -13,8 +13,7 @@ module StripeHelpers # rubocop:disable Metrics/ModuleLength
         body: {
           'email' => 'test@example.com',
           'metadata' => { 'external_id' => 'ext_id' },
-          'name' => 'Sample Customer',
-          'phone' => ''
+          'name' => 'Sample Customer'
         },
         headers: stripe_request_headers
       ).to_return(status: 200, body: {

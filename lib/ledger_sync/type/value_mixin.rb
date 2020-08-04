@@ -9,7 +9,7 @@ module LedgerSync
       end
 
       def assert_valid(args = {})
-        return if valid_class?(args)
+        return if valid?(args)
 
         value = args.fetch(:value)
 
@@ -22,6 +22,8 @@ module LedgerSync
       # Do not override this method.  Override private method cast_value
       def cast(args = {})
         assert_valid(args)
+        return nil if args.fetch(:value).nil?
+
         cast_value(args)
       end
 

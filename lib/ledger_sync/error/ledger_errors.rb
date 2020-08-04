@@ -3,8 +3,7 @@
 module LedgerSync
   class Error
     class LedgerError < Error
-      attr_reader :client
-      attr_reader :response
+      attr_reader :client, :response
 
       def initialize(client:, message:, response: nil)
         @client = client

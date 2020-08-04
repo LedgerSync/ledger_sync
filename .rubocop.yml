@@ -15,3 +15,63 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: True
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: True
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: True
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: True
+
+Lint/DuplicateElsifCondition:
+  Enabled: True
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: True
+
+Lint/RaiseException:
+  Enabled: True
+
+Lint/StructNewOverride:
+  Enabled: True
+
+Style/AccessorGrouping:
+  Enabled: True
+
+Style/ArrayCoercion:
+  Enabled: True
+
+Style/BisectedAttrAccessor:
+  Enabled: True
+
+Style/CaseLikeIf:
+  Enabled: True
+
+Style/ExponentialNotation:
+  Enabled: True
+
+Style/HashAsLastArrayItem:
+  Enabled: True
+
+Style/HashLikeCase:
+  Enabled: True
+
+Style/RedundantAssignment:
+  Enabled: True
+
+Style/RedundantFetchBlock:
+  Enabled: True
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: True
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: True
+
+Style/RedundantRegexpEscape:
+  Enabled: True
+
+Style/SlicingWithRange:
+  Enabled: False
