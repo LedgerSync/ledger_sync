@@ -9,7 +9,7 @@ module LedgerSync
       end
 
       def assert_valid(args = {})
-        return if valid_class?(args)
+        return if valid?(args)
 
         value = args.fetch(:value)
 

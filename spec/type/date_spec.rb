@@ -2,34 +2,13 @@
 
 require 'spec_helper'
 
+support :type_helpers
+
 RSpec.describe LedgerSync::Type::Date do
-  let(:type) { described_class.new }
+  include TypeHelpers
 
-  describe 'casting' do
-    let(:string_value) { 'String Value' }
-    let(:nil_value) { nil }
-    let(:integer_value) { 123 }
-    let(:float_value) { 123.4 }
-    let(:date_value) { Date.current }
-    let(:hash_value) { { a: 1 } }
-    let(:truthy_value) { true }
-    let(:falsy_value) { false }
-
-    it 'matching return date' do
-      expect(type.cast(value: date_value)).to eq(date_value)
-      expect(type.cast(value: date_value.to_s)).to eq(date_value)
-    end
-
-    it 'nil return nil' do
-      expect(type.cast(value: nil_value)).to eq(nil_value)
-    end
-
-    it 'mismatch raise exception' do
-      expect { type.cast(value: integer_value) }.to raise_error(LedgerSync::Error::TypeError::ValueClassError)
-      expect { type.cast(value: float_value) }.to raise_error(LedgerSync::Error::TypeError::ValueClassError)
-      expect { type.cast(value: hash_value) }.to raise_error(LedgerSync::Error::TypeError::ValueClassError)
-      expect { type.cast(value: truthy_value) }.to raise_error(LedgerSync::Error::TypeError::ValueClassError)
-      expect { type.cast(value: falsy_value) }.to raise_error(LedgerSync::Error::TypeError::ValueClassError)
-    end
-  end
+  it_behaves_like_a_type_with_valid_types_of(
+    :date,
+    [:date_string, Date.new(2020, 2, 2).to_s, Date.new(2020, 2, 2)]
+  )
 end
