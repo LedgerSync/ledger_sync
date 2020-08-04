@@ -42,7 +42,7 @@ module LedgerSync
           build_resource_value_from_nested_attributes(
             nested_resource,
             value,
-            resource_attribute_dot_parts[1..-1]
+            resource_attribute_dot_parts[1..]
           )
         end
       end

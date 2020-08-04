@@ -242,7 +242,7 @@ module LedgerSync
           ).perform
         end
 
-        def set_credentials_from_oauth_token(realm_id: nil, token:)
+        def set_credentials_from_oauth_token(realm_id: nil, token:) # rubocop:disable Metrics/CyclomaticComplexity
           @previous_access_tokens << access_token if access_token.present?
           @access_token = token.token
 

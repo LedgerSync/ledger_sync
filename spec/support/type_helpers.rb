@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TypeHelpers # rubocop:disable Metrics/ModuleLength
+module TypeHelpers
   TYPE_VALUES = {
     date: Date.current,
     empty_string: '',
@@ -17,7 +17,6 @@ module TypeHelpers # rubocop:disable Metrics/ModuleLength
     def it_behaves_like_a_type_with_valid_types_of(*valid_types)
       raise "valid_types must be an array of symbols. Received: #{valid_types.class}" unless valid_types.is_a?(Array)
       raise "valid_types must contain one or more types: #{TYPE_VALUES.keys.sort.join(', ')}" if valid_types.empty?
-
 
       valid_types |= [:nil] # nil should always be valid and return nil
 

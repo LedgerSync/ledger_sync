@@ -16,7 +16,7 @@ module LedgerSync
 
         value = args.fetch(:value)
         return true unless value.is_a?(::String)
-        return false unless value =~ /\A[0-9]{4}\-[0-9]{2}\-[0-9]{2}\z/
+        return false unless value =~ /\A[0-9]{4}-[0-9]{2}-[0-9]{2}\z/
 
         true
       end

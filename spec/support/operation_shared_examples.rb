@@ -13,7 +13,7 @@ end
 
 RSpec.shared_examples 'a successful operation' do |stubs: []|
   before do
-    stubs = [stubs] unless stubs.is_a?(Array)
+    stubs = Array(stubs)
     stubs.each do |stub|
       if stub.is_a?(Array)
         send(*stub)

@@ -27,15 +27,16 @@ module LedgerSync
       name = attribute.name
       raise "Attribute #{name} already exists on #{resource.name}." if attributes.key?(name)
 
-      if attribute.is_a?(ResourceAttribute::Reference::One)
+      case attribute
+      when ResourceAttribute::Reference::One
         @attributes[attribute.name] = attribute
         @references << attribute
         @references_one << attribute
-      elsif attribute.is_a?(ResourceAttribute::Reference::Many)
+      when ResourceAttribute::Reference::Many
         @attributes[attribute.name] = attribute
         @references << attribute
         @references_many << attribute
-      elsif attribute.is_a?(ResourceAttribute)
+      when ResourceAttribute
         @attributes[attribute.name] = attribute
       else
         raise 'Unknown attribute class'

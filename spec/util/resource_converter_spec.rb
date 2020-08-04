@@ -68,7 +68,7 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
   let(:converter) { converter_class.new }
   let(:converted) { converter.convert(destination: destination, source: source) }
 
-  def build_resource(args)
+  def build_resource(args) # rubocop:disable Metrics/CyclomaticComplexity
     converted_args = Hash[args.map do |k, v|
       v = case v
           when Array
