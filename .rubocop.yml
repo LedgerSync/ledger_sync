@@ -74,4 +74,4 @@ Style/RedundantRegexpEscape:
   Enabled: True
 
 Style/SlicingWithRange:
-  Enabled: True
+  Enabled: False
