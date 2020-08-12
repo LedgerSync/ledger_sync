@@ -8,7 +8,7 @@ module LedgerSync
     module QuickBooksOnline
       class Vendor
         class Deserializer < QuickBooksOnline::Deserializer
-          # id
+          id
 
           attribute :DisplayName
           attribute :GivenName

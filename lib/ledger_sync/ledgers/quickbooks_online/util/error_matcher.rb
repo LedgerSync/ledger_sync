@@ -26,8 +26,8 @@ module LedgerSync
           def error_message
             return error.message unless body
 
-            fault&.fetch('message') ||
-              fault&.fetch('Message') ||
+            fault&.fetch('message', nil) ||
+              fault&.fetch('Message', nil) ||
               parsed_body.dig('error')
           end
 

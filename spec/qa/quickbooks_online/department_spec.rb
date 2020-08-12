@@ -6,11 +6,14 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
   let(:client) { quickbooks_online_client }
   let(:attribute_updates) do
     {
-      name: "QA UPDATE #{test_run_id}"
+      Name: "QA UPDATE #{test_run_id}"
     }
   end
-  let(:record) { :department }
-  let(:resource) { FactoryBot.create(record) }
+  let(:resource) do
+    build(
+      :quickbooks_online_department
+    )
+  end
 
   it_behaves_like 'a standard quickbooks_online resource'
 
@@ -18,8 +21,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
   # It 500s, so we have to overwrite the normal reference serialization.
   describe '#parent' do
     it 'removes parent' do
-      local_parent = FactoryBot.create(:department, parent: nil)
-      expect(local_parent.parent).to be_nil
+      local_parent = build(
+        :quickbooks_online_department,
+        Parent: nil
+      )
+      expect(local_parent.Parent).to be_nil
 
       result = create_result_for(
         client: client,
@@ -28,20 +34,23 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
 
       expect(result).to be_success
       parent = result.resource
-      expect(parent.parent).to be_nil
+      expect(parent.Parent).to be_nil
 
       result = create_result_for(
         client: client,
-        resource: FactoryBot.create(:department, parent: parent)
+        resource: build(
+          :quickbooks_online_department,
+          Parent: parent
+        )
       ).raise_if_error
 
       expect(result).to be_success
       child = result.resource
 
-      expect(child.parent).to be_present
-      expect(child.parent.ledger_id).to eq(parent.ledger_id)
+      expect(child.Parent).to be_present
+      expect(child.Parent.ledger_id).to eq(parent.ledger_id)
 
-      child.assign_attributes(parent: nil)
+      child.assign_attributes(Parent: nil)
       result = update_result_for(
         client: client,
         resource: child
@@ -51,7 +60,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
       new_child = result.resource
 
       expect(new_child.ledger_id).to eq(child.ledger_id)
-      expect(new_child.parent).not_to be_present
+      expect(new_child.Parent).not_to be_present
 
       result = find_result_for(
         client: client,
@@ -64,12 +73,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
       resource = result.resource
 
       expect(resource.ledger_id).to eq(child.ledger_id)
-      expect(resource.parent).not_to be_present
+      expect(resource.Parent).not_to be_present
     end
 
     it 'does not remove parent' do
-      local_parent = FactoryBot.create(:department, parent: nil)
-      expect(local_parent.parent).to be_nil
+      local_parent = build(
+        :quickbooks_online_department,
+        Parent: nil
+      )
+      expect(local_parent.Parent).to be_nil
 
       result = create_result_for(
         client: client,
@@ -78,18 +90,21 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
 
       expect(result).to be_success
       parent = result.resource
-      expect(parent.parent).to be_nil
+      expect(parent.Parent).to be_nil
 
       result = create_result_for(
         client: client,
-        resource: FactoryBot.create(:department, parent: parent)
+        resource: build(
+          :quickbooks_online_department,
+          Parent: parent
+        )
       ).raise_if_error
 
       expect(result).to be_success
       child = result.resource
 
-      expect(child.parent).to be_present
-      expect(child.parent.ledger_id).to eq(parent.ledger_id)
+      expect(child.Parent).to be_present
+      expect(child.Parent.ledger_id).to eq(parent.ledger_id)
 
       child.assign_attributes(attribute_updates)
       result = update_result_for(
@@ -101,8 +116,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
       new_child = result.resource
 
       expect(new_child.ledger_id).to eq(child.ledger_id)
-      expect(new_child.parent).to be_present
-      expect(new_child.parent.ledger_id).to eq(parent.ledger_id)
+      expect(new_child.Parent).to be_present
+      expect(new_child.Parent.ledger_id).to eq(parent.ledger_id)
 
       result = find_result_for(
         client: client,
@@ -115,8 +130,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department, qa: true, clie
       resource = result.resource
 
       expect(resource.ledger_id).to eq(child.ledger_id)
-      expect(resource.parent).to be_present
-      expect(new_child.parent.ledger_id).to eq(parent.ledger_id)
+      expect(resource.Parent).to be_present
+      expect(new_child.Parent.ledger_id).to eq(parent.ledger_id)
     end
   end
 end

@@ -15,7 +15,7 @@ module LedgerSync
 
         references_one :PrimaryPhone, to: PrimaryPhone
         references_one :PrimaryEmailAddr, to: PrimaryEmailAddr
-        references_one :Subsidiary, to: Subsidiary
+        # references_one :Subsidiary, to: Subsidiary
 
         def name
           self.DisplayName || [self.GivenName, self.FamilyName].join(' ')
