@@ -159,17 +159,17 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
       'expense' => {
         '3aab091a-1a8a-4c96-b86c-f145198da13d' => {
           data: {
-            currency: 'foo',
-            memo: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at "\
+            Currency: 'foo',
+            PrivateNote: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at "\
                   '2019-10-24 18:21:53 UTC',
-            payment_type: 'cash',
-            transaction_date: Date.new(2019, 10, 25),
-            entity: '928db55e-6552-4aaf-96d7-10c693922b1f',
-            account: 'd51889bb-7c89-4138-83f3-1489b11b8cbd',
-            line_items: [
+            PaymentType: 'cash',
+            TxnDate: Date.new(2019, 10, 25),
+            Entity: '928db55e-6552-4aaf-96d7-10c693922b1f',
+            Account: 'd51889bb-7c89-4138-83f3-1489b11b8cbd',
+            Line: [
               'e337cbce-3765-4a82-8e6f-3f7b960f5d67'
             ],
-            reference_number: '3aab091a1a8a4c96b86cf'
+            DocNumber: '3aab091a1a8a4c96b86cf'
           }
         }
       },
@@ -189,12 +189,11 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
           data: {}
         }
       },
-      :expense_line_item => {
+      :expense_line => {
         'e337cbce-3765-4a82-8e6f-3f7b960f5d67' => {
           data: {
-            amount: 2500,
-            description: nil,
-            account: 'bba2464e-cc79-4c25-9ff6-a732d53e6fa6'
+            Amount: 2500,
+            Description: nil
           }
         }
       },
@@ -218,7 +217,7 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
     resource = builder.resource
 
     expect(resource).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Expense)
-    expect(resource.entity).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
-    expect(resource.currency).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Currency)
+    expect(resource.Entity).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
+    expect(resource.Currency).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Currency)
   end
 end

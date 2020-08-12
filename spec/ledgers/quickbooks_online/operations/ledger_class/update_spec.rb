@@ -24,7 +24,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::U
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
                   stubs: %i[
-                    stub_find_ledger_class
-                    stub_update_ledger_class
+                    stub_ledger_class_find
+                    stub_ledger_class_update
                   ]
 end

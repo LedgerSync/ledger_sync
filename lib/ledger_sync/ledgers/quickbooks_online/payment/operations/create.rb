@@ -9,7 +9,7 @@ module LedgerSync
             class Contract < LedgerSync::Ledgers::Contract
               params do
                 required(:external_id).maybe(:string)
-                optional(:ARccount).hash(Types::Reference)
+                optional(:ARAccount).hash(Types::Reference)
                 required(:Currency).filled(:hash, Types::Reference)
                 required(:Customer).hash(Types::Reference)
                 optional(:DepositToAccount).hash(Types::Reference)

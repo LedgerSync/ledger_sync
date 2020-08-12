@@ -18,5 +18,5 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::F
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_find_ledger_class
+  it_behaves_like 'a successful operation', stubs: :stub_ledger_class_find
 end

@@ -28,7 +28,7 @@ module Test
             'SyncToken' => '0',
             'MetaData' => {
               'CreateTime' => '2019-12-04T08:34:10-08:00',
-             'LastUpdatedTime' => '2019-12-04T08:34:10-08:00'
+              'LastUpdatedTime' => '2019-12-04T08:34:10-08:00'
             }
           },
           response_hash: {
@@ -43,9 +43,9 @@ module Test
             'MetaData' => {
               'CreateTime' => '2019-12-04T08:34:10-08:00',
               'LastUpdatedTime' => '2019-12-04T08:34:10-08:00'
-            } 
+            }
           },
-          search_url: "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Class%20WHERE%20'Name%20LIKE%20'%25Test%20Class%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
+          search_url: "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Class%20WHERE%20Name%20LIKE%20'%25Test%20Class%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
         }
       end
     end

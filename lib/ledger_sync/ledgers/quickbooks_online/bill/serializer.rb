@@ -31,7 +31,6 @@ module LedgerSync
                          resource_attribute: :Department,
                          serializer: Reference::Serializer
 
-
           references_many 'Line',
                           resource_attribute: :Line,
                           serializer: BillLine::Serializer

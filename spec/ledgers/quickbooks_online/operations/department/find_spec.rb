@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department::Operations::Fi
   let(:resource) do
     build(
       :quickbooks_online_department,
-      ledger_id: '123',
+      ledger_id: '123'
     )
   end
   let(:client) { quickbooks_online_client }

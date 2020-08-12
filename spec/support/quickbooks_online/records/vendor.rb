@@ -66,9 +66,9 @@ module Test
             'Active' => true,
             'PrimaryEmailAddr' => {
               'Address' => 'test@example.com'
-            } 
+            }
           },
-          search_url: ""
+          search_url: "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/query?query=SELECT%20*%20FROM%20Vendor%20WHERE%20DisplayName%20LIKE%20'%25Sample%20Vendor%25'%20STARTPOSITION%201%20MAXRESULTS%2010"
         }
       end
     end

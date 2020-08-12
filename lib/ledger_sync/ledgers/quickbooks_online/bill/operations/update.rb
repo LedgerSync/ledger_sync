@@ -15,7 +15,7 @@ module LedgerSync
                 optional(:DueDate).maybe(:date?)
                 required(:Line).array(Types::Reference)
                 required(:ledger_id).filled(:string)
-                optional(:Memo).maybe(:string)
+                optional(:PrivateNote).maybe(:string)
                 optional(:DocNumber).maybe(:string)
                 optional(:TxnDate).maybe(:date?)
                 required(:Vendor).hash(Types::Reference)

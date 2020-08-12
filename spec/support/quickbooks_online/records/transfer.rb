@@ -71,7 +71,7 @@ module Test
             },
             "PrivateNote": 'Memo'
           },
-          search_url: ""
+          search_url: ''
         }
       end
     end

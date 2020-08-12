@@ -7,7 +7,7 @@ support :operation_shared_examples,
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Transfer::Operations::Find do
   include QuickBooksOnlineHelpers
- 
+
   let(:resource) do
     build(
       :quickbooks_online_transfer,

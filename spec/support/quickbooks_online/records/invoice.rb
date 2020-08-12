@@ -36,17 +36,17 @@ module Test
             'CustomerRef' => { 'value' => '123', 'name' => 'Lola' },
             'DepositToAccountRef' => { 'value' => '123' },
             'Line' => [
-               {
-                 'Id' => nil,
-                 'DetailType' => 'SalesItemLineDetail',
-                 'SalesItemLineDetail' => {
-                   'ItemRef' => { 'value' => '123' },
-                   'ClassRef' => nil
-                 },
-                 'Amount' => 1.0,
-                 'Description' => 'Sample Description'
-               }
-             ],
+              {
+                'Id' => nil,
+                'DetailType' => 'SalesItemLineDetail',
+                'SalesItemLineDetail' => {
+                  'ItemRef' => { 'value' => '123' },
+                  'ClassRef' => nil
+                },
+                'Amount' => 1.0,
+                'Description' => 'Sample Description'
+              }
+            ],
             'Deposit' => 0,
             'AllowIPNPayment' => false,
             'AllowOnlinePayment' => false,

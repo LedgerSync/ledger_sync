@@ -29,7 +29,7 @@ module Test
             "Classification": 'Asset',
             "AccountType": 'Bank',
             "AccountSubType": 'CashOnHand',
-            "AcctNum" => '123',
+            'AcctNum' => '123',
             "CurrentBalance": 0,
             "CurrentBalanceWithSubAccounts": 0,
             "CurrencyRef": {

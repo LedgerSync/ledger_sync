@@ -43,10 +43,10 @@ module Test
               {
                 'Amount' => 1.0,
                 'LinkedTxn' => [
-                   { 'TxnId' => '123', 'TxnType' => 'Invoice' }
-                 ]
-               }
-             ],
+                  { 'TxnId' => '123', 'TxnType' => 'Invoice' }
+                ]
+              }
+            ],
             'PaymentMethodRef' => { 'value' => '29' },
             'UnappliedAmt' => 0,
             'ProcessPayment' => false,
@@ -119,7 +119,7 @@ module Test
               }
             ]
           },
-          search_url: ""
+          search_url: ''
         }
       end
     end
