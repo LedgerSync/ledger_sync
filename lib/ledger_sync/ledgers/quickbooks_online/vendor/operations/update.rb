@@ -17,7 +17,6 @@ module LedgerSync
                 optional(:MiddleName).maybe(:string)
                 required(:PrimaryPhone).maybe(:hash, Types::Reference)
                 required(:PrimaryEmailAddr).maybe(:hash, Types::Reference)
-                optional(:Subsidiary).maybe(:hash, Types::Reference)
               end
             end
           end
