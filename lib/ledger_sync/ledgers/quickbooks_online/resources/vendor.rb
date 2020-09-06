@@ -1,21 +1,23 @@
 # frozen_string_literal: true
 
-require_relative 'subsidiary'
+require_relative 'primary_phone'
+require_relative 'primary_email_addr'
 
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Vendor < QuickBooksOnline::Resource
-        attribute :company_name, type: Type::String
-        attribute :email, type: Type::String
-        attribute :display_name, type: Type::String
-        attribute :first_name, type: Type::String
-        attribute :last_name, type: Type::String
-        attribute :phone_number, type: Type::String
-        references_one :subsidiary, to: Subsidiary
+        attribute :DisplayName, type: Type::String
+        attribute :GivenName, type: Type::String
+        attribute :MiddleName, type: Type::String
+        attribute :FamilyName, type: Type::String
+        attribute :CompanyName, type: Type::String
+
+        references_one :PrimaryPhone, to: PrimaryPhone
+        references_one :PrimaryEmailAddr, to: PrimaryEmailAddr
 
         def name
-          display_name.to_s
+          self.DisplayName
         end
       end
     end

@@ -7,48 +7,83 @@ support :serialization_helpers
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Serializer do
   include SerializationHelpers
 
-  let(:account) { LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: 'account_ledger_id') }
-  let(:department) { LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: 'department_ledger_id') }
-  let(:ledger_class) { LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: 'class_ledger_id') }
+  let(:account) do
+    build(
+      :quickbooks_online_account,
+      ledger_id: 'account_ledger_id'
+    )
+  end
+  let(:department) do
+    build(
+      :quickbooks_online_department,
+      ledger_id: 'department_ledger_id'
+    )
+  end
+  let(:ledger_class) do
+    build(
+      :quickbooks_online_ledger_class,
+      ledger_id: 'class_ledger_id'
+    )
+  end
   let(:vendor_ledger_id) { 'vendor_ledger_id' }
   let(:vendor_display_name) { 'Test Vendor' }
   let(:entity_type) { 'Vendor' }
   let(:vendor) do
-    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(
-      display_name: vendor_display_name,
-      ledger_id: vendor_ledger_id
+    build(
+      :quickbooks_online_vendor,
+      ledger_id: vendor_ledger_id,
+      DisplayName: vendor_display_name
     )
   end
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::Expense.new(
-      account: account,
-      department: department,
-      currency: currency,
-      exchange_rate: exchange_rate,
-      line_items: line_items,
-      memo: memo,
-      payment_type: payment_type,
-      reference_number: 'Ref123',
-      transaction_date: transaction_date,
-      entity: vendor
+    build(
+      :quickbooks_online_expense,
+      Account: account,
+      Department: department,
+      Currency: currency,
+      ExchangeRate: exchange_rate,
+      PrivateNote: memo,
+      TxnDate: transaction_date,
+      DocNumber: 'Ref123',
+      Entity: vendor,
+      Line: line_items
     )
   end
-  let(:currency) { FactoryBot.create(:quickbooks_online_currency) }
+  let(:currency) do
+    build(
+      :quickbooks_online_currency
+    )
+  end
+
   let(:line_items) do
     # Account is required:
     # https://developer.intuit.com/app/developer/qbo/docs/api/accounting/all-entities/purchase#create-a-purchase
     [
-      LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new(
-        account: LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: 'account_ledger_id_1'),
-        ledger_class: ledger_class,
-        amount: 10_000,
-        description: 'Description 1'
+      build(
+        :quickbooks_online_expense_line,
+        Amount: 10_000,
+        Description: 'Description 1',
+        AccountBasedExpenseLineDetail: build(
+          :quickbooks_online_account_based_expense_line_detail,
+          Account: build(
+            :quickbooks_online_account,
+            ledger_id: 'account_ledger_id_1'
+          ),
+          Class: ledger_class
+        )
       ),
-      LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new(
-        account: LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: 'account_ledger_id_2'),
-        ledger_class: ledger_class,
-        amount: 20_000,
-        description: 'Description 2'
+      build(
+        :quickbooks_online_expense_line,
+        Amount: 20_000,
+        Description: 'Description 2',
+        AccountBasedExpenseLineDetail: build(
+          :quickbooks_online_account_based_expense_line_detail,
+          Account: build(
+            :quickbooks_online_account,
+            ledger_id: 'account_ledger_id_2'
+          ),
+          Class: ledger_class
+        )
       )
     ]
   end
@@ -61,7 +96,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Serializer do
     {
       'Id' => nil,
       'CurrencyRef' => {
-        'value' => currency.symbol
+        'value' => currency.Symbol
       },
       'DepartmentRef' => { 'value' => department.ledger_id },
       'DocNumber' => 'Ref123',
@@ -78,7 +113,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense::Serializer do
         'value' => account.ledger_id
       },
       'Line' => line_items.map do |line_item|
-        LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem::Serializer.new.serialize(
+        LedgerSync::Ledgers::QuickBooksOnline::ExpenseLine::Serializer.new.serialize(
           resource: line_item
         )
       end

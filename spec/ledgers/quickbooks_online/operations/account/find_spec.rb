@@ -9,15 +9,14 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Operations::Find 
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(
-      ledger_id: '123',
-      name: 'Test',
-      account_type: 'bank',
-      account_sub_type: 'cash_on_hand'
+    create(
+      :quickbooks_online_account,
+      external_id: :ext_id,
+      ledger_id: '123'
     )
   end
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_find_account
+  it_behaves_like 'a successful operation', stubs: :stub_account_find
 end

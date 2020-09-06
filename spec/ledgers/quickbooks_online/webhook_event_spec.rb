@@ -42,7 +42,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::WebhookEvent do
     end
 
     it 'finds vendor' do
-      stub_find_vendor
+      stub_vendor_find
       payload['name'] = 'Vendor'
       expect(instance.find(client: quickbooks_online_client)).to be_success
     end

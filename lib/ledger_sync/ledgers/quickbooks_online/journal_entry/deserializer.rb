@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../reference/deserializer'
-require_relative '../journal_entry_line_item/deserializer'
+require_relative '../journal_entry_line/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -10,22 +10,17 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          references_one :currency,
+          date :TxnDate
+          attribute :PrivateNote
+          attribute :DocNumber
+
+          references_one :Currency,
                          hash_attribute: 'CurrencyRef',
                          deserializer: Reference::Deserializer
 
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
-
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
-
-          attribute :reference_number,
-                    hash_attribute: 'DocNumber'
-
-          references_many :line_items,
+          references_many :Line,
                           hash_attribute: 'Line',
-                          deserializer: JournalEntryLineItem::Deserializer
+                          deserializer: JournalEntryLine::Deserializer
         end
       end
     end

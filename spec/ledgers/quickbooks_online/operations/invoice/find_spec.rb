@@ -8,18 +8,14 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Invoice::Operations::Find do
   include QuickBooksOnlineHelpers
 
-  let(:customer) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new(ledger_id: '123') }
-  let(:account) { LedgerSync::Ledgers::QuickBooksOnline::Account.new(ledger_id: '123') }
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::Invoice.new(
-      ledger_id: '123',
-      customer: customer,
-      account: account,
-      line_items: []
+    build(
+      :quickbooks_online_invoice,
+      ledger_id: '123'
     )
   end
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_find_invoice
+  it_behaves_like 'a successful operation', stubs: :stub_invoice_find
 end

@@ -8,35 +8,59 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::Create do
   include QuickBooksOnlineHelpers
 
-  let(:vendor) { build(:quickbooks_online_vendor, ledger_id: '123') }
-  let(:account) { build(:quickbooks_online_account, ledger_id: '123') }
-  let(:bill) { build(:quickbooks_online_bill, ledger_id: '123') }
-  let(:department) { build(:quickbooks_online_department, ledger_id: '123') }
-  let(:currency) { build(:quickbooks_online_currency, name: 'United States Dollar', symbol: 'USD') }
+  let(:vendor) do
+    build(:quickbooks_online_vendor, ledger_id: '123')
+  end
 
-  let(:line_item) { build(:quickbooks_online_bill_payment_line_item, amount: 100, ledger_transactions: [bill]) }
+  let(:account) do
+    build(:quickbooks_online_account, ledger_id: '123')
+  end
+
+  let(:bill) do
+    build(:quickbooks_online_bill, ledger_id: '123')
+  end
+
+  let(:department) do
+    build(:quickbooks_online_department, ledger_id: '123')
+  end
+
+  let(:currency) do
+    build(
+      :quickbooks_online_currency,
+      Name: 'United States Dollar',
+      Symbol: 'USD'
+    )
+  end
+
+  let(:line) do
+    build(
+      :quickbooks_online_bill_payment_line,
+      Amount: 100,
+      LinkedTxn: [bill]
+    )
+  end
 
   let(:resource) do
     build(
       :quickbooks_online_bill_payment,
       ledger_id: nil,
 
-      amount: 100,
-      memo: 'Note',
-      transaction_date: Date.parse('2019-09-01'),
-      exchange_rate: 1.0,
-      reference_number: 'Ref123',
-      payment_type: :credit_card,
+      TotalAmt: 100,
+      PrivateNote: 'Note',
+      TxnDate: Date.parse('2019-09-01'),
+      ExchangeRate: 1.0,
+      DocNumber: 'Ref123',
+      PayType: :credit_card,
 
-      account: account,
-      currency: currency,
-      department: department,
-      vendor: vendor,
+      APAccount: account,
+      Currency: currency,
+      Department: department,
+      Vendor: vendor,
 
-      credit_card_account: account,
-      bank_account: nil,
+      CreditCardPayment: build(:quickbooks_online_credit_card_payment, CCAccount: account),
+      CheckPayment: nil,
 
-      line_items: [line_item]
+      Line: [line]
     )
   end
 

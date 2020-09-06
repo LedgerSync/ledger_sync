@@ -10,11 +10,11 @@ module LedgerSync
               params do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
-                required(:name).filled(:string)
-                required(:active).filled(:bool?)
-                required(:sub_class).filled(:bool?)
-                optional(:fully_qualified_name).maybe(:string)
-                optional(:parent).maybe(:hash, Types::Reference)
+                required(:Name).filled(:string)
+                required(:Active).filled(:bool?)
+                required(:SubClass).filled(:bool?)
+                optional(:FullyQualifiedName).maybe(:string)
+                optional(:Parent).maybe(:hash, Types::Reference)
               end
             end
           end

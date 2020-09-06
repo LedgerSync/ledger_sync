@@ -6,9 +6,10 @@ module LedgerSync
       class Currency
         class Serializer < QuickBooksOnline::Serializer
           attribute :value,
-                    resource_attribute: :symbol
+                    resource_attribute: :Symbol
 
-          attribute :name
+          attribute :name,
+                    resource_attribute: :Name
         end
       end
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../bill_line_item/deserializer'
+require_relative '../bill_line/deserializer'
 require_relative '../reference/deserializer'
 
 module LedgerSync
@@ -10,37 +10,30 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          references_one :currency,
+          date :DueDate
+          date :TxnDate
+          attribute :PrivateNote
+          attribute :DocNumber
+
+          references_one :Currency,
                          hash_attribute: 'CurrencyRef',
                          deserializer: Reference::Deserializer
 
-          date :due_date,
-               hash_attribute: 'DueDate'
-
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
-
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
-
-          references_one :vendor,
+          references_one :Vendor,
                          hash_attribute: 'VendorRef',
                          deserializer: Reference::Deserializer
 
-          references_one :account,
+          references_one :APAccount,
                          hash_attribute: 'APAccountRef',
                          deserializer: Reference::Deserializer
 
-          references_one :department,
+          references_one :Department,
                          hash_attribute: 'DepartmentRef',
                          deserializer: Reference::Deserializer
 
-          attribute :reference_number,
-                    hash_attribute: 'DocNumber'
-
-          references_many :line_items,
+          references_many :Line,
                           hash_attribute: 'Line',
-                          deserializer: BillLineItem::Deserializer
+                          deserializer: BillLine::Deserializer
         end
       end
     end

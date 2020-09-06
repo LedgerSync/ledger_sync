@@ -11,10 +11,26 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Operations::Creat
   include InputHelpers
 
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource)
+    create(
+      :quickbooks_online_account,
+      external_id: :ext_id,
+      ledger_id: nil,
+      Name: 'Sample Account',
+      Classification: 'asset',
+      AccountType: 'bank',
+      AccountSubType: 'cash_on_hand',
+      Currency: build(
+        :quickbooks_online_currency,
+        Name: 'United States Dollar',
+        Symbol: 'USD'
+      ),
+      AcctNum: '123',
+      Description: 'This is Sample Account',
+      Active: true
+    )
   end
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_create_account
+  it_behaves_like 'a successful operation', stubs: :stub_account_create
 end

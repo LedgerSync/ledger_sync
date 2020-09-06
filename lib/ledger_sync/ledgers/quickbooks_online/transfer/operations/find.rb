@@ -10,12 +10,12 @@ module LedgerSync
               schema do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).filled(:string)
-                required(:from_account).hash(Types::Reference)
-                required(:to_account).hash(Types::Reference)
-                required(:amount).maybe(:integer)
-                required(:currency).maybe(:hash, Types::Reference)
-                required(:memo).maybe(:string)
-                required(:transaction_date).maybe(:date?)
+                optional(:FromAccount).hash(Types::Reference)
+                optional(:ToAccount).hash(Types::Reference)
+                optional(:Amount).maybe(:integer)
+                optional(:Currency).maybe(:hash, Types::Reference)
+                optional(:PrivateNote).maybe(:string)
+                optional(:TxnDate).maybe(:date?)
               end
             end
           end

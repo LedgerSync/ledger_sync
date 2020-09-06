@@ -9,24 +9,19 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          amount :amount,
-                 hash_attribute: 'Amount'
+          amount :Amount
+          attribute :PrivateNote
+          date :TxnDate
 
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
-
-          references_one :from_account,
+          references_one :FromAccount,
                          hash_attribute: 'FromAccountRef',
                          deserializer: Reference::Deserializer
 
-          references_one :to_account,
+          references_one :ToAccount,
                          hash_attribute: 'ToAccountRef',
                          deserializer: Reference::Deserializer
 
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
-
-          references_one :currency,
+          references_one :Currency,
                          hash_attribute: 'CurrencyRef',
                          deserializer: Reference::Deserializer
         end

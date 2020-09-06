@@ -9,14 +9,14 @@ module LedgerSync
             class Contract < LedgerSync::Ledgers::Contract
               schema do
                 required(:external_id).maybe(:string)
-                optional(:account).hash(Types::Reference)
-                required(:currency).maybe(:hash, Types::Reference)
-                optional(:customer).hash(Types::Reference)
-                optional(:deposit).maybe(:integer)
+                optional(:Currency).maybe(:hash, Types::Reference)
+                optional(:Customer).hash(Types::Reference)
+                optional(:Deposit).maybe(:integer)
+                optional(:DepositToAccount).hash(Types::Reference)
                 required(:ledger_id).filled(:string)
-                optional(:line_items).array(Types::Reference)
-                optional(:memo).maybe(:string)
-                optional(:transaction_date).maybe(:date?)
+                optional(:Line).array(Types::Reference)
+                optional(:PrivateNote).maybe(:string)
+                optional(:TxnDate).maybe(:date?)
               end
             end
           end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../expense_line_item/deserializer'
+require_relative '../expense_line/deserializer'
 require_relative '../reference/deserializer'
 
 module LedgerSync
@@ -10,24 +10,16 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          references_one :currency,
-                         hash_attribute: 'CurrencyRef',
-                         deserializer: Reference::Deserializer
+          attribute :DocNumber
+          date :TxnDate
+          attribute :PrivateNote
 
-          mapping :payment_type,
-                  hash_attribute: 'PaymentType',
+          attribute :ExchangeRate
+
+          mapping :PaymentType,
                   hash: Expense::PAYMENT_TYPES.invert
 
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
-
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
-
-          attribute :exchange_rate,
-                    hash_attribute: 'ExchangeRate'
-
-          attribute(:entity) do |args = {}|
+          attribute(:Entity) do |args = {}|
             hash = args.fetch(:hash)
             value = hash['EntityRef']
 
@@ -40,20 +32,21 @@ module LedgerSync
             end
           end
 
-          attribute :reference_number,
-                    hash_attribute: 'DocNumber'
+          references_one :Currency,
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
-          references_one :account,
+          references_one :Account,
                          hash_attribute: 'AccountRef',
                          deserializer: Reference::Deserializer
 
-          references_one :department,
+          references_one :Department,
                          hash_attribute: 'DepartmentRef',
                          deserializer: Reference::Deserializer
 
-          references_many :line_items,
+          references_many :Line,
                           hash_attribute: 'Line',
-                          deserializer: ExpenseLineItem::Deserializer
+                          deserializer: ExpenseLine::Deserializer
         end
       end
     end

@@ -6,10 +6,22 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Vendor, qa: true, client: 
   let(:client) { quickbooks_online_client }
   let(:attribute_updates) do
     {
-      display_name: "QA UPDATE #{rand_id}"
+      DisplayName: "QA UPDATE #{rand_id}"
     }
   end
-  let(:resource) { FactoryBot.create(:vendor) }
+  let(:resource) do
+    build(
+      :quickbooks_online_vendor,
+      PrimaryEmailAddr: build(
+        :quickbooks_online_primary_email_addr,
+        Address: "test-#{rand(1000)}@example.com"
+      ),
+      PrimaryPhone: build(
+        :quickbooks_online_primary_phone,
+        FreeFormNumber: "+1#{rand(9_999_999_99)}"
+      )
+    )
+  end
 
   it_behaves_like 'a standard quickbooks_online resource'
 end

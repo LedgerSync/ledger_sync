@@ -10,7 +10,7 @@ RSpec.describe 'quickbooks_online/vendors/search', type: :feature do
   include QuickBooksOnlineHelpers
 
   before do
-    stub_search_vendor
+    stub_vendor_search
   end
 
   let(:input) do

@@ -340,15 +340,19 @@ module LedgerSync
           'revenue' => 'Revenue'
         }.freeze
 
-        attribute :name, type: Type::String
-        attribute :classification, type: Type::String
-        attribute :account_type, type: Type::StringFromSet.new(values: TYPES.keys)
-        attribute :account_sub_type, type: Type::String
-        attribute :number, type: Type::String
-        attribute :description, type: Type::String
-        attribute :active, type: Type::Boolean
+        attribute :Name, type: Type::String
+        attribute :Classification, type: Type::String
+        attribute :AccountType, type: Type::StringFromSet.new(values: TYPES.keys)
+        attribute :AccountSubType, type: Type::String
+        attribute :AcctNum, type: Type::String
+        attribute :Description, type: Type::String
+        attribute :Active, type: Type::Boolean
 
-        references_one :currency, to: Currency
+        references_one :Currency, to: Currency
+
+        def name
+          self.Name
+        end
       end
     end
   end

@@ -4,12 +4,16 @@ module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Department < QuickBooksOnline::Resource
-        attribute :name, type: Type::String
-        attribute :fully_qualified_name, type: Type::String
-        attribute :active, type: Type::Boolean
-        attribute :sub_department, type: Type::Boolean
+        attribute :Name, type: Type::String
+        attribute :FullyQualifiedName, type: Type::String
+        attribute :Active, type: Type::Boolean
+        attribute :SubDepartment, type: Type::Boolean
 
-        references_one :parent, to: Department
+        references_one :Parent, to: Department
+
+        def name
+          self.Name
+        end
       end
     end
   end

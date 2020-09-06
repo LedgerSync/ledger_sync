@@ -6,26 +6,53 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Expense, qa: true, client:
   let(:client) { quickbooks_online_client }
   let(:attribute_updates) do
     {
-      memo: "QA UPDATE #{rand_id}"
+      PrivateNote: "QA UPDATE #{rand_id}"
     }
   end
 
   let(:account) do
     create_resource_for(
       client: client,
-      resource: FactoryBot.create(:account)
+      resource: build(
+        :quickbooks_online_account,
+        AcctNum: rand(10_000).to_s,
+        AccountType: 'bank',
+        Classification: 'asset',
+        AccountSubType: 'cash_on_hand'
+      )
+    )
+  end
+
+  let(:currency) do
+    build(
+      :quickbooks_online_currency,
+      Name: 'United States Dollar',
+      Symbol: 'USD'
     )
   end
 
   let(:resource) do
-    FactoryBot.create(
-      :expense,
-      account: account,
-      line_items: FactoryBot.create_list(
-        :expense_line_item,
-        2,
-        account: account
-      )
+    build(
+      :quickbooks_online_expense,
+      Account: account,
+      DocNumber: "Doc##{rand(100_00)}",
+      Currency: currency,
+      Line: [
+        build(
+          :quickbooks_online_expense_line,
+          AccountBasedExpenseLineDetail: build(
+            :quickbooks_online_account_based_expense_line_detail,
+            Account: account
+          )
+        ),
+        build(
+          :quickbooks_online_expense_line,
+          AccountBasedExpenseLineDetail: build(
+            :quickbooks_online_account_based_expense_line_detail,
+            Account: account
+          )
+        )
+      ]
     )
   end
 

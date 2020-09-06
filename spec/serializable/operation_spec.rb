@@ -22,9 +22,9 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Crea
   it 'does not serialize dates' do
     operation = LedgerSync::Ledgers::QuickBooksOnline::Expense::Operations::Find.new(
       client: client,
-      resource: LedgerSync::Ledgers::QuickBooksOnline::Expense.new(transaction_date: Date.today)
+      resource: LedgerSync::Ledgers::QuickBooksOnline::Expense.new(TxnDate: Date.today)
     )
-    expect(operation.send(:validation_data)[:transaction_date]).to be_a(Date)
+    expect(operation.send(:validation_data)[:TxnDate]).to be_a(Date)
   end
 
   it_behaves_like 'a serializable object'

@@ -9,7 +9,7 @@ RSpec.describe LedgerSync::Resource, type: :serializable do
   let(:payment) { new_resource }
 
   def new_resource
-    LedgerSync::Ledgers::QuickBooksOnline::Payment.new(amount: 123, customer: customer)
+    LedgerSync::Ledgers::QuickBooksOnline::Payment.new(TotalAmt: 123, Customer: customer)
   end
 
   subject { payment.serialize }

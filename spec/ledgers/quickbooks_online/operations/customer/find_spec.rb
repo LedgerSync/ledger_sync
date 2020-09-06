@@ -9,6 +9,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find
   include QuickBooksOnlineHelpers
 
   let(:client) { quickbooks_online_client }
+
   let(:resource) do
     create(
       :quickbooks_online_customer,

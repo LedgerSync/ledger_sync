@@ -10,13 +10,13 @@ module LedgerSync
               params do
                 required(:external_id).maybe(:string)
                 required(:ledger_id).value(:nil)
-                required(:account).hash(Types::Reference)
-                required(:currency).filled(:hash, Types::Reference)
-                required(:department).hash(Types::Reference)
-                required(:memo).filled(:string)
-                required(:transaction_date).filled(:date?)
-                required(:exchange_rate).maybe(:float)
-                required(:line_items).array(Types::Reference)
+                required(:DepositToAccount).hash(Types::Reference)
+                required(:Currency).filled(:hash, Types::Reference)
+                required(:Department).hash(Types::Reference)
+                required(:PrivateNote).filled(:string)
+                required(:TxnDate).filled(:date?)
+                required(:ExchangeRate).maybe(:float)
+                required(:Line).array(Types::Reference)
               end
             end
           end
