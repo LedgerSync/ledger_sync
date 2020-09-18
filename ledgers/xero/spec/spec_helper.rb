@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "ledger_sync/xero"
+require "ledger_sync/ledgers/xero"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
