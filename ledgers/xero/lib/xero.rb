@@ -1,7 +1,7 @@
 require "ledger_sync"
 
-require "ledger_sync/ledgers/xero/version"
-require "ledger_sync/ledgers/xero/client"
+require "version"
+require "client"
 
 module LedgerSync
   module Xero
