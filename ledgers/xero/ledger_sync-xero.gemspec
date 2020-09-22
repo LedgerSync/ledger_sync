@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('bundler', '~> 2.1')
   spec.add_development_dependency('rake', '~> 13.0')
   spec.add_development_dependency('rspec', '~> 3.2')
+  spec.add_development_dependency('byebug')
   spec.add_runtime_dependency('dotenv')
   spec.add_runtime_dependency('nokogiri', '>= 0')
   spec.add_runtime_dependency('oauth2', '>= 0')

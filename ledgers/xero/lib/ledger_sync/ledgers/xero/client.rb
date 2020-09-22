@@ -43,7 +43,6 @@ module LedgerSync
           update_secrets_in_dotenv if update_dotenv
         end
 
-
         def authorization_url(redirect_uri:)
           oauth_client.authorization_url(redirect_uri: redirect_uri)
         end
@@ -51,12 +50,28 @@ module LedgerSync
         def find(path:)
           url = "#{ROOT_URI}/#{path.capitalize}"
 
-          oauth.send(
-            'get',
-            url,
-            body: nil,
-            headers: OAUTH_HEADERS.dup.merge('Xero-tenant-id' => @tenant_id)
+          request(
+            headers: oauth_headers,
+            method: :get,
+            url: url
           )
+        end
+
+        def post(path:, payload:)
+          url = "#{ROOT_URI}/#{path.capitalize}"
+
+          request(
+            headers: oauth_headers,
+            method: :post,
+            body: {
+              path.capitalize => payload
+            },
+            url: url
+          )
+        end
+
+        def oauth_headers
+          OAUTH_HEADERS.dup.merge('Xero-tenant-id' => @tenant_id)
         end
 
         def oauth
@@ -90,6 +105,16 @@ module LedgerSync
             headers: LedgerSync::Ledgers::Xero::Client::OAUTH_HEADERS.dup
           )
           JSON.parse(response.body)
+        end
+
+        def request(body: nil, headers: {}, method:, url:)
+          Request.new(
+            client: self,
+            body: body,
+            headers: headers,
+            method: method,
+            url: url
+          ).perform
         end
 
         def self.new_from_env(**override)
