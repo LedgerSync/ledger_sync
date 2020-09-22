@@ -5,7 +5,7 @@ module LedgerSync
     module Xero
       class Contact
         class Serializer < Xero::Serializer
-          attribute 'ContactId',
+          attribute 'ContactID',
                     resource_attribute: :ledger_id
           attribute :Name
           attribute :EmailAddress

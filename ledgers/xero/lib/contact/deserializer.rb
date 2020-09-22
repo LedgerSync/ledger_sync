@@ -6,7 +6,7 @@ module LedgerSync
       class Contact
         class Deserializer < Xero::Deserializer
           attribute :ledger_id,
-                    hash_attribute: 'ContactId'
+                    hash_attribute: 'ContactID'
           attribute :Name
           attribute :EmailAddress
         end
