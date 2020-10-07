@@ -71,6 +71,8 @@ module LedgerSync
       return if subclass.inferred_client_class.nil?
 
       subclass.inferred_client_class.register_resource(resource: subclass)
+
+      super
     end
 
     def self.operations

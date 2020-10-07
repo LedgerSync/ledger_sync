@@ -75,7 +75,7 @@ module LedgerSync
 
           attr_reader :operation
 
-          def initialize(operation: nil, error:)
+          def initialize(error:, operation: nil)
             @operation = operation
             super(error: error)
           end

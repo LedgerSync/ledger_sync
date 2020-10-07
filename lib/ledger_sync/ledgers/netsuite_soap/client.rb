@@ -5,7 +5,9 @@ require 'oauth2'
 module LedgerSync
   module Ledgers
     module NetSuiteSOAP
-      class Client < Ledgers::Client
+      class Client
+        include Ledgers::Client::Mixin
+
         DEFAULT_API_VERSION = '2016_2'
 
         attr_reader :account_id,

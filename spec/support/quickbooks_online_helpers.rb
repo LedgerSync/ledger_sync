@@ -3,19 +3,20 @@
 require_relative 'quickbooks_online/record_collection'
 
 module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
-  def api_url(ledger_id: nil, record:)
+  def api_url(record:, ledger_id: nil)
     resource_class = "LedgerSync::Ledgers::QuickBooksOnline::#{record.ledger_class}".constantize
     url_resource = LedgerSync::Ledgers::QuickBooksOnline::Client.ledger_resource_type_for(
       resource_class: resource_class
     ).tr('_', '')
+
     ret = "https://sandbox-quickbooks.api.intuit.com/v3/company/realm_id/#{url_resource}"
-    if url_resource.to_s == 'preferences'
-      ret += '/' unless ret.end_with?('/')
-    end
+    ret += '/' if url_resource == 'preferences' && !ret.end_with?('/')
+
     if ledger_id
       ret += '/' unless ret.end_with?('/')
       ret += ledger_id.to_s
     end
+
     ret
   end
 
@@ -163,7 +164,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
   end
 
   def basic_authorization_header
-    'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret)
+    "Basic #{Base64.strict_encode64("#{client_id}:#{client_secret}")}"
   end
 
   def stub_client_refresh

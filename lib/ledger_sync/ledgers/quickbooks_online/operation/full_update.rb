@@ -18,9 +18,7 @@ module LedgerSync
           end
 
           def operate
-            find_result_hash = find_resource.body.dig(
-              quickbooks_online_resource_type.to_s.classify
-            )
+            find_result_hash = find_resource.body[quickbooks_online_resource_type.to_s.classify]
             merged_resource = deserializer.deserialize(
               hash: find_result_hash,
               merge_for_full_update: true,

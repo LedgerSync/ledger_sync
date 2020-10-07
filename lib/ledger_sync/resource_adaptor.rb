@@ -47,6 +47,8 @@ module LedgerSync
 
     def self.inherited(base)
       base.include(Mixin)
+
+      super
     end
   end
 end

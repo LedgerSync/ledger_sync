@@ -26,6 +26,8 @@ require 'ap'
 require 'byebug'
 require 'ledger_sync'
 
+require File.join(LedgerSync.root, 'spec/support/test_ledger/config')
+
 def support(*paths)
   paths.each do |path|
     require File.join(LedgerSync.root, 'spec/support/', path.to_s)
@@ -36,12 +38,14 @@ support :factory_bot
 support :webmock_helpers
 support :vcr
 support :resource_helpers
+support :test_ledger_helpers
 
 def qa_support(*paths)
   paths.each do |path|
     require File.join(LedgerSync.root, 'spec/qa/support/', path.to_s)
   end
 end
+
 qa_support :ledger_support_qa_setup
 
 RSpec.configure do |config|
@@ -50,6 +54,8 @@ RSpec.configure do |config|
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
+
+  config.include(TestLedgerHelpers)
 
   config.expect_with :rspec do |c|
     c.syntax = :expect

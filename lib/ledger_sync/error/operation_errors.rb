@@ -5,7 +5,7 @@ module LedgerSync
     class OperationError < Error
       attr_reader :operation, :response
 
-      def initialize(message: nil, operation:, response: nil)
+      def initialize(operation:, message: nil, response: nil)
         message ||= 'Operation failed.'
         @operation = operation
         @response = response
@@ -16,7 +16,7 @@ module LedgerSync
       class NotFoundError < self; end
       class LedgerValidationError < self; end
       class PerformedOperationError < self
-        def initialize(message: nil, operation:, response: nil)
+        def initialize(operation:, message: nil, response: nil)
           message ||= 'Operation has already been performed. Please check the result.'
 
           super(

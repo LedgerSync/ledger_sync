@@ -6,7 +6,9 @@ require_relative 'dashboard_url_helper'
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
-      class Client < Ledgers::Client
+      class Client
+        include Ledgers::Client::Mixin
+
         OAUTH_HEADERS     = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }.freeze
         ROOT_URI          = 'https://quickbooks.api.intuit.com'
         REVOKE_TOKEN_URI  = 'https://developer.api.intuit.com/v2/oauth2/tokens/revoke'
@@ -50,6 +52,8 @@ module LedgerSync
           @root_uri = (test ? ROOT_SANDBOX_URI : ROOT_URI)
 
           update_secrets_in_dotenv if update_dotenv
+
+          super()
         end
 
         def authorization_url(redirect_uri:)
@@ -92,7 +96,7 @@ module LedgerSync
           )
         end
 
-        def query(limit: 10, offset: 1, query:, resource_class:)
+        def query(query:, resource_class:, limit: 10, offset: 1)
           ledger_resource_type = self.class.ledger_resource_type_for(
             resource_class: resource_class
           ).classify
@@ -118,7 +122,7 @@ module LedgerSync
 
         def revoke_token!
           headers = OAUTH_HEADERS.dup.merge(
-            'Authorization' => 'Basic ' + Base64.strict_encode64(client_id + ':' + client_secret)
+            'Authorization' => "Basic #{Base64.strict_encode64("#{client_id}:#{client_secret}")}"
           )
           LedgerSync::Ledgers::Request.new(
             body: {
@@ -130,7 +134,7 @@ module LedgerSync
           ).perform.status == 200
         end
 
-        def set_credentials_from_oauth_code(code:, realm_id: nil, redirect_uri:)
+        def set_credentials_from_oauth_code(code:, redirect_uri:, realm_id: nil)
           oauth_token = oauth_client.get_token(
             code: code,
             redirect_uri: redirect_uri
@@ -232,7 +236,7 @@ module LedgerSync
           @oauth_base_uri ||= "#{root_uri}/v3/company/#{realm_id}"
         end
 
-        def request(body: nil, headers: {}, method:, url:)
+        def request(method:, url:, body: nil, headers: {})
           Request.new(
             client: self,
             body: body,
@@ -242,7 +246,7 @@ module LedgerSync
           ).perform
         end
 
-        def set_credentials_from_oauth_token(realm_id: nil, token:) # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+        def set_credentials_from_oauth_token(token:, realm_id: nil) # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
           @previous_access_tokens << access_token if access_token.present?
           @access_token = token.token
 

@@ -2,7 +2,7 @@
 
 # Internal serializer helpers
 module SerializationHelpers
-  def expect_deserialized_attributes(attributes:, response_hash:, resource: nil, deserializer_class:, values: {})
+  def expect_deserialized_attributes(attributes:, response_hash:, deserializer_class:, resource: nil, values: {})
     resource ||= deserializer_class.inferred_resource_class.new
     serializer = deserializer_class.new
     deserialized_resource = serializer.deserialize(hash: response_hash, resource: resource)

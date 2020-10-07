@@ -7,6 +7,8 @@ module LedgerSync
         class DeserializerSubsidiaryType < LedgerSync::Type::Value
           def initialize(args = {})
             @subsidiary_class = args.fetch(:subsidiary_class)
+
+            super()
           end
 
           private

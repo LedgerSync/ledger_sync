@@ -8,23 +8,39 @@ RSpec.describe LedgerSync::Ledgers::Client, type: :serializable do
   include NetSuiteHelpers
 
   it do
-    h = { root: 'LedgerSync::Ledgers::NetSuite::Client/be8b28e86017b6ea4cc7b1cfcc36b63e',
-          objects: { 'LedgerSync::Ledgers::NetSuite::Client/be8b28e86017b6ea4cc7b1cfcc36b63e' =>
-        { id: 'LedgerSync::Ledgers::NetSuite::Client/be8b28e86017b6ea4cc7b1cfcc36b63e',
+    h = {
+      root: 'LedgerSync::Ledgers::NetSuite::Client/be8b28e86017b6ea4cc7b1cfcc36b63e',
+      objects: {
+        'LedgerSync::Ledgers::NetSuite::Client/be8b28e86017b6ea4cc7b1cfcc36b63e' =>
+        {
+          id: 'LedgerSync::Ledgers::NetSuite::Client/be8b28e86017b6ea4cc7b1cfcc36b63e',
           object: 'LedgerSync::Ledgers::NetSuite::Client',
           fingeprint: 'be8b28e86017b6ea4cc7b1cfcc36b63e',
-          data: { ledger_configuration: { object: :reference,
-                                          id: 'LedgerSync::LedgerConfiguration/1d1d22bbe6ff00b5508249b7cbd50cbe' } } },
-                     'LedgerSync::LedgerConfiguration/1d1d22bbe6ff00b5508249b7cbd50cbe' =>
-        { id: 'LedgerSync::LedgerConfiguration/1d1d22bbe6ff00b5508249b7cbd50cbe',
+          data: {
+            ledger_configuration: {
+              object: :reference,
+              id: 'LedgerSync::LedgerConfiguration/a9811d16c9736d7ba2aae73acb10622b'
+            }
+          }
+        },
+        'LedgerSync::LedgerConfiguration/a9811d16c9736d7ba2aae73acb10622b' =>
+        {
+          id: 'LedgerSync::LedgerConfiguration/a9811d16c9736d7ba2aae73acb10622b',
           object: 'LedgerSync::LedgerConfiguration',
-          fingeprint: '1d1d22bbe6ff00b5508249b7cbd50cbe',
-          data: { client_class: 'LedgerSync::Ledgers::NetSuite::Client',
-                  name: 'NetSuite REST',
-                  module_string: 'NetSuite',
-                  root_key: :netsuite,
-                  aliases: [],
-                  base_module: 'LedgerSync::Ledgers::NetSuite' } } } }
+          fingeprint: 'a9811d16c9736d7ba2aae73acb10622b',
+          data: {
+            module_string: 'NetSuite',
+            root_key: :netsuite,
+            name: 'NetSuite REST',
+            base_module: 'LedgerSync::Ledgers::NetSuite',
+            client_class: 'LedgerSync::Ledgers::NetSuite::Client',
+            client_path: 'ledger_sync/ledgers/netsuite/client',
+            root_path: 'ledger_sync/ledgers/netsuite',
+            aliases: []
+          }
+        }
+      }
+    }
     expect(netsuite_client.simply_serialize).to eq(h)
   end
 

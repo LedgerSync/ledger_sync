@@ -28,7 +28,7 @@ module LedgerSync
 
             fault&.fetch('message', nil) ||
               fault&.fetch('Message', nil) ||
-              parsed_body.dig('error')
+              parsed_body['error']
           end
 
           def detail
