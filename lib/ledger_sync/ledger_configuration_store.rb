@@ -27,8 +27,8 @@ module LedgerSync
       @class_configs.fetch(client_class)
     end
 
-    def each
-      configs.each { |k, v| yield(k, v) }
+    def each(&block)
+      configs.each(&block)
     end
 
     def register_ledger(ledger_config:)

@@ -12,13 +12,13 @@ module LedgerSync
         @str = str
       end
 
-      def hmac_sha1(escape: false, key:)
+      def hmac_sha1(key:, escape: false)
         ret = Base64.encode64(OpenSSL::HMAC.digest(HMAC_SHA1_DIGEST, key, str)).strip
         ret = self.class.escape(str: ret) if escape
         ret
       end
 
-      def hmac_sha256(escape: false, key:)
+      def hmac_sha256(key:, escape: false)
         ret = Base64.encode64(OpenSSL::HMAC.digest(HMAC_SHA256_DIGEST, key, str)).strip
         ret = self.class.escape(str: ret) if escape
         ret

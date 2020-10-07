@@ -10,6 +10,8 @@ module Docs
 
         def initialize(args = {})
           @ledger = args.fetch(:ledger)
+
+          super
         end
 
         def client_class

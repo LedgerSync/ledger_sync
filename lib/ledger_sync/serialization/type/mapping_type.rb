@@ -8,6 +8,8 @@ module LedgerSync
 
         def initialize(args = {})
           @hash = args.fetch(:hash)
+
+          super()
         end
 
         def cast_value(args = {})

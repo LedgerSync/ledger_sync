@@ -9,6 +9,8 @@ module LedgerSync
 
           def initialize(args = {})
             @mapping = args.fetch(:mapping)
+
+            super()
           end
 
           def cast_value(args = {})

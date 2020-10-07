@@ -9,6 +9,8 @@ module LedgerSync
 
           def initialize(args = {})
             @resource_converter = args.fetch(:resource_converter)
+
+            super()
           end
 
           def cast_value(args = {})

@@ -9,7 +9,7 @@ module LedgerSync
                   :request,
                   :status
 
-      def initialize(body: nil, headers: {}, raw: nil, request:, status:)
+      def initialize(request:, status:, body: nil, headers: {}, raw: nil)
         @body = parse_json(body)
         @headers = headers
         @raw = raw

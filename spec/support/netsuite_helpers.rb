@@ -158,7 +158,7 @@ module NetSuiteHelpers # rubocop:disable Metrics/ModuleLength
     send("stub_#{netsuite_resource_type}_search")
   end
 
-  def stub_search_request(count: 2, starting_id:, url:)
+  def stub_search_request(starting_id:, url:, count: 2)
     items = []
     count.times do |n|
       new_id = (starting_id.to_i + n).to_s
