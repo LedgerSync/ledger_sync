@@ -6,8 +6,11 @@ require 'ledger_sync/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'ledger_sync'
-  spec.version = LedgerSync::VERSION
-  spec.version += "alpha-#{ENV['TRAVIS_BUILD_NUMBER']}" if ENV['TRAVIS']
+  spec.version = if ENV['TRAVIS']
+                   "#{LedgerSync::VERSION}-alpha-#{ENV['TRAVIS_BUILD_NUMBER']}"
+                 else
+                   LedgerSync::VERSION
+                 end
 
   # spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
   spec.authors = ['Ryan Jackson']
