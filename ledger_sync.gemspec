@@ -6,10 +6,10 @@ require 'ledger_sync/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'ledger_sync'
-  spec.version = if ENV['TRAVIS'] && !ENV['TRAVIS_TAG']
-                   "#{LedgerSync::VERSION}-alpha-#{ENV['TRAVIS_BUILD_NUMBER']}"
-                 else
+  spec.version = if !ENV['TRAVIS'] || ENV['TRAVIS_TAG'].present?
                    LedgerSync::VERSION
+                 else
+                   "#{LedgerSync::VERSION}-alpha-#{ENV['TRAVIS_BUILD_NUMBER']}"
                  end
 
   # spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
