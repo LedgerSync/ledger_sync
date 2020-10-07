@@ -15,7 +15,7 @@ module LedgerSync
 
       private
 
-      def generate_message
+      def generate_message # rubocop:disable Metrics/PerceivedComplexity
         ret = "Attribute #{attribute.name} for #{resource_class.name} should be "
 
         ret += case attribute

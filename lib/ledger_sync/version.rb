@@ -2,4 +2,12 @@
 
 module LedgerSync
   VERSION = '1.4.4'
+
+  def self.version
+    if !ENV['TRAVIS'] || ENV.fetch('TRAVIS_TAG', '') != ''
+      VERSION
+    else
+      "#{VERSION}.pre.#{ENV['TRAVIS_BUILD_NUMBER']}"
+    end
+  end
 end
