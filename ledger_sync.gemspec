@@ -6,11 +6,9 @@ require 'ledger_sync/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'ledger_sync'
-  spec.version = if !ENV['TRAVIS'] || ENV['TRAVIS_TAG'] != ''
-                   LedgerSync::VERSION
-                 else
-                   "#{LedgerSync::VERSION}-alpha-#{ENV['TRAVIS_BUILD_NUMBER']}"
-                 end
+  spec.version = LedgerSync.version
+
+  spec.required_ruby_version = '>= 2.5.8'
 
   # spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
   spec.authors = ['Ryan Jackson']
@@ -33,15 +31,15 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency('awesome_print', '>= 0')
-  spec.add_development_dependency('bump')
-  spec.add_development_dependency('bundler', '~> 1.16')
+  spec.add_development_dependency('bump', '~> 0.9.0')
+  spec.add_development_dependency('bundler', '~> 2.1')
   spec.add_development_dependency('byebug', '>= 0')
-  spec.add_development_dependency('factory_bot')
+  spec.add_development_dependency('factory_bot', '~> 6.1.0')
   spec.add_development_dependency('jekyll', '~> 3.8.4')
   spec.add_development_dependency('jekyll-menus', '~> 0.6.0')
   spec.add_development_dependency('jekyll-paginate', '~> 1.1')
   spec.add_development_dependency('jekyll-paginate-v2', '~> 1.9')
-  spec.add_development_dependency('overcommit')
+  spec.add_development_dependency('overcommit', '~> 0.57.0')
   spec.add_development_dependency('rake', '~> 13.0')
   spec.add_development_dependency('rspec', '~> 3.2')
   spec.add_development_dependency('rubocop', '>= 0')
@@ -49,19 +47,19 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('webmock', '>= 0')
   spec.add_runtime_dependency('activemodel', '>= 0')
   spec.add_runtime_dependency('colorize', '>= 0')
-  spec.add_runtime_dependency('coveralls')
-  spec.add_runtime_dependency('dotenv')
-  spec.add_runtime_dependency('dry-schema')
-  spec.add_runtime_dependency('dry-validation')
+  spec.add_runtime_dependency('coveralls', '~> 0.8.23')
+  spec.add_runtime_dependency('dotenv', '~> 2.7.6')
+  spec.add_runtime_dependency('dry-schema', '~> 1.5.4')
+  spec.add_runtime_dependency('dry-validation', '~> 1.5.6')
   spec.add_runtime_dependency('faraday', '>= 0')
   spec.add_runtime_dependency('faraday-detailed_logger', '>= 0')
   spec.add_runtime_dependency('faraday_middleware', '>= 0')
   spec.add_runtime_dependency('fingerprintable', '>= 1.2.1')
-  spec.add_runtime_dependency('netsuite')
+  spec.add_runtime_dependency('netsuite', '~> 0.8.6')
   spec.add_runtime_dependency('nokogiri', '>= 0')
   spec.add_runtime_dependency('oauth2', '>= 0')
   spec.add_runtime_dependency('pd_ruby', '>= 0')
   spec.add_runtime_dependency('resonad', '>= 0')
   spec.add_runtime_dependency('simply_serializable', '>= 1.5.1')
-  spec.add_runtime_dependency('stripe')
+  spec.add_runtime_dependency('stripe', '~> 5.26.0')
 end

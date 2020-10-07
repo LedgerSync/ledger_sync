@@ -23,7 +23,7 @@ module LedgerSync
             raise NotImplementedError
           end
 
-          def error_message
+          def error_message # rubocop:disable Metrics/CyclomaticComplexity
             return error.message unless body
 
             fault&.fetch('message', nil) ||

@@ -1,7 +1,9 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.6
+  Exclude:
+    - "documentation/site/**/*"
+  TargetRubyVersion: 2.5.8
 
 Layout/LineLength:
   Enabled: True
