@@ -5,7 +5,7 @@ module LedgerSync
     module TestLedger
       class Customer
         module Operations
-          class Update < TestLedger::Operation::FullUpdate
+          class Update < TestLedger::Operation::Update
             class Contract < LedgerSync::Ledgers::Contract
               params do
                 required(:external_id).maybe(:string)

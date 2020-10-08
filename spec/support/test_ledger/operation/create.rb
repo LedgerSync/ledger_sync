@@ -13,10 +13,7 @@ module LedgerSync
 
           def operate
             success(
-              resource: TestLedger::Customer.new(
-                name: 'New Name',
-                email: 'new@example.com'
-              ),
+              resource: resource.dup,
               response: response
             )
           end
