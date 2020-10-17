@@ -45,6 +45,8 @@ module LedgerSync
     def base_module
       @base_module ||= begin
         LedgerSync::Ledgers.const_get(@module_string)
+      rescue NameError
+        LedgerSync.const_get(@module_string)
       end
     end
 

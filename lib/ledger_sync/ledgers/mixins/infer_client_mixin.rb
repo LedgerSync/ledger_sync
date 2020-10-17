@@ -10,10 +10,9 @@ module LedgerSync
               return if name.nil?
 
               parts = name.split('::')
-              return unless parts.include?('Ledgers')
 
-              LedgerSync::Ledgers.const_get(
-                parts[parts.index('Ledgers') + 1]
+              LedgerSync.const_get(
+                parts[1..parts.index('Ledgers').to_i + 1].join('::')
               )::Client
             end
           end
