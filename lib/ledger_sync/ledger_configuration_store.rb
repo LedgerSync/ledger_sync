@@ -55,7 +55,7 @@ module LedgerSync
         ledger_config
       )
 
-      @inflections |= [ledger_config.module_string]
+      @inflections |= ledger_config.base_module.name.split('::')
       self.class.class_eval { attr_reader client_key }
     end
   end

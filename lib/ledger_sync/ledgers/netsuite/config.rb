@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-LedgerSync.register_ledger(:netsuite, module_string: 'NetSuite') do |config|
+require_relative 'client'
+
+LedgerSync.register_ledger(:netsuite, base_module: LedgerSync::Ledgers::NetSuite) do |config|
   config.name = 'NetSuite REST'
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-LedgerSync.register_ledger(:quickbooks_online, module_string: 'QuickBooksOnline') do |config|
+require_relative 'client'
+
+LedgerSync.register_ledger(:quickbooks_online, base_module: LedgerSync::Ledgers::QuickBooksOnline) do |config|
   config.name = 'QuickBooks Online'
   config.add_alias :qbo
   config.add_alias :quick_books_online
