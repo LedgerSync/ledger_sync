@@ -25,7 +25,7 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
   end
 
   def local_resource_class(type)
-    described_class.inferred_client_class.resources[type]
+    described_class.inferred_config.client_class.resources[type]
   end
 
   def payment_resource(**merge)

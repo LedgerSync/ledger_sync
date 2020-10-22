@@ -7,7 +7,7 @@ module LedgerSync
   module Ledgers
     module NetSuite
       class Deserializer < LedgerSync::Deserializer
-        include Mixins::InferClientMixin
+        include Mixins::InferConfigMixin
 
         def self.id
           attribute :ledger_id, hash_attribute: :id
