@@ -31,6 +31,10 @@ module LedgerSync
       configs.each(&block)
     end
 
+    def find(&block)
+      configs.values.find(&block)
+    end
+
     def register_ledger(ledger_config:)
       _instance_methods_for(
         client_key: ledger_config.root_key,

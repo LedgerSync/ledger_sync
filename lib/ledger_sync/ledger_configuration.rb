@@ -27,6 +27,7 @@ module LedgerSync
       @aliases = []
       @module_string = args.fetch(:module_string, LedgerSync::Util::StringHelpers.camelcase(root_key))
       @root_path = args.fetch(:root_path, "ledger_sync/ledgers/#{root_key}")
+      @base_module = args[:base_module]
     end
 
     def client_class
@@ -45,8 +46,6 @@ module LedgerSync
     def base_module
       @base_module ||= begin
         LedgerSync::Ledgers.const_get(@module_string)
-      rescue NameError
-        LedgerSync.const_get(@module_string)
       end
     end
 

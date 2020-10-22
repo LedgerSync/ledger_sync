@@ -42,7 +42,7 @@ module LedgerSync
             }
           )
 
-          return new_destination if destination.class == new_destination.class
+          return new_destination if destination.instance_of?(new_destination.class)
 
           raise "Block value must be the same class as the destination: #{destination.class}"
         end
