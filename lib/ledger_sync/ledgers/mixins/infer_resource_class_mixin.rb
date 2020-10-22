@@ -9,11 +9,12 @@ module LedgerSync
         module ClassMethods
           def inferred_resource_class
             @inferred_resource_class ||= begin
-              parts = name.split('::')
+              base = inferred_client_class.base_module
+              part_name = (
+                name.split('::') - base.to_s.split('::')
+              ).first
 
-              inferred_client_class.base_module.const_get(
-                parts[parts.index('Ledgers').to_i + 2]
-              )
+              base.const_get(part_name)
             end
           end
         end

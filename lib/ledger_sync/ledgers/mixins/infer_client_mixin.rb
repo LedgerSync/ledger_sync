@@ -9,11 +9,11 @@ module LedgerSync
             @inferred_client_class ||= begin
               return if name.nil?
 
-              parts = name.split('::')
+              ledger = LedgerSync.ledgers.find do |ledger_config|
+                (ledger_config.base_module.to_s.split('::') - name.to_s.split('::')).empty?
+              end
 
-              LedgerSync.const_get(
-                parts[1..parts.index('Ledgers').to_i + 1].join('::')
-              )::Client
+              ledger&.client_class
             end
           end
         end
