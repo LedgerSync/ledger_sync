@@ -108,8 +108,6 @@ module LedgerSync
   def self.register_ledger(*args)
     ledger_config = LedgerSync::LedgerConfiguration.new(*args)
 
-    require ledger_config.client_path
-
     yield(ledger_config)
 
     ledgers.register_ledger(ledger_config: ledger_config)

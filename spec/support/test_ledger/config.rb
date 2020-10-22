@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'client'
+
 args = {
-  module_string: 'TestLedger',
+  base_module: LedgerSync::Ledgers::TestLedger,
   root_path: File.join(LedgerSync.root, 'spec/support/test_ledger')
 }
 
