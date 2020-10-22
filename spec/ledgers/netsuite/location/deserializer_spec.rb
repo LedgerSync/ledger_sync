@@ -21,7 +21,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuite::Location::Deserializer do
   end
 
   describe '#deserialize' do
-    let(:resource) { described_class.inferred_client_class.resources[resource_type].new }
+    let(:resource) { described_class.inferred_config.client_class.resources[resource_type].new }
     let(:serializer) { described_class.new }
     let(:deserialized_resource) { serializer.deserialize(hash: h, resource: resource) }
 

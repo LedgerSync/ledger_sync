@@ -4,10 +4,11 @@ module LedgerSync
   class LedgerConfigurationStore
     include Enumerable
 
-    attr_reader :configs, :inflections
+    attr_reader :configs, :inflections, :base_module_to_config_mapping
 
     def initialize
       @keys = []
+      @base_module_to_config_mapping = {}
       @configs = {}
       @inflections = []
       @class_configs = {}
@@ -27,6 +28,10 @@ module LedgerSync
       @class_configs.fetch(client_class)
     end
 
+    def config_from_base_module(base_module:)
+      @base_module_to_config_mapping.fetch(base_module, nil)
+    end
+
     def each(&block)
       configs.each(&block)
     end
@@ -36,6 +41,8 @@ module LedgerSync
     end
 
     def register_ledger(ledger_config:)
+      @base_module_to_config_mapping[ledger_config.base_module] = ledger_config
+
       _instance_methods_for(
         client_key: ledger_config.root_key,
         ledger_config: ledger_config

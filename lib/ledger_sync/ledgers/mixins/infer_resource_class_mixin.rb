@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'infer_client_mixin'
+require_relative 'infer_config_mixin'
 
 module LedgerSync
   module Ledgers
@@ -9,18 +9,15 @@ module LedgerSync
         module ClassMethods
           def inferred_resource_class
             @inferred_resource_class ||= begin
-              base = inferred_client_class.base_module
-              part_name = (
-                name.split('::') - base.to_s.split('::')
-              ).first
+              base_module = inferred_config.base_module
 
-              base.const_get(part_name)
+              base_module.const_get(name.split(base_module.name).last.split('::')[1])
             end
           end
         end
 
         def self.included(base)
-          base.include InferClientMixin
+          base.include InferConfigMixin
           base.extend ClassMethods
         end
       end
