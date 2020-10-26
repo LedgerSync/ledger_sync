@@ -2,6 +2,10 @@
 
 require 'factory_bot'
 
+#
+# Override factory registration to work with Resource and its relationships
+# and attribute types.
+#
 def register_factory(args = {}) # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
   prefix         = args.fetch(:prefix)
   resource_class = args.fetch(:resource_class)

@@ -81,6 +81,12 @@ module LedgerSync
   LEVEL_ERROR = Logger::ERROR
   LEVEL_INFO = Logger::INFO
 
+  module Test
+    def require_spec_helper
+      require File.join(LedgerSync.root, 'lib/test/support/spec_helper')
+    end
+  end
+
   def self.ledgers
     @ledgers ||= LedgerSync::LedgerConfigurationStore.new
   end
