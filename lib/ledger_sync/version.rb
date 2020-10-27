@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  VERSION = '1.4.4'
+  VERSION = '1.5.0'
 
   def self.version
     if !ENV['TRAVIS'] || ENV.fetch('TRAVIS_TAG', '') != ''
