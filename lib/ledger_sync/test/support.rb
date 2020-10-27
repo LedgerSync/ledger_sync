@@ -50,7 +50,7 @@ module LedgerSync
         paths_to_require.each { |e| require e.to_s }
 
         # Include test adaptor
-        require File.join(LedgerSync.root, 'spec/support/test_ledger/config')
+        core_support 'test_ledger/config'
 
         core_support :factory_bot
 
