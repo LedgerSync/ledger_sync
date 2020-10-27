@@ -11,52 +11,81 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::JournalEntry::Operations::
   include QuickBooksOnlineHelpers
 
   let(:account1) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
+    build(
+      :quickbooks_online_account,
+      ledger_id: '123'
+    )
   end
 
   let(:account2) do
-    LedgerSync::Ledgers::QuickBooksOnline::Account.new(account_resource(ledger_id: '123'))
+    build(
+      :quickbooks_online_account,
+      ledger_id: '123'
+    )
   end
 
   let(:department) do
-    LedgerSync::Ledgers::QuickBooksOnline::Department.new(ledger_id: '123')
+    build(
+      :quickbooks_online_department,
+      ledger_id: '123'
+    )
   end
 
   let(:ledger_class) do
-    LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(ledger_id: '123')
+    build(
+      :quickbooks_online_ledger_class,
+      ledger_id: '123'
+    )
   end
 
   let(:line_item_1) do
-    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(
-      journal_entry_line_item_resource(
-        account: account1,
-        ledger_class: ledger_class,
-        department: department,
-        entry_type: 'credit'
+    build(
+      :quickbooks_online_journal_entry_line,
+      ledger_id: nil,
+      Amount: 12_345,
+      Description: 'Sample Transaction',
+      JournalEntryLineDetail: build(
+        :quickbooks_online_journal_entry_line_detail,
+        Account: account1,
+        Class: ledger_class,
+        Department: department,
+        PostingType: 'credit'
       )
     )
   end
 
   let(:line_item_2) do
-    LedgerSync::Ledgers::QuickBooksOnline::JournalEntryLineItem.new(
-      journal_entry_line_item_resource(
-        account: account2,
-        ledger_class: ledger_class,
-        department: department,
-        entry_type: 'debit'
+    build(
+      :quickbooks_online_journal_entry_line,
+      ledger_id: nil,
+      Amount: 12_345,
+      Description: 'Sample Transaction',
+      JournalEntryLineDetail: build(
+        :quickbooks_online_journal_entry_line_detail,
+        Account: account2,
+        Class: ledger_class,
+        Department: department,
+        PostingType: 'debit'
       )
     )
   end
 
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::JournalEntry.new(
-      journal_entry_resource(
-        ledger_id: '123',
-        line_items: [
-          line_item_1,
-          line_item_2
-        ]
-      )
+    build(
+      :quickbooks_online_journal_entry,
+      ledger_id: '123',
+      DocNumber: 'Ref123',
+      PrivateNote: 'Memo',
+      TxnDate: Date.parse('2019-09-01'),
+      Currency: build(
+        :quickbooks_online_currency,
+        Symbol: 'USD',
+        Name: 'United States Dollar'
+      ),
+      Line: [
+        line_item_1,
+        line_item_2
+      ]
     )
   end
   let(:client) { quickbooks_online_client }
@@ -64,7 +93,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::JournalEntry::Operations::
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
                   stubs: %i[
-                    stub_find_journal_entry
-                    stub_update_journal_entry
+                    stub_journal_entry_find
+                    stub_journal_entry_update
                   ]
 end

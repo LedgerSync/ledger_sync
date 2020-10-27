@@ -9,11 +9,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Crea
   include QuickBooksOnlineHelpers
 
   let(:client) { quickbooks_online_client }
+
   let(:resource) do
     create(
       :quickbooks_online_customer,
       external_id: :ext_id,
       ledger_id: nil,
+      GivenName: nil,
+      FamilyName: nil,
+      MiddleName: nil,
       PrimaryEmailAddr: create(
         :quickbooks_online_primary_email_addr,
         Address: 'test@example.com'

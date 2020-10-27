@@ -11,7 +11,7 @@ RSpec.describe LedgerSync::Resource do
   let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new }
 
   it do
-    expect(LedgerSync::Ledgers::QuickBooksOnline::Expense.new(currency: currency)).to be_changed
+    expect(LedgerSync::Ledgers::QuickBooksOnline::Expense.new(Currency: currency)).to be_changed
     expense = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
     expect(expense).not_to be_changed
   end
@@ -19,17 +19,17 @@ RSpec.describe LedgerSync::Resource do
   context 'when references_many' do
     it '<<' do
       e = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
-      eli = LedgerSync::Ledgers::QuickBooksOnline::ExpenseLineItem.new
+      eli = LedgerSync::Ledgers::QuickBooksOnline::ExpenseLine.new
       expect(e.changes).to be_empty
-      expect(e.line_items).not_to be_changed
-      expect(e.line_items.changes).to eq({})
-      e.line_items << eli
-      expect(e.line_items).to be_changed
-      expect(e.line_items.changes).to eq('value' => [[], [eli]])
+      expect(e.Line).not_to be_changed
+      expect(e.Line.changes).to eq({})
+      e.Line << eli
+      expect(e.Line).to be_changed
+      expect(e.Line.changes).to eq('value' => [[], [eli]])
       expect(e).to be_changed
-      expect(e.changes).to have_key('line_items')
+      expect(e.changes).to have_key('Line')
       e.save
-      expect(e.line_items).not_to be_changed
+      expect(e.Line).not_to be_changed
       expect(e).not_to be_changed
     end
   end
@@ -39,8 +39,8 @@ RSpec.describe LedgerSync::Resource do
       e = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
       account = LedgerSync::Ledgers::QuickBooksOnline::Account.new
       expect(e.changes).to be_empty
-      e.account = account
-      expect(e.changes).to have_key('account')
+      e.Account = account
+      expect(e.changes).to have_key('Account')
     end
   end
 

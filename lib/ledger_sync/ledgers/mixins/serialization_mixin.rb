@@ -12,7 +12,7 @@ module LedgerSync
           def inferred_serialization_class(args = {})
             type = args.fetch(:type)
 
-            inferred_client_class.base_module.const_get(
+            inferred_config.base_module.const_get(
               "#{inferred_resource_class.resource_module_str}::#{type.camelcase}"
             )
           end
@@ -23,7 +23,7 @@ module LedgerSync
         end
 
         def self.included(base)
-          base.include InferClientMixin
+          base.include InferConfigMixin
           base.include InferResourceClassMixin
           base.extend ClassMethods
         end

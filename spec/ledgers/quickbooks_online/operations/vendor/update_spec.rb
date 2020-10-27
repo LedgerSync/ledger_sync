@@ -11,14 +11,28 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Vendor::Operations::Update
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::Vendor.new(vendor_resource(ledger_id: '123'))
+    build(
+      :quickbooks_online_vendor,
+      ledger_id: '123',
+      GivenName: 'Sample',
+      FamilyName: 'Vendor',
+      MiddleName: nil,
+      CompanyName: nil,
+      PrimaryEmailAddr: build(
+        :quickbooks_online_primary_email_addr,
+        Address: 'test@example.com'
+      ),
+      PrimaryPhone: nil,
+      DisplayName: 'Sample Vendor'
+    )
   end
+
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
                   stubs: %i[
-                    stub_find_vendor
-                    stub_update_vendor
+                    stub_vendor_find
+                    stub_vendor_update
                   ]
 end

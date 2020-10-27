@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../currency/serializer'
-require_relative '../payment_line_item/serializer'
+require_relative '../reference/serializer'
+require_relative '../payment_line/serializer'
 
 module LedgerSync
   module Ledgers
@@ -10,37 +10,31 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          amount 'TotalAmt',
-                 resource_attribute: :amount
+          amount :TotalAmt
+          attribute :PaymentRefNum
+          attribute :PrivateNote
+          attribute :ExchangeRate
+          date :TxnDate
 
-          references_one :CurrencyRef,
-                         resource_attribute: :currency,
-                         serializer: Currency::Serializer
+          references_one 'CurrencyRef',
+                         resource_attribute: :Currency,
+                         serializer: Reference::Serializer
 
-          attribute 'CustomerRef.value',
-                    resource_attribute: 'customer.ledger_id'
+          references_one 'CustomerRef',
+                         resource_attribute: :Customer,
+                         serializer: Reference::Serializer
 
-          attribute 'DepositToAccountRef.value',
-                    resource_attribute: 'deposit_account.ledger_id'
+          references_one 'DepositToAccountRef',
+                         resource_attribute: :DepositToAccount,
+                         serializer: Reference::Serializer
 
-          attribute 'ARAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
-
-          attribute 'PaymentRefNum',
-                    resource_attribute: :reference_number
-
-          attribute 'PrivateNote',
-                    resource_attribute: :memo
-
-          attribute 'ExchangeRate',
-                    resource_attribute: :exchange_rate
-
-          date 'TxnDate',
-               resource_attribute: :transaction_date
+          references_one 'ARAccountRef',
+                         resource_attribute: :ARAccount,
+                         serializer: Reference::Serializer
 
           references_many 'Line',
-                          resource_attribute: :line_items,
-                          serializer: PaymentLineItem::Serializer
+                          resource_attribute: :Line,
+                          serializer: PaymentLine::Serializer
         end
       end
     end

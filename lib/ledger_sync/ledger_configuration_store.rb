@@ -4,10 +4,11 @@ module LedgerSync
   class LedgerConfigurationStore
     include Enumerable
 
-    attr_reader :configs, :inflections
+    attr_reader :configs, :inflections, :base_module_to_config_mapping
 
     def initialize
       @keys = []
+      @base_module_to_config_mapping = {}
       @configs = {}
       @inflections = []
       @class_configs = {}
@@ -15,9 +16,7 @@ module LedgerSync
 
     def add_alias(client_key, existing_config)
       if respond_to?(client_key)
-        if send(client_key) != existing_config
-          raise LedgerSync::ConfigurationError, "Alias already taken: #{client_key}"
-        end
+        raise "Alias already taken: #{client_key}" if send(client_key) != existing_config
 
         return
       end
@@ -29,11 +28,21 @@ module LedgerSync
       @class_configs.fetch(client_class)
     end
 
-    def each
-      configs.each { |k, v| yield(k, v) }
+    def config_from_base_module(base_module:)
+      @base_module_to_config_mapping.fetch(base_module, nil)
+    end
+
+    def each(&block)
+      configs.each(&block)
+    end
+
+    def find(&block)
+      configs.values.find(&block)
     end
 
     def register_ledger(ledger_config:)
+      @base_module_to_config_mapping[ledger_config.base_module] = ledger_config
+
       _instance_methods_for(
         client_key: ledger_config.root_key,
         ledger_config: ledger_config
@@ -53,7 +62,7 @@ module LedgerSync
         ledger_config
       )
 
-      @inflections |= [ledger_config.module_string]
+      @inflections |= ledger_config.base_module.name.split('::')
       self.class.class_eval { attr_reader client_key }
     end
   end

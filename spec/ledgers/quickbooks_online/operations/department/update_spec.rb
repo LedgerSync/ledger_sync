@@ -2,17 +2,20 @@
 
 require 'spec_helper'
 
-support :quickbooks_online_helpers
+support :operation_shared_examples,
+        :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department::Operations::Update do
   include QuickBooksOnlineHelpers
 
   let(:resource) do
-    LedgerSync::Ledgers::QuickBooksOnline::Department.new(
+    build(
+      :quickbooks_online_department,
       ledger_id: '123',
-      name: 'Test Department',
-      active: true,
-      sub_department: false
+      Name: 'Test Department',
+      FullyQualifiedName: nil,
+      Active: true,
+      SubDepartment: false
     )
   end
   let(:client) { quickbooks_online_client }
@@ -20,7 +23,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Department::Operations::Up
   it_behaves_like 'an operation'
   it_behaves_like 'a successful operation',
                   stubs: %i[
-                    stub_find_department
-                    stub_update_department
+                    stub_department_find
+                    stub_department_update
                   ]
 end

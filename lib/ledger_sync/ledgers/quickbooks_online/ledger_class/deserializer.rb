@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/deserializer'
+
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
@@ -7,20 +9,14 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          attribute :name,
-                    hash_attribute: 'Name'
+          attribute :Name
+          attribute :Active
+          attribute :SubClass
+          attribute :FullyQualifiedName
 
-          attribute :active,
-                    hash_attribute: 'Active'
-
-          attribute :sub_class,
-                    hash_attribute: 'SubClass'
-
-          attribute :fully_qualified_name,
-                    hash_attribute: 'FullyQualifiedName'
-
-          attribute 'parent.ledger_id',
-                    hash_attribute: 'ParentRef.value'
+          references_one :Parent,
+                         hash_attribute: 'ParentRef',
+                         deserializer: Reference::Deserializer
         end
       end
     end

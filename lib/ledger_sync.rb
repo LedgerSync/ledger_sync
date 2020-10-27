@@ -81,8 +81,14 @@ module LedgerSync
   LEVEL_ERROR = Logger::ERROR
   LEVEL_INFO = Logger::INFO
 
-  class << self
-    attr_accessor :ledgers
+  module Test
+    def require_spec_helper
+      require File.join(LedgerSync.root, 'lib/test/support/spec_helper')
+    end
+  end
+
+  def self.ledgers
+    @ledgers ||= LedgerSync::LedgerConfigurationStore.new
   end
 
   def self.log_level
@@ -105,19 +111,18 @@ module LedgerSync
     @logger = val
   end
 
-  def self.register_ledger(ledger_key, module_string: nil)
-    ledger_root_path = "ledger_sync/ledgers/#{ledger_key}"
-    require "#{ledger_root_path}/client"
-    self.ledgers ||= LedgerSync::LedgerConfigurationStore.new
-    ledger_config = LedgerSync::LedgerConfiguration.new(ledger_key, module_string: module_string)
-    yield(ledger_config)
-    self.ledgers.register_ledger(ledger_config: ledger_config)
+  def self.register_ledger(*args)
+    ledger_config = LedgerSync::LedgerConfiguration.new(*args)
 
-    client_files = Gem.find_files("#{ledger_root_path}/resource.rb")
-    client_files |= Gem.find_files("#{ledger_root_path}/resources/**/*.rb")
-    client_files |= Gem.find_files("#{ledger_root_path}/serialization/**/*.rb")
+    yield(ledger_config)
+
+    ledgers.register_ledger(ledger_config: ledger_config)
+
+    client_files = Gem.find_files("#{ledger_config.root_path}/resource.rb")
+    client_files |= Gem.find_files("#{ledger_config.root_path}/resources/**/*.rb")
+    client_files |= Gem.find_files("#{ledger_config.root_path}/serialization/**/*.rb")
     # Sort the files to include BFS-style as most dependencies are in parent folders
-    client_files |= Gem.find_files("#{ledger_root_path}/**/*.rb").sort { |a, b| a.count('/') <=> b.count('/') }
+    client_files |= Gem.find_files("#{ledger_config.root_path}/**/*.rb").sort { |a, b| a.count('/') <=> b.count('/') }
 
     client_files.each do |path|
       next if path.include?('config.rb')

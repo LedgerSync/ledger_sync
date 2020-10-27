@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
 require_relative 'currency'
-require_relative 'journal_entry_line_item'
+require_relative 'journal_entry_line'
 
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class JournalEntry < QuickBooksOnline::Resource
-        attribute :memo, type: Type::String
-        attribute :transaction_date, type: Type::Date
-        attribute :reference_number, type: Type::String
+        attribute :PrivateNote, type: Type::String
+        attribute :TxnDate, type: Type::Date
+        attribute :DocNumber, type: Type::String
 
-        references_one :currency, to: Currency
+        references_one :Currency, to: Currency
 
-        references_many :line_items, to: JournalEntryLineItem
+        references_many :Line, to: JournalEntryLine
 
         def name
-          "JournalEntry: #{transaction_date}"
+          "JournalEntry: #{self.TxnDate}"
         end
       end
     end

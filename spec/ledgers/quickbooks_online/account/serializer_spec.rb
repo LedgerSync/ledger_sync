@@ -10,15 +10,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Serializer do
   let(:resource) do
     create(
       :quickbooks_online_account,
-      account_sub_type: account_sub_type,
-      account_type: account_type,
-      active: active,
-      classification: classification,
-      currency: currency,
-      description: description,
+      AccountSubType: account_sub_type,
+      AccountType: account_type,
+      Active: active,
+      Classification: classification,
+      Currency: currency,
+      Description: description,
       ledger_id: nil,
-      name: name,
-      number: number
+      Name: name,
+      AcctNum: number
     )
   end
   let(:name) { 'account_name' }
@@ -38,8 +38,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Serializer do
       'AcctNum' => number,
       'Classification' => LedgerSync::Ledgers::QuickBooksOnline::Account::CLASSIFICATIONS[classification],
       'CurrencyRef' => {
-        'name' => currency.name,
-        'value' => currency.symbol
+        'value' => currency.Symbol
       },
       'Description' => description,
       'Active' => active,

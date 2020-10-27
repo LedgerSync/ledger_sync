@@ -19,20 +19,20 @@ module LedgerSync
           @original_payload = payload
           @payload = payload.is_a?(String) ? JSON.parse(payload) : payload
 
-          @deleted_id = @payload.dig('deletedId')
+          @deleted_id = @payload['deletedId']
 
-          @event_operation = @payload.dig('operation')
+          @event_operation = @payload['operation']
           raise 'Invalid payload: Could not find operation' if @event_operation.blank?
 
-          @last_updated_at = @payload.dig('lastUpdated')
+          @last_updated_at = @payload['lastUpdated']
           raise 'Invalid payload: Could not find lastUpdated' if @last_updated_at.blank?
 
           @last_updated_at = Time.parse(@last_updated_at)
 
-          @ledger_id = @payload.dig('id')
+          @ledger_id = @payload['id']
           raise 'Invalid payload: Could not find id' if @ledger_id.blank?
 
-          @quickbooks_online_resource_type = @payload.dig('name')
+          @quickbooks_online_resource_type = @payload['name']
           raise 'Invalid payload: Could not find name' if @quickbooks_online_resource_type.blank?
 
           @webhook_notification = webhook_notification
@@ -51,7 +51,7 @@ module LedgerSync
         end
 
         def find_operation_class(client:)
-          client.class.base_operation_module_for(resource_class: resource_class)::Find
+          client.class.base_operations_module_for(resource_class: resource_class)::Find
         end
 
         def local_resource_type

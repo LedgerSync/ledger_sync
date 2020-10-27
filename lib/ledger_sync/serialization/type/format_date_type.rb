@@ -8,6 +8,8 @@ module LedgerSync
 
         def initialize(args = {})
           @format = args.fetch(:format)
+
+          super()
         end
 
         def cast_value(args = {})

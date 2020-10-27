@@ -42,7 +42,7 @@ client = LedgerSync::Ledgers::QuickBooksOnline::Client.new_from_env(test: true)
 puts 'Go to the following URL:'
 puts client.authorization_url(redirect_uri: base_url)
 
-while (session = server.accept)
+while (session = server.accept) # rubocop:disable Lint/UnreachableLoop
   request = session.gets
 
   puts request

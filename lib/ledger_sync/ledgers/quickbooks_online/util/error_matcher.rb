@@ -14,7 +14,7 @@ module LedgerSync
           end
 
           def body
-            error.response.body
+            @body ||= error.response.body
           rescue NoMethodError
             nil
           end
@@ -26,29 +26,42 @@ module LedgerSync
           def error_message
             return error.message unless body
 
-            parsed_body = JSON.parse(body)
-
-            parsed_body.dig('fault', 'error')&.first&.fetch('message') ||
-              parsed_body.dig('Fault', 'Error')&.first&.fetch('Message') ||
-              parsed_body.dig('error')
+            fault&.fetch('message', nil) ||
+              fault&.fetch('Message', nil) ||
+              parsed_body['error']
           end
 
           def detail
-            (body && JSON.parse(body).dig('fault', 'error')&.first&.fetch('detail')) ||
-              (body && JSON.parse(body).dig('Fault', 'Error')&.first&.fetch('Detail'))
+            return if body.blank?
+
+            fault&.fetch('detail') ||
+              fault&.fetch('Detail')
           end
 
           def code
-            ((body && JSON.parse(body).dig('fault', 'error')&.first&.fetch('code')) ||
-            (body && JSON.parse(body).dig('Fault', 'Error')&.first&.fetch('code'))).to_i
+            return if body.blank?
+
+            fault&.fetch('code') ||
+              fault&.fetch('code').to_i
           end
 
           def match?
             raise NotImplementedError
           end
 
+          def parsed_body
+            @parsed_body ||= JSON.parse(body)
+          end
+
           def output_message
             raise NotImplementedError
+          end
+
+          private
+
+          def fault
+            parsed_body.dig('fault', 'error')&.first ||
+              parsed_body.dig('Fault', 'Error')&.first
           end
         end
       end

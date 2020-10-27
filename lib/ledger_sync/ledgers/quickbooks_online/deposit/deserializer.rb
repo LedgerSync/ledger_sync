@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../deposit_line_item/deserializer'
-require_relative '../currency/deserializer'
+require_relative '../deposit_line/deserializer'
+require_relative '../reference/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -10,28 +10,25 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+          date :TxnDate
+          attribute :PrivateNote
+          attribute :ExchangeRate
 
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
+          references_one :Currency,
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
+          references_one :DepositToAccount,
+                         hash_attribute: 'DepositToAccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute :exchange_rate,
-                    hash_attribute: 'ExchangeRate'
+          references_one :Department,
+                         hash_attribute: 'DepartmentRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'DepositToAccountRef.value'
-
-          attribute 'department.ledger_id',
-                    hash_attribute: 'DepartmentRef.value'
-
-          references_many :line_items,
+          references_many :Line,
                           hash_attribute: 'Line',
-                          deserializer: DepositLineItem::Deserializer
+                          deserializer: DepositLine::Deserializer
         end
       end
     end

@@ -89,8 +89,8 @@ module LedgerSync
         args.fetch(:serializer)
       else
         resource_key = inferred_resource_class.resource_attributes[hash_attribute].type.resource_class.resource_type
-        require "ledger_sync/ledgers/#{inferred_client_class.root_key}/#{resource_key}/serializer"
-        inferred_client_class.resources[resource_key]::Serializer
+        require File.join(inferred_config.root_path, resource_key.to_s, 'serializer')
+        inferred_config.client_class.resources[resource_key]::Serializer
       end
     end
   end

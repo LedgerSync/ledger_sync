@@ -8,6 +8,8 @@ module LedgerSync
 
         def initialize(args = {})
           @serializer = args.fetch(:serializer)
+
+          super()
         end
 
         def cast_value(args = {})

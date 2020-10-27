@@ -15,7 +15,7 @@ module LedgerSync
           @original_payload = payload
           @payload = payload.is_a?(String) ? JSON.parse(payload) : payload
 
-          event_notifications_payload = @payload.dig('eventNotifications')
+          event_notifications_payload = @payload['eventNotifications']
           raise 'Invalid payload: Could not find eventNotifications' unless event_notifications_payload.is_a?(Array)
 
           @notifications = []

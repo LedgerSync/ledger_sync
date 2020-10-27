@@ -15,8 +15,8 @@ module LedgerSync
           module ClassMethods
             def references_one(name, to: nil)
               to ||= begin
-                require "ledger_sync/ledgers/#{inferred_client_class.root_key}/resources/#{name}"
-                inferred_client_class.resources[name]
+                require "#{inferred_config.root_path}/resources/#{name}"
+                inferred_config.client_class.resources[name]
               end
 
               resource_attribute = ResourceAttribute::Reference::One.new(

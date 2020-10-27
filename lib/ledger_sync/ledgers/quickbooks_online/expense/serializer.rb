@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../expense_line_item/serializer'
-require_relative '../currency/serializer'
+require_relative '../expense_line/serializer'
+require_relative '../reference/serializer'
 
 module LedgerSync
   module Ledgers
@@ -10,48 +10,42 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          references_one :CurrencyRef,
-                         resource_attribute: :currency,
-                         serializer: Currency::Serializer
+          attribute :DocNumber
+          date :TxnDate
+          attribute :PrivateNote
+          attribute :ExchangeRate
 
-          attribute 'PaymentType',
-                    resource_attribute: :payment_type,
+          attribute :PaymentType,
                     type: LedgerSync::Serialization::Type::MappingType.new(hash: Expense::PAYMENT_TYPES)
-
-          date 'TxnDate',
-               resource_attribute: :transaction_date
-
-          attribute 'PrivateNote',
-                    resource_attribute: :memo
-
-          attribute 'ExchangeRate',
-                    resource_attribute: :exchange_rate
 
           attribute('EntityRef') do |args = {}|
             resource = args.fetch(:resource)
-            if resource.entity
+            if resource.Entity
               {
-                'name' => resource.entity.name,
-                'value' => resource.entity.ledger_id,
+                'name' => resource.Entity.name,
+                'value' => resource.Entity.ledger_id,
                 'type' => Client.ledger_resource_type_for(
-                  resource_class: resource.entity.class
+                  resource_class: resource.Entity.class
                 ).classify
               }
             end
           end
 
-          attribute 'DocNumber',
-                    resource_attribute: :reference_number
+          references_one 'CurrencyRef',
+                         resource_attribute: :Currency,
+                         serializer: Reference::Serializer
 
-          attribute 'AccountRef.value',
-                    resource_attribute: 'account.ledger_id'
+          references_one 'AccountRef',
+                         resource_attribute: :Account,
+                         serializer: Reference::Serializer
 
-          attribute 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
+          references_one 'DepartmentRef',
+                         resource_attribute: :Department,
+                         serializer: Reference::Serializer
 
           references_many 'Line',
-                          resource_attribute: :line_items,
-                          serializer: ExpenseLineItem::Serializer
+                          resource_attribute: :Line,
+                          serializer: ExpenseLine::Serializer
         end
       end
     end

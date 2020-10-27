@@ -5,7 +5,9 @@ require 'oauth2'
 module LedgerSync
   module Ledgers
     module NetSuite
-      class Client < LedgerSync::Ledgers::Client
+      class Client
+        include Ledgers::Client::Mixin
+
         HEADERS = {
           # 'Accept' => 'application/schema+json'
         }.freeze
@@ -34,6 +36,8 @@ module LedgerSync
           @consumer_secret = consumer_secret
           @token_id = token_id
           @token_secret = token_secret
+
+          super()
         end
 
         def account_id_for_oauth

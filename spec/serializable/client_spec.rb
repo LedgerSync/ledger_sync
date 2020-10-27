@@ -14,17 +14,18 @@ RSpec.describe LedgerSync::Ledgers::Client, type: :serializable do
           object: 'LedgerSync::Ledgers::NetSuite::Client',
           fingeprint: 'be8b28e86017b6ea4cc7b1cfcc36b63e',
           data: { ledger_configuration: { object: :reference,
-                                          id: 'LedgerSync::LedgerConfiguration/1d1d22bbe6ff00b5508249b7cbd50cbe' } } },
-                     'LedgerSync::LedgerConfiguration/1d1d22bbe6ff00b5508249b7cbd50cbe' =>
-        { id: 'LedgerSync::LedgerConfiguration/1d1d22bbe6ff00b5508249b7cbd50cbe',
+                                          id: 'LedgerSync::LedgerConfiguration/30cd9abf4ef4abbef8f7be2b37f64c35' } } },
+                     'LedgerSync::LedgerConfiguration/30cd9abf4ef4abbef8f7be2b37f64c35' =>
+        { id: 'LedgerSync::LedgerConfiguration/30cd9abf4ef4abbef8f7be2b37f64c35',
           object: 'LedgerSync::LedgerConfiguration',
-          fingeprint: '1d1d22bbe6ff00b5508249b7cbd50cbe',
-          data: { client_class: 'LedgerSync::Ledgers::NetSuite::Client',
-                  name: 'NetSuite REST',
-                  module_string: 'NetSuite',
+          fingeprint: '30cd9abf4ef4abbef8f7be2b37f64c35',
+          data: { root_path: 'ledger_sync/ledgers/netsuite',
+                  base_module: 'LedgerSync::Ledgers::NetSuite',
                   root_key: :netsuite,
-                  aliases: [],
-                  base_module: 'LedgerSync::Ledgers::NetSuite' } } } }
+                  name: 'NetSuite REST',
+                  client_path: 'ledger_sync/ledgers/netsuite/client',
+                  client_class: 'LedgerSync::Ledgers::NetSuite::Client',
+                  aliases: [] } } } }
     expect(netsuite_client.simply_serialize).to eq(h)
   end
 

@@ -18,7 +18,7 @@ module LedgerSync
           @webhook          = args.fetch(:webhook, nil)
           @payload          = original_payload.is_a?(String) ? JSON.parse(original_payload) : original_payload
 
-          @realm_id = @payload.dig('realmId')
+          @realm_id = @payload['realmId']
           raise 'Invalid payload: Could not find realmId' if @realm_id.blank?
 
           events_payload = @payload.dig('dataChangeEvent', 'entities')

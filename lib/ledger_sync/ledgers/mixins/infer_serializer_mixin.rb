@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'infer_client_mixin'
+require_relative 'infer_config_mixin'
 require_relative 'infer_resource_class_mixin'
 
 module LedgerSync
@@ -9,7 +9,7 @@ module LedgerSync
       module InferSerializerMixin
         module ClassMethods
           def inferred_deserializer_class
-            @inferred_deserializer_class ||= inferred_client_class.base_module.const_get(
+            @inferred_deserializer_class ||= inferred_config.base_module.const_get(
               inferred_deserializer_class_name
             )
           end
@@ -19,7 +19,7 @@ module LedgerSync
           end
 
           def inferred_searcher_deserializer_class
-            @inferred_searcher_deserializer_class ||= inferred_client_class.base_module.const_get(
+            @inferred_searcher_deserializer_class ||= inferred_config.base_module.const_get(
               inferred_searcher_deserializer_class_name
             )
           end
@@ -32,7 +32,7 @@ module LedgerSync
 
           def inferred_serializer_class
             @inferred_serializer_class ||= begin
-              inferred_client_class.base_module.const_get(
+              inferred_config.base_module.const_get(
                 inferred_serializer_class_name
               )
             end
@@ -44,7 +44,7 @@ module LedgerSync
         end
 
         def self.included(base)
-          base.include InferClientMixin
+          base.include InferConfigMixin
           base.include InferResourceClassMixin
           base.extend ClassMethods
         end

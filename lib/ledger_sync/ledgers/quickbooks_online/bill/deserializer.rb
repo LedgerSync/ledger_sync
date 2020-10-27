@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../bill_line_item/deserializer'
-require_relative '../currency/deserializer'
+require_relative '../bill_line/deserializer'
+require_relative '../reference/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -10,34 +10,30 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+          date :DueDate
+          date :TxnDate
+          attribute :PrivateNote
+          attribute :DocNumber
 
-          date :due_date,
-               hash_attribute: 'DueDate'
+          references_one :Currency,
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
+          references_one :Vendor,
+                         hash_attribute: 'VendorRef',
+                         deserializer: Reference::Deserializer
 
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
+          references_one :APAccount,
+                         hash_attribute: 'APAccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'vendor.ledger_id',
-                    hash_attribute: 'VendorRef.value'
+          references_one :Department,
+                         hash_attribute: 'DepartmentRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'APAccountRef.value'
-
-          attribute 'department.ledger_id',
-                    hash_attribute: 'DepartmentRef.value'
-
-          attribute :reference_number,
-                    hash_attribute: 'DocNumber'
-
-          references_many :line_items,
+          references_many :Line,
                           hash_attribute: 'Line',
-                          deserializer: BillLineItem::Deserializer
+                          deserializer: BillLine::Deserializer
         end
       end
     end

@@ -8,26 +8,10 @@ support :operation_shared_examples,
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::BillPayment::Operations::Find do
   include QuickBooksOnlineHelpers
 
-  let(:vendor) { build(:quickbooks_online_vendor, ledger_id: '123') }
-  let(:account) { build(:quickbooks_online_account, ledger_id: '123') }
-  let(:bill) { build(:quickbooks_online_bill, ledger_id: '123') }
-  let(:department) { build(:quickbooks_online_department, ledger_id: '123') }
-  let(:currency) { build(:quickbooks_online_currency, name: 'United States Dollar', symbol: 'USD') }
-
   let(:resource) do
     build(
       :quickbooks_online_bill_payment,
-      ledger_id: '123',
-
-      account: account,
-      currency: currency,
-      department: department,
-      vendor: vendor,
-
-      credit_card_account: account,
-      bank_account: nil,
-
-      line_items: []
+      ledger_id: '123'
     )
   end
 

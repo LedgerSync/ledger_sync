@@ -3,21 +3,21 @@
 require_relative 'account'
 require_relative 'currency'
 require_relative 'customer'
-require_relative 'invoice_sales_line_item'
+require_relative 'invoice_line'
 
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class Invoice < QuickBooksOnline::Resource
-        attribute :memo, type: Type::String
-        attribute :transaction_date, type: Type::Date
-        attribute :deposit, type: Type::Integer
+        attribute :PrivateNote, type: Type::String
+        attribute :TxnDate, type: Type::Date
+        attribute :Deposit, type: Type::Integer
 
-        references_one :customer, to: Customer
-        references_one :account, to: Account
-        references_one :currency, to: Currency
+        references_one :Customer, to: Customer
+        references_one :DepositToAccount, to: Account
+        references_one :Currency, to: Currency
 
-        references_many :line_items, to: InvoiceSalesLineItem
+        references_many :Line, to: InvoiceLine
 
         def name
           "Invoice: #{transaction_date}"

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../currency/deserializer'
-require_relative '../department/deserializer'
-require_relative '../bill_payment_line_item/deserializer'
+require_relative '../reference/deserializer'
+require_relative '../bill_payment_line/deserializer'
+require_relative '../credit_card_payment/deserializer'
+require_relative '../check_payment/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -11,47 +12,42 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          amount :amount,
-                 hash_attribute: 'TotalAmt'
+          amount :TotalAmt
+          attribute :DocNumber
+          attribute :PrivateNote
+          attribute :ExchangeRate
+          date :TxnDate
 
-          references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
-
-          attribute 'vendor.ledger_id',
-                    hash_attribute: 'VendorRef.value'
-
-          attribute 'department.ledger_id',
-                    hash_attribute: 'DepartmentRef.value'
-
-          attribute 'account.ledger_id',
-                    hash_attribute: 'APAccountRef.value'
-
-          attribute :reference_number,
-                    hash_attribute: 'DocNumber'
-
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
-
-          attribute :exchange_rate,
-                    hash_attribute: 'ExchangeRate'
-
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
-
-          mapping :payment_type,
-                  hash_attribute: 'PayType',
+          mapping :PayType,
                   hash: BillPayment::PAYMENT_TYPES.invert
 
-          attribute 'credit_card_account.ledger_id',
-                    hash_attribute: 'CreditCardPayment.CCAccountRef.value'
+          references_one :Currency,
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'bank_account.ledger_id',
-                    hash_attribute: 'CheckPayment.BankAccountRef.value'
+          references_one :Vendor,
+                         hash_attribute: 'VendorRef',
+                         deserializer: Reference::Deserializer
 
-          references_many :line_items,
+          references_one :APAccount,
+                         hash_attribute: 'APAccountRef',
+                         deserializer: Reference::Deserializer
+
+          references_one :Department,
+                         hash_attribute: 'DepartmentRef',
+                         deserializer: Reference::Deserializer
+
+          references_one :CreditCardPayment,
+                         hash_attribute: 'CreditCardPayment',
+                         deserializer: CreditCardPayment::Deserializer
+
+          references_one :CheckPayment,
+                         hash_attribute: 'CheckPayment',
+                         deserializer: CheckPayment::Deserializer
+
+          references_many :Line,
                           hash_attribute: 'Line',
-                          deserializer: BillPaymentLineItem::Deserializer
+                          deserializer: BillPaymentLine::Deserializer
         end
       end
     end

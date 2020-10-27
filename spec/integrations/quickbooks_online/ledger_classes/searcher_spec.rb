@@ -5,12 +5,12 @@ require 'spec_helper'
 support :input_helpers
 support :quickbooks_online_helpers
 
-RSpec.describe 'quickbooks_online/departments/search', type: :feature do
+RSpec.describe 'quickbooks_online/ledger_class/search', type: :feature do
   include InputHelpers
   include QuickBooksOnlineHelpers
 
   before do
-    stub_search_ledger_class
+    stub_ledger_class_search
   end
 
   let(:input) do

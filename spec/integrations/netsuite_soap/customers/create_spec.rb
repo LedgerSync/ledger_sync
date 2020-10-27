@@ -34,7 +34,7 @@ RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Customer::Operations::Create, 
   context '#perform' do
     subject { described_class.new(**input).perform }
 
-    it { expect_valid(operation: initialized_operation) }
+    it { expect(initialized_operation).to be_valid }
     it 'creates', vcr: true do
       VCR.use_cassette('netsuite_soap/customers/create') do
         expect(subject).to be_a(LedgerSync::OperationResult::Success)

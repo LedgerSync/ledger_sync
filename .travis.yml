@@ -1,4 +1,3 @@
----
 language: ruby
 cache: bundler
 rvm:
@@ -9,11 +8,19 @@ rvm:
   - ruby-head
 before_install:
   - gem update --system
-  - gem install bundler:1.17.3
-  - gem install overcommit
+  - gem install bundler
+  - rm Gemfile.lock
+  - bundle install
 script:
   - bundle exec rspec --order rand
-  - overcommit --sign && overcommit --run
+  - bundle exec overcommit --sign && bundle exec overcommit --run
 jobs:
   allow_failures:
     - rvm: ruby-head
+deploy:
+  - api_key:
+      secure: b7Ubc7/+EX4zHJ5zz15xiHntizhuZCU8SKR/jcbrR86wZx1DW8kIABBoVIHMh5CaMvrjF63B1qEoG4HcuovKZWezFLPgj4IQqlwlUle0/Vm0smO1kPMEOuMIv5P3TTgXZ99h1OdnfRQtDgbjxgKGszawMxNcw9Q8mqvVCc8Pmr+Uiw9DOOkHNMfLH+xOl00Ir9ST+K4/GKq19h8Z3glZE0oQAPajt5kgDZdDGD3en+t2g3kafJ9Hv6twKSb5rd5I9BN+VJ0m66OofGxnZFUxM/cb8T+s+6DdPXGWJq4IZ/q9SO108qfl1aTd7EiFa+hVtlLii7QaSMHARrbWT3wMYH3QhgTBPly8Dky92c74ziLkqaDdaxmGfYnzLDVCRVlGmGzUkOLx1ey9XK2kwSods+ud8rJ2pHWaT7NQROzTD4O0YhLHvEAoN6PwtIWm1v78OViBng36PKW0WtAE1rG9CEK1FjhA7ZZoctAsKqSaXWZR39+0xgSv+1axLXru/TG8QLqKNEOgNbE5lqR7sF2cVQgmmUstlMqiEgKMF0cFWWVi1wqR6VNxrgwgWeWtwzHLkchY6T3vhK9sl+cUM6SebfCOCAJHPBxSvHRHtJcrDY8qMqjlfFBSagjaClFt1Uzy//ab4XRzEs8VQcVkz9Yw7S51iOYBdj6135lfE0ZxE1c=
+    edge: true
+    on:
+      all_branches: true
+    provider: rubygems

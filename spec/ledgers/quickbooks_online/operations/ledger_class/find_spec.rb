@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 support :input_helpers,
+        :operation_shared_examples,
         :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::Find do
@@ -11,14 +12,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::LedgerClass::Operations::F
 
   let(:resource) do
     LedgerSync::Ledgers::QuickBooksOnline::LedgerClass.new(
-      ledger_id: '123',
-      name: 'Test Class',
-      active: true,
-      sub_class: false
+      ledger_id: '123'
     )
   end
   let(:client) { quickbooks_online_client }
 
   it_behaves_like 'an operation'
-  it_behaves_like 'a successful operation', stubs: :stub_find_ledger_class
+  it_behaves_like 'a successful operation', stubs: :stub_ledger_class_find
 end

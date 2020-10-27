@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../bill_line_item/serializer'
-require_relative '../currency/serializer'
+require_relative '../bill_line/serializer'
+require_relative '../reference/serializer'
 
 module LedgerSync
   module Ledgers
@@ -10,33 +10,30 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          references_one :CurrencyRef,
-                         resource_attribute: :currency,
-                         serializer: Currency::Serializer
+          date :DueDate
+          date :TxnDate
+          attribute :PrivateNote
+          attribute :DocNumber
 
-          date 'DueDate',
-               resource_attribute: :due_date
+          references_one 'CurrencyRef',
+                         resource_attribute: :Currency,
+                         serializer: Reference::Serializer
 
-          attribute 'PrivateNote', resource_attribute: :memo
+          references_one 'VendorRef',
+                         resource_attribute: :Vendor,
+                         serializer: Reference::Serializer
 
-          date 'TxnDate',
-               resource_attribute: :transaction_date
+          references_one 'APAccountRef',
+                         resource_attribute: :APAccount,
+                         serializer: Reference::Serializer
 
-          attribute 'VendorRef.value',
-                    resource_attribute: 'vendor.ledger_id'
-
-          attribute 'APAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
-
-          attribute 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
-
-          attribute 'DocNumber',
-                    resource_attribute: :reference_number
+          references_one 'DepartmentRef',
+                         resource_attribute: :Department,
+                         serializer: Reference::Serializer
 
           references_many 'Line',
-                          resource_attribute: :line_items,
-                          serializer: BillLineItem::Serializer
+                          resource_attribute: :Line,
+                          serializer: BillLine::Serializer
         end
       end
     end

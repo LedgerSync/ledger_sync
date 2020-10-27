@@ -113,10 +113,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Serializer do
 
       h = {
         'DisplayName' => 'test',
+        'GivenName' => nil,
+        'FamilyName' => nil,
+        'MiddleName' => nil,
         'Id' => nil,
-        'PrimaryPhone' => {
-          'FreeFormNumber' => nil
-        },
+        'PrimaryPhone' => nil,
         'PrimaryEmailAddr' => {
           'Address' => 'test@example.com',
           'baz' => 123

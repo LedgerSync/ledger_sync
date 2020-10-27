@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../currency/serializer'
-require_relative '../department/serializer'
-require_relative '../bill_payment_line_item/serializer'
+require_relative '../reference/serializer'
+require_relative '../bill_payment_line/serializer'
+require_relative '../credit_card_payment/serializer'
+require_relative '../check_payment/serializer'
 
 module LedgerSync
   module Ledgers
@@ -11,65 +12,42 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          amount 'TotalAmt',
-                 resource_attribute: :amount
+          amount :TotalAmt
+          attribute :DocNumber
+          attribute :PrivateNote
+          attribute :ExchangeRate
+          date :TxnDate
 
-          references_one :CurrencyRef,
-                         resource_attribute: :currency,
-                         serializer: Currency::Serializer
-
-          attribute 'VendorRef.value',
-                    resource_attribute: 'vendor.ledger_id'
-
-          attribute 'DepartmentRef.value',
-                    resource_attribute: 'department.ledger_id'
-
-          attribute 'APAccountRef.value',
-                    resource_attribute: 'account.ledger_id'
-
-          attribute 'DocNumber',
-                    resource_attribute: :reference_number
-
-          attribute 'PrivateNote',
-                    resource_attribute: :memo
-
-          attribute 'ExchangeRate',
-                    resource_attribute: :exchange_rate
-
-          date 'TxnDate',
-               resource_attribute: :transaction_date
-
-          mapping 'PayType',
-                  resource_attribute: :payment_type,
+          mapping :PayType,
                   hash: BillPayment::PAYMENT_TYPES
 
-          attribute 'CreditCardPayment' do |args = {}|
-            resource = args.fetch(:resource)
+          references_one 'CurrencyRef',
+                         resource_attribute: :Currency,
+                         serializer: Reference::Serializer
 
-            if resource.credit_card_account
-              {
-                'CCAccountRef' => {
-                  'value' => resource.credit_card_account.ledger_id
-                }
-              }
-            end
-          end
+          references_one 'VendorRef',
+                         resource_attribute: :Vendor,
+                         serializer: Reference::Serializer
 
-          attribute 'CheckPayment' do |args = {}|
-            resource = args.fetch(:resource)
+          references_one 'DepartmentRef',
+                         resource_attribute: :Department,
+                         serializer: Reference::Serializer
 
-            if resource.bank_account
-              {
-                'BankAccountRef' => {
-                  'value' => resource.bank_account.ledger_id
-                }
-              }
-            end
-          end
+          references_one 'APAccountRef',
+                         resource_attribute: :APAccount,
+                         serializer: Reference::Serializer
+
+          references_one 'CreditCardPayment',
+                         resource_attribute: :CreditCardPayment,
+                         serializer: CreditCardPayment::Serializer
+
+          references_one 'CheckPayment',
+                         resource_attribute: :CheckPayment,
+                         serializer: CheckPayment::Serializer
 
           references_many 'Line',
-                          resource_attribute: :line_items,
-                          serializer: BillPaymentLineItem::Serializer
+                          resource_attribute: :Line,
+                          serializer: BillPaymentLine::Serializer
         end
       end
     end

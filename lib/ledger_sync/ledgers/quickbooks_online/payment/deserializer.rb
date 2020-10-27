@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../currency/deserializer'
-require_relative '../payment_line_item/deserializer'
+require_relative '../reference/deserializer'
+require_relative '../payment_line/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -10,37 +10,31 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          amount :amount,
-                 hash_attribute: 'TotalAmt'
+          amount :TotalAmt
+          attribute :PaymentRefNum
+          attribute :PrivateNote
+          attribute :ExchangeRate
+          date :TxnDate
 
-          references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+          references_one :Currency,
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'customer.ledger_id',
-                    hash_attribute: 'CustomerRef.value'
+          references_one :Customer,
+                         hash_attribute: 'CustomerRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'deposit_account.ledger_id',
-                    hash_attribute: 'DepositToAccountRef.value'
+          references_one :DepositToAccount,
+                         hash_attribute: 'DepositToAccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'account.ledger_id',
-                    hash_attribute: 'ARAccountRef.value'
+          references_one :ARAccount,
+                         hash_attribute: 'ARAccountRef',
+                         deserializer: Account::Deserializer
 
-          attribute :reference_number,
-                    hash_attribute: 'PaymentRefNum'
-
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
-
-          attribute :exchange_rate,
-                    hash_attribute: 'ExchangeRate'
-
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
-
-          references_many :line_items,
+          references_many :Line,
                           hash_attribute: 'Line',
-                          deserializer: PaymentLineItem::Deserializer
+                          deserializer: PaymentLine::Deserializer
         end
       end
     end

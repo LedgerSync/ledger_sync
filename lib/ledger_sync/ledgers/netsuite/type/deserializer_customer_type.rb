@@ -7,6 +7,8 @@ module LedgerSync
         class DeserializerCustomerType < LedgerSync::Type::Value
           def initialize(args = {})
             @customer_class = args.fetch(:customer_class)
+
+            super()
           end
 
           private

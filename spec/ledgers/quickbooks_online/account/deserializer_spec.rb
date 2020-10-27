@@ -10,15 +10,15 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Deserializer do
   let(:resource) do
     create(
       :quickbooks_online_account,
-      account_sub_type: account_sub_type,
-      account_type: account_type,
-      active: active,
-      classification: classification,
-      currency: currency,
-      description: description,
+      AccountSubType: account_sub_type,
+      AccountType: account_type,
+      Active: active,
+      Classification: classification,
+      Currency: currency,
+      Description: description,
       ledger_id: nil,
-      name: name,
-      number: number
+      Name: name,
+      AcctNum: number
     )
   end
   let(:name) { 'account_name' }
@@ -38,8 +38,8 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Deserializer do
       'AcctNum' => number,
       'Classification' => LedgerSync::Ledgers::QuickBooksOnline::Account::CLASSIFICATIONS[classification],
       'CurrencyRef' => {
-        'name' => currency.name,
-        'value' => currency.symbol
+        'name' => currency.Name,
+        'value' => currency.Symbol
       },
       'Description' => description,
       'Id' => nil,
@@ -53,22 +53,26 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Account::Deserializer do
     it do
       expect_deserialized_attributes(
         attributes: %i[
-          account_sub_type
-          account_type
-          classification
-          active
-          description
-          name
-          number
+          AccountSubType
+          AccountType
+          Classification
+          Active
+          Description
+          Name
+          AcctNum
         ],
         resource: LedgerSync::Ledgers::QuickBooksOnline::Account.new,
         response_hash: h,
         deserializer_class: described_class,
         values: {
-          account_sub_type: account_sub_type,
-          account_type: account_type,
-          classification: 'asset',
-          currency: currency
+          AccountSubType: account_sub_type,
+          AccountType: account_type,
+          Classification: 'asset',
+          Active: active,
+          Currency: currency,
+          Description: description,
+          Name: name,
+          AcctNum: number
         }
       )
     end

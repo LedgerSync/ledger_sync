@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../currency/deserializer'
+require_relative '../reference/deserializer'
 
 module LedgerSync
   module Ledgers
@@ -9,24 +9,21 @@ module LedgerSync
         class Deserializer < QuickBooksOnline::Deserializer
           id
 
-          amount :amount,
-                 hash_attribute: 'Amount'
+          amount :Amount
+          attribute :PrivateNote
+          date :TxnDate
 
-          attribute :memo,
-                    hash_attribute: 'PrivateNote'
+          references_one :FromAccount,
+                         hash_attribute: 'FromAccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'from_account.ledger_id',
-                    hash_attribute: 'FromAccountRef.value'
+          references_one :ToAccount,
+                         hash_attribute: 'ToAccountRef',
+                         deserializer: Reference::Deserializer
 
-          attribute 'to_account.ledger_id',
-                    hash_attribute: 'ToAccountRef.value'
-
-          date :transaction_date,
-               hash_attribute: 'TxnDate'
-
-          references_one :currency,
-                         hash_attribute: :CurrencyRef,
-                         deserializer: Currency::Deserializer
+          references_one :Currency,
+                         hash_attribute: 'CurrencyRef',
+                         deserializer: Reference::Deserializer
         end
       end
     end

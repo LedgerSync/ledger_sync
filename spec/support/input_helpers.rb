@@ -24,26 +24,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
     }.merge(merge)
   end
 
-  def account_resource(**merge)
-    {
-      external_id: :ext_id,
-      ledger_id: nil,
-      # attributes
-      name: 'Sample Account',
-      classification: 'asset',
-      account_type: 'bank',
-      account_sub_type: 'cash_on_hand',
-      currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
-      ),
-      description: 'This is Sample Account',
-      active: true
-    }.merge(merge)
-  end
-
   def local_resource_class(type)
-    described_class.inferred_client_class.resources[type]
+    described_class.inferred_config.client_class.resources[type]
   end
 
   def payment_resource(**merge)
@@ -58,8 +40,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
       # attributes
       amount: 12_345,
       currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       reference_number: 'Ref123',
       memo: 'Memo',
@@ -91,8 +73,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
       line_items: [],
       # attributes
       currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       memo: 'Memo 1',
       transaction_date: Date.parse('2019-09-01'),
@@ -121,8 +103,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
       # attributes
       reference_number: 'Ref123',
       currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       memo: 'Memo',
       payment_type: 'cash',
@@ -153,8 +135,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
       # attributes
       amount: 12_345,
       currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       memo: 'Memo',
       transaction_date: Date.parse('2019-09-01')
@@ -171,8 +153,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
       line_items: [],
       # attributes
       currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       memo: 'Memo',
       exchange_rate: 1.0,
@@ -203,8 +185,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
       # attributes
       reference_number: 'Ref123',
       currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       memo: 'Memo',
       transaction_date: Date.parse('2019-09-01'),
@@ -233,8 +215,8 @@ module InputHelpers # rubocop:disable Metrics/ModuleLength
       # attributes
       reference_number: 'Ref123',
       currency: local_resource_class(:currency).new(
-        name: 'United States Dollar',
-        symbol: 'USD'
+        Name: 'United States Dollar',
+        Symbol: 'USD'
       ),
       memo: 'Memo',
       transaction_date: Date.parse('2019-09-01')

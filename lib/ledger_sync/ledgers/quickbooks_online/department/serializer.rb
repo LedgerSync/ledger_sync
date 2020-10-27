@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../reference/serializer'
+
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
@@ -7,24 +9,14 @@ module LedgerSync
         class Serializer < QuickBooksOnline::Serializer
           id
 
-          attribute 'Name',
-                    resource_attribute: :name
-          attribute 'Active',
-                    resource_attribute: :active
-          attribute 'SubDepartment',
-                    resource_attribute: :sub_department
-          attribute 'FullyQualifiedName',
-                    resource_attribute: :fully_qualified_name
+          attribute :Name
+          attribute :Active
+          attribute :SubDepartment
+          attribute :FullyQualifiedName
 
-          attribute(:ParentRef) do |args = {}|
-            resource = args.fetch(:resource)
-
-            if resource.parent.present?
-              {
-                'value' => resource.parent.ledger_id
-              }
-            end
-          end
+          references_one 'ParentRef',
+                         resource_attribute: :Parent,
+                         serializer: Reference::Serializer
 
           # Sending "ParentRef": {"value": null} results in QBO API crash
           # This patches serialized hash to exclude it unless we don't set value

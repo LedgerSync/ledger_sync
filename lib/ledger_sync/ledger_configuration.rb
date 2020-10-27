@@ -5,41 +5,45 @@ module LedgerSync
     include Fingerprintable::Mixin
     include SimplySerializable::Mixin
 
-    attr_accessor :module_string,
-                  :name,
+    attr_accessor :name,
                   :rate_limiting_wait_in_seconds,
                   :test
 
     attr_reader :aliases,
-                :root_key
+                :base_module,
+                :root_key,
+                :root_path
 
     simply_serialize only: %i[
       aliases
-      module_string
+      base_module
       root_key
       rate_limiting_wait_in_seconds
       test
     ]
 
-    def initialize(root_key, module_string: nil)
+    def initialize(root_key, args = {})
       @root_key = root_key
       @aliases = []
-      @module_string = module_string || LedgerSync::Util::StringHelpers.camelcase(root_key)
+      @root_path = args.fetch(:root_path, "ledger_sync/ledgers/#{root_key}")
+
+      require client_path
+
+      @base_module = args.fetch(:base_module, nil)
+      @base_module ||= LedgerSync::Ledgers.const_get(LedgerSync::Util::StringHelpers.camelcase(root_key))
     end
 
     def client_class
       @client_class ||= base_module::Client
     end
 
+    def client_path
+      @client_path ||= File.join(root_path, 'client')
+    end
+
     def add_alias(new_alias)
       @aliases << new_alias
       LedgerSync.ledgers.add_alias(new_alias, self)
-    end
-
-    def base_module
-      @base_module ||= begin
-        LedgerSync::Ledgers.const_get(@module_string)
-      end
     end
 
     # Delegate #new to the client class enabling faster client initialization

@@ -4,12 +4,16 @@ module LedgerSync
   module Ledgers
     module QuickBooksOnline
       class LedgerClass < QuickBooksOnline::Resource
-        attribute :name, type: Type::String
-        attribute :fully_qualified_name, type: Type::String
-        attribute :active, type: Type::Boolean
-        attribute :sub_class, type: Type::Boolean
+        attribute :Name, type: Type::String
+        attribute :FullyQualifiedName, type: Type::String
+        attribute :Active, type: Type::Boolean
+        attribute :SubClass, type: Type::Boolean
 
-        references_one :parent, to: LedgerClass
+        references_one :Parent, to: LedgerClass
+
+        def name
+          self.Name
+        end
       end
     end
   end

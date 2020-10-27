@@ -11,6 +11,8 @@ module LedgerSync
 
           def inherited(base)
             base.inferred_resource_class.operations[base.operation_method] = base
+
+            super
           end
 
           def operation_method
@@ -18,7 +20,7 @@ module LedgerSync
           end
 
           def operations_module
-            @operations_module ||= Object.const_get(name.split('::Operations::').first + '::Operations')
+            @operations_module ||= Object.const_get("#{name.split('::Operations::').first}::Operations")
           end
         end
 
@@ -67,15 +69,15 @@ module LedgerSync
 
           @result = begin
             operate
-                    rescue LedgerSync::Error => e
-                      failure(e)
-                    rescue StandardError => e
-                      parsed_error = client.parse_operation_error(error: e, operation: self)
-                      raise e unless parsed_error
+          rescue LedgerSync::Error => e
+            failure(e)
+          rescue StandardError => e
+            parsed_error = client.parse_operation_error(error: e, operation: self)
+            raise e unless parsed_error
 
-                      failure(parsed_error)
-                    ensure
-                      @performed = true
+            failure(parsed_error)
+          ensure
+            @performed = true
           end
         end
 

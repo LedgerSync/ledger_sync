@@ -89,12 +89,12 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deserializer do
 
   let(:local_bill) do
     LedgerSync::Ledgers::QuickBooksOnline::Bill.new(
-      line_items: [
-        LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
+      Line: [
+        LedgerSync::Ledgers::QuickBooksOnline::BillLine.new(
           ledger_id: 1
         ),
-        LedgerSync::Ledgers::QuickBooksOnline::BillLineItem.new(
-          description: 'Testing 3'
+        LedgerSync::Ledgers::QuickBooksOnline::BillLine.new(
+          Description: 'Testing 3'
         )
       ]
     )
@@ -118,9 +118,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deserializer do
             'AccountRef' => {
               'value' => '64'
             },
-            'ClassRef' => {
-              'value' => nil
-            }
+            'ClassRef' => nil
           },
           'Description' => 'Lumber 1'
         },
@@ -132,9 +130,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deserializer do
             'AccountRef' => {
               'value' => '64'
             },
-            'ClassRef' => {
-              'value' => nil
-            }
+            'ClassRef' => nil
           },
           'Description' => 'Lumber 2'
         }
@@ -170,9 +166,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deserializer do
             'AccountRef' => {
               'value' => '64'
             },
-            'ClassRef' => {
-              'value' => nil
-            }
+            'ClassRef' => nil
           },
           'Description' => 'Lumber 1'
         },
@@ -180,14 +174,7 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Deserializer do
           'DetailType' => 'AccountBasedExpenseLineDetail',
           'Amount' => nil,
           'Id' => nil,
-          'AccountBasedExpenseLineDetail' => {
-            'AccountRef' => {
-              'value' => nil
-            },
-            'ClassRef' => {
-              'value' => nil
-            }
-          },
+          'AccountBasedExpenseLineDetail' => nil,
           'Description' => 'Testing 3'
         }
       ]
