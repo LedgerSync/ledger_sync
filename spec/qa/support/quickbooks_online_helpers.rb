@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-qa_support :ledger_helpers,
-           :quickbooks_online_shared_examples
+core_qa_support :ledger_helpers
+qa_support :quickbooks_online_shared_examples
 
 module QA
   module QuickBooksOnlineHelpers
-    include LedgerHelpers
+    include LedgerSync::Test::QA::LedgerHelpers
 
     def client_class
       LedgerSync::Ledgers::QuickBooksOnline::Client

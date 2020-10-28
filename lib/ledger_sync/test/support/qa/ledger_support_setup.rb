@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-def setup_client_qa_support(*clients)
+def setup_client_qa_support(*clients, keyed: false)
   clients.each do |client|
     key = client.config.root_key
 
@@ -9,9 +9,13 @@ def setup_client_qa_support(*clients)
     env_key         = "#{key}_qa".upcase
 
     RSpec.configure do |config|
-      config.include helpers_module, qa: true, client: key
+      if keyed
+        config.include helpers_module, qa: true, client: key
+      else
+        config.include helpers_module, qa: true
+      end
 
-      config.around(:each, qa: true, client: key) do |example|
+      config.around(:each, qa: true) do |example|
         if ENV.fetch(env_key, nil) == '1'
           example.run
         else
@@ -21,7 +25,3 @@ def setup_client_qa_support(*clients)
     end
   end
 end
-
-setup_client_qa_support(
-  *LedgerSync.ledgers.configs.values.map(&:client_class)
-)

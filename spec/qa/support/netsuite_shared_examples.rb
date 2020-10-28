@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-qa_support :shared_examples
+core_support 'qa/shared_examples'
 
 RSpec.shared_examples 'a record with metadata' do
   describe LedgerSync::Ledgers::NetSuite::Record::Metadata do

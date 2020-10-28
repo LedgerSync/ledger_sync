@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
+core_support :operation_shared_examples
 support :input_helpers,
-        :operation_shared_examples,
         :netsuite_soap_helpers
 
 RSpec.describe LedgerSync::Ledgers::NetSuiteSOAP::Customer::Operations::Find, vcr: true do
