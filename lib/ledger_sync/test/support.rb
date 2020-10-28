@@ -2,19 +2,25 @@
 
 def support(*paths)
   paths.each do |path|
-    require File.join(LedgerSync.root, 'spec/support/', path.to_s)
-  end
-end
-
-def core_support(*paths)
-  paths.each do |path|
-    require File.join(LedgerSync.root, 'lib/ledger_sync/test/support/', path.to_s)
+    require File.join('support/', path.to_s)
   end
 end
 
 def qa_support(*paths)
   paths.each do |path|
-    require File.join(LedgerSync.root, 'spec/qa/support/', path.to_s)
+    require File.join('qa/support/', path.to_s)
+  end
+end
+
+def core_support(*paths)
+  paths.each do |path|
+    require File.join('ledger_sync/test/support/', path.to_s)
+  end
+end
+
+def core_qa_support(*paths)
+  paths.each do |path|
+    require File.join('ledger_sync/test/support/qa/', path.to_s)
   end
 end
 
@@ -25,7 +31,7 @@ module LedgerSync
         require 'webmock/rspec'
         require 'simplecov'
         require 'coveralls'
-        Coveralls.wear!
+        Coveralls.wear!('rails')
 
         SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
           [
@@ -49,8 +55,10 @@ module LedgerSync
 
         paths_to_require.each { |e| require e.to_s }
 
-        # Include test adaptor
-        core_support 'test_ledger/config'
+        core_support 'webmock_helpers'
+        core_support 'record_collection'
+
+        core_support 'qa/ledger_support_setup'
 
         core_support :factory_bot
 

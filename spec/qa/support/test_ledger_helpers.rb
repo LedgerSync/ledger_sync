@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-qa_support :ledger_helpers
+core_qa_support :ledger_helpers
 
 module QA
   module TestLedgerHelpers

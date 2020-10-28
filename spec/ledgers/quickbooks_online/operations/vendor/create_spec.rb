@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
+core_support :operation_shared_examples
 support :input_helpers,
-        :operation_shared_examples,
         :quickbooks_online_helpers
 
 RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Vendor::Operations::Create do

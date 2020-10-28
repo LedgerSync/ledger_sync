@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-qa_support :ledger_helpers,
-           :netsuite_shared_examples
+core_qa_support :ledger_helpers
+qa_support :netsuite_shared_examples
 
 module QA
   module NetSuiteHelpers
-    include LedgerHelpers
+    include LedgerSync::Test::QA::LedgerHelpers
 
     def client_class
       LedgerSync::Ledgers::NetSuite::Client

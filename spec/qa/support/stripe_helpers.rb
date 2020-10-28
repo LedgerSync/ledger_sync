@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-qa_support :ledger_helpers,
-           :stripe_shared_examples
+core_qa_support :ledger_helpers
+qa_support :stripe_shared_examples
 
 module QA
   module StripeHelpers
-    include LedgerHelpers
+    include LedgerSync::Test::QA::LedgerHelpers
 
     def client_class
       LedgerSync::Ledgers::Stripe::Client

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-support :operation_shared_examples
+core_support :operation_shared_examples
 support :netsuite_helpers
 
 RSpec.shared_examples 'a netsuite operation' do
