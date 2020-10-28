@@ -17,7 +17,7 @@ module LedgerSync
     end
 
     class RecordCollection
-      attr_reader :dir, :records
+      attr_reader :dir, :record_class, :records
 
       def initialize(args = {})
         @dir = args.fetch(:dir)
