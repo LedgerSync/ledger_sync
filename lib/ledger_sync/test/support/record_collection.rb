@@ -3,13 +3,16 @@
 module LedgerSync
   module Test
     class Record
-      attr_reader :hash, :id, :path
+      attr_reader :hash, :path, :record
 
       def initialize(args = {})
         @hash = args.fetch(:hash)
         @path = args.fetch(:path)
+        @record = args.fetch(:record)
+      end
 
-        @id = hash.fetch('id', nil)
+      def id
+        @id ||= hash.fetch('id', nil)
       end
     end
 
@@ -27,7 +30,8 @@ module LedgerSync
           record = File.basename(file_path, '.json').to_sym
           @records[record] = record_class.new(
             hash: JSON.parse(File.open(file_path).read),
-            path: file_path
+            path: file_path,
+            recorD: record
           )
           self.class.define_method(record) do
             records[record]
