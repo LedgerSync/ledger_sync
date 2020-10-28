@@ -51,6 +51,7 @@ module LedgerSync
 
         # Include test adaptor
         core_support 'test_ledger/config'
+        core_support 'record_collection'
 
         core_support :factory_bot
 

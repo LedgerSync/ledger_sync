@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'netsuite/record_collection'
-
 # Define globally so it's only evaluated once.
-NETSUITE_RECORD_COLLECTION = Test::NetSuite::RecordCollection.new
+NETSUITE_RECORD_COLLECTION = LedgerSync::Test::RecordCollection.new(
+  dir: File.join(LedgerSync.root, '/spec/support/netsuite/records')
+)
 
 module NetSuiteHelpers # rubocop:disable Metrics/ModuleLength
   def authorized_headers(override = {}, write: false)
@@ -101,7 +101,7 @@ module NetSuiteHelpers # rubocop:disable Metrics/ModuleLength
   end
 
   def netsuite_records
-    @netsuite_records ||= Test::NetSuite::RecordCollection.new
+    @netsuite_records ||= NETSUITE_RECORD_COLLECTION
   end
 
   def netsuite_resource_type

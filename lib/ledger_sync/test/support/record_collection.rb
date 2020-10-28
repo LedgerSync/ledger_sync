@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Test
-  module NetSuite
+module LedgerSync
+  module Test
     class Record
       attr_reader :hash, :id, :path
 
@@ -17,7 +17,7 @@ module Test
       attr_reader :dir, :records
 
       def initialize(args = {})
-        @dir = args.fetch(:dir, File.join(LedgerSync.root, '/spec/support/netsuite/records'))
+        @dir = args.fetch(:dir)
         @records = {}
 
         # Process json files
