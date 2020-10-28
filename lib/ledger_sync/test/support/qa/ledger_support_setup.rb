@@ -21,7 +21,3 @@ def setup_client_qa_support(*clients)
     end
   end
 end
-
-setup_client_qa_support(
-  *LedgerSync.ledgers.configs.values.map(&:client_class)
-)

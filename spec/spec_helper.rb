@@ -10,6 +10,10 @@ support :resource_helpers
 
 core_support :test_ledger_helpers
 
+setup_client_qa_support(
+  *LedgerSync.ledgers.configs.values.map(&:client_class)
+)
+
 RSpec.configure do |config|
   config.include(TestLedgerHelpers)
 end
