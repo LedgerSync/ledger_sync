@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (1.5.1)
+    ledger_sync (1.5.2)
       activemodel
       colorize
       dotenv (~> 2.7.6)
