@@ -18,12 +18,14 @@ module LedgerSync
 
       def initialize(args = {})
         @dir = args.fetch(:dir)
+        @record_class = args.fetch(:record_class, Record)
+
         @records = {}
 
         # Process json files
         Gem.find_files(File.join(dir, '*.json')).map do |file_path|
           record = File.basename(file_path, '.json').to_sym
-          @records[record] = Record.new(
+          @records[record] = record_class.new(
             hash: JSON.parse(File.open(file_path).read),
             path: file_path
           )
