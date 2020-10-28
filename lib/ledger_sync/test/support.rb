@@ -12,6 +12,12 @@ def core_support(*paths)
   end
 end
 
+def core_qa_support(*paths)
+  paths.each do |path|
+    require File.join(LedgerSync.root, 'lib/ledger_sync/test/support/qa/', path.to_s)
+  end
+end
+
 def qa_support(*paths)
   paths.each do |path|
     require File.join(LedgerSync.root, 'spec/qa/support/', path.to_s)
