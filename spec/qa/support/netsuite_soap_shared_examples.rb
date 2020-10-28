@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-qa_support :shared_examples
+core_support 'qa/shared_examples'
 
 RSpec.shared_examples 'a full netsuite soap resource' do
   it_behaves_like 'a create', delete: false
