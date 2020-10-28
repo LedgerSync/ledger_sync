@@ -31,7 +31,7 @@ module LedgerSync
         require 'webmock/rspec'
         require 'simplecov'
         require 'coveralls'
-        Coveralls.wear!
+        Coveralls.wear!('rails')
 
         SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
           [
