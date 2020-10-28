@@ -31,7 +31,7 @@ module LedgerSync
           @records[record] = record_class.new(
             hash: JSON.parse(File.open(file_path).read),
             path: file_path,
-            recorD: record
+            record: record
           )
           self.class.define_method(record) do
             records[record]
