@@ -55,8 +55,7 @@ module LedgerSync
 
         paths_to_require.each { |e| require e.to_s }
 
-        # Include test adaptor
-        core_support 'test_ledger/config'
+        core_support 'webmock_helpers'
         core_support 'record_collection'
 
         core_support 'qa/ledger_support_setup'
