@@ -7,9 +7,8 @@ LedgerSync::Test::Support.setup(:ledger_sync)
 support :webmock_helpers
 support :vcr
 support :resource_helpers
-support :test_ledger_helpers
 
-qa_support :ledger_support_qa_setup
+core_support :test_ledger_helpers
 
 RSpec.configure do |config|
   config.include(TestLedgerHelpers)
