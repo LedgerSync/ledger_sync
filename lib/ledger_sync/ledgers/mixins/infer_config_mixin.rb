@@ -17,7 +17,7 @@ module LedgerSync
               name_parts_length.times do |i|
                 config = LedgerSync.ledgers.config_from_base_module(
                   base_module: Object.const_get(
-                    name_parts[0..(name_parts_length - i)].join('::')
+                    name_parts[0..(name_parts_length - 1 - i)].join('::')
                   )
                 )
                 break if config.present?
