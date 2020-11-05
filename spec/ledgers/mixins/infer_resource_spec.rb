@@ -6,7 +6,7 @@ module LedgerSync
   module Test
     class Config
       def base_module
-          LedgerSync::Test
+        LedgerSync::Test
       end
     end
 

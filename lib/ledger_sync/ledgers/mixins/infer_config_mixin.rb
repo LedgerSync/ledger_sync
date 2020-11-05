@@ -6,9 +6,9 @@ module LedgerSync
       module InferConfigMixin
         module ClassMethods
           def inferred_config
-            @inferred_config ||= begin
-              return if name.nil?
+            return if name.nil?
 
+            @inferred_config ||= begin
               name_parts = name.split('::')
               name_parts_length = name_parts.count
 
