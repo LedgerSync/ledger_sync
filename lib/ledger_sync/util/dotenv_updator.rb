@@ -11,7 +11,7 @@ module LedgerSync
 
       def update(args = {})
         client = args.fetch(:client)
-        prefix = args.fetch(:prefix, "#{client.config.root_key.upcase}_")
+        prefix = args.fetch(:prefix, "#{client.class.config.root_key.upcase}_")
 
         to_save = client.ledger_attributes_to_save.dup.stringify_keys
 
