@@ -20,7 +20,7 @@ module LedgerSync
           def update_secrets_in_dotenv
             return if ENV['TEST_ENV'] && !ENV['USE_DOTENV_ADAPTOR_SECRETS']
 
-            Util::DotenvUpdator.new(client: self).update
+            Util::DotenvUpdator.new.update(client: self)
           end
 
           def ledger_configuration

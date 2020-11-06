@@ -3,15 +3,16 @@
 module LedgerSync
   module Util
     class DotenvUpdator
-      attr_reader :client, :file_path, :prefix
+      attr_reader :file_path
 
       def initialize(args = {})
-        @client = args.fetch(:client)
         @file_path = args.fetch(:file_path, File.join(Dir.pwd, '.env.local'))
-        @prefix = args.fetch(:prefix, "#{client.config.root_key.upcase}_")
       end
 
-      def update
+      def update(args = {})
+        client = args.fetch(:client)
+        prefix = args.fetch(:prefix, "#{client.config.root_key.upcase}_")
+
         to_save = client.ledger_attributes_to_save.dup.stringify_keys
 
         Tempfile.open(".#{File.basename(file_path)}", File.dirname(file_path)) do |tempfile|
