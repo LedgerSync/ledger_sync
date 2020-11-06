@@ -24,6 +24,7 @@ _site/
 
 # dotenv
 .env
+*.local
 
 .tool-versions
 .ruby-version

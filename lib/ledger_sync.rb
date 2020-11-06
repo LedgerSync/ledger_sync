@@ -16,10 +16,6 @@ require 'oauth2'
 require 'tempfile'
 require 'pd_ruby'
 
-# Dotenv
-require 'dotenv'
-Dotenv.load
-
 # Version
 require 'ledger_sync/version'
 
@@ -40,6 +36,7 @@ require 'ledger_sync/util/signer'
 require 'ledger_sync/util/hash_helpers'
 require 'ledger_sync/util/read_only_object'
 require 'ledger_sync/util/resources_builder'
+require 'ledger_sync/util/dotenv_updator'
 require 'ledger_sync/ledger_configuration'
 require 'ledger_sync/ledger_configuration_store'
 require 'ledger_sync/util/performer'
