@@ -24,19 +24,19 @@ module LedgerSync
               env_value = ENV[env_key]
               new_value = to_save.delete(client_method)
               tempfile.puts "#{env_key}=#{new_value}"
-              next if env_value == new_value
+              next if env_value == new_value.to_s
 
-              ENV[env_key] = new_value
+              ENV[env_key] = new_value.to_s
               tempfile.puts "# #{env_key}=#{env_value} # Updated on #{Time.now}"
             else
               tempfile.puts line
             end
-
-            to_save.each.map(&:to_s).join('=').each { |e| tempfile.puts(e) }
           end
 
+          to_save.each { |k, v| tempfile.puts(["#{prefix}#{k}".upcase, v].map(&:to_s).join('=')) }
+
           tempfile.close
-          FileUtils.mv tempfile.path, filename
+          FileUtils.mv tempfile.path, file_path
         end
 
         Dotenv.load
