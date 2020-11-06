@@ -10,8 +10,11 @@ module LedgerSync
           def inferred_resource_class
             @inferred_resource_class ||= begin
               base_module = inferred_config.base_module
-
-              base_module.const_get(name.split(base_module.name).last.split('::')[1])
+              if name.include?('::Operations::')
+                base_module.const_get(name.split('::Operations::').first)
+              else
+                base_module.const_get(name.split(base_module.name).last.split('::')[1])
+              end
             end
           end
         end

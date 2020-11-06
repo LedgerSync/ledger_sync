@@ -148,39 +148,6 @@ module LedgerSync
           oauth_token
         end
 
-        def update_secrets_in_dotenv # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-          return if ENV['TEST_ENV'] && !ENV['USE_DOTENV_ADAPTOR_SECRETS']
-
-          filename = File.join(Dir.pwd, '.env')
-          return unless File.exist?(filename)
-
-          prefix = 'QUICKBOOKS_ONLINE_'
-
-          Tempfile.open(".#{File.basename(filename)}", File.dirname(filename)) do |tempfile|
-            File.open(filename).each do |line|
-              env_key = line.split('=').first
-              client_method = env_key.split(prefix).last.downcase
-
-              if line =~ /\A#{prefix}/ && respond_to?(client_method)
-                env_value = ENV[env_key]
-                new_value = send(client_method)
-                tempfile.puts "#{env_key}=#{new_value}"
-                next if env_value == new_value
-
-                ENV[env_key] = new_value
-                tempfile.puts "# #{env_key}=#{env_value} # Updated on #{Time.now}"
-              else
-                tempfile.puts line
-              end
-            end
-
-            tempfile.close
-            FileUtils.mv tempfile.path, filename
-          end
-
-          Dotenv.load
-        end
-
         def url_for(resource:)
           DashboardURLHelper.new(
             resource: resource,

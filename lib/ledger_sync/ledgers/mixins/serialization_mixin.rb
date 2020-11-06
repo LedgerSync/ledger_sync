@@ -13,7 +13,7 @@ module LedgerSync
             type = args.fetch(:type)
 
             inferred_config.base_module.const_get(
-              "#{inferred_resource_class.resource_module_str}::#{type.camelcase}"
+              "#{inferred_resource_class}::#{type.camelcase}"
             )
           end
 

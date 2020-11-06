@@ -13,12 +13,18 @@ module LedgerSync
 
       module Mixin
         module InstanceMethods
-          def ledger_configuration
-            self.class.config
-          end
-
           def base_module
             self.class.base_module
+          end
+
+          def update_secrets_in_dotenv
+            return if ENV['TEST_ENV'] && !ENV['USE_DOTENV_ADAPTOR_SECRETS']
+
+            Util::DotenvUpdator.new.update(client: self)
+          end
+
+          def ledger_configuration
+            self.class.config
           end
 
           def ledger_attributes_to_save

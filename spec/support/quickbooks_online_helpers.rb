@@ -129,6 +129,7 @@ module QuickBooksOnlineHelpers # rubocop:disable Metrics/ModuleLength
     end
 
     define_method(stub_delete_method) do |request_body: nil, response_body: nil|
+      # does nothing
     end
 
     define_method(stub_update_method) do |request_body: nil, response_body: nil|

@@ -98,6 +98,10 @@ module LedgerSync
           def upsert
             @upsert ||= http_methods.find { |e| e.key == "put /#{record}/{id}" }
           end
+
+          def self.config
+            Client.config
+          end
         end
       end
     end

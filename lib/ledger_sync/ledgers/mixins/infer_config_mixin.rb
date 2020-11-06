@@ -6,9 +6,9 @@ module LedgerSync
       module InferConfigMixin
         module ClassMethods
           def inferred_config
-            @inferred_config ||= begin
-              return if name.nil?
+            return if name.nil?
 
+            @inferred_config ||= begin
               name_parts = name.split('::')
               name_parts_length = name_parts.count
 
@@ -17,7 +17,7 @@ module LedgerSync
               name_parts_length.times do |i|
                 config = LedgerSync.ledgers.config_from_base_module(
                   base_module: Object.const_get(
-                    name_parts[0..(name_parts_length - i)].join('::')
+                    name_parts[0..(name_parts_length - 1 - i)].join('::')
                   )
                 )
                 break if config.present?
