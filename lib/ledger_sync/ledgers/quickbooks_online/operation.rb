@@ -46,6 +46,8 @@ module LedgerSync
               super
             rescue LedgerSync::Error::OperationError, OAuth2::Error => e
               failure(e)
+            ensure
+              client.update_secrets_in_dotenv
             end
 
             def quickbooks_online_resource_type

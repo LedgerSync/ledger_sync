@@ -79,4 +79,8 @@ RSpec.describe LedgerSync::Ledgers::Client do
       expect(ret).to eq(mod::Update)
     end
   end
+
+  describe '.update_secrets_in_dotenv' do
+    it { expect(client).to respond_to(:update_secrets_in_dotenv) }
+  end
 end

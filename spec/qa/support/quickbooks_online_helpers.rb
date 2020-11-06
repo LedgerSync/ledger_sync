@@ -36,9 +36,9 @@ end
 RSpec.configure do |config|
   config.include QA::QuickBooksOnlineHelpers, qa: true, client: :quickbooks_online
   # config.before { quickbooks_online_client.refresh! }
-  config.around(:each, qa: true, client: :quickbooks_online) do |example|
-    example.run
-  ensure
-    quickbooks_online_client.update_secrets_in_dotenv
-  end
+  # config.around(:each, qa: true, client: :quickbooks_online) do |example|
+  #   example.run
+  # ensure
+  #   quickbooks_online_client.update_secrets_in_dotenv
+  # end
 end

@@ -28,6 +28,15 @@ module LedgerSync
   module Test
     module Support
       def self.setup(*paths_to_require)
+        # Dotenv
+        require 'dotenv'
+        Dotenv.load(
+          '.env.test.local',
+          '.env.test',
+          '.env'
+        )
+        require 'climate_control'
+
         require 'webmock/rspec'
         require 'simplecov'
         require 'coveralls'
