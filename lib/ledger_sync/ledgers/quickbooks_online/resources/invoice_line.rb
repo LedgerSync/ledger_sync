@@ -11,7 +11,7 @@ module LedgerSync
         attribute :Description, type: Type::String
 
         def name
-          description
+          self.Description
         end
       end
     end

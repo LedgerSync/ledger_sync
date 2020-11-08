@@ -23,7 +23,7 @@ module LedgerSync
         references_many :Line, to: PaymentLine
 
         def name
-          "Payment: #{amount} #{currency}"
+          "Payment: #{self.TotalAmt} #{self.Currency}"
         end
       end
     end

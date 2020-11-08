@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative 'account'
+require_relative 'ledger_class'
+
 module LedgerSync
   module Ledgers
     module QuickBooksOnline
