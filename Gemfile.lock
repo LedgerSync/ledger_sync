@@ -16,7 +16,6 @@ PATH
       pd_ruby
       resonad
       simply_serializable (>= 1.5.1)
-      stripe (~> 5.26.0)
 
 GEM
   remote: https://rubygems.org/
@@ -168,7 +167,7 @@ GEM
     overcommit (0.57.0)
       childprocess (>= 0.6.3, < 5)
       iniparse (~> 1.4)
-    parallel (1.19.2)
+    parallel (1.20.0)
     parser (2.7.2.0)
       ast (~> 2.4.1)
     pathutil (0.16.2)
@@ -234,7 +233,6 @@ GEM
     simply_serializable (1.5.1)
       fingerprintable (>= 1.2.1)
     socksify (1.7.1)
-    stripe (5.26.0)
     sync (0.5.0)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
@@ -242,7 +240,7 @@ GEM
     thread_safe (0.3.6)
     tins (1.26.0)
       sync
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     unicode-display_width (1.7.0)
     vcr (6.0.0)
@@ -250,7 +248,7 @@ GEM
       addressable
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    webmock (3.9.4)
+    webmock (3.9.5)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)

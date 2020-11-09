@@ -12,12 +12,12 @@ RSpec.describe LedgerSync::Resource do
   end
 
   it 'does not permit unknown attributes' do
-    expect { LedgerSync::Ledgers::Stripe::Customer.new(foo: :bar) }.to raise_error(NoMethodError)
+    expect { LedgerSync::Ledgers::TestLedger::Customer.new(foo: :bar) }.to raise_error(NoMethodError)
   end
 
   it 'keeps resources separate' do
-    customer1 = LedgerSync::Ledgers::Stripe::Customer.new(email: 'test@example.com')
-    customer2 = LedgerSync::Ledgers::Stripe::Customer.new
+    customer1 = LedgerSync::Ledgers::TestLedger::Customer.new(email: 'test@example.com')
+    customer2 = LedgerSync::Ledgers::TestLedger::Customer.new
     expect(customer1.email).to eq('test@example.com')
     expect(customer2.email).to be_nil
 
@@ -33,7 +33,7 @@ RSpec.describe LedgerSync::Resource do
     rescue NameError
       Object.const_set(
         class_name,
-        Class.new(LedgerSync::Ledgers::Stripe::Customer) do
+        Class.new(LedgerSync::Ledgers::TestLedger::Customer) do
           attribute :foo, type: LedgerSync::Type::String
           attribute :type, type: LedgerSync::Type::String
         end
@@ -48,8 +48,8 @@ RSpec.describe LedgerSync::Resource do
     it { expect(custom_resource_instance).to respond_to(:email) }
     it { expect(custom_resource_instance.email).to be_nil }
 
-    it { expect(custom_resource_instance).to respond_to(:phone_number) }
-    it { expect(custom_resource_instance.phone_number).to be_nil }
+    it { expect(custom_resource_instance).to respond_to(:date) }
+    it { expect(custom_resource_instance.date).to be_nil }
 
     it { expect(custom_resource_instance).to respond_to(:foo) }
     it { expect(custom_resource_instance.foo).to be_nil }
@@ -60,7 +60,7 @@ RSpec.describe LedgerSync::Resource do
 
   describe '#assign_attributes' do
     it do
-      resource = LedgerSync::Ledgers::Stripe::Customer.new
+      resource = LedgerSync::Ledgers::TestLedger::Customer.new
       expect(resource.ledger_id).to be_nil
       expect(resource.name).to be_nil
       resource.assign_attributes(ledger_id: 'foo', name: 'bar')
@@ -71,13 +71,15 @@ RSpec.describe LedgerSync::Resource do
 
   describe '#to_h' do
     it do
-      resource = LedgerSync::Ledgers::Stripe::Customer.new
+      resource = LedgerSync::Ledgers::TestLedger::Customer.new
       h = {
-        ledger_id: nil,
-        external_id: nil,
-        name: nil,
+        date: nil,
         email: nil,
-        phone_number: nil
+        external_id: nil,
+        ledger_id: nil,
+        name: nil,
+        subsidiaries: [],
+        subsidiary: nil
       }
       expect(resource.to_h).to eq(h)
     end
