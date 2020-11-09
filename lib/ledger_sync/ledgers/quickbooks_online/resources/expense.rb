@@ -28,7 +28,7 @@ module LedgerSync
         references_many :Line, to: ExpenseLine
 
         def amount
-          line_items.map(&:amount).sum
+          line_items.inject(0) { |sum, li| sum + li.Amount }
         end
 
         def name
