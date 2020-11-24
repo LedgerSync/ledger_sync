@@ -62,5 +62,4 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('pd_ruby', '>= 0')
   spec.add_runtime_dependency('resonad', '>= 0')
   spec.add_runtime_dependency('simply_serializable', '>= 1.5.1')
-  spec.add_runtime_dependency('stripe', '~> 5.26.0')
 end
