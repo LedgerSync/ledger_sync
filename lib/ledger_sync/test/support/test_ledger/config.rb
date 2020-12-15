@@ -10,4 +10,5 @@ args = {
 LedgerSync.register_ledger(:test_ledger, args) do |config|
   config.name = 'Test Ledger'
   config.add_alias :test
+  config.rate_limiting_wait_in_seconds = 60
 end

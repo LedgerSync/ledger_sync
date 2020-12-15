@@ -3,14 +3,10 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Operation do
-  let(:resource) { LedgerSync::Ledgers::NetSuite::Customer.new }
+  let(:resource) { LedgerSync::Ledgers::TestLedger::Customer.new }
   let(:client) do
-    LedgerSync::Ledgers::NetSuite::Client.new(
-      account_id: :account_id,
-      consumer_key: :consumer_key,
-      consumer_secret: :consumer_secret,
-      token_id: :token_id,
-      token_secret: :token_secret
+    LedgerSync::Ledgers::TestLedger::Client.new(
+      api_key: :api_key
     )
   end
 
