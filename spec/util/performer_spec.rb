@@ -2,12 +2,9 @@
 
 require 'spec_helper'
 
-support :netsuite_helpers
-
 RSpec.describe LedgerSync::Util::Performer do
-  include NetSuiteHelpers
-
-  let(:resource) { LedgerSync::Ledgers::NetSuite::Customer.new(external_id: 123) }
+  let(:resource) { LedgerSync::Ledgers::TestLedger::Customer.new(external_id: 123) }
+  let(:test_client) { LedgerSync::Ledgers::TestLedger::Client.new(api_key: :api_key) }
   let(:valid_contract) do
     Class.new(LedgerSync::Ledgers::Contract) do
       params do
@@ -25,16 +22,16 @@ RSpec.describe LedgerSync::Util::Performer do
   end
 
   let(:valid_operation) do
-    LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
-      client: netsuite_client,
+    LedgerSync::Ledgers::TestLedger::Customer::Operations::Create.new(
+      client: test_client,
       resource: resource,
       validation_contract: valid_contract
     )
   end
 
   let(:invalid_operation) do
-    LedgerSync::Ledgers::NetSuite::Customer::Operations::Create.new(
-      client: netsuite_client,
+    LedgerSync::Ledgers::TestLedger::Customer::Operations::Create.new(
+      client: test_client,
       resource: resource,
       validation_contract: invalid_contract
     )

@@ -2,12 +2,8 @@
 
 require 'spec_helper'
 
-support :netsuite_helpers
-
 RSpec.describe LedgerSync::Ledgers::Searcher do
-  include NetSuiteHelpers
-
-  let(:client) { netsuite_client }
+  let(:client) { LedgerSync::Ledgers::TestLedger::Client.new(api_key: :api_key) }
   let(:query) { 'qqq' }
 
   subject { described_class.new(client: client, query: query) }

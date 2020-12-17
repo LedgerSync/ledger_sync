@@ -3,44 +3,41 @@
 require 'spec_helper'
 
 RSpec.describe LedgerSync::Resource do
-  let(:currency) do
-    create(
-      :quickbooks_online_currency
-    )
-  end
-  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new }
+  let(:resource) { LedgerSync::Ledgers::TestLedger::Customer.new }
+  let(:subsidiary_1) { LedgerSync::Ledgers::TestLedger::Subsidiary.new }
+  let(:subsidiary_2) { LedgerSync::Ledgers::TestLedger::Subsidiary.new }
 
   it do
-    expect(LedgerSync::Ledgers::QuickBooksOnline::Expense.new(Currency: currency)).to be_changed
-    expense = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
+    expect(LedgerSync::Ledgers::TestLedger::Customer.new(name: 'test')).to be_changed
+    expense = LedgerSync::Ledgers::TestLedger::Customer.new
     expect(expense).not_to be_changed
   end
 
   context 'when references_many' do
     it '<<' do
-      e = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
-      eli = LedgerSync::Ledgers::QuickBooksOnline::ExpenseLine.new
-      expect(e.changes).to be_empty
-      expect(e.Line).not_to be_changed
-      expect(e.Line.changes).to eq({})
-      e.Line << eli
-      expect(e.Line).to be_changed
-      expect(e.Line.changes).to eq('value' => [[], [eli]])
-      expect(e).to be_changed
-      expect(e.changes).to have_key('Line')
-      e.save
-      expect(e.Line).not_to be_changed
-      expect(e).not_to be_changed
+      c = LedgerSync::Ledgers::TestLedger::Customer.new
+      s = LedgerSync::Ledgers::TestLedger::Subsidiary.new
+      expect(c.changes).to be_empty
+      expect(c.subsidiaries).not_to be_changed
+      expect(c.subsidiaries.changes).to eq({})
+      c.subsidiaries << s
+      expect(c.subsidiaries).to be_changed
+      expect(c.subsidiaries.changes).to eq('value' => [[], [s]])
+      expect(c).to be_changed
+      expect(c.changes).to have_key('subsidiaries')
+      c.save
+      expect(c.subsidiaries).not_to be_changed
+      expect(c).not_to be_changed
     end
   end
 
   context 'when references_one' do
     it '<<' do
-      e = LedgerSync::Ledgers::QuickBooksOnline::Expense.new
-      account = LedgerSync::Ledgers::QuickBooksOnline::Account.new
-      expect(e.changes).to be_empty
-      e.Account = account
-      expect(e.changes).to have_key('Account')
+      c = LedgerSync::Ledgers::TestLedger::Customer.new
+      s = LedgerSync::Ledgers::TestLedger::Subsidiary.new
+      expect(c.changes).to be_empty
+      c.subsidiary = s
+      expect(c.changes).to have_key('subsidiary')
     end
   end
 
@@ -72,14 +69,14 @@ RSpec.describe LedgerSync::Resource do
 
   it do
     expect(resource).not_to be_changed
-    expect(resource.DisplayName).to be_nil
-    resource.DisplayName = 'asdf'
-    expect(resource.DisplayName).to eq('asdf')
+    expect(resource.name).to be_nil
+    resource.name = 'asdf'
+    expect(resource.name).to eq('asdf')
     expect(resource).to be_changed
-    expect(resource.changes).to eq('DisplayName' => [nil, 'asdf'])
+    expect(resource.changes).to eq('name' => [nil, 'asdf'])
     resource.save
     expect(resource).not_to be_changed
-    expect(resource.DisplayName).to eq('asdf')
+    expect(resource.name).to eq('asdf')
     expect(resource.changes).to eq({})
   end
 end

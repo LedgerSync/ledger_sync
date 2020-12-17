@@ -87,11 +87,11 @@ RSpec.describe LedgerSync::Resource do
 
   describe '.operations' do
     it do
-      resource_class = LedgerSync::Ledgers::QuickBooksOnline::Customer
+      resource_class = LedgerSync::Ledgers::TestLedger::Customer
       h = {
-        create: LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create,
-        find: LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Find,
-        update: LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Update
+        create: LedgerSync::Ledgers::TestLedger::Customer::Operations::Create,
+        find: LedgerSync::Ledgers::TestLedger::Customer::Operations::Find,
+        update: LedgerSync::Ledgers::TestLedger::Customer::Operations::Update
       }
       expect(resource_class.operations).to eq(h)
     end

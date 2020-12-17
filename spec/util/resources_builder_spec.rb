@@ -156,68 +156,34 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
 
   it do
     h = {
-      'expense' => {
+      'customer' => {
         '3aab091a-1a8a-4c96-b86c-f145198da13d' => {
           data: {
-            Currency: 'foo',
-            PrivateNote: "Description: \nStatement Descriptor: \nRemittance Information: \nCreated by Matt Marcus at "\
-                  '2019-10-24 18:21:53 UTC',
-            PaymentType: 'cash',
-            TxnDate: Date.new(2019, 10, 25),
-            Entity: '928db55e-6552-4aaf-96d7-10c693922b1f',
-            Account: 'd51889bb-7c89-4138-83f3-1489b11b8cbd',
-            Line: [
-              'e337cbce-3765-4a82-8e6f-3f7b960f5d67'
-            ],
-            DocNumber: '3aab091a1a8a4c96b86cf'
+            name: 'John Doe',
+            email: 'test@test.com',
+            date: Date.new(2019, 10, 25),
+            subsidiary: 'd51889bb-7c89-4138-83f3-1489b11b8cbd'
           }
         }
       },
-      :vendor => {
-        '928db55e-6552-4aaf-96d7-10c693922b1f' => {
-          ledger_id: '83cf34d0-2ea3-4fe0-83ec-58e502ad6be1',
-          data: {}
-        }
-      },
-      :account => {
+      :subsidiary => {
         'd51889bb-7c89-4138-83f3-1489b11b8cbd' => {
           ledger_id: '36',
           data: {}
-        },
-        'bba2464e-cc79-4c25-9ff6-a732d53e6fa6' => {
-          ledger_id: '84',
-          data: {}
-        }
-      },
-      :expense_line => {
-        'e337cbce-3765-4a82-8e6f-3f7b960f5d67' => {
-          data: {
-            Amount: 2500,
-            Description: nil
-          }
-        }
-      },
-      :currency => {
-        'foo' => {
-          data: {
-            Name: 'United States Dollar',
-            Symbol: 'USD'
-          }
         }
       }
     }
 
     builder = described_class.new(
       data: h,
-      ledger: :quickbooks_online,
+      ledger: :test,
       root_resource_external_id: '3aab091a-1a8a-4c96-b86c-f145198da13d',
-      root_resource_type: 'expense'
+      root_resource_type: 'customer'
     )
 
     resource = builder.resource
 
-    expect(resource).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Expense)
-    expect(resource.Entity).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Vendor)
-    expect(resource.Currency).to be_a(LedgerSync::Ledgers::QuickBooksOnline::Currency)
+    expect(resource).to be_a(LedgerSync::Ledgers::TestLedger::Customer)
+    expect(resource.subsidiary).to be_a(LedgerSync::Ledgers::TestLedger::Subsidiary)
   end
 end
