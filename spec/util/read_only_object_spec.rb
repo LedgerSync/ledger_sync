@@ -2,11 +2,7 @@
 
 require 'spec_helper'
 
-support :netsuite_helpers
-
 RSpec.describe LedgerSync::Util::ReadOnlyObject do
-  include NetSuiteHelpers
-
   let!(:class_1) do
     Class.new(described_class) do
       attribute :foo, default: 1

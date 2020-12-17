@@ -19,12 +19,12 @@ RSpec.describe LedgerSync::Serialization::DeserializerAttribute do
     it do
       resource = attribute.send(
         :build_resource_value_from_nested_attributes,
-        LedgerSync::Ledgers::QuickBooksOnline::Payment.new,
+        LedgerSync::Ledgers::TestLedger::Customer.new,
         'asdf',
-        'Customer.ledger_id'.split('.')
+        'subsidiary.ledger_id'.split('.')
       )
 
-      expect(resource.Customer.ledger_id).to eq('asdf')
+      expect(resource.subsidiary.ledger_id).to eq('asdf')
     end
   end
 end

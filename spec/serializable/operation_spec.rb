@@ -2,14 +2,11 @@
 
 require 'spec_helper'
 
-support :serializable_shared_examples,
-        :quickbooks_online_helpers
+support :serializable_shared_examples
 
-RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create, type: :serializable do
-  include QuickBooksOnlineHelpers
-
-  let(:client) { quickbooks_online_client }
-  let(:resource) { LedgerSync::Ledgers::QuickBooksOnline::Customer.new(DisplayName: 'asdf') }
+RSpec.describe LedgerSync::Ledgers::TestLedger::Customer::Operations::Create, type: :serializable do
+  let(:client) { LedgerSync::Ledgers::TestLedger::Client.new(api_key: :api_key) }
+  let(:resource) { LedgerSync::Ledgers::TestLedger::Customer.new(name: 'asdf') }
   let(:operation) { new_resource }
 
   def new_resource
@@ -20,11 +17,11 @@ RSpec.describe LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Crea
   end
 
   it 'does not serialize dates' do
-    operation = LedgerSync::Ledgers::QuickBooksOnline::Expense::Operations::Find.new(
+    operation = LedgerSync::Ledgers::TestLedger::Customer::Operations::Find.new(
       client: client,
-      resource: LedgerSync::Ledgers::QuickBooksOnline::Expense.new(TxnDate: Date.today)
+      resource: LedgerSync::Ledgers::TestLedger::Customer.new(date: Date.today)
     )
-    expect(operation.send(:validation_data)[:TxnDate]).to be_a(Date)
+    expect(operation.send(:validation_data)[:date]).to be_a(Date)
   end
 
   it_behaves_like 'a serializable object'

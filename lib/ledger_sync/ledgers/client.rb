@@ -48,8 +48,12 @@ module LedgerSync
             )
           end
 
-          def searcher_for(*args)
-            self.class.searcher_for(*args)
+          def searcher_for(resource_type:, query: '')
+            self.class.searcher_for(
+              resource_type: resource_type,
+              client: self,
+              query: query
+            )
           end
 
           def searcher_class_for(*args)
@@ -106,8 +110,8 @@ module LedgerSync
             @root_key ||= config.root_key
           end
 
-          def searcher_for(resource_type:, query: '')
-            searcher_class_for(resource_type: resource_type).new(client: self, query: query)
+          def searcher_for(resource_type:, client:, query: '')
+            searcher_class_for(resource_type: resource_type).new(client: client, query: query)
           end
 
           def searcher_class_for(resource_type:)
