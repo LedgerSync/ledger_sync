@@ -11,9 +11,9 @@ PATH
       faraday_middleware
       fingerprintable (>= 1.2.1)
       nokogiri
-      openssl
+      openssl (~> 2.2.0)
       pd_ruby
-      rack
+      rack (~> 2.2.3)
       resonad
       simply_serializable (>= 1.5.1)
 
