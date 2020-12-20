@@ -243,7 +243,6 @@ GEM
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
     unicode-display_width (1.7.0)
-    vcr (6.0.0)
     wasabi (3.6.1)
       addressable
       httpi (~> 2.0)
@@ -275,7 +274,6 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec (~> 3.2)
   rubocop (= 1.0.0)
-  vcr
   webmock
 
 BUNDLED WITH
