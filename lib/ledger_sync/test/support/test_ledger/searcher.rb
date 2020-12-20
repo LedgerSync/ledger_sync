@@ -36,7 +36,7 @@ module LedgerSync
 
         def search
           super
-        rescue OAuth2::Error => e
+        rescue => e # rubocop:disable Style/RescueStandardError
           @response = e # TODO: Better catch/raise errors as LedgerSync::Error
           failure
         end

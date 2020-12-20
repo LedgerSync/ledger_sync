@@ -56,8 +56,9 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('faraday_middleware', '>= 0')
   spec.add_runtime_dependency('fingerprintable', '>= 1.2.1')
   spec.add_runtime_dependency('nokogiri', '>= 0')
-  spec.add_runtime_dependency('oauth2', '>= 0')
+  spec.add_runtime_dependency('openssl')
   spec.add_runtime_dependency('pd_ruby', '>= 0')
+  spec.add_runtime_dependency('rack')
   spec.add_runtime_dependency('resonad', '>= 0')
   spec.add_runtime_dependency('simply_serializable', '>= 1.5.1')
 end
