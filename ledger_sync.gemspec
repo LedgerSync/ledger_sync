@@ -55,7 +55,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('faraday-detailed_logger', '>= 0')
   spec.add_runtime_dependency('faraday_middleware', '>= 0')
   spec.add_runtime_dependency('fingerprintable', '>= 1.2.1')
-  spec.add_runtime_dependency('netsuite', '~> 0.8.6')
   spec.add_runtime_dependency('nokogiri', '>= 0')
   spec.add_runtime_dependency('oauth2', '>= 0')
   spec.add_runtime_dependency('pd_ruby', '>= 0')
