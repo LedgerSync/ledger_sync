@@ -4,7 +4,6 @@ require 'ledger_sync/test/support'
 
 LedgerSync::Test::Support.setup(:ledger_sync)
 
-support :vcr
 support :resource_helpers
 
 # Include test adaptor
