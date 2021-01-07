@@ -16,7 +16,7 @@ module LedgerSync
           end
 
           def operation_method
-            @operation_method ||= name.split('::').last.parameterize(separator: '_').to_sym
+            @operation_method ||= name.split('::').last.underscore.to_sym
           end
 
           def operations_module
