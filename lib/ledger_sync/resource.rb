@@ -38,7 +38,7 @@ module LedgerSync
       self
     end
 
-    def assign_attributes(**keywords)
+    def assign_attributes(keywords)
       keywords.each { |k, v| assign_attribute(k, v) }
       self
     end
