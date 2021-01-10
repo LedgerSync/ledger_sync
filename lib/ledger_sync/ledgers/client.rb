@@ -56,8 +56,8 @@ module LedgerSync
             )
           end
 
-          def searcher_class_for(*args)
-            self.class.searcher_class_for(*args)
+          def searcher_class_for(**args)
+            self.class.searcher_class_for(**args)
           end
 
           def url_for(*_args)
@@ -93,8 +93,8 @@ module LedgerSync
             {}
           end
 
-          def operation_class_for(*args)
-            Client.operation_class_for(*args)
+          def operation_class_for(**args)
+            Client.operation_class_for(**args)
           end
 
           def resource_from_ledger_type(type:, converter: nil)
