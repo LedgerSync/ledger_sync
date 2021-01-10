@@ -40,11 +40,11 @@ module LedgerSync
       end
 
       def failure
-        ValidationResult.Failure(validator: self)
+        ValidationResult.Failure(self)
       end
 
       def success
-        ValidationResult.Success(validator: self)
+        ValidationResult.Success(self)
       end
     end
   end
