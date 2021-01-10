@@ -3,12 +3,12 @@
 module LedgerSync
   module ResultBase
     module HelperMethods
-      def Success(value = nil, *args) # rubocop:disable Naming/MethodName
-        self::Success.new(value, *args)
+      def Success(value = nil, **args) # rubocop:disable Naming/MethodName
+        self::Success.new(value, **args)
       end
 
-      def Failure(error = nil, *args) # rubocop:disable Naming/MethodName
-        self::Failure.new(error, *args)
+      def Failure(error = nil, **args) # rubocop:disable Naming/MethodName
+        self::Failure.new(error, **args)
       end
     end
 
@@ -99,7 +99,7 @@ module LedgerSync
         end
       end
 
-      def initialize(validator:)
+      def initialize(validator)
         raise 'The argument must be a validator' unless validator.is_a?(Util::Validator)
 
         @validator = validator
