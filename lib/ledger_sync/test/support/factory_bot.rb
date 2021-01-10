@@ -84,7 +84,7 @@ end
 
 FactoryBot.define do
   skip_create
-  initialize_with { new(attributes) } # Allows initializing read-only attrs
+  initialize_with { new(**attributes) } # Allows initializing read-only attrs
 end
 
 module FactoryBot

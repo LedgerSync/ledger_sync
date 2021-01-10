@@ -19,7 +19,7 @@ module ResourceHelpers
         attributes = Array(attributes)
         attributes.each do |a|
           a = Array(a)
-          attribute a[0], { type: LedgerSync::Type::String }.merge(a[1] || {})
+          attribute a[0], **{ type: LedgerSync::Type::String }.merge(a[1] || {})
         end
 
         reference_class = args.fetch(:reference_class, LedgerSync::Resource)
@@ -28,14 +28,14 @@ module ResourceHelpers
         references_one = Array(references_one)
         references_one.each do |a|
           a = Array(a)
-          references_one a[0], { to: reference_class }.merge(a[1] || {})
+          references_one a[0], **{ to: reference_class }.merge(a[1] || {})
         end
 
         references_many = args.fetch(:references_many, [])
         references_many = Array(references_many)
         references_many.each do |a|
           a = Array(a)
-          references_many a[0], { to: reference_class }.merge(a[1] || {})
+          references_many a[0], **{ to: reference_class }.merge(a[1] || {})
         end
       end
     )

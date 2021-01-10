@@ -57,7 +57,7 @@ module LedgerSync
         # Initialize empty values
         resource_attributes.each_key { |e| instance_variable_set("@#{e}", nil) }
 
-        assign_attributes(data)
+        assign_attributes(**data)
 
         super()
       end
