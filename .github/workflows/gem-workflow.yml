@@ -1,5 +1,5 @@
 name: Test and Deploy
-on: [push, pull_request]
+on: [push]
 jobs:
   rubocop:
     strategy:
@@ -18,7 +18,6 @@ jobs:
           bundler-cache: true
       - run: bundle exec rubocop
   rspec:
-    environment: test
     strategy:
       matrix:
         ruby-version: [2.6.3, 2.6.6, 2.7.1]
