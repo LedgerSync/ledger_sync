@@ -3,7 +3,7 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   Exclude:
     - "documentation/site/_plugins/**/*"
-  TargetRubyVersion: 2.5.8
+  TargetRubyVersion: 2.6.6
   NewCops: enable
 
 Layout/LineLength:

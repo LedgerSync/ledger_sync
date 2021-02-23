@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name = 'ledger_sync'
   spec.version = LedgerSync.version
 
-  spec.required_ruby_version = '>= 2.5.8'
+  spec.required_ruby_version = '>= 2.6.6'
 
   # spec.required_rubygems_version = Gem::Requirement.new('>= 0') if spec.respond_to? :required_rubygems_version=
   spec.authors = ['Ryan Jackson']
