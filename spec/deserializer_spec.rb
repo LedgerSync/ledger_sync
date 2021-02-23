@@ -46,7 +46,7 @@ RSpec.describe LedgerSync::Deserializer do
   it { expect(described_class).to respond_to(:references_many) }
   it { expect(described_class).to respond_to(:references_one) }
 
-  describe '#serialize' do
+  describe '#deserialize' do
     it do
       h = {
         'email' => 'test_email',
@@ -106,6 +106,24 @@ RSpec.describe LedgerSync::Deserializer do
       dresource = deserializer_class.new.deserialize(hash: h, resource: resource)
       expect(dresource.account.ledger_id).to eq('adsf1')
       expect(dresource.ledger_class.ledger_id).to eq('asdf2')
+    end
+
+    it 'allows references many' do
+      resource = LedgerSync::Ledgers::TestLedger::Customer.new
+
+      deserializer_class = LedgerSync::Ledgers::TestLedger::Customer::Deserializer
+
+      h = {
+        'subsidiaries' => [
+          {
+            'name' => 'adsf1'
+          }
+        ]
+      }
+
+      dresource = deserializer_class.new.deserialize(hash: h, resource: resource)
+      expect(dresource.subsidiaries.count).to eq(1)
+      expect(dresource.subsidiaries.first.name).to eq('adsf1')
     end
 
     context 'with custom attributes' do
