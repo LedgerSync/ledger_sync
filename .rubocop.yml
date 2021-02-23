@@ -3,6 +3,7 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   Exclude:
     - "documentation/site/_plugins/**/*"
+    - "vendor/**/*"
   TargetRubyVersion: 2.6.6
   NewCops: enable
 
