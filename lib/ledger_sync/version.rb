@@ -4,10 +4,10 @@ module LedgerSync
   VERSION = '1.8.1'
 
   def self.version
-    if !ENV['CI'] || ENV.fetch('GITHUB_REF', '') != ''
-      VERSION
-    else
+    if ENV['PRE_RELEASE']
       "#{VERSION}.pre.#{ENV['GITHUB_RUN_NUMBER']}"
+    else
+      VERSION
     end
   end
 end

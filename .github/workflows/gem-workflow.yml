@@ -35,7 +35,6 @@ jobs:
       - name: rspec and report to coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ github.event_name == 'push' && secrets.COVERALLS_REPO_TOKEN }}
-          CI: true
         run: bundle exec rspec --order rand
   publish:
     runs-on: ubuntu-latest
