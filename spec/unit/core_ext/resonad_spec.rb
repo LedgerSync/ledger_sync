@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe Resonad do
-  describe Resonad::Success do
+class Resonad
+  RSpec.describe Success do
     describe 'raise_if_error' do
       it do
         r = described_class.new('asdf')
@@ -12,7 +12,7 @@ RSpec.describe Resonad do
     end
   end
 
-  describe Resonad::Failure do
+  RSpec.describe Failure do
     describe 'raise_if_error' do
       it do
         error = StandardError.new(message: 'asdf')
