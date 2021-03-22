@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module LedgerSync
   VERSION = '1.8.1'
 
@@ -11,3 +12,4 @@ module LedgerSync
     end
   end
 end
+# :nocov:
