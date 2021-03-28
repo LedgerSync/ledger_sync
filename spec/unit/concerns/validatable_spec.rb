@@ -3,34 +3,32 @@
 require 'spec_helper'
 
 module LedgerSync
-  module Test
-    class ValidatableTestNoValidate
-      include Validatable
-
-      attr_accessor :foo
+  RSpec.describe Validatable do
+    let(:non_validatable) do
+      Class.new do
+        include Validatable
+        attr_accessor :foo
+      end
     end
 
-    class ValidatableTest
-      include Validatable
+    let(:validatable) do
+      Class.new do
+        include Validatable
+        attr_accessor :foo
 
-      attr_accessor :foo
-
-      def validate
-        if foo == :bar
-          Result.Success
-        else
-          Result.Failure
+        def validate
+          if foo == :bar
+            Result.Success
+          else
+            Result.Failure
+          end
         end
       end
     end
-  end
-end
 
-module LedgerSync
-  RSpec.describe Validatable do
-    subject { Test::ValidatableTest.new }
+    subject { validatable.new }
 
-    it { expect { Test::ValidatableTestNoValidate.new.valid? }.to raise_error(NotImplementedError) }
+    it { expect { non_validatable.new.valid? }.to raise_error(NotImplementedError) }
 
     describe '#validate' do
       it do
@@ -57,4 +55,3 @@ module LedgerSync
     end
   end
 end
-
