@@ -56,15 +56,14 @@ module LedgerSync
         end
 
         RSpec.describe UnknownURLFormat do
-
           include_examples 'a required argument initializer' do
             let(:test_resource) do
               new_resource_class(
                 attributes: %i[test_key]
-              ).new(test_key: 'test_value',)
+              ).new(test_key: 'test_value')
             end
 
-            let(:let_args) { { client: test_ledger_client, resource: test_resource  } }
+            let(:let_args) { { client: test_ledger_client, resource: test_resource } }
           end
         end
       end
