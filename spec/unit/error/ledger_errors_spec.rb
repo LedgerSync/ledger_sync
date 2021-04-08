@@ -27,7 +27,9 @@ module LedgerSync
 
         RSpec.describe LedgerValidationError do
           it_should_behave_like 'a base error' do
-            let(:let_args) { { client: test_ledger_client, attribute: 'test attribute', validation: 'test validation' } }
+            let(:let_args) do
+              { client: test_ledger_client, attribute: 'test attribute', validation: 'test validation' }
+            end
           end
         end
 
@@ -50,7 +52,10 @@ module LedgerSync
           describe '.response' do
             it 'should respond to "response" when provided' do
               test_response = 'test response'
-              expect(described_class.new(client: test_ledger_client, response: test_response).response).to eq(test_response)
+              expect(described_class.new(
+                client: test_ledger_client,
+                response: test_response
+              ).response).to eq(test_response)
             end
           end
         end
