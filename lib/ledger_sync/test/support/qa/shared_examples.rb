@@ -7,7 +7,10 @@ RSpec.shared_examples 'a create' do |delete: true|
       resource: resource
     )
 
-    byebug if result.failure? # rubocop:disable Lint/Debugger
+    if result.failure?
+      pd result.response.response.body
+      byebug if ENV['DEBUG'] # rubocop:disable Lint/Debugger
+    end
 
     expect(result).to be_success
 
@@ -52,7 +55,11 @@ RSpec.shared_examples 'a find' do |delete: true|
       resource: resource
     )
 
-    byebug if result.failure? # rubocop:disable Lint/Debugger
+    if result.failure?
+      pd result.response.response.body
+      byebug if ENV['DEBUG'] # rubocop:disable Lint/Debugger
+    end
+
     result.raise_if_error
     expect(result).to be_success
     resource = result.resource
@@ -146,7 +153,10 @@ RSpec.shared_examples 'a searcher' do
   it do
     result = client.searcher_for(resource_type: resource.class.resource_module_str).search
 
-    byebug if result.failure? # rubocop:disable Lint/Debugger
+    if result.failure?
+      pd result.response.response.body
+      byebug if ENV['DEBUG'] # rubocop:disable Lint/Debugger
+    end
 
     expect(result).to be_success
   end
