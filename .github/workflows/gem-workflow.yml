@@ -55,7 +55,6 @@ jobs:
         with:
           ruby-version: 2.7.1
           bundler-cache: true
-      - name: Setup Env
       - name: Publish to RubyGems
         run: |
           mkdir -p $HOME/.gem
