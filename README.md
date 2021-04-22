@@ -24,3 +24,4 @@ A big thank you to our maintainers:
 - [@jozefvaclavik](https://github.com/jozefvaclavik)
 - [@SeanBolt](https://github.com/SeanBolt)
 - And the whole [Modern Treasury](https://www.moderntreasury.com) team
+
