@@ -39,17 +39,24 @@ module LedgerSync
 
         require 'webmock/rspec'
         require 'simplecov'
+        require 'simplecov-lcov'
         require 'coveralls'
+
+        SimpleCov::Formatter::LcovFormatter.config do |c|
+          c.report_with_single_file = true
+          c.single_report_path = 'coverage/lcov.info'
+        end
         Coveralls.wear!('rails')
 
         SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
           [
             Coveralls::SimpleCov::Formatter,
-            SimpleCov::Formatter::HTMLFormatter
+            SimpleCov::Formatter::HTMLFormatter,
+            SimpleCov::Formatter::LcovFormatter
           ]
         )
 
-        SimpleCov.start do
+        SimpleCov.start('rails') do
           add_filter 'lib/ledger_sync/util/debug.rb'
         end
 
