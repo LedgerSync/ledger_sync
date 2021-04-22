@@ -52,7 +52,7 @@ module LedgerSync
           [
             Coveralls::SimpleCov::Formatter,
             SimpleCov::Formatter::HTMLFormatter,
-            SimpleCov::Formatter::LcovFormatter,
+            SimpleCov::Formatter::LcovFormatter
           ]
         )
 
