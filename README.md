@@ -13,7 +13,7 @@
 [Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 **Table of Content**
-- [LedgerSync](ledgersync)	- [Join the Conversation](joinTheConversation)	- [Documentation](documentation)	- [License](license)	- [Maintainers](maintainers)- [Getting Started](gettingStarted)<a name="documentation" />
+- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)<a name="documentation" />
 
 ## Documentation
 
