@@ -10,8 +10,7 @@ File.open('../README.md', 'w+') do |output_file|
     file = File.open(file_path)
     output_file.write(file.read)
 
-    # Two lines between main sections.
-
+    # Add two line spaces between main sections.
     if next_file_name
       space_between_sections = [*("\n" unless next_file_name =~ /^\d{2}_\d{2}/), "\n", "\n"].join
       output_file.write(space_between_sections)
@@ -20,46 +19,53 @@ File.open('../README.md', 'w+') do |output_file|
 end
 
 # Table of content creator
-File.open('../README.md', 'r+') do |readme_file|
-  toc = {}
+readme_file = File.open('../README.md', 'r+')
+toc = {}
 
-  updated_lines = readme_file.readlines.map do |line|
-    next line unless line =~ /^\#{1,6}\s(\w|\s)*\n/
+updated_lines = readme_file.readlines.map do |line|
+  next line unless line =~ /^\#{1,6}\s(\w|\s)*\n/
 
-    name = line.match((/\s[\w|\s]*/))[0]
+  name = line.match((/\s[\w|\s]*/))[0]
 
-    throw 'Invalid Name Format' unless name
+  throw 'Invalid Name Format' unless name
 
-    name.strip!.downcase!
+  # name.strip!.downcase!
 
-    link_name = name.split(/\s/).reduce do |final, part|
-      part.capitalize
-      final << part.capitalize
-    end
-
-    if toc.key? link_name
-      #  increment last two digits for duplicate
-      while toc.key? link_name
-        link_name = toc[link_name]
-
-        last_digits =
-          begin
-            Integer(link_name[-2..-1])
-          rescue StandardError
-            0
-          end&.next
-
-        link_name = (last_digits > 1 ? link_name[0...-2] : link_name) << format('%02d', last_digits.to_s)
-      end
-    end
-
-    toc[link_name] = link_name
-
-    # Add tag for TOC
-    pp "<a name=\"#{link_name}\" />\n\n#{line}"
+  link_name = name.strip.downcase.split(/\s/).reduce do |final, part|
+    part.capitalize
+    final << part.capitalize
   end
 
-  # TODO: make table of content
+  if toc.key? link_name
+    #  increment last two digits for duplicate
+    while toc.key? link_name
+      link_name = toc[link_name][:link_name]
 
-  readme_file.write(updated_lines.join)
+      last_digits =
+        begin
+          Integer(link_name[-2..-1])
+        rescue StandardError
+          0
+        end&.next
+
+      link_name = (last_digits > 1 ? link_name[0...-2] : link_name) << format('%02d', last_digits.to_s)
+    end
+  end
+
+  toc[link_name] = {
+    link_name: link_name,
+    name: name.strip,
+    line: line
+  }
+  # Add tag for TOC
+  "<a name=\"#{link_name}\" />\n\n#{line}"
 end
+readme_file.close
+
+readme_file = File.open('../README.md', 'w')
+updated_lines.insert(10, "**Table of Content**\n", *toc.map do |k, v|
+  number_of_tabs = v[:line].split(' ')[0].count('#') - 1
+  tabs = "\t" * [number_of_tabs, 0].max
+  "#{tabs}- [#{v[:name]}](#{v[:link_name]})\r"
+end)
+readme_file.write(updated_lines.join)
