@@ -63,7 +63,7 @@ end
 readme_file.close
 
 readme_file = File.open('../README.md', 'w')
-updated_lines.insert(10, "**Table of Content**\n", *toc.map do |k, v|
+updated_lines.insert(10, "**Table of Content**\n", *toc.map do |_k, v|
   number_of_tabs = v[:line].split(' ')[0].count('#') - 1
   tabs = "\t" * [number_of_tabs, 0].max
   "#{tabs}- [#{v[:name]}](#{v[:link_name]})\r"
