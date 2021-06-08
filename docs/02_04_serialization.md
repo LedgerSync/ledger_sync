@@ -30,7 +30,7 @@ end
 
 ```
 
-### Serializers
+### Deserializers
 
 Deserializers take a hash and output a `Resource`. For example:
 
