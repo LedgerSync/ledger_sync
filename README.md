@@ -13,7 +13,7 @@
 [Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 **Table of Content**
-- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)			- [Manually save values](#manuallySaveValues)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)	- [Resources](#resources)		- [Overview](#overview02)		- [How to use](#howToUse01)		- [Available resources](#availableResources)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)		- [Overview](#overview03)		- [Serializers](#serializers01)		- [Serializers](#serializers01)		- [How to use](#howToUse02)
+- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)			- [Manually save values](#manuallySaveValues)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)	- [Resources](#resources)		- [Overview](#overview02)		- [How to use](#howToUse01)		- [Available resources](#availableResources)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)		- [Overview](#overview03)		- [Serializers](#serializers01)		- [Serializers](#serializers01)		- [How to use](#howToUse02)	- [Operations](#operations)		- [Contracts](#contracts)- [A valid case](#aValidCase)- [An invalid case](#anInvalidCase)	- [Searchers](#searchers)
 
 
 <a name="documentation" />
@@ -197,8 +197,8 @@ LedgerSync consists of the following high-level objects:
 - [Clients](#clients)
 - [Resources](#resources)
 - [Serialization](#serialization)
-- [Operations]()
-- [Searchers]()
+- [Operations](#operations)
+- [Searchers](#searchers)
 - [Results]()
 
 <a name="clients" />
@@ -375,3 +375,85 @@ customer.companyName # => "Test Company"
 
 Serializers and deserializers are automatically inferred by each operation based on the naming convention. It is
 possible to create your own serializers. Please see Customization for more.
+
+<a name="operations" />
+
+## Operations
+
+Each ledger defines operations that can be performed on specific resources (e.g. `Customer::Operations::Update`
+, `Payment::
+Operations::Create`). The operation defines two key things:
+
+- a `Contract` class which is used to validate the resource using the `dry-validation` gem
+- a `perform` instance method, which handles the actual API requests and response/error handling.
+
+> Note: Ledgers may support different operations for each resource type.
+
+<a name="contracts" />
+
+### Contracts
+
+Contracts are dry-validation schemas, which determine if an operation can be performed. You can create custom schemas
+and pass them to operations. Assuming you have an `operation_class` variable and `foo` is an attribute of a
+`custom_resource` (see above) that is required to be a string, you can implement it with the following:
+
+
+```ruby
+class CustomContract < LedgerSync::Ledgers::Contract
+  params do
+    required(:foo).filled(:string)
+  end
+end
+
+<a name="aValidCase" />
+
+# A valid case
+custom_resource = CustomResource.new(foo: 'asdf')
+op = operation_class.new(
+  client: client,
+  resource: resource,
+  validation_contract: CustomContract
+)
+op.valid? # => true
+
+<a name="anInvalidCase" />
+
+# An invalid case
+custom_resource = CustomResource.new(foo: nil)
+operation_class.new(
+  client: client,
+  resource: resource,
+  validation_contract: CustomContract
+)
+op.valid? # => false
+
+
+```
+
+<a name="searchers" />
+
+## Searchers
+
+Searchers are used to lookup and scan objects in the ledger. A searcher takes a `client`, _query_ string and optional `pagination` hash. For example, to search customer’s by name:
+
+```ruby
+searcher = LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher.new(
+  client: client # assuming this is defined,
+  query: 'test'
+)
+
+result = searcher.search # returns a LedgerSync::SearchResult
+
+if result.success?
+  resources = result.resources
+  # Do something with found resources
+else # result.failure?
+  raise result.error
+end
+
+# Different ledgers may use different pagination strategies.  In order
+# to get the next and previous set of results, you can use the following:
+next_searcher = searcher.next_searcher
+previous_searcher = searcher.previous_searcher
+
+```
