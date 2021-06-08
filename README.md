@@ -13,7 +13,7 @@
 [Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 **Table of Content**
-- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview)			- [Manually save values](#manuallySaveValues)		- [Summary](#summary)
+- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)			- [Manually save values](#manuallySaveValues)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)	- [Resources](#resources)		- [Overview](#overview02)		- [How to use](#howToUse01)		- [Available resources](#availableResources)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)
 
 
 <a name="documentation" />
@@ -177,4 +177,137 @@ That’s it! Assuming proper authentication values and valid values on the resou
 
 There are many other resources and operations that can be performed in QuickBooks Online. For a complete guide of these and other ledgers, visit the Reference.
 
+<a name="getHelp" />
 
+## Get Help
+
+There is a group of passionate maintainers happy to help you get started with LedgerSync. There are two main channels
+for discussing LedgerSync: [Github](https://github.com/LedgerSync/ledger_sync) and [Slack](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q).
+
+<a name="reportABug" />
+
+## Report a bug
+Please [open an issue on Github](https://www.github.com/LedgerSync/ledger_sync/issues/new) to report any bugs. Please check if the bug has previously been reported and comment on the open issue with your use case.
+
+<a name="architecture" />
+
+# Architecture
+
+LedgerSync consists of the following high-level objects:
+- [Clients]()
+- [Resources]()
+- [Serialization]()
+- [Operations]()
+- [Searchers]()
+- [Results]()
+
+<a name="clients" />
+
+## Clients
+
+<a name="overview01" />
+
+### Overview
+
+Clients handle the authentication and requests to the ledger. A ledger may have different authentication strategies, so
+clients will accept different arguments. For example, QuickBooks Online utilizes Oauth 2.0 while NetSuite offers Token
+Based Authentication. While similar, the required keys are different.
+
+<a name="howToUse" />
+
+### How to use
+
+Unless you are customizing LedgerSync, you will always pass an instantiated client to an object (e.g. an operation). The
+object will handle using the client as needed.
+
+As most clients implement basic request functionality (e.g. `get`, `put`, `post`, `delete`, etc.), you can call these
+methods directly to perform custom requests. Refer to the specific Client definitions for what parameters are permitted.
+
+<a name="gotchas" />
+
+### Gotchas
+
+#### Oauth 2.0
+
+Clients store the authentication details for the ledger. Given that Oauth 2.0 tokens can refresh during a request, these
+clients will handle saving credentials back to the client instance. Typically (though some clients offer more automated
+solutions), you will want to save any changes back to your database. You can use `client.ledger_attributes_to_save` to
+retrieve a hash of which attributes to save. Your code to do so could look like the following:
+
+```ruby
+1
+2
+3
+4
+# Assuming `client` is defined as an instance of a ledger Client class
+client.ledger_attributes_to_save.each do |attribute_to_save, value|
+  # Store value
+end
+
+```
+
+<a name="resources" />
+
+## Resources
+
+<a name="overview02" />
+
+### Overview
+
+Resources are named ruby objects (e.g. `Customer`, `Payment`, etc.) with strict attributes (e.g. `name`, `amount`, etc.)
+. LedgerSync provides resources specific to each ledger. While it is possible to create your own resources (see
+Customization for more details), this section refers to provided ledger-specific resources.
+
+The library strives to make each resource and attribute name match the ledger API. This naming convention will help you
+more readily match ledger documentation to LedgerSync resources.
+
+Every resource, regardless of ledger, implements a `ledger_id` and `external_id` attribute. The `ledger_id` is the ID
+given by the ledger, while the `external_id` is your internal ID for the resource.
+
+<a name="howToUse01" />
+
+### How to use
+
+Resources are primary used as the inputs and outputs of operations and searchers. A resource is passed to an operation
+along with a client. Once the operation is successfully performed, a duplicated and updated resource is returned.
+
+Resources have two layers of validation:
+
+1. The Resource
+2. Operations
+
+When instantiating a resource, validations are performed. These validations include class checks and, if necessary,
+value checks (e.g. enums). When performing an operation, validations are performed based on what attributes are required
+for the operation to be successful. For example, the `ledger_id` should be `nil` on `create`, but it should be present
+on
+`update`.
+
+<a name="availableResources" />
+
+### Available resources
+
+You can see all resources available for a given ledger by calling `resources` on the ledger’s Client like so:
+
+`LedgerSync::Ledgers::QuickBooksOnline::Client.resources`
+
+This returns a hash of resource types to classes, where the resource types are unique (e.g. `customer`, `vendor`, etc.).
+
+You can see all resources available in LedgerSync by calling `LedgerSync.resources`. This returns an array (note: not a
+hash as multiple ledgers have the same types) of resource classes that have been created inheriting the `LedgerSync::
+Resource` class.
+
+<a name="resourceAttributes" />
+
+### Resource Attributes
+
+Resources have defined attributes. Attributes are explicitly defined. An error is thrown if an unknown attribute is
+passed to it. You can retrieve the attributes of a resource by calling `Customer.attributes`.
+
+A subset of these `attributes` may be a `reference`, which is simply a special type of attribute that references another
+resource. You can retrieve the references of a resource by calling `Customer.references`.
+
+<a name="serialization" />
+
+## Serialization
+
+### O
