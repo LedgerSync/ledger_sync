@@ -13,7 +13,7 @@
 [Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 **Table of Content**
-- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)			- [Manually save values](#manuallySaveValues)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)	- [Resources](#resources)		- [Overview](#overview02)		- [How to use](#howToUse01)		- [Available resources](#availableResources)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)
+- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)			- [Manually save values](#manuallySaveValues)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)	- [Resources](#resources)		- [Overview](#overview02)		- [How to use](#howToUse01)		- [Available resources](#availableResources)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)		- [Overview](#overview03)		- [Serializers](#serializers01)		- [Serializers](#serializers01)		- [How to use](#howToUse02)
 
 
 <a name="documentation" />
@@ -194,9 +194,9 @@ Please [open an issue on Github](https://www.github.com/LedgerSync/ledger_sync/i
 # Architecture
 
 LedgerSync consists of the following high-level objects:
-- [Clients]()
-- [Resources]()
-- [Serialization]()
+- [Clients](#clients)
+- [Resources](#resources)
+- [Serialization](#serialization)
 - [Operations]()
 - [Searchers]()
 - [Results]()
@@ -310,4 +310,68 @@ resource. You can retrieve the references of a resource by calling `Customer.ref
 
 ## Serialization
 
-### O
+<a name="overview03" />
+
+### Overview
+
+LedgerSync leverages serialization and deserialization to convert resources into the necessary hash formats the ledger
+expects. Generally, each resource will have 1 serializer and 1 deserializer.
+
+<a name="serializers" />
+
+### Serializers
+
+Serializers take a `Resource` and output a hash. For example:
+
+```ruby
+customer = LedgerSync::Ledgers::NetSuite::Customer.new(
+  companyName: 'Test Company',
+  external_id: 'ext_123'
+)
+serializer = LedgerSync::Ledgers::NetSuite::Customer::Serializer.new
+serializer.serialize(resource: customer)
+# Sample output:
+# {
+#   "companyName" => "Test Company",
+#   "externalId" => "ext_123",
+#   "email" => nil,
+#   "phone" => nil,
+#   "firstName" => nil,
+#   "lastName" => nil,
+#   "subsidiary" => nil
+# }
+end
+
+```
+
+<a name="serializers01" />
+
+### Serializers
+
+Deserializers take a hash and output a `Resource`. For example:
+
+```ruby
+h = {
+  "companyName" => "Test Company",
+  "externalId" => "ext_123",
+  "email" => nil,
+  "id" => "987654321",
+  "phone" => nil,
+  "firstName" => nil,
+  "lastName" => nil,
+  "subsidiary" => nil
+}
+
+deserializer = LedgerSync::Ledgers::NetSuite::Customer::Deserializer.new
+customer = deserializer.deserialize(hash: h, resource: LedgerSync::Ledgers::NetSuite::Customer.new)
+customer.ledger_id # => "987654321"
+customer.companyName # => "Test Company"
+
+```
+
+<a name="howToUse02" />
+
+### How to use
+
+Serializers and deserializers are automatically inferred by each operation based on the naming convention. It is
+possible to create your own serializers. Please see Customization for more.
