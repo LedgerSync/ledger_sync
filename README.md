@@ -6,6 +6,7 @@
 [![Gem Version](https://badge.fury.io/rb/ledger_sync.svg)](https://badge.fury.io/rb/ledger_sync)
 [![Coverage Status](https://coveralls.io/repos/github/LedgerSync/ledger_sync/badge.svg?branch=master)](https://coveralls.io/github/LedgerSync/ledger_sync?branch=master)
 
+
 <a name="joinTheConversation" />
 
 ## Join the Conversation
@@ -39,9 +40,11 @@ A big thank you to our maintainers:
 - [@SeanBolt](https://github.com/SeanBolt)
 - And the whole [Modern Treasury](https://www.moderntreasury.com) team
 
+
 <a name="gettingStarted" />
 
 # Getting Started
+
 
 
 <a name="installation" />
@@ -67,6 +70,7 @@ Or install it yourself as:
 ```
 gem install ledger_sync
 ```
+
 
 <a name="quickStart" />
 
@@ -175,6 +179,7 @@ That’s it! Assuming proper authentication values and valid values on the resou
 
 There are many other resources and operations that can be performed in QuickBooks Online. For a complete guide of these and other ledgers, visit the Reference.
 
+
 <a name="getHelp" />
 
 ## Get Help
@@ -187,6 +192,7 @@ for discussing LedgerSync: [Github](https://github.com/LedgerSync/ledger_sync) a
 ## Report a bug
 Please [open an issue on Github](https://www.github.com/LedgerSync/ledger_sync/issues/new) to report any bugs. Please check if the bug has previously been reported and comment on the open issue with your use case.
 
+
 <a name="architecture" />
 
 # Architecture
@@ -198,6 +204,7 @@ LedgerSync consists of the following high-level objects:
 - [Operations](#operations)
 - [Searchers](#searchers)
 - [Results]()
+
 
 <a name="clients" />
 
@@ -238,6 +245,7 @@ client.ledger_attributes_to_save.each do |attribute_to_save, value|
   # Store value
 end
 ```
+
 
 ## Resources
 
@@ -290,6 +298,7 @@ passed to it. You can retrieve the attributes of a resource by calling `Customer
 
 A subset of these `attributes` may be a `reference`, which is simply a special type of attribute that references another
 resource. You can retrieve the references of a resource by calling `Customer.references`.
+
 
 <a name="serialization" />
 
@@ -359,6 +368,7 @@ customer.companyName # => "Test Company"
 Serializers and deserializers are automatically inferred by each operation based on the naming convention. It is
 possible to create your own serializers. Please see Customization for more.
 
+
 <a name="operations" />
 
 ## Operations
@@ -406,6 +416,7 @@ op.valid? # => false
 
 
 ```
+
 
 <a name="searchers" />
 
