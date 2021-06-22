@@ -4,7 +4,7 @@ Searchers are used to lookup and scan objects in the ledger. A searcher takes a 
 
 ```ruby
 searcher = LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher.new(
-  client: client # assuming this is defined,
+  client: client, # assuming this is defined,
   query: 'test'
 )
 

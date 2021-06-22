@@ -13,7 +13,7 @@
 [Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 **Table of Content**
-- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)			- [Manually save values](#manuallySaveValues)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)	- [Resources](#resources)		- [Overview](#overview02)		- [How to use](#howToUse01)		- [Available resources](#availableResources)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)		- [Overview](#overview03)		- [Serializers](#serializers01)		- [Serializers](#serializers01)		- [How to use](#howToUse02)	- [Operations](#operations)		- [Contracts](#contracts)- [A valid case](#aValidCase)- [An invalid case](#anInvalidCase)	- [Searchers](#searchers)
+- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)		- [Overview](#overview02)		- [Serializers](#serializers)		- [How to use](#howToUse01)	- [Operations](#operations)	- [Searchers](#searchers)
 
 
 <a name="documentation" />
@@ -161,8 +161,6 @@ client = LedgerSync::Ledgers::QuickBooksOnline::Client.new(
 
 ```
 
-<a name="manuallySaveValues" />
-
 #### Manually save values
 ```ruby
 result.operation.client.ledger_attributes_to_save.each do |key, value|
@@ -235,22 +233,13 @@ solutions), you will want to save any changes back to your database. You can use
 retrieve a hash of which attributes to save. Your code to do so could look like the following:
 
 ```ruby
-1
-2
-3
-4
 # Assuming `client` is defined as an instance of a ledger Client class
 client.ledger_attributes_to_save.each do |attribute_to_save, value|
   # Store value
 end
-
 ```
 
-<a name="resources" />
-
 ## Resources
-
-<a name="overview02" />
 
 ### Overview
 
@@ -263,8 +252,6 @@ more readily match ledger documentation to LedgerSync resources.
 
 Every resource, regardless of ledger, implements a `ledger_id` and `external_id` attribute. The `ledger_id` is the ID
 given by the ledger, while the `external_id` is your internal ID for the resource.
-
-<a name="howToUse01" />
 
 ### How to use
 
@@ -281,8 +268,6 @@ value checks (e.g. enums). When performing an operation, validations are perform
 for the operation to be successful. For example, the `ledger_id` should be `nil` on `create`, but it should be present
 on
 `update`.
-
-<a name="availableResources" />
 
 ### Available resources
 
@@ -310,7 +295,7 @@ resource. You can retrieve the references of a resource by calling `Customer.ref
 
 ## Serialization
 
-<a name="overview03" />
+<a name="overview02" />
 
 ### Overview
 
@@ -344,9 +329,7 @@ end
 
 ```
 
-<a name="serializers01" />
-
-### Serializers
+### Deserializers
 
 Deserializers take a hash and output a `Resource`. For example:
 
@@ -369,7 +352,7 @@ customer.companyName # => "Test Company"
 
 ```
 
-<a name="howToUse02" />
+<a name="howToUse01" />
 
 ### How to use
 
@@ -389,8 +372,6 @@ Operations::Create`). The operation defines two key things:
 
 > Note: Ledgers may support different operations for each resource type.
 
-<a name="contracts" />
-
 ### Contracts
 
 Contracts are dry-validation schemas, which determine if an operation can be performed. You can create custom schemas
@@ -405,8 +386,6 @@ class CustomContract < LedgerSync::Ledgers::Contract
   end
 end
 
-<a name="aValidCase" />
-
 # A valid case
 custom_resource = CustomResource.new(foo: 'asdf')
 op = operation_class.new(
@@ -415,8 +394,6 @@ op = operation_class.new(
   validation_contract: CustomContract
 )
 op.valid? # => true
-
-<a name="anInvalidCase" />
 
 # An invalid case
 custom_resource = CustomResource.new(foo: nil)
@@ -438,7 +415,7 @@ Searchers are used to lookup and scan objects in the ledger. A searcher takes a 
 
 ```ruby
 searcher = LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher.new(
-  client: client # assuming this is defined,
+  client: client, # assuming this is defined,
   query: 'test'
 )
 

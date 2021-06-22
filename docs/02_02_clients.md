@@ -24,13 +24,8 @@ solutions), you will want to save any changes back to your database. You can use
 retrieve a hash of which attributes to save. Your code to do so could look like the following:
 
 ```ruby
-1
-2
-3
-4
 # Assuming `client` is defined as an instance of a ledger Client class
 client.ledger_attributes_to_save.each do |attribute_to_save, value|
   # Store value
 end
-
 ```
