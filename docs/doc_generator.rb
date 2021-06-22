@@ -16,6 +16,8 @@ def write_all_segments_to_readme(path_to_readme, docs)
   end
 end
 
+# rubocop:disable Metrics/PerceivedComplexity
+# rubocop:disable Metrics/CyclomaticComplexity
 def generate_toc(path_to_readme, toc_insert_line = 11)
   readme_file = File.open(path_to_readme, 'r+')
   toc = {}
@@ -72,6 +74,8 @@ def generate_toc(path_to_readme, toc_insert_line = 11)
 
   readme_file.write(updated_lines.join)
 end
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/CyclomaticComplexity
 
 def make_readme(path_to_docs = __dir__, path_to_readme = File.join(__dir__, '../', 'README.md'))
   docs = Dir.glob("#{path_to_docs}/*.md").sort!
