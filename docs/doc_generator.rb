@@ -82,5 +82,3 @@ def make_readme(path_to_docs = __dir__, path_to_readme = File.join(__dir__, '../
   write_all_segments_to_readme(path_to_readme, docs)
   generate_toc(path_to_readme)
 end
-
-make_readme
