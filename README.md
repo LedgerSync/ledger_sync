@@ -1,4 +1,4 @@
-<a name="ledgersync" />
+<a name="ledger-sync" />
 
 # LedgerSync
 
@@ -7,29 +7,56 @@
 [![Coverage Status](https://coveralls.io/repos/github/LedgerSync/ledger_sync/badge.svg?branch=master)](https://coveralls.io/github/LedgerSync/ledger_sync?branch=master)
 
 
-<a name="joinTheConversation" />
+<a name="ledger-sync--join-the-conversation" />
 
 ## Join the Conversation
 
 [Click here](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q) to join our public Slack group.
 
 **Table of Content**
-- [LedgerSync](#ledgersync)	- [Join the Conversation](#joinTheConversation)	- [Documentation](#documentation)	- [License](#license)	- [Maintainers](#maintainers)- [Getting Started](#gettingStarted)	- [Installation](#installation)		- [Gemfile](#gemfile)		- [Directly](#directly)	- [Quick Start](#quickStart)		- [Overview](#overview01)		- [Summary](#summary)	- [Get Help](#getHelp)	- [Report a bug](#reportABug)- [Architecture](#architecture)	- [Clients](#clients)		- [Overview](#overview01)		- [How to use](#howToUse01)		- [Gotchas](#gotchas)		- [Resource Attributes](#resourceAttributes)	- [Serialization](#serialization)		- [Overview](#overview02)		- [Serializers](#serializers)		- [How to use](#howToUse01)	- [Operations](#operations)	- [Searchers](#searchers)
+- [LedgerSync](#ledger-sync)
+	- [Join the Conversation](#ledger-sync--join-the-conversation)
+	- [Documentation](#ledger-sync--documentation)
+	- [License](#ledger-sync--license)
+	- [Maintainers](#ledger-sync--maintainers)
+- [Getting Started](#getting-started)
+	- [Installation](#getting-started--installation)
+		- [Gemfile](#getting-started--installation--gemfile)
+		- [Directly](#getting-started--installation--directly)
+	- [Quick Start](#getting-started--quick-start)
+		- [Overview](#getting-started--quick-start--overview)
+		- [Summary](#getting-started--quick-start--summary)
+	- [Get Help](#getting-started--quick-start--get-help)
+	- [Report a bug](#getting-started--quick-start--report-a-bug)
+- [Architecture](#architecture)
+	- [Clients](#architecture--clients)
+		- [Overview](#architecture--clients--overview)
+		- [How to use](#architecture----clients--how-to-use)
+		- [Gotchas](#architecture--clients--gotchas)
+	- [Resources](#architecture--resources)
+		- [Resource Attributes](#architecture--clients--resource-attributes)
+	- [Serialization](#architecture--serialization)
+		- [Overview](#architecture--serialization--overview)
+		- [Serializers](#architecture--serialization--serializers)
+		- [Deserializers](#architecture--serialization--deserializers)
+		- [How to use](#architecture--serialization--how-to-use)
+	- [Operations](#architecture--operations)
+	- [Searchers](#architecture--searchers)
 
 
-<a name="documentation" />
+<a name="ledger-sync--documentation" />
 
 ## Documentation
 
 The most up-to-date documentation can be found at [www.ledgersync.dev](http://www.ledgersync.dev)
 
-<a name="license" />
+<a name="ledger-sync--license" />
 
 ## License
 
 The gem is available as open source under the terms of the licenses detailed in `LICENSE.txt`.
 
-<a name="maintainers" />
+<a name="ledger-sync--maintainers" />
 
 ## Maintainers
 
@@ -41,16 +68,15 @@ A big thank you to our maintainers:
 - And the whole [Modern Treasury](https://www.moderntreasury.com) team
 
 
-<a name="gettingStarted" />
+<a name="getting-started" />
 
 # Getting Started
 
 
-
-<a name="installation" />
+<a name="getting-started--installation" />
 
 ## Installation
-<a name="gemfile" />
+<a name="getting-started--installation--gemfile" />
 
 ### Gemfile
 Add this line to your application’s Gemfile:
@@ -63,7 +89,7 @@ And then execute:
 bundle
 ```
 
-<a name="directly" />
+<a name="getting-started--installation--directly" />
 
 ### Directly
 Or install it yourself as:
@@ -72,11 +98,11 @@ gem install ledger_sync
 ```
 
 
-<a name="quickStart" />
+<a name="getting-started--quick-start" />
 
 ## Quick Start
 
-<a name="overview" />
+<a name="getting-started--quick-start--overview" />
 
 ### Overview
 
@@ -172,7 +198,7 @@ result.operation.client.ledger_attributes_to_save.each do |key, value|
 end
 ```
 
-<a name="summary" />
+<a name="getting-started--quick-start--summary" />
 
 ### Summary
 That’s it! Assuming proper authentication values and valid values on the resource, this will result in a new customer being created in QuickBooks Online.
@@ -180,14 +206,14 @@ That’s it! Assuming proper authentication values and valid values on the resou
 There are many other resources and operations that can be performed in QuickBooks Online. For a complete guide of these and other ledgers, visit the Reference.
 
 
-<a name="getHelp" />
+<a name="getting-started--quick-start--get-help" />
 
 ## Get Help
 
 There is a group of passionate maintainers happy to help you get started with LedgerSync. There are two main channels
 for discussing LedgerSync: [Github](https://github.com/LedgerSync/ledger_sync) and [Slack](https://join.slack.com/t/ledger-sync/shared_invite/zt-e5nbl8qc-eOA~5k7bg3p16_l3J7OS~Q).
 
-<a name="reportABug" />
+<a name="getting-started--quick-start--report-a-bug" />
 
 ## Report a bug
 Please [open an issue on Github](https://www.github.com/LedgerSync/ledger_sync/issues/new) to report any bugs. Please check if the bug has previously been reported and comment on the open issue with your use case.
@@ -206,11 +232,11 @@ LedgerSync consists of the following high-level objects:
 - [Results]()
 
 
-<a name="clients" />
+<a name="architecture--clients" />
 
 ## Clients
 
-<a name="overview01" />
+<a name="architecture--clients--overview" />
 
 ### Overview
 
@@ -218,7 +244,7 @@ Clients handle the authentication and requests to the ledger. A ledger may have 
 clients will accept different arguments. For example, QuickBooks Online utilizes Oauth 2.0 while NetSuite offers Token
 Based Authentication. While similar, the required keys are different.
 
-<a name="howToUse" />
+<a name="architecture----clients--how-to-use" />
 
 ### How to use
 
@@ -228,7 +254,7 @@ object will handle using the client as needed.
 As most clients implement basic request functionality (e.g. `get`, `put`, `post`, `delete`, etc.), you can call these
 methods directly to perform custom requests. Refer to the specific Client definitions for what parameters are permitted.
 
-<a name="gotchas" />
+<a name="architecture--clients--gotchas" />
 
 ### Gotchas
 
@@ -246,6 +272,7 @@ client.ledger_attributes_to_save.each do |attribute_to_save, value|
 end
 ```
 
+<a name="architecture--resources" />
 
 ## Resources
 
@@ -289,7 +316,7 @@ You can see all resources available in LedgerSync by calling `LedgerSync.resourc
 hash as multiple ledgers have the same types) of resource classes that have been created inheriting the `LedgerSync::
 Resource` class.
 
-<a name="resourceAttributes" />
+<a name="architecture--clients--resource-attributes" />
 
 ### Resource Attributes
 
@@ -300,18 +327,18 @@ A subset of these `attributes` may be a `reference`, which is simply a special t
 resource. You can retrieve the references of a resource by calling `Customer.references`.
 
 
-<a name="serialization" />
+<a name="architecture--serialization" />
 
 ## Serialization
 
-<a name="overview02" />
+<a name="architecture--serialization--overview" />
 
 ### Overview
 
 LedgerSync leverages serialization and deserialization to convert resources into the necessary hash formats the ledger
 expects. Generally, each resource will have 1 serializer and 1 deserializer.
 
-<a name="serializers" />
+<a name="architecture--serialization--serializers" />
 
 ### Serializers
 
@@ -338,6 +365,8 @@ end
 
 ```
 
+<a name="architecture--serialization--deserializers" />
+
 ### Deserializers
 
 Deserializers take a hash and output a `Resource`. For example:
@@ -361,7 +390,7 @@ customer.companyName # => "Test Company"
 
 ```
 
-<a name="howToUse01" />
+<a name="architecture--serialization--how-to-use" />
 
 ### How to use
 
@@ -369,7 +398,7 @@ Serializers and deserializers are automatically inferred by each operation based
 possible to create your own serializers. Please see Customization for more.
 
 
-<a name="operations" />
+<a name="architecture--operations" />
 
 ## Operations
 
@@ -418,7 +447,7 @@ op.valid? # => false
 ```
 
 
-<a name="searchers" />
+<a name="architecture--searchers" />
 
 ## Searchers
 
