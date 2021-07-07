@@ -120,7 +120,7 @@ are using the QuickBooks Online ledger.
 > Note: Each ledger has different requirements for authentication. Please visit the ledger-specific pages to learn more.
 
 ```ruby
-client = LedgerSync::Ledgers::QuickBooksOnline::Client.new(
+client = LedgerSync::QuickBooksOnline::Client.new(
   access_token: access_token, # assuming this is defined
   client_id: ENV['QUICKBOOKS_ONLINE_CLIENT_ID'],
   client_secret: ENV['QUICKBOOKS_ONLINE_CLIENT_SECRET'],
@@ -137,7 +137,7 @@ use `Util::ResourcesBuilder` to create resources and relationships from a struct
 > Note: Resources are ledger-specific, meaning they may have different attributes and references compared to other ledgers. Please visit [the Reference](/reference) to learn about resource attributes.
 
 ```ruby
-resource = LedgerSync::Ledgers::QuickBooksOnline::Customer.new(
+resource = LedgerSync::QuickBooksOnline::Customer.new(
   DisplayName: 'Sample Customer',
   external_id: customer_external_id # A unique ID from your platform
 )
@@ -152,7 +152,7 @@ Operations automatically determine a `Serializer` and `Deserializer`. These seri
 from the ruby `Resource` in the format required by the ledger.
 
 ```ruby
-operation = LedgerSync::Ledgers::QuickBooksOnline::Customer::Operations::Create.new(
+operation = LedgerSync::QuickBooksOnline::Customer::Operations::Create.new(
   client: client,
   resource: resource
 )
@@ -180,7 +180,7 @@ If you want to disable this functionality, you can do so by setting `update_dote
 object:
 
 ```ruby
-client = LedgerSync::Ledgers::QuickBooksOnline::Client.new(
+client = LedgerSync::QuickBooksOnline::Client.new(
   access_token: access_token, # assuming this is defined
   client_id: ENV['QUICKBOOKS_ONLINE_CLIENT_ID'],
   client_secret: ENV['QUICKBOOKS_ONLINE_CLIENT_SECRET'],
@@ -345,11 +345,11 @@ expects. Generally, each resource will have 1 serializer and 1 deserializer.
 Serializers take a `Resource` and output a hash. For example:
 
 ```ruby
-customer = LedgerSync::Ledgers::NetSuite::Customer.new(
+customer = LedgerSync::NetSuite::Customer.new(
   companyName: 'Test Company',
   external_id: 'ext_123'
 )
-serializer = LedgerSync::Ledgers::NetSuite::Customer::Serializer.new
+serializer = LedgerSync::NetSuite::Customer::Serializer.new
 serializer.serialize(resource: customer)
 # Sample output:
 # {
@@ -383,7 +383,7 @@ h = {
   "subsidiary" => nil
 }
 
-deserializer = LedgerSync::Ledgers::NetSuite::Customer::Deserializer.new
+deserializer = LedgerSync::NetSuite::Customer::Deserializer.new
 customer = deserializer.deserialize(hash: h, resource: LedgerSync::Ledgers::NetSuite::Customer.new)
 customer.ledger_id # => "987654321"
 customer.companyName # => "Test Company"
@@ -419,7 +419,7 @@ and pass them to operations. Assuming you have an `operation_class` variable and
 
 
 ```ruby
-class CustomContract < LedgerSync::Ledgers::Contract
+class CustomContract < LedgerSync::Contract
   params do
     required(:foo).filled(:string)
   end
@@ -454,7 +454,7 @@ op.valid? # => false
 Searchers are used to lookup and scan objects in the ledger. A searcher takes a `client`, _query_ string and optional `pagination` hash. For example, to search customer’s by name:
 
 ```ruby
-searcher = LedgerSync::Ledgers::QuickBooksOnline::Customer::Searcher.new(
+searcher = LedgerSync::QuickBooksOnline::Customer::Searcher.new(
   client: client, # assuming this is defined,
   query: 'test'
 )
