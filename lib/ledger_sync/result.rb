@@ -24,6 +24,12 @@ module LedgerSync
   end
 
   class Result
+    module ResultTypeBase
+      def initialize(*args, **keywords) # rubocop:disable Lint/UnusedMethodArgument
+        super(*args)
+      end
+    end
+
     include ResultBase
   end
 

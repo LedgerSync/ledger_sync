@@ -45,11 +45,7 @@ require 'ledger_sync/util/string_helpers'
 require 'ledger_sync/util/mixins/delegate_iterable_methods_mixin'
 require 'ledger_sync/util/mixins/resource_registerable_mixin'
 require 'ledger_sync/util/mixins/dupable_mixin'
-if RUBY_VERSION < '2.7.0'
-  require 'ledger_sync/result_legacy'
-else
-  require 'ledger_sync/result'
-end
+require 'ledger_sync/result'
 require 'ledger_sync/operation'
 require 'ledger_sync/resource_adaptor'
 
