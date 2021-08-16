@@ -3,12 +3,12 @@
 module LedgerSync
   module ResultBase
     module HelperMethods
-      def Success(value = nil, **keywords) # rubocop:disable Naming/MethodName
-        self::Success.new(value, **keywords)
+      def Success(value = nil, *args, **keywords) # rubocop:disable Naming/MethodName
+        self::Success.new(value, *args, **keywords)
       end
 
-      def Failure(error = nil, **keywords) # rubocop:disable Naming/MethodName
-        self::Failure.new(error, **keywords)
+      def Failure(error = nil, *args, **keywords) # rubocop:disable Naming/MethodName
+        self::Failure.new(error, *args, **keywords)
       end
     end
 
