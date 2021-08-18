@@ -72,9 +72,9 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
     converted_args = args.transform_values do |v|
       case v
       when Array
-        v.map { |e| sub_resource_class.new(e) }
+        v.map { |e| sub_resource_class.new(**e) }
       when Hash
-        sub_resource_class.new(v)
+        sub_resource_class.new(**v)
       else
         v
       end
@@ -85,7 +85,7 @@ RSpec.describe LedgerSync::Util::ResourceConverter do
       reference_class: sub_resource_class,
       references_one: args.select { |_, v| v.is_a?(Hash) }.keys,
       references_many: args.select { |_, v| v.is_a?(Array) }.keys
-    ).new(converted_args)
+    ).new(**converted_args)
   end
 
   let(:destination_hash) do
