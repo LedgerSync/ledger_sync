@@ -44,9 +44,9 @@ module LedgerSync
       end
 
       def initialize(*args, **keywords)
-        @operation = keywords[:operation]
-        @resource = keywords[:resource]
-        @response = keywords[:response]
+        @operation = keywords.fetch(:operation)
+        @resource = keywords.fetch(:resource)
+        @response = keywords.fetch(:response)
         super(*args)
       end
     end
