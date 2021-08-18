@@ -3,12 +3,12 @@
 module LedgerSync
   module ResultBase
     module HelperMethods
-      def Success(value = nil, *args) # rubocop:disable Naming/MethodName
-        self::Success.new(value, *args)
+      def Success(value = nil, *args, **keywords) # rubocop:disable Naming/MethodName
+        self::Success.new(value, *args, **keywords)
       end
 
-      def Failure(error = nil, *args) # rubocop:disable Naming/MethodName
-        self::Failure.new(error, *args)
+      def Failure(error = nil, *args, **keywords) # rubocop:disable Naming/MethodName
+        self::Failure.new(error, *args, **keywords)
       end
     end
 
@@ -24,6 +24,12 @@ module LedgerSync
   end
 
   class Result
+    module ResultTypeBase
+      def initialize(*args, **keywords) # rubocop:disable Lint/UnusedMethodArgument
+        super(*args)
+      end
+    end
+
     include ResultBase
   end
 
@@ -37,10 +43,10 @@ module LedgerSync
         end
       end
 
-      def initialize(*args, operation:, resource:, response:)
-        @operation = operation
-        @resource = resource
-        @response = response
+      def initialize(*args, **keywords)
+        @operation = keywords.fetch(:operation)
+        @resource = keywords.fetch(:resource)
+        @response = keywords.fetch(:response)
         super(*args)
       end
     end
@@ -63,10 +69,10 @@ module LedgerSync
         end
       end
 
-      def initialize(*args, searcher:, **keywords)
+      def initialize(*args, searcher:, **keywords) # rubocop:disable Lint/UnusedMethodArgument
         @resources = searcher.resources
         @searcher = searcher
-        super(*args, **keywords)
+        super(*args)
       end
 
       def next_searcher
@@ -99,7 +105,7 @@ module LedgerSync
         end
       end
 
-      def initialize(validator:)
+      def initialize(validator, **keywords) # rubocop:disable Lint/UnusedMethodArgument
         raise 'The argument must be a validator' unless validator.is_a?(Util::Validator)
 
         @validator = validator
