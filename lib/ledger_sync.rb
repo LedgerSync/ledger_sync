@@ -47,7 +47,6 @@ require 'ledger_sync/util/mixins/resource_registerable_mixin'
 require 'ledger_sync/util/mixins/dupable_mixin'
 require 'ledger_sync/result'
 require 'ledger_sync/operation'
-require 'ledger_sync/resource_adaptor'
 
 Gem.find_files('ledger_sync/type/**/*.rb').each { |path| require path }
 Gem.find_files('ledger_sync/serialization/type/**/*.rb').each { |path| require path }
