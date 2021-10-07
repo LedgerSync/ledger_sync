@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (2.2.1)
+    ledger_sync (2.2.2)
       activemodel
       colorize
       dry-schema (~> 1.5.4)
