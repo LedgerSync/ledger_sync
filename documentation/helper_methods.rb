@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 def green(str)
-  puts str.colorize(:green)
+  puts Rainbow(str).green
 end
 
 def yellow(str)
-  puts str.colorize(:yellow)
+  puts Rainbow(str).yellow
 end
 
 def red(str)
-  puts str.colorize(:red)
+  puts Rainbow(str).red
 end
 
 def nl

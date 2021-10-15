@@ -12,7 +12,7 @@ gemfile do
   gem 'simply_serializable'
   gem 'ledger_sync', path: '../'
   gem 'pd_ruby'
-  gem 'colorize'
+  gem 'rainbow'
   gem 'byebug'
 end
 
