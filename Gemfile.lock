@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (2.2.2)
+    ledger_sync (2.2.3)
       activemodel
       dry-schema (~> 1.5.4)
       dry-validation (~> 1.5.6)
@@ -112,7 +112,7 @@ GEM
     faraday-net_http_persistent (1.2.0)
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
-    faraday_middleware (1.1.0)
+    faraday_middleware (1.2.0)
       faraday (~> 1.0)
     ffi (1.15.3)
     fingerprintable (1.2.1)
@@ -123,6 +123,7 @@ GEM
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
+    ipaddr (1.2.2)
     jekyll (4.2.0)
       addressable (~> 2.4)
       colorator (~> 1.0)
@@ -166,7 +167,8 @@ GEM
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
-    openssl (2.2.0)
+    openssl (2.2.1)
+      ipaddr
     overcommit (0.57.0)
       childprocess (>= 0.6.3, < 5)
       iniparse (~> 1.4)
@@ -178,7 +180,7 @@ GEM
     pd_ruby (0.2.3)
       colorize
     public_suffix (4.0.6)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rainbow (3.0.0)
     rake (13.0.6)
