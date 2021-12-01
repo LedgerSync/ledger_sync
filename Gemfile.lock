@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    ledger_sync (2.3.0)
+    ledger_sync (2.3.1)
       activemodel
-      dry-schema (~> 1.5.4)
-      dry-validation (~> 1.5.6)
+      dry-schema
+      dry-validation
       faraday
       faraday-detailed_logger
       faraday_middleware
@@ -64,21 +64,20 @@ GEM
     dry-logic (1.2.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.5, >= 0.5)
-    dry-schema (1.5.6)
+    dry-schema (1.6.2)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.8, >= 0.8.3)
-      dry-core (~> 0.4)
-      dry-equalizer (~> 0.2)
+      dry-core (~> 0.5, >= 0.5)
       dry-initializer (~> 3.0)
       dry-logic (~> 1.0)
-      dry-types (~> 1.4)
+      dry-types (~> 1.5)
     dry-types (1.5.1)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.3)
       dry-core (~> 0.5, >= 0.5)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
-    dry-validation (1.5.6)
+    dry-validation (1.6.0)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.7, >= 0.7.1)
       dry-core (~> 0.4)
