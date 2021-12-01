@@ -10,7 +10,7 @@ module LedgerSync
       def initialize(args = {})
         @values = args.fetch(:values)
 
-        super(args.except(:values))
+        super(**args.except(:values))
       end
 
       def assert_valid(args = {})
