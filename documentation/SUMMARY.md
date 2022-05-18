@@ -10,3 +10,4 @@
     * [Clients](architecture/01--clients.md)
     * [Resources](architecture/02--resources.md)
     * [Serialization](architecture/03--serialization.md)
+    * [Operations](architecture/04--operations.md)
