@@ -1,0 +1,434 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Serialization · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-code/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="04--operations.html" />
+    
+    
+    <link rel="prev" href="02--resources.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    Getting Started
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../getting-started/01--installation.html">
+            
+                <a href="../getting-started/01--installation.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../getting-started/02--quick-start.html">
+            
+                <a href="../getting-started/02--quick-start.html">
+            
+                    
+                    Quick Start
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../getting-started/03--get-help.html">
+            
+                <a href="../getting-started/03--get-help.html">
+            
+                    
+                    Get Help
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../getting-started/04--report-a-bug.html">
+            
+                <a href="../getting-started/04--report-a-bug.html">
+            
+                    
+                    Report a bug
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Architecture
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="01--clients.html">
+            
+                <a href="01--clients.html">
+            
+                    
+                    Clients
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="02--resources.html">
+            
+                <a href="02--resources.html">
+            
+                    
+                    Resources
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3" data-path="03--serialization.html">
+            
+                <a href="03--serialization.html">
+            
+                    
+                    Serialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="04--operations.html">
+            
+                <a href="04--operations.html">
+            
+                    
+                    Operations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="05--searchers.html">
+            
+                <a href="05--searchers.html">
+            
+                    
+                    Searchers
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Serialization</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="serializers">Serializers</h1>
+<p>Serializers take a <a href="02--resources.html">Resource</a> and output a hash. For example:</p>
+<pre><code class="lang-ruby">customer = <span class="hljs-symbol">LedgerSync:</span><span class="hljs-symbol">:NetSuite</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Customer</span>.new(
+  <span class="hljs-symbol">companyName:</span> <span class="hljs-string">&apos;Test Company&apos;</span>,
+  <span class="hljs-symbol">external_id:</span> <span class="hljs-string">&apos;ext_123&apos;</span>
+)
+serializer = <span class="hljs-symbol">LedgerSync:</span><span class="hljs-symbol">:NetSuite</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Customer</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Serializer</span>.new
+serializer.serialize(<span class="hljs-symbol">resource:</span> customer)
+<span class="hljs-comment"># Sample output:</span>
+<span class="hljs-comment"># {</span>
+<span class="hljs-comment">#   &quot;companyName&quot; =&gt; &quot;Test Company&quot;,</span>
+<span class="hljs-comment">#   &quot;externalId&quot; =&gt; &quot;ext_123&quot;,</span>
+<span class="hljs-comment">#   &quot;email&quot; =&gt; nil,</span>
+<span class="hljs-comment">#   &quot;phone&quot; =&gt; nil,</span>
+<span class="hljs-comment">#   &quot;firstName&quot; =&gt; nil,</span>
+<span class="hljs-comment">#   &quot;lastName&quot; =&gt; nil,</span>
+<span class="hljs-comment">#   &quot;subsidiary&quot; =&gt; nil</span>
+<span class="hljs-comment"># }</span>
+<span class="hljs-keyword">end</span>
+</code></pre>
+<hr>
+<h1 id="deserializers">Deserializers</h1>
+<p>Deserializers take a hash and output a <code>Resource</code>. For example:</p>
+<pre><code class="lang-ruby">h = {
+  <span class="hljs-string">&quot;companyName&quot;</span> =&gt; <span class="hljs-string">&quot;Test Company&quot;</span>,
+  <span class="hljs-string">&quot;externalId&quot;</span> =&gt; <span class="hljs-string">&quot;ext_123&quot;</span>,
+  <span class="hljs-string">&quot;email&quot;</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-string">&quot;id&quot;</span> =&gt; <span class="hljs-string">&quot;987654321&quot;</span>,
+  <span class="hljs-string">&quot;phone&quot;</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-string">&quot;firstName&quot;</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-string">&quot;lastName&quot;</span> =&gt; <span class="hljs-keyword">nil</span>,
+  <span class="hljs-string">&quot;subsidiary&quot;</span> =&gt; <span class="hljs-keyword">nil</span>
+}
+deserializer = <span class="hljs-symbol">LedgerSync:</span><span class="hljs-symbol">:NetSuite</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Customer</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Deserializer</span>.new
+customer = deserializer.deserialize(<span class="hljs-symbol">hash:</span> h, <span class="hljs-symbol">resource:</span> <span class="hljs-symbol">LedgerSync:</span><span class="hljs-symbol">:Ledgers</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:NetSuite</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:Customer</span>.new)
+customer.ledger_id <span class="hljs-comment"># =&gt; &quot;987654321&quot;</span>
+customer.companyName <span class="hljs-comment"># =&gt; &quot;Test Company&quot;</span>
+</code></pre>
+<hr>
+<h1 id="how-to-use">How to use</h1>
+<p>Serializers and deserializers are automatically inferred by each operation based on the naming convention. It is
+possible to create your own serializers. Please see Customization for more.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="02--resources.html" class="navigation navigation-prev " aria-label="Previous page: Resources">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="04--operations.html" class="navigation navigation-next " aria-label="Next page: Operations">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Serialization","level":"1.3.3","depth":2,"next":{"title":"Operations","level":"1.3.4","depth":2,"path":"architecture/04--operations.md","ref":"architecture/04--operations.md","articles":[]},"previous":{"title":"Resources","level":"1.3.2","depth":2,"path":"architecture/02--resources.md","ref":"architecture/02--resources.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["code"],"pluginsConfig":{"code":{"copyButtons":true},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"architecture/03--serialization.md","mtime":"2022-05-18T07:23:32.229Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-05-18T07:26:07.005Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-code/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
