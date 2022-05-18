@@ -8,3 +8,4 @@
 
 * [Architecture](architecture/README.md)
     * [Clients](architecture/01--clients.md)
+    * [Resources](architecture/02--resources.md)
