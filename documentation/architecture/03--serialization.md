@@ -44,3 +44,10 @@ customer = deserializer.deserialize(hash: h, resource: LedgerSync::Ledgers::NetS
 customer.ledger_id # => "987654321"
 customer.companyName # => "Test Company"
 ```
+
+---
+
+# How to use
+
+Serializers and deserializers are automatically inferred by each operation based on the naming convention. It is
+possible to create your own serializers. Please see Customization for more.
