@@ -4,5 +4,5 @@ LedgerSync consists of the following high-level objects:
 - [Resources](02--resources.md)
 - [Serialization](03--serialization.md)
 - [Operations](04--operations.md)
-- [Searchers](#searchers)
+- [Searchers](05--searchers.md)
 - [Results]()

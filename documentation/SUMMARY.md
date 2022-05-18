@@ -11,3 +11,4 @@
     * [Resources](architecture/02--resources.md)
     * [Serialization](architecture/03--serialization.md)
     * [Operations](architecture/04--operations.md)
+    * [Searchers](architecture/05--searchers.md)
