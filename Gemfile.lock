@@ -10,7 +10,7 @@ PATH
       faraday_middleware
       fingerprintable (>= 1.2.1)
       nokogiri
-      openssl (~> 2.2.0)
+      openssl (>= 2.2.0, < 4)
       pd_ruby
       rack (~> 2.2.3)
       rainbow (~> 3.0)
@@ -170,7 +170,7 @@ GEM
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
-    openssl (2.2.1)
+    openssl (3.0.0)
       ipaddr
     overcommit (0.57.0)
       childprocess (>= 0.6.3, < 5)
