@@ -19,7 +19,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: true
+          # bundler-cache: true
       - run: bundle exec rubocop
   rspec:
     strategy:
@@ -34,8 +34,8 @@ jobs:
       - name: Ruby Setup and Bundle
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: true
+          ruby-version: ${{ matrix.ruby -version }}
+          # bundler-cache: true
       - name: rspec and report to coveralls
         run: bundle exec rspec --order rand
       - name: Coveralls
@@ -58,7 +58,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.1
-          bundler-cache: true
+          # bundler-cache: true
       - name: Publish to RubyGems
         run: |
           mkdir -p $HOME/.gem
