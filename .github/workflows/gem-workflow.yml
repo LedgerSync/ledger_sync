@@ -19,6 +19,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+          run: |
+            gem install bundler
+            bundle update
+            bundle install
       - run: bundle exec rubocop
   rspec:
     strategy:
@@ -34,6 +38,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby-version }}
+          run: |
+            gem install bundler
+            bundle update
+            bundle install
       - name: rspec and report to coveralls
         run: bundle exec rspec --order rand
       - name: Coveralls
