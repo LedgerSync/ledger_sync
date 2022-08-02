@@ -45,19 +45,7 @@ header:
     url: "/reference"
     type: link
     has_subnav: true
-    subnav_links:
-    - label: NetSuite REST
-      url: reference/netsuite
-      type: link
-    - label: NetSuite SOAP
-      url: reference/netsuite_soap
-      type: link
-    - label: QuickBooks Online
-      url: reference/quickbooks_online
-      type: link
-    - label: Stripe
-      url: reference/stripe
-      type: link
+    subnav_links: []
   - label: Blog
     url: "/blog"
     type: link
