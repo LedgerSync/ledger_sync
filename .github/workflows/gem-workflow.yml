@@ -11,8 +11,8 @@ jobs:
         # ruby-version: [2.7.6, 3.0.5]
         os: [ubuntu-latest, macos-latest]
         # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
-        ruby: ['2.7', '3.0', '3.1', head]
-    runs-on: [ubuntu-latest]
+        ruby-version: ['2.7', '3.0', '3.1', head]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,8 +34,8 @@ jobs:
         # ruby-version: [2.7.6, 3.0.5]
         os: [ubuntu-latest, macos-latest]
         # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
-        ruby: ['2.7', '3.0', '3.1', head]
-    runs-on: [ubuntu-latest]
+        ruby-version: ['2.7', '3.0', '3.1', head]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
         with:
