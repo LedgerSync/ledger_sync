@@ -8,9 +8,7 @@ jobs:
   rubocop:
     strategy:
       matrix:
-        # ruby-version: [2.7.6, 3.0.5]
         os: [ubuntu-latest]
-        # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
         ruby-version: ['2.7', '3.0']
     runs-on: ${{ matrix.os }}
     steps:
@@ -31,9 +29,7 @@ jobs:
   rspec:
     strategy:
       matrix:
-        # ruby-version: [2.7.6, 3.0.5]
         os: [ubuntu-latest]
-        # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
         ruby-version: ['2.7', '3.0']
     runs-on: ${{ matrix.os }}
     steps:
