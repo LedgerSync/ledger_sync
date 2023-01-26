@@ -38,6 +38,11 @@ GEM
     climate_control (1.2.0)
     colorize (0.8.1)
     concurrent-ruby (1.2.0)
+    coveralls_reborn (0.26.0)
+      simplecov (~> 0.22.0)
+      term-ansicolor (~> 1.7)
+      thor (~> 1.2)
+      tins (~> 1.32)
     crack (0.4.5)
       rexml
     diff-lcs (1.5.0)
@@ -172,6 +177,12 @@ GEM
     simplecov_json_formatter (0.1.4)
     simply_serializable (1.5.1)
       fingerprintable (>= 1.2.1)
+    sync (0.5.0)
+    term-ansicolor (1.7.1)
+      tins (~> 1.0)
+    thor (1.2.1)
+    tins (1.32.1)
+      sync
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.8.0)
@@ -191,6 +202,7 @@ DEPENDENCIES
   bundler (~> 2.1)
   byebug
   climate_control
+  coveralls_reborn
   factory_bot (~> 6.1.0)
   ledger_sync!
   overcommit (~> 0.57.0)
