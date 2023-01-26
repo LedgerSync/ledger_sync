@@ -103,13 +103,12 @@ module LedgerSync
 
         # Results
 
-        def failure(error, resource: nil)
-          @response = error
+        def failure(error, resource: nil, response: nil)
           @result = LedgerSync::OperationResult.Failure(
             error,
             operation: self,
             resource: resource,
-            response: error
+            response: response
           )
         end
 
@@ -118,7 +117,6 @@ module LedgerSync
         end
 
         def success(resource:, response:)
-          @response = response
           @result = LedgerSync::OperationResult.Success(
             self,
             operation: self,

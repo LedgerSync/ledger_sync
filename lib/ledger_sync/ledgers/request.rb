@@ -16,6 +16,7 @@ module LedgerSync
         @method = args.fetch(:method, nil)
         @params = args.fetch(:params, {})
         @url = args.fetch(:url, nil)
+        @faraday_client = args.fetch(:faraday_client, Faraday.new)
       end
 
       def perform
@@ -23,7 +24,7 @@ module LedgerSync
 
         url_with_params = Util::URLHelpers.merge_params_in_url(params: params, url: url)
 
-        faraday_response = Faraday.send(method, url_with_params) do |req|
+        faraday_response = @faraday_client.send(method, url_with_params) do |req|
           req.headers = headers
           req.body = body.to_json unless body.nil?
         end
