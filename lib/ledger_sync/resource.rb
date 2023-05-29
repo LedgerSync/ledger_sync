@@ -80,11 +80,15 @@ module LedgerSync
     end
 
     def self.resource_module_str
-      @resource_module_str ||= name.split('::').last
+      @resource_module_str ||= begin
+        name_part = name.split('::')
+
+        name_part.length > 2 ? "#{name_part[-2]}/#{name_part[-1]}" : name_part.last
+      end
     end
 
     def self.resource_type
-      @resource_type ||= LedgerSync::Util::StringHelpers.underscore(name.split('::').last).to_sym
+      @resource_type ||= LedgerSync::Util::StringHelpers.underscore(resource_module_str).to_sym
     end
 
     def self.serialize_attribute?(sattr)
