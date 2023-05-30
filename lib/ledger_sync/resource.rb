@@ -80,7 +80,7 @@ module LedgerSync
     end
 
     def self.resource_module_str
-      @resource_module_str ||= name.split(inferred_config.base_module.name).last.gsub(/^(::)/, '')
+      @resource_module_str ||= name.split("#{inferred_config.base_module.name}::").last
     end
 
     def self.resource_type
