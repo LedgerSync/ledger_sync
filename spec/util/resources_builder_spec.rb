@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 module LedgerSync
-  class TestResource
+  module TestResource
     class ResourceWithDate < LedgerSync::Resource
       attribute :date_attr, type: Type::Date
     end
@@ -31,7 +31,6 @@ module LedgerSync
     end
   end
 end
-
 LedgerSync.register_resource(resource: LedgerSync::TestResource::ResourceWithDate)
 LedgerSync.register_resource(resource: LedgerSync::TestResource::TestUselessResource)
 LedgerSync.register_resource(resource: LedgerSync::TestResource::TestGrandchildResource)
@@ -39,6 +38,20 @@ LedgerSync.register_resource(resource: LedgerSync::TestResource::TestChildResour
 LedgerSync.register_resource(resource: LedgerSync::TestResource::TestParentResource)
 
 RSpec.describe LedgerSync::Util::ResourcesBuilder do
+  let(:mock_configuration) do
+    LedgerSync::LedgerConfiguration.new(:test_ledger, {
+                                          base_module: LedgerSync::TestResource,
+                                          root_path: File.join(LedgerSync.root, 'lib/ledger_sync/test/support/test_ledger')
+                                        })
+  end
+  before do
+    allow(LedgerSync::TestResource::ResourceWithDate).to receive(:inferred_config).and_return(mock_configuration)
+    allow(LedgerSync::TestResource::TestUselessResource).to receive(:inferred_config).and_return(mock_configuration)
+    allow(LedgerSync::TestResource::TestGrandchildResource).to receive(:inferred_config).and_return(mock_configuration)
+    allow(LedgerSync::TestResource::TestChildResource).to receive(:inferred_config).and_return(mock_configuration)
+    allow(LedgerSync::TestResource::TestParentResource).to receive(:inferred_config).and_return(mock_configuration)
+  end
+
   context 'with date' do
     let(:data) do
       {
