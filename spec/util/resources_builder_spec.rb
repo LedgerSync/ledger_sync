@@ -41,7 +41,9 @@ RSpec.describe LedgerSync::Util::ResourcesBuilder do
   let(:mock_configuration) do
     LedgerSync::LedgerConfiguration.new(:test_ledger, {
                                           base_module: LedgerSync::TestResource,
-                                          root_path: File.join(LedgerSync.root, 'lib/ledger_sync/test/support/test_ledger')
+                                          root_path: File.join(
+                                            LedgerSync.root, 'lib/ledger_sync/test/support/test_ledger'
+                                          )
                                         })
   end
   before do
