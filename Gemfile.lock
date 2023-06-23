@@ -11,7 +11,7 @@ PATH
       faraday_middleware
       fingerprintable (>= 1.2.1)
       nokogiri
-      openssl (~> 3.0)
+      openssl (> 2.2.0)
       pd_ruby
       rack (>= 2.2.3)
       rainbow (~> 3.0)
