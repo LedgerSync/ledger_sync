@@ -53,7 +53,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('faraday_middleware', '>= 0')
   spec.add_runtime_dependency('fingerprintable', '>= 1.2.1')
   spec.add_runtime_dependency('nokogiri', '>= 0')
-  spec.add_runtime_dependency('openssl', '~> 2.2.0')
+  spec.add_runtime_dependency('openssl', '> 2.2.0')
   spec.add_runtime_dependency('pd_ruby', '>= 0')
   spec.add_runtime_dependency('rack', '>= 2.2.3')
   spec.add_runtime_dependency('rainbow', '~> 3.0')
