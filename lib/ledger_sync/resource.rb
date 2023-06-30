@@ -80,11 +80,11 @@ module LedgerSync
     end
 
     def self.resource_module_str
-      @resource_module_str ||= name.split('::').last
+      @resource_module_str ||= name.split("#{inferred_config.base_module.name}::").last
     end
 
     def self.resource_type
-      @resource_type ||= LedgerSync::Util::StringHelpers.underscore(name.split('::').last).to_sym
+      @resource_type ||= LedgerSync::Util::StringHelpers.underscore(resource_module_str).to_sym
     end
 
     def self.serialize_attribute?(sattr)
