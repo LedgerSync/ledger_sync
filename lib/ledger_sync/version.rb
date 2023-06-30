@@ -2,7 +2,7 @@
 
 # :nocov:
 module LedgerSync
-  VERSION = '2.5.0'
+  VERSION = '2.6.0'
 
   def self.version
     if ENV['PRE_RELEASE']
