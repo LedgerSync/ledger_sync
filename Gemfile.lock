@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (2.5.0)
+    ledger_sync (2.6.0)
       activemodel
       dotenv
       dry-schema
@@ -60,12 +60,12 @@ GEM
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.0, < 2)
       zeitwerk (~> 2.6)
-    dry-schema (1.13.0)
+    dry-schema (1.13.1)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 1.0, >= 1.0.1)
       dry-core (~> 1.0, < 2)
       dry-initializer (~> 3.0)
-      dry-logic (>= 1.5, < 2)
+      dry-logic (>= 1.4, < 2)
       dry-types (>= 1.7, < 2)
       zeitwerk (~> 2.6)
     dry-types (1.7.1)
@@ -115,15 +115,13 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
-    mini_portile2 (2.8.1)
+    ipaddr (1.2.5)
     minitest (5.18.0)
     multipart-post (2.3.0)
-    nokogiri (1.14.2)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.14.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.14.2-x86_64-darwin)
-      racc (~> 1.4)
-    openssl (3.1.0)
+    openssl (2.2.3)
+      ipaddr
     overcommit (0.57.0)
       childprocess (>= 0.6.3, < 5)
       iniparse (~> 1.4)
