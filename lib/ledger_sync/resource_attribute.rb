@@ -34,8 +34,6 @@ module LedgerSync
     end
 
     def assert_valid(args = {})
-      ensure_references_many_value_presence(args)
-
       value = args.fetch(:value)
 
       type.assert_valid(value: value)
@@ -73,12 +71,6 @@ module LedgerSync
     def will_change?(val)
       assert_valid(value: val)
       value != type.cast(value: val)
-    end
-
-    def ensure_references_many_value_presence(args)
-      if references_many? && args.fetch(:value).nil?
-        args[:value] = []
-      end
     end
   end
 end
