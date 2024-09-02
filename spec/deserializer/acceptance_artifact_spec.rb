@@ -32,7 +32,7 @@ RSpec.describe AcceptanceArtifact::Deserializer do
 
     subject(:deserialized_object) { deserializer.deserialize(hash: response, resource: acceptance_artifact) }
 
-    context "with packages in the API's response" do
+    context "with empty `packages` in the API's response" do
       let(:response) { { "identifier" => "42", "packages" => [] } }
 
       it 'deserializes the identifier correctly' do
@@ -40,7 +40,15 @@ RSpec.describe AcceptanceArtifact::Deserializer do
       end
     end
 
-    context "without packages in the API's response" do
+    context "with filled `packages` in the API's response" do
+      let(:response) { { "identifier" => "42", "packages" => [ { "blabla" => "ok" } ] } }
+
+      it 'deserializes the identifier correctly' do
+        expect(deserialized_object.identifier).to eq("42")
+      end
+    end
+
+    context "without `packages` in the API's response" do
       let(:response) { { "identifier" => "42" } }
 
       it 'deserializes the packages correctly' do
