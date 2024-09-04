@@ -20,15 +20,13 @@ module LedgerSync
                 :reference,
                 :resource_class,
                 :type,
-                :value,
-                :default
+                :value
 
     def initialize(args = {})
       @name           = args.fetch(:name).to_sym
       @resource_class = args.fetch(:resource_class)
       @type           = args.fetch(:type)
       @value          = args.fetch(:value, nil)
-      @default        = args.fetch(:default, nil) # Default if nil value
 
       @type = type.new if type.respond_to?(:new) && !type.is_a?(Type::Value)
 
@@ -36,9 +34,7 @@ module LedgerSync
     end
 
     def assert_valid(args = {})
-      # pd args
-      # pd default
-      value = args.fetch(:value, default)
+      value = args.fetch(:value)
 
       type.assert_valid(value: value)
     rescue Error::TypeError::ValueClassError
