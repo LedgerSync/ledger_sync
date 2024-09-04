@@ -11,6 +11,26 @@ RSpec.describe LedgerSync::Deserializer do
     end
   end
 
+  let(:references_many_deserializer_class) do
+    Class.new(LedgerSync::Deserializer) do
+      references_many :objs, deserializer: LedgerSync::Ledgers::TestLedger::Subsidiary::Deserializer
+    end
+  end
+
+  let(:references_many_deserializer) do
+    references_many_deserializer_class.new
+  end
+
+  let(:references_many_with_default_deserializer_class) do
+    Class.new(LedgerSync::Deserializer) do
+      references_many :objs, deserializer: LedgerSync::Ledgers::TestLedger::Subsidiary::Deserializer, default: []
+    end
+  end
+
+  let(:references_many_with_default_deserializer) do
+    references_many_with_default_deserializer_class.new
+  end
+
   let(:custom_deserializer_class) do
     Class.new(LedgerSync::Deserializer) do
       attribute :foo,
@@ -38,9 +58,39 @@ RSpec.describe LedgerSync::Deserializer do
         name
         phone_number
         type
-      ]
+      ],
+      references_many: [
+        [:objs]
+      ],
+      reference_class: LedgerSync::Ledgers::TestLedger::Subsidiary
     )
   end
+
+  # let(:custom_references_nany_resource_class) do
+  #   Object.const_set(
+  #     test_resource_class_name,
+  #     Class.new(LedgerSync::Resource) do
+  #       references_many :objs, to: LedgerSync::Ledgers::TestLedger::Subsidiary::Deserializer
+  #     end
+  #   )
+  # end
+
+  # let(:test_references_many_resource) do
+  #   custom_references_nany_resource_class.new
+  # end
+
+  # let(:custom_references_nany_with_default_resource_class) do
+  #   Object.const_set(
+  #     test_resource_class_name,
+  #     Class.new(LedgerSync::Resource) do
+  #       references_many :objs, to: LedgerSync::Ledgers::TestLedger::Subsidiary::Deserializer, default: []
+  #     end
+  #   )
+  # end
+
+  # let(:test_references_many_with_default_resource) do
+  #   custom_references_nany_resource_class.new
+  # end
 
   it { expect(described_class).to respond_to(:attribute) }
   it { expect(described_class).to respond_to(:references_many) }
@@ -140,6 +190,19 @@ RSpec.describe LedgerSync::Deserializer do
         dresource = test_deserializer.deserialize(hash: h, resource: test_resource)
 
         expect(dresource.foo).to eq('asdf')
+      end
+    end
+
+    context 'with references_many' do
+      it do
+        dresource = references_many_deserializer.deserialize(hash: {}, resource: test_resource)
+        expect(dresource.objs).to eq(nil)
+      end
+
+      it do
+        # binding.pry
+        dresource = references_many_with_default_deserializer.deserialize(hash: {}, resource: test_resource)
+        expect(dresource.objs).to eq([])
       end
     end
   end

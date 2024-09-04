@@ -20,13 +20,15 @@ module LedgerSync
                 :reference,
                 :resource_class,
                 :type,
-                :value
+                :value,
+                :default
 
     def initialize(args = {})
       @name           = args.fetch(:name).to_sym
       @resource_class = args.fetch(:resource_class)
       @type           = args.fetch(:type)
       @value          = args.fetch(:value, nil)
+      @default        = args.fetch(:default, nil) # Default if nil value
 
       @type = type.new if type.respond_to?(:new) && !type.is_a?(Type::Value)
 
@@ -34,7 +36,9 @@ module LedgerSync
     end
 
     def assert_valid(args = {})
-      value = args.fetch(:value)
+      # pd args
+      # pd default
+      value = args.fetch(:value, default)
 
       type.assert_valid(value: value)
     rescue Error::TypeError::ValueClassError
@@ -46,7 +50,7 @@ module LedgerSync
     end
 
     def cast(value)
-      type.cast(value: value)
+      cast_val(value)
     end
 
     # This is for ActiveModel::Dirty, since we define @attributes
@@ -65,12 +69,16 @@ module LedgerSync
     end
 
     def value=(val)
-      @value = type.cast(value: val)
+      @value = cast_val(val)
     end
 
     def will_change?(val)
       assert_valid(value: val)
-      value != type.cast(value: val)
+      value != cast_val(val)
+    end
+
+    def cast_val(val)
+      type.cast(value: val, default: default)
     end
   end
 end

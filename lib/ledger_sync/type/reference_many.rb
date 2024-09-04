@@ -16,7 +16,8 @@ module LedgerSync
 
       def cast(args = {})
         value = args.fetch(:value)
-        return if value.nil?
+        default = args.fetch(:default, nil)
+        return default if value.nil?
 
         many_array_class = LedgerSync::ResourceAttribute::Reference::Many::ManyArray
 
@@ -34,6 +35,7 @@ module LedgerSync
 
       def valid?(args = {})
         value = args.fetch(:value)
+        # binding.pry
         return false unless value.is_a?(Array)
         return true if (resource_classes & value.map(&:class)).any?
         return true if value.is_a?(Array) && value.empty?

@@ -6,6 +6,7 @@ module LedgerSync
   module Serialization
     class Attribute
       attr_reader :block,
+                  :default,
                   :hash_attribute,
                   :if_method,
                   :resource_attribute,
@@ -14,6 +15,7 @@ module LedgerSync
 
       def initialize(args = {})
         @block              = args.fetch(:block, nil)
+        @default            = args.fetch(:default, nil)
         @hash_attribute     = args.fetch(:hash_attribute, nil).try(:to_s)
         @resource_attribute = args.fetch(:resource_attribute, nil).try(:to_s)
         @resource_class     = args.fetch(:resource_class, nil)

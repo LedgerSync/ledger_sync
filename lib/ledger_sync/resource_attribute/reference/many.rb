@@ -47,11 +47,16 @@ module LedgerSync
           end
 
           module ClassMethods
-            def references_many(name, to:)
+            def references_many(name, args = {})
+              if name == :objs && args[:to] != LedgerSync::Ledgers::TestLedger::Subsidiary
+                pd name
+                pd args
+                raise "asdf"
+              end
               resource_attribute = ResourceAttribute::Reference::Many.new(
                 name: name,
                 resource_class: self,
-                to: to
+                **args
               )
               resource_attributes.add resource_attribute
               _define_attribute_methods(name)

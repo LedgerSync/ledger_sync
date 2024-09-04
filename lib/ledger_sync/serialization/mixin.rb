@@ -47,6 +47,7 @@ module LedgerSync
           serializer         = args.fetch(:serializer, nil)
           type               = args.fetch(:type, nil)
           if_method          = args.fetch(:if, nil)
+          default            = args.fetch(:default, nil)
 
           attribute_class.new(
             block: block,
@@ -55,7 +56,8 @@ module LedgerSync
             resource_attribute: resource_attribute,
             resource_class: resource_class,
             serializer: serializer,
-            type: type
+            type: type,
+            default: default
           )
         end
       end

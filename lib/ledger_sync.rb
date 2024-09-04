@@ -15,6 +15,7 @@ require 'openssl'
 require 'faraday'
 require 'tempfile'
 require 'pd_ruby'
+require 'pry'
 
 # Version
 require 'ledger_sync/version'

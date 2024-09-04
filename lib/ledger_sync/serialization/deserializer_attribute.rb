@@ -31,9 +31,9 @@ module LedgerSync
         value = hash.dig(*hash_attribute.split('.'))
 
         if type.is_a?(Type::DeserializerType)
-          type.cast(deserializer_attribute: self, resource: resource, value: value)
+          type.cast(deserializer_attribute: self, resource: resource, value: value, default: default)
         else
-          value = type.cast(value: value)
+          value = type.cast(value: value, default: default)
           return value if resource_attribute_dot_parts.count <= 1
 
           nested_resource = resource.send(resource_attribute_dot_parts.first)
