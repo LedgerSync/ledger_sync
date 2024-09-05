@@ -74,7 +74,7 @@ module LedgerSync
     end
 
     def cast_val(val)
-      type.cast(value: val, default: default)
+      type.cast(value: val)
     end
   end
 end

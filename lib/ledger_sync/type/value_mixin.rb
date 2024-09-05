@@ -9,7 +9,6 @@ module LedgerSync
       end
 
       def assert_valid(args = {})
-        # pd args
         args[:value] = args.fetch(:default, nil) if args.fetch(:value).nil?
         return if valid?(args)
 
@@ -25,6 +24,8 @@ module LedgerSync
       def cast(args = {})
         assert_valid(args)
 
+        return args.fetch(:default, nil) if args.fetch(:value).nil?
+
         cast_value(args)
       end
 
@@ -37,7 +38,6 @@ module LedgerSync
       # Override this method to handle different types of casting.
       def cast_value(args = {})
         value = args.fetch(:value)
-        return args.fetch(:default, nil) if args.fetch(:value).nil?
 
         super(value)
       end
