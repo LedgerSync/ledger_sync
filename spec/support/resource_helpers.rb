@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 module ResourceHelpers
+  def test_resource_class_name
+    "#{test_run_id}TestCustomResource#{test_resource_counter_increment!}"
+  end
+
   def new_resource_class(args = {}) # rubocop:disable Metrics/CyclomaticComplexity
-    class_name = args.fetch(:name, "#{test_run_id}TestCustomResource#{test_resource_counter_increment!}")
+    class_name = args.fetch(:name, test_resource_class_name)
 
     remove_customer_resource_class(class_name: class_name)
 
@@ -31,9 +35,9 @@ module ResourceHelpers
           references_one a[0], **{ to: reference_class }.merge(a[1] || {})
         end
 
-        references_many = args.fetch(:references_many, [])
-        references_many = Array(references_many)
-        references_many.each do |a|
+        references_manies = args.fetch(:references_many, [])
+        references_manies = Array(references_manies)
+        references_manies.each do |a|
           a = Array(a)
           references_many a[0], **{ to: reference_class }.merge(a[1] || {})
         end
