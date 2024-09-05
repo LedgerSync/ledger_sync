@@ -37,12 +37,12 @@ module LedgerSync
       value = args.fetch(:value)
 
       type.assert_valid(value: value)
-    rescue Error::TypeError::ValueClassError
-      raise ResourceAttributeError::TypeError.new(
-        attribute: self,
-        resource_class: resource_class,
-        value: value
-      )
+    # rescue Error::TypeError::ValueClassError
+    #   raise ResourceAttributeError::TypeError.new(
+    #     attribute: self,
+    #     resource_class: resource_class,
+    #     value: value
+    #   )
     end
 
     def cast(value)

@@ -9,7 +9,8 @@ module LedgerSync
       end
 
       def assert_valid(args = {})
-        args[:value] = args.fetch(:default, nil) if args.fetch(:value).nil?
+        pd self
+        pd valid?(args)
         return if valid?(args)
 
         value = args.fetch(:value)
@@ -43,10 +44,16 @@ module LedgerSync
       end
 
       def valid_class?(args = {})
-        value = args.fetch(:value)
+        # value = args.fetch(:value)
+        value = args.fetch(:value, args.fetch(:default, nil))
+        pd args
+        pd value
+        pd value.nil?
 
         return true if value.nil?
+        pd
         return true if valid_classes.select { |e| value.is_a?(e) }.any?
+        pd
 
         false
       end
