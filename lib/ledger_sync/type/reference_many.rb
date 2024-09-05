@@ -36,6 +36,7 @@ module LedgerSync
       end
 
       def valid?(args = {})
+        pd args
         value = args.fetch(:value, args.fetch(:default, nil))
 
         return false unless value.is_a?(Array)
