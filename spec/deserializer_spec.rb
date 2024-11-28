@@ -108,22 +108,49 @@ RSpec.describe LedgerSync::Deserializer do
       expect(dresource.ledger_class.ledger_id).to eq('asdf2')
     end
 
-    it 'allows references many' do
-      resource = LedgerSync::Ledgers::TestLedger::Customer.new
+    context 'allows references many' do
+      it 'with hash including list with values' do
+        resource = LedgerSync::Ledgers::TestLedger::Customer.new
 
-      deserializer_class = LedgerSync::Ledgers::TestLedger::Customer::Deserializer
+        deserializer_class = LedgerSync::Ledgers::TestLedger::Customer::Deserializer
 
-      h = {
-        'subsidiaries' => [
-          {
-            'name' => 'adsf1'
-          }
-        ]
-      }
+        h = {
+          'subsidiaries' => [
+            {
+              'name' => 'adsf1'
+            }
+          ]
+        }
 
-      dresource = deserializer_class.new.deserialize(hash: h, resource: resource)
-      expect(dresource.subsidiaries.count).to eq(1)
-      expect(dresource.subsidiaries.first.name).to eq('adsf1')
+        dresource = deserializer_class.new.deserialize(hash: h, resource: resource)
+        expect(dresource.subsidiaries.count).to eq(1)
+        expect(dresource.subsidiaries.first.name).to eq('adsf1')
+      end
+
+      it 'with hash including empty list' do
+        resource = LedgerSync::Ledgers::TestLedger::Customer.new
+
+        deserializer_class = LedgerSync::Ledgers::TestLedger::Customer::Deserializer
+
+        h = {
+          'subsidiaries' => []
+        }
+
+        dresource = deserializer_class.new.deserialize(hash: h, resource: resource)
+        expect(dresource.subsidiaries.count).to eq(0)
+      end
+
+      it 'with hash missing values' do
+        resource = LedgerSync::Ledgers::TestLedger::Customer.new
+
+        deserializer_class = LedgerSync::Ledgers::TestLedger::Customer::Deserializer
+
+        h = {}
+
+        dresource = deserializer_class.new.deserialize(hash: h, resource: resource)
+        expect(dresource.subsidiaries.count).to eq(0)
+      end
+
     end
 
     context 'with custom attributes' do
