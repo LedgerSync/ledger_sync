@@ -24,7 +24,7 @@ module LedgerSync
               client_method = env_key.split(prefix).last.downcase
 
               if line =~ /\A#{prefix}/ && to_save.key?(client_method)
-                env_value = ENV[env_key]
+                env_value = ENV.fetch(env_key, nil)
                 new_value = to_save.delete(client_method)
                 tempfile.puts "#{env_key}=#{new_value}"
                 next if env_value == new_value.to_s

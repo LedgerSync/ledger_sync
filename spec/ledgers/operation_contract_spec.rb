@@ -7,21 +7,19 @@ module LedgerSync
     module_function
 
     def operations_hash
-      @operations_hash ||= begin
-        Hash[operation_paths.map do |full_path|
-          path = full_path.split('/ledgers/').last
-          operation_class = operation_class_from(path: path)
-          resource_class = operation_class.inferred_resource_class
-          [
-            operation_class,
-            {
-              full_path: full_path,
-              path: path,
-              resource_attributes: resource_attributes_for(resource_class: resource_class),
-              resource_class: resource_class
-            }
-          ]
-        end]
+      @operations_hash ||= operation_paths.to_h do |full_path|
+        path = full_path.split('/ledgers/').last
+        operation_class = operation_class_from(path: path)
+        resource_class = operation_class.inferred_resource_class
+        [
+          operation_class,
+          {
+            full_path: full_path,
+            path: path,
+            resource_attributes: resource_attributes_for(resource_class: resource_class),
+            resource_class: resource_class
+          }
+        ]
       end
     end
 

@@ -15,6 +15,7 @@ module LedgerSync
       class DuplicateLedgerResourceError < self; end
       class NotFoundError < self; end
       class LedgerValidationError < self; end
+
       class PerformedOperationError < self
         def initialize(operation:, message: nil, response: nil)
           message ||= 'Operation has already been performed. Please check the result.'

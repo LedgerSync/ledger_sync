@@ -6,7 +6,7 @@ module LedgerSync
 
   def self.version
     if ENV['PRE_RELEASE']
-      "#{VERSION}.pre.#{ENV['GITHUB_RUN_NUMBER']}"
+      "#{VERSION}.pre.#{ENV.fetch('GITHUB_RUN_NUMBER', nil)}"
     else
       VERSION
     end

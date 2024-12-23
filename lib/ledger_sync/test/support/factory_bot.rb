@@ -65,7 +65,7 @@ end
 def generate_resource_factories
   LedgerSync.ledgers.each do |ledger_key, ledger|
     ledger.client_class.resources.each do |resource_key, resource_class|
-      factory_key = "#{ledger_key}_#{resource_key}".to_sym
+      factory_key = :"#{ledger_key}_#{resource_key}"
       next if FactoryBot.factories.registered?(factory_key)
 
       register_factory(prefix: ledger_key, resource_class: resource_class)
@@ -101,7 +101,7 @@ module FactoryBot
   def self.test_run_id(*appends, **keywords)
     @test_run_id ||= rand_id(
       *appends,
-      **keywords.merge(include_test_run_id: false)
+      **keywords, include_test_run_id: false
     )
   end
 

@@ -29,7 +29,7 @@ module LedgerSync
         Gem.find_files(File.join(dir, '*.json')).map do |file_path|
           record = File.basename(file_path, '.json').to_sym
           @records[record] = record_class.new(
-            hash: JSON.parse(File.open(file_path).read),
+            hash: JSON.parse(File.read(file_path)),
             path: file_path,
             record: record
           )

@@ -22,7 +22,7 @@ module LedgerSync
         def add(attribute)
           unless attribute.destination_attribute.nil?
             if @attribute_keys.key?(attribute.destination_attribute.to_s)
-              raise "destination_attribute already defined for #{resource_converter_class.name}: "\
+              raise "destination_attribute already defined for #{resource_converter_class.name}: " \
                     "#{attribute.destination_attribute}"
             end
 

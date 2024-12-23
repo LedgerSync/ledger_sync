@@ -71,7 +71,7 @@ module LedgerSync
       @attributes ||= Serialization::DeserializerAttributeSet.new(serializer_class: self)
     end
 
-    def self.references_one(resource_attribute, args = {}, &block)
+    def self.references_one(resource_attribute, args = {}, &)
       attribute(
         resource_attribute,
         {
@@ -79,11 +79,11 @@ module LedgerSync
             deserializer: deserializer_from(resource_attribute, args)
           )
         }.merge(args),
-        &block
+        &
       )
     end
 
-    def self.references_many(resource_attribute, args = {}, &block)
+    def self.references_many(resource_attribute, args = {}, &)
       attribute(
         resource_attribute,
         {
@@ -91,7 +91,7 @@ module LedgerSync
             deserializer: deserializer_from(resource_attribute, args)
           )
         }.merge(args),
-        &block
+        &
       )
     end
 

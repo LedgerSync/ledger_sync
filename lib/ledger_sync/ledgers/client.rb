@@ -30,9 +30,9 @@ module LedgerSync
           def ledger_attributes_to_save
             return {} if self.class.ledger_attributes_to_save.nil?
 
-            Hash[self.class.ledger_attributes_to_save.map do |attribute|
+            self.class.ledger_attributes_to_save.to_h do |attribute|
               [attribute, send(attribute)]
-            end]
+            end
           end
 
           def operation_for(args = {})
@@ -98,7 +98,7 @@ module LedgerSync
           end
 
           def resource_from_ledger_type(type:, converter: nil)
-            converter ||= proc { |n| n.underscore }
+            converter ||= proc(&:underscore)
             ledger_resource_type_overrides.invert[converter.call(type).to_sym] || resources[converter.call(type).to_sym]
           end
 
