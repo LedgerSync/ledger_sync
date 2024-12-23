@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples 'a serializable object' do
-  it do
+  it 'serializes consistently across instances' do
     resource1 = new_resource
     resource2 = new_resource
     expect(resource1).to eq(resource2)
