@@ -46,11 +46,7 @@ module LedgerSync
             client_class: client.class
           ).rate_limiting_wait_in_seconds
 
-          super(
-            client: client,
-            message: message,
-            response: response
-          )
+          super
         end
       end
 
@@ -62,9 +58,7 @@ module LedgerSync
 
           super(
             *args,
-            **{
-              message: "Unknown URL format for #{resource.class}"
-            }.merge(keywords)
+            message: "Unknown URL format for #{resource.class}", **keywords
           )
         end
       end

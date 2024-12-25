@@ -14,7 +14,7 @@ module LedgerSync
         #
         # @return [Serializer::Attribute]
         #
-        def attribute(_hash_attribute, _args = {}, &_block)
+        def attribute(_hash_attribute, _args = {}, &)
           raise NotImplementedError
         end
 

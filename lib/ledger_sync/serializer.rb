@@ -60,7 +60,7 @@ module LedgerSync
       @attributes ||= Serialization::SerializerAttributeSet.new(serializer_class: self)
     end
 
-    def self.references_one(hash_attribute, args = {}, &block)
+    def self.references_one(hash_attribute, args = {}, &)
       attribute(
         hash_attribute,
         {
@@ -68,11 +68,11 @@ module LedgerSync
             serializer: serializer_from(hash_attribute, args)
           )
         }.merge(args),
-        &block
+        &
       )
     end
 
-    def self.references_many(hash_attribute, args = {}, &block)
+    def self.references_many(hash_attribute, args = {}, &)
       attribute(
         hash_attribute,
         {
@@ -80,7 +80,7 @@ module LedgerSync
             serializer: serializer_from(hash_attribute, args)
           )
         }.merge(args),
-        &block
+        &
       )
     end
 

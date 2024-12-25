@@ -28,3 +28,5 @@ _site/
 
 .tool-versions
 .ruby-version
+
+.vscode

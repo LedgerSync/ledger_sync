@@ -40,12 +40,12 @@ module LedgerSync
       end
 
       def dirty_attributes_to_h
-        Hash[self.class.dirty_attributes.keys.map do |k|
+        self.class.dirty_attributes.keys.to_h do |k|
           [
             k,
             public_send(k)
           ]
-        end]
+        end
       end
 
       # Normally you would just call `changes_applied`, but because we

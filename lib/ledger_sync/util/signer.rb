@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'base64'
+
 module LedgerSync
   module Util
     class Signer
@@ -25,11 +27,11 @@ module LedgerSync
       end
 
       def self.escape(str:)
-        CGI.escape(str).gsub(/\+/, '%20')
+        CGI.escape(str).gsub('+', '%20')
       end
 
       def self.unescape(str:)
-        CGI.unescape(str.gsub(/%20/, '+'))
+        CGI.unescape(str.gsub('%20', '+'))
       end
     end
   end

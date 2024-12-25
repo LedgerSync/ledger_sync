@@ -51,37 +51,35 @@ module LedgerSync
                          end
         raise "#{type} is an invalid resource type" if resource_class.nil?
 
-        current_data = Hash[
-          current_data.map do |k, v|
-            k = k.to_sym
+        current_data = current_data.to_h do |k, v|
+          k = k.to_sym
 
-            attribute = resource_class.resource_attributes[k]
-            if attribute.nil? && !ignore_unrecognized_attributes
-              raise "Unrecognized attribute for #{resource_class.name}: #{k}"
-            end
-
-            v = if attribute.is_a?(ResourceAttribute::Reference::One)
-                  resource_type = resource_type_by(external_id: current_data[k])
-                  resource_or_build(
-                    external_id: current_data[k],
-                    type: resource_type
-                  )
-                elsif attribute.is_a?(ResourceAttribute::Reference::Many)
-                  current_data[k].map do |many_reference|
-                    resource_or_build(
-                      external_id: many_reference,
-                      type: attribute.type.resource_class.resource_type
-                    )
-                  end
-                elsif cast
-                  attribute.type.cast(value: v)
-                else
-                  v
-                end
-
-            [k, v]
+          attribute = resource_class.resource_attributes[k]
+          if attribute.nil? && !ignore_unrecognized_attributes
+            raise "Unrecognized attribute for #{resource_class.name}: #{k}"
           end
-        ]
+
+          v = if attribute.is_a?(ResourceAttribute::Reference::One)
+                resource_type = resource_type_by(external_id: current_data[k])
+                resource_or_build(
+                  external_id: current_data[k],
+                  type: resource_type
+                )
+              elsif attribute.is_a?(ResourceAttribute::Reference::Many)
+                current_data[k].map do |many_reference|
+                  resource_or_build(
+                    external_id: many_reference,
+                    type: attribute.type.resource_class.resource_type
+                  )
+                end
+              elsif cast
+                attribute.type.cast(value: v)
+              else
+                v
+              end
+
+          [k, v]
+        end
 
         @all_resources[resource_key(external_id: external_id, type: type)] ||= resource_class.new(
           external_id: external_id,

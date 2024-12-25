@@ -29,7 +29,7 @@ module Docs
       end
 
       def destination_path(*args, **keywords)
-        docs_path(*args, **{ format: :md }.merge(keywords))
+        docs_path(*args, format: :md, **keywords)
       end
 
       def docs_path(*path, format: nil)

@@ -54,15 +54,15 @@ module LedgerSync
         )
       end
 
-      def self.attribute(*args, &block)
-        _attribute(*args, &block)
+      def self.attribute(...)
+        _attribute(...)
       end
 
       def self.attributes
         @attributes ||= ResourceConverter::AttributeSet.new(resource_converter_class: self)
       end
 
-      def self._references(destination_attribute = nil, args = {}, &block)
+      def self._references(destination_attribute = nil, args = {}, &)
         reference_type     = args.fetch(:reference_type)
         resource_converter = args.fetch(:resource_converter)
 
@@ -89,27 +89,27 @@ module LedgerSync
               ]
             )
           ),
-          &block
+          &
         )
       end
 
-      def self.references_one(destination_attribute = nil, args = {}, &block)
+      def self.references_one(destination_attribute = nil, args = {}, &)
         _references(
           destination_attribute,
           {
             reference_type: :one
           }.merge(args),
-          &block
+          &
         )
       end
 
-      def self.references_many(destination_attribute = nil, args = {}, &block)
+      def self.references_many(destination_attribute = nil, args = {}, &)
         _references(
           destination_attribute,
           {
             reference_type: :many
           }.merge(args),
-          &block
+          &
         )
       end
     end

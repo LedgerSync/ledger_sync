@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 def setup_client_qa_support(*clients, keyed: false) # rubocop:disable Metrics/PerceivedComplexity
-  qa_clients = Hash[clients.uniq.map do |client|
+  qa_clients = clients.uniq.to_h do |client|
     key = client.config.root_key
 
     qa_support "#{key}_helpers"
@@ -14,7 +14,7 @@ def setup_client_qa_support(*clients, keyed: false) # rubocop:disable Metrics/Pe
         key: key
       }
     ]
-  end]
+  end
 
   RSpec.configure do |config|
     qa_clients.each_value do |data|
