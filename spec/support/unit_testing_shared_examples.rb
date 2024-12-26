@@ -14,7 +14,7 @@ end
 
 RSpec.shared_examples 'a required argument initializer' do |**args|
   describe '#initialize' do
-    args.each do |key, _|
+    args.each_key do |key|
       it "should not initialize when #{key} is not provided" do
         expect { described_class.new(**args_merger(**args).reject { |k, _| k == key }) }.to raise_error(ArgumentError)
       end

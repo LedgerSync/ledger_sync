@@ -15,7 +15,7 @@ module Docs
     def write
       template = ERB.new(File.read(template_path), trim_mode: '-')
       yellow "Generating template: #{template_path}"
-      File.open(destination_path, 'w') { |f| f.write template.result_with_hash(data) }
+      File.write(destination_path, template.result_with_hash(data))
       green "Wrote to destination: #{destination_path}"
     end
   end

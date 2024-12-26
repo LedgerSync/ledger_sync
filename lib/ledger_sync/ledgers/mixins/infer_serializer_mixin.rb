@@ -9,45 +9,33 @@ module LedgerSync
       module InferSerializerMixin
         module ClassMethods
           def inferred_deserializer_class
-            @inferred_deserializer_class ||= begin
-              inferred_config.base_module.const_get(
-                inferred_deserializer_class_name
-              )
-            end
+            @inferred_deserializer_class ||= inferred_config.base_module.const_get(
+              inferred_deserializer_class_name
+            )
           end
 
           def inferred_deserializer_class_name
-            @inferred_deserializer_class_name ||= begin
-              "#{inferred_resource_class}::Deserializer"
-            end
+            @inferred_deserializer_class_name ||= "#{inferred_resource_class}::Deserializer"
           end
 
           def inferred_searcher_deserializer_class
-            @inferred_searcher_deserializer_class ||= begin
-              inferred_config.base_module.const_get(
-                inferred_searcher_deserializer_class_name
-              )
-            end
+            @inferred_searcher_deserializer_class ||= inferred_config.base_module.const_get(
+              inferred_searcher_deserializer_class_name
+            )
           end
 
           def inferred_searcher_deserializer_class_name
-            @inferred_searcher_deserializer_class_name ||= begin
-              "#{inferred_resource_class}::SearcherDeserializer"
-            end
+            @inferred_searcher_deserializer_class_name ||= "#{inferred_resource_class}::SearcherDeserializer"
           end
 
           def inferred_serializer_class
-            @inferred_serializer_class ||= begin
-              inferred_config.base_module.const_get(
-                inferred_serializer_class_name
-              )
-            end
+            @inferred_serializer_class ||= inferred_config.base_module.const_get(
+              inferred_serializer_class_name
+            )
           end
 
           def inferred_serializer_class_name
-            @inferred_serializer_class_name ||= begin
-              "#{inferred_resource_class}::Serializer"
-            end
+            @inferred_serializer_class_name ||= "#{inferred_resource_class}::Serializer"
           end
         end
 

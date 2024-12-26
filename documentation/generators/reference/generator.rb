@@ -67,9 +67,7 @@ module Docs
           end
         end
 
-        File.open(config_path, 'w') do |h|
-          h.write config.to_yaml
-        end
+        File.write(config_path, config.to_yaml)
       end
     end
   end

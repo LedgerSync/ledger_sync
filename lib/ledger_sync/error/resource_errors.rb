@@ -22,8 +22,8 @@ module LedgerSync
                when LedgerSync::ResourceAttribute::Reference::Many
                  invalid_classes = value.reject { |e| e.is_a?(type_resource_class) }.map(&:class)
                  if type_resource_class.is_a?(Array)
-                   "an array of one or more of the following: #{type_resource_class.name}.  Given array containing: "\
-                   "#{invalid_classes.join(', ')}"
+                   "an array of one or more of the following: #{type_resource_class.name}.  Given array containing: " \
+                     "#{invalid_classes.join(', ')}"
                  else
                    "an array of #{type_resource_class.name}.  Given array containing: #{invalid_classes.join(', ')}"
                  end

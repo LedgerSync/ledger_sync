@@ -6,11 +6,9 @@ module LedgerSync
       module InferValidationContractMixin
         module ClassMethods
           def inferred_validation_contract_class
-            @inferred_validation_contract_class ||= begin
-              const_get(
-                inferred_validation_contract_class_name
-              )
-            end
+            @inferred_validation_contract_class ||= const_get(
+              inferred_validation_contract_class_name
+            )
           end
 
           def inferred_validation_contract_class_name

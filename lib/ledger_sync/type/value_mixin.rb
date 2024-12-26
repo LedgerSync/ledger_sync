@@ -44,7 +44,7 @@ module LedgerSync
         value = args.fetch(:value)
 
         return true if value.nil?
-        return true if valid_classes.select { |e| value.is_a?(e) }.any?
+        return true if valid_classes.any? { |e| value.is_a?(e) }
 
         false
       end

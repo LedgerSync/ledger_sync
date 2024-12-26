@@ -10,7 +10,7 @@ module LedgerSync
       end
 
       def underscore!(str)
-        str.gsub!(/::/, '/')
+        str.gsub!('::', '/')
         str.gsub!(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
         str.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
         str.tr!('-', '_')

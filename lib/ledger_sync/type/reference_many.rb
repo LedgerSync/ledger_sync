@@ -35,7 +35,7 @@ module LedgerSync
       def valid?(args = {})
         value = args.fetch(:value)
         return false unless value.is_a?(Array)
-        return true if (resource_classes & value.map(&:class)).any?
+        return true if resource_classes.intersect?(value.map(&:class))
         return true if value.is_a?(Array) && value.empty?
 
         false
