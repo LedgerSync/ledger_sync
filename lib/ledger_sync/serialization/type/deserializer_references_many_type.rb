@@ -11,7 +11,7 @@ module LedgerSync
           value                  = args.fetch(:value)
           resource               = args.fetch(:resource)
 
-          return if value.nil?
+          return [] if value.nil?
 
           first_dot = deserializer_attribute.resource_attribute_dot_parts.first.to_sym
           nested_resource = resource.class.resource_attributes[first_dot].type.resource_class.new
