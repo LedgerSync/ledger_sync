@@ -32,12 +32,12 @@ module LedgerSync
       @base_module_to_config_mapping.fetch(base_module, nil)
     end
 
-    def each(&block)
-      configs.each(&block)
+    def each(&)
+      configs.each(&)
     end
 
-    def find(&block)
-      configs.values.find(&block)
+    def find(&)
+      configs.values.find(&)
     end
 
     def register_ledger(ledger_config:)

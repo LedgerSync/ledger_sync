@@ -44,13 +44,13 @@ module LedgerSync
     end
 
     def changed?
-      super || resource_attributes.references_many.select(&:changed?).any?
+      super || resource_attributes.references_many.any?(&:changed?)
     end
 
     def changes
-      super.merge(Hash[resource_attributes.references_many.map do |ref|
-                         [ref.name, ref.changes['value']] if ref.changed?
-                       end.compact])
+      super.merge(resource_attributes.references_many.map do |ref|
+        [ref.name, ref.changes['value']] if ref.changed?
+      end.compact.to_h)
     end
 
     def class_from_resource_type(obj)
@@ -62,7 +62,7 @@ module LedgerSync
     end
 
     def self.inherited(subclass)
-      resource_attributes.each do |_name, resource_attribute|
+      resource_attributes.each_value do |resource_attribute|
         subclass._add_resource_attribute(resource_attribute)
       end
 
