@@ -49,7 +49,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency('dry-schema')
   spec.add_dependency('dry-validation')
   spec.add_dependency('faraday', '>= 0')
-  spec.add_dependency('faraday-detailed_logger', '>= 0')
   spec.add_dependency('faraday_middleware', '>= 0')
   spec.add_dependency('fingerprintable', '>= 1.2.1')
   spec.add_dependency('nokogiri', '>= 0')

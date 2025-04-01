@@ -7,7 +7,6 @@ PATH
       dry-schema
       dry-validation
       faraday
-      faraday-detailed_logger
       faraday_middleware
       fingerprintable (>= 1.2.1)
       nokogiri
@@ -111,8 +110,6 @@ GEM
       faraday-rack (~> 1.0)
       faraday-retry (~> 1.0)
       ruby2_keywords (>= 0.0.4)
-    faraday-detailed_logger (2.5.0)
-      faraday (>= 0.16, < 3)
     faraday-em_http (1.0.0)
     faraday-em_synchrony (1.0.0)
     faraday-excon (1.1.0)
