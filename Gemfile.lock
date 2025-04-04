@@ -121,10 +121,8 @@ GEM
     minitest (5.25.5)
     net-http (0.6.0)
       uri
-    nokogiri (1.18.7)
+    nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
-    nokogiri (1.18.7-x86_64-darwin)
       racc (~> 1.4)
     observer (0.1.2)
     openssl (3.2.0)
