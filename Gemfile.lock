@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ledger_sync (3.0.0)
+    ledger_sync (3.0.1)
       activemodel
       dotenv
       dry-schema
