@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('factory_bot', '~> 6.1.0')
   spec.add_development_dependency('irb', '~> 1.15')
   spec.add_development_dependency('observer', '~> 0.1.0')
-  spec.add_development_dependency('overcommit', '~> 0.57.0')
+  spec.add_development_dependency('overcommit', '~> 0.67.1')
   spec.add_development_dependency('rake', '~> 13.0')
   spec.add_development_dependency('rspec', '~> 3.2')
   spec.add_development_dependency('rubocop', '~> 1.62')
