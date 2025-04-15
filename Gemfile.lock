@@ -40,7 +40,7 @@ GEM
     base64 (0.2.0)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
-    bump (0.9.0)
+    bump (0.10.0)
     byebug (11.1.3)
     childprocess (5.1.0)
       logger (~> 1.5)
@@ -217,7 +217,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  bump (~> 0.9.0)
+  bump (~> 0.10.0)
   bundler (~> 2.1)
   byebug
   climate_control
