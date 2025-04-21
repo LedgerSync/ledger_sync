@@ -21,6 +21,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
+      - name: Install system dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential zlib1g-dev libxml2 libxslt1-dev libgmp-dev
       - name: Bundle install
         run: |
           gem install bundler
