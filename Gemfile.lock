@@ -47,7 +47,7 @@ GEM
     climate_control (1.2.0)
     colorize (1.1.0)
     concurrent-ruby (1.3.5)
-    connection_pool (2.5.0)
+    connection_pool (2.5.1)
     coveralls_reborn (0.28.0)
       simplecov (~> 0.22.0)
       term-ansicolor (~> 1.7)
@@ -96,8 +96,8 @@ GEM
       dry-initializer (~> 3.0)
       dry-schema (>= 1.12, < 2)
       zeitwerk (~> 2.6)
-    factory_bot (6.1.0)
-      activesupport (>= 5.0.0)
+    factory_bot (6.5.1)
+      activesupport (>= 6.1.0)
     faraday (2.12.2)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -226,7 +226,7 @@ DEPENDENCIES
   byebug
   climate_control
   coveralls_reborn
-  factory_bot (~> 6.1.0)
+  factory_bot (~> 6.5.1)
   irb (~> 1.15)
   ledger_sync!
   observer (~> 0.1.0)
