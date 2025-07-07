@@ -128,7 +128,7 @@ GEM
       racc (~> 1.4)
     observer (0.1.2)
     openssl (3.2.0)
-    overcommit (0.67.1)
+    overcommit (0.68.0)
       childprocess (>= 0.6.3, < 6)
       iniparse (~> 1.4)
       rexml (>= 3.3.9)
@@ -230,7 +230,7 @@ DEPENDENCIES
   irb (~> 1.15)
   ledger_sync!
   observer (~> 0.1.0)
-  overcommit (~> 0.67.1)
+  overcommit (~> 0.68.0)
   rake (~> 13.0)
   rspec (~> 3.2)
   rubocop (~> 1.76)
