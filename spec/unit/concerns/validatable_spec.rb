@@ -7,6 +7,7 @@ module LedgerSync
     let(:non_validatable) do
       Class.new do
         include Validatable
+
         attr_accessor :foo
       end
     end
@@ -14,6 +15,7 @@ module LedgerSync
     let(:validatable) do
       Class.new do
         include Validatable
+
         attr_accessor :foo
 
         def validate

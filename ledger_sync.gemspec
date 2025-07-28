@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('overcommit', '~> 0.68.0')
   spec.add_development_dependency('rake', '~> 13.0')
   spec.add_development_dependency('rspec', '~> 3.2')
-  spec.add_development_dependency('rubocop', '~> 1.62')
+  spec.add_development_dependency('rubocop', '~> 1.79')
   spec.add_development_dependency('simplecov')
   spec.add_development_dependency('simplecov-lcov')
   spec.add_development_dependency('webmock', '>= 0')

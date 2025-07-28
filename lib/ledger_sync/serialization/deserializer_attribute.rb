@@ -53,7 +53,7 @@ module LedgerSync
         resource = resource.dup
         first_attribute, *remaining_attributes = attribute_parts
 
-        if remaining_attributes.count.zero?
+        if remaining_attributes.none?
           resource.public_send("#{first_attribute}=", value)
         else
           resource.public_send(
