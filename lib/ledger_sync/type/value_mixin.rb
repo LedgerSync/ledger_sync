@@ -22,7 +22,6 @@ module LedgerSync
       # Do not override this method.  Override private method cast_value
       def cast(args = {})
         assert_valid(args)
-        return nil if args.fetch(:value).nil?
 
         cast_value(args)
       end
