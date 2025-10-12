@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        ruby-version: ["3.1.6", "3.2.6", "3.3.6"]
+        ruby-version: ["3.2.6", "3.3.6"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -34,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        ruby-version: ["3.1.6", "3.2.6", "3.3.6"]
+        ruby-version: ["3.2.6", "3.3.6"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -74,7 +74,7 @@ jobs:
       - name: Ruby Setup and Bundle
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1.6
+          ruby-version: 3.2.6
           bundler-cache: true
       - name: Publish to RubyGems
         run: |
