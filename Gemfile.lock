@@ -39,7 +39,7 @@ GEM
     awesome_print (1.9.2)
     base64 (0.3.0)
     benchmark (0.4.1)
-    bigdecimal (3.2.2)
+    bigdecimal (3.3.1)
     bump (0.10.0)
     byebug (12.0.0)
     childprocess (5.1.0)
@@ -47,7 +47,7 @@ GEM
     climate_control (1.2.0)
     colorize (1.1.0)
     concurrent-ruby (1.3.5)
-    connection_pool (2.5.3)
+    connection_pool (2.5.4)
     coveralls_reborn (0.29.0)
       simplecov (~> 0.22.0)
       term-ansicolor (~> 1.7)
@@ -83,7 +83,7 @@ GEM
       dry-logic (~> 1.5)
       dry-types (~> 1.8)
       zeitwerk (~> 2.6)
-    dry-types (1.8.2)
+    dry-types (1.8.3)
       bigdecimal (~> 3.0)
       concurrent-ruby (~> 1.0)
       dry-core (~> 1.0)
@@ -96,6 +96,7 @@ GEM
       dry-initializer (~> 3.2)
       dry-schema (~> 1.14)
       zeitwerk (~> 2.6)
+    erb (5.1.1)
     factory_bot (6.5.5)
       activesupport (>= 6.1.0)
     faraday (2.14.0)
@@ -106,27 +107,38 @@ GEM
       net-http (>= 0.5.0)
     fingerprintable (1.2.1)
       colorize
-    hashdiff (1.1.2)
+    hashdiff (1.2.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     iniparse (1.5.0)
-    io-console (0.8.0)
+    io-console (0.8.1)
     irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.15.0)
+    json (2.15.1)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
-    mini_portile2 (2.8.8)
-    minitest (5.25.5)
+    minitest (5.26.0)
+    mize (0.6.1)
     net-http (0.6.0)
       uri
-    nokogiri (1.18.7)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.18.10-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.7-x86_64-darwin)
+    nokogiri (1.18.10-aarch64-linux-musl)
+      racc (~> 1.4)
+    nokogiri (1.18.10-arm-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.10-arm-linux-musl)
+      racc (~> 1.4)
+    nokogiri (1.18.10-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-linux-gnu)
+      racc (~> 1.4)
+    nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
     observer (0.1.2)
     openssl (3.3.1)
@@ -140,30 +152,32 @@ GEM
       racc
     pd_ruby (0.2.3)
       colorize
-    pp (0.6.2)
+    pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.5.1)
-    psych (5.2.3)
+    prism (1.5.2)
+    psych (5.2.6)
       date
       stringio
-    public_suffix (6.0.1)
+    public_suffix (6.0.2)
     racc (1.8.1)
     rack (3.2.3)
     rainbow (3.1.1)
     rake (13.3.0)
-    rdoc (6.13.1)
+    rdoc (6.15.0)
+      erb
       psych (>= 4.0.0)
+      tsort
     regexp_parser (2.11.3)
-    reline (0.6.1)
+    reline (0.6.2)
       io-console (~> 0.5)
     resonad (1.4.0)
-    rexml (3.4.2)
+    rexml (3.4.4)
     rspec (3.13.1)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
       rspec-mocks (~> 3.13.0)
-    rspec-core (3.13.4)
+    rspec-core (3.13.5)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -171,7 +185,7 @@ GEM
     rspec-mocks (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-support (3.13.4)
+    rspec-support (3.13.6)
     rubocop (1.81.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -192,34 +206,42 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.13.1)
+    simplecov-html (0.13.2)
     simplecov-lcov (0.9.0)
     simplecov_json_formatter (0.1.4)
     simply_serializable (1.5.1)
       fingerprintable (>= 1.2.1)
-    stringio (3.1.6)
+    stringio (3.1.7)
     sync (0.5.0)
-    term-ansicolor (1.11.2)
-      tins (~> 1.0)
+    term-ansicolor (1.11.3)
+      tins (~> 1)
     thor (1.4.0)
-    tins (1.38.0)
+    tins (1.44.1)
       bigdecimal
+      mize (~> 0.6)
       sync
+    tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
-    uri (1.0.3)
+    uri (1.0.4)
     webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    zeitwerk (2.6.18)
+    zeitwerk (2.7.3)
 
 PLATFORMS
-  ruby
-  x86_64-darwin-19
+  aarch64-linux-gnu
+  aarch64-linux-musl
+  arm-linux-gnu
+  arm-linux-musl
+  arm64-darwin
+  x86_64-darwin
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
   awesome_print
@@ -235,10 +257,10 @@ DEPENDENCIES
   overcommit (~> 0.68.0)
   rake (~> 13.0)
   rspec (~> 3.2)
-  rubocop (~> 1.81)
+  rubocop (~> 1.81, ~> 1.79)
   simplecov
   simplecov-lcov
   webmock
 
 BUNDLED WITH
-   2.6.2
+   2.7.1
