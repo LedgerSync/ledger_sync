@@ -4,8 +4,8 @@ module LedgerSync
   module Test
     module QA
       module LedgerHelpers
-        def create_resource_for(*args)
-          create_result_for(*args).raise_if_error.resource
+        def create_resource_for(*)
+          create_result_for(*).raise_if_error.resource
         end
 
         def create_result_for(client:, resource:)
@@ -16,8 +16,8 @@ module LedgerSync
           )
         end
 
-        def delete_resource_for(*args)
-          delete_result_for(*args).raise_if_error.resource
+        def delete_resource_for(*)
+          delete_result_for(*).raise_if_error.resource
         end
 
         def delete_result_for(client:, resource:)
@@ -28,8 +28,8 @@ module LedgerSync
           )
         end
 
-        def find_resource_for(*args)
-          find_result_for(*args).raise_if_error.resource
+        def find_resource_for(*)
+          find_result_for(*).raise_if_error.resource
         end
 
         def find_result_for(client:, resource:)
@@ -47,8 +47,8 @@ module LedgerSync
           ).perform
         end
 
-        def update_resource_for(*args)
-          update_result_for(*args).raise_if_error.resource
+        def update_resource_for(*)
+          update_result_for(*).raise_if_error.resource
         end
 
         def update_result_for(client:, resource:)

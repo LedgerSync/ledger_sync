@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        ruby-version: ['3.1.6', '3.2.6', '3.3.6']
+        ruby-version: ["3.2.6", "3.3.6"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -21,18 +21,13 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-      - name: Bundle install
-        run: |
-          gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
       - name: Rubocop
         run: bundle exec rubocop
   rspec:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        ruby-version: ['3.1.6', '3.2.6', '3.3.6']
+        ruby-version: ["3.2.6", "3.3.6"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -44,10 +39,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
-          run: |
-            gem install bundler
-            bundle update
-            bundle install
       - name: rspec and report to coveralls
         run: bundle exec rspec --order rand
       - name: Coveralls
@@ -69,7 +60,7 @@ jobs:
       - name: Ruby Setup and Bundle
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1.6
+          ruby-version: 3.2.6
           bundler-cache: true
       - name: Publish to RubyGems
         run: |

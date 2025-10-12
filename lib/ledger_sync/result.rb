@@ -3,12 +3,12 @@
 module LedgerSync
   module ResultBase
     module HelperMethods
-      def Success(value = nil, *args, **keywords) # rubocop:disable Naming/MethodName
-        self::Success.new(value, *args, **keywords)
+      def Success(value = nil, *, **keywords) # rubocop:disable Naming/MethodName
+        self::Success.new(value, *, **keywords)
       end
 
-      def Failure(error = nil, *args, **keywords) # rubocop:disable Naming/MethodName
-        self::Failure.new(error, *args, **keywords)
+      def Failure(error = nil, *, **keywords) # rubocop:disable Naming/MethodName
+        self::Failure.new(error, *, **keywords)
       end
     end
 
@@ -25,8 +25,8 @@ module LedgerSync
 
   class Result
     module ResultTypeBase
-      def initialize(*args, **keywords) # rubocop:disable Lint/UnusedMethodArgument
-        super(*args)
+      def initialize(*, **keywords) # rubocop:disable Lint/UnusedMethodArgument
+        super(*)
       end
     end
 
@@ -43,11 +43,11 @@ module LedgerSync
         end
       end
 
-      def initialize(*args, **keywords)
+      def initialize(*, **keywords)
         @operation = keywords.fetch(:operation)
         @resource = keywords.fetch(:resource)
         @response = keywords.fetch(:response)
-        super(*args)
+        super(*)
       end
     end
 
@@ -69,10 +69,10 @@ module LedgerSync
         end
       end
 
-      def initialize(*args, searcher:, **keywords) # rubocop:disable Lint/UnusedMethodArgument
+      def initialize(*, searcher:, **keywords) # rubocop:disable Lint/UnusedMethodArgument
         @resources = searcher.resources
         @searcher = searcher
-        super(*args)
+        super(*)
       end
 
       def next_searcher

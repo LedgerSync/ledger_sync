@@ -143,8 +143,8 @@ end
 #
 # @return [String]
 #
-def rand_id(*args)
-  FactoryBot.rand_id(*args)
+def rand_id(*)
+  FactoryBot.rand_id(*)
 end
 
 #
@@ -152,6 +152,6 @@ end
 #
 # @return [String]
 #
-def test_run_id(*args)
-  @test_run_id ||= FactoryBot.test_run_id(*args)
+def test_run_id(*)
+  @test_run_id ||= FactoryBot.test_run_id(*)
 end

@@ -21,15 +21,15 @@ module Docs
         nl
       end
 
-      def cp(src, dest, *args)
+      def cp(src, dest, *)
         yellow "Copying #{src} to #{dest}"
-        FileUtils.cp_r(src, dest, *args)
+        FileUtils.cp_r(src, dest, *)
         green "Copied #{src} to #{dest}"
         nl
       end
 
-      def destination_path(*args, **keywords)
-        docs_path(*args, format: :md, **keywords)
+      def destination_path(*, **keywords)
+        docs_path(*, format: :md, **keywords)
       end
 
       def docs_path(*path, format: nil)
