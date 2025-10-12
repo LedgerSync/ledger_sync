@@ -53,11 +53,11 @@ module LedgerSync
       class UnknownURLFormat < self
         attr_reader :resource
 
-        def initialize(*args, resource:, **keywords)
+        def initialize(*, resource:, **keywords)
           @resource = resource
 
           super(
-            *args,
+            *,
             message: "Unknown URL format for #{resource.class}", **keywords
           )
         end

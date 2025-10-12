@@ -12,9 +12,9 @@ module WebMock
   module API
     # Overwrite the original stub_request method to enforce we explicitly say
     # how many times we expect a request to be called
-    def stub_request(*args, times: 1)
+    def stub_request(*, times: 1)
       ret = WebMock::StubRegistry.instance
-                                 .register_request_stub(WebMock::RequestStub.new(*args))
+                                 .register_request_stub(WebMock::RequestStub.new(*))
       stubs_and_times << [ret, times] unless times.nil?
       ret
     end

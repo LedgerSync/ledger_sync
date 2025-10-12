@@ -107,8 +107,8 @@ module LedgerSync
     @logger = val
   end
 
-  def self.register_ledger(*args)
-    ledger_config = LedgerSync::LedgerConfiguration.new(*args)
+  def self.register_ledger(*)
+    ledger_config = LedgerSync::LedgerConfiguration.new(*)
 
     yield(ledger_config)
 

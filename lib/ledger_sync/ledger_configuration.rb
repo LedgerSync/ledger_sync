@@ -48,14 +48,14 @@ module LedgerSync
 
     # Delegate #new to the client class enabling faster client initialization
     # e.g. LedgerSync.ledgers.test.new(...)
-    def new(*args)
-      client_class.new(*args)
+    def new(*)
+      client_class.new(*)
     end
 
     # Delegate #new_from_env to the client class enabling faster client initialization
     # e.g. LedgerSync.ledgers.test.new_from_env(...)
-    def new_from_env(*args)
-      client_class.new_from_env(*args)
+    def new_from_env(*)
+      client_class.new_from_env(*)
     end
 
     def test?
