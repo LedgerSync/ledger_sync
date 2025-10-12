@@ -24,6 +24,7 @@ jobs:
       - name: Bundle install
         run: |
           gem install bundler
+          bundle config set frozen false
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Rubocop
@@ -47,6 +48,7 @@ jobs:
       - name: Bundle install
         run: |
           gem install bundler
+          bundle config set frozen false
           bundle update
           bundle install
       - name: rspec and report to coveralls
@@ -72,6 +74,11 @@ jobs:
         with:
           ruby-version: 3.2.6
           bundler-cache: true
+      - name: Bundle install
+        run: |
+          gem install bundler
+          bundle config set frozen false
+          bundle install
       - name: Publish to RubyGems
         run: |
           mkdir -p $HOME/.gem
